@@ -1,0 +1,616 @@
+{	
+	"easycom": {
+        "^uni-(.*)": "@/components/uni-app/uni-$1/uni-$1.vue", // uni-app官方组件
+        "^u-(.*)": "@/components/uview-ui/components/u-$1/u-$1.vue",//u-view组件
+        "^ls-(.*)": "@/components/ls-app/ls-$1/ls-$1.vue"//legend-shop组件
+	},
+	"pages": [
+		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"enablePullDownRefresh": true, //如果开了下拉刷新，就会出现当分类页面拉到中间，再下拉时是触发刷新而不是让屏幕向下滚动的bug
+				"navigationBarTitleText": "首页",
+				"backgroundTextStyle": "dark",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/category/category",
+			"style": {
+				"navigationBarTitleText": "分类",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/cart/cart",
+			"style": {
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "购物车",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"enablePullDownRefresh": true,
+				"navigationBarTitleText": "个人中心",
+				"backgroundTextStyle": "dark",
+				"navigationStyle": "custom"
+			}
+		},
+		{ //webview嵌套H5页面
+			"path": "pages/webview/webview",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{ //admin平台端或shop商家端的链接的中转页面，跳到手机端时，判断跳转PC端还是移动端页面
+			"path": "pages/webview/shareUrlRedirect",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{ //客服跳转专用
+			"path": "pages/webview/customService",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
+		{ //H5端，定位转用(腾讯地图)
+			"path": "pages/index/map",
+			"style": {
+				"navigationBarTitleText": "地图"
+			}
+		}
+	],
+	"subPackages": [{
+			"root": "ModulesUser",
+			"pages": [{
+					"path": "bindingPhone/bindingPhone",
+					"style": {
+						"navigationBarTitleText": "绑定手机号",
+						"navigationStyle": "custom"
+					}
+				},
+				{//第三方登录
+					"path": "thirdLogin/thirdLoginResult",
+					"style": {
+						"navigationBarTitleText": "  "
+					}
+				},
+				{
+					"path": "authorization/authorization",
+					"style": {
+						"navigationBarTitleText": "授权登录"
+					}
+				},
+				{
+					"path": "forgetPsw/forgetPsw",
+					"style": {
+						"navigationBarTitleText": "忘记密码"
+					}
+				},
+				{
+					"path": "login/login",
+					"style": {
+						"navigationBarTitleText": "登录中心",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "register/agreement",
+					"style": {
+						"navigationBarTitleText": "协议"
+					}
+				},
+				{
+					"path": "register/register",
+					"style": {
+						"navigationBarTitleText": "个人注册",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "wxLogin/wxLogin",
+					"style": {
+						"navigationBarTitleText": "自动登录"
+					}
+				},
+				{
+					"path": "account/account",
+					"style": {
+						"navigationBarTitleText": "账户设置",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "account/privacySet",
+					"style": {
+						"navigationBarTitleText": "私隐设置",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "account/editData",
+					"style": {
+						"navigationBarTitleText": "修改信息",
+						"navigationStyle": "custom"
+					}
+				}
+			]
+		},
+		{
+			"root": "ModuleCommon",
+			"pages": [
+				{
+					"path": "address/addressList",
+					"style": {
+						"navigationBarTitleText": "地址列表"
+					}
+				},
+				{
+					"path": "address/addAddress",
+					"style": {
+						"navigationBarTitleText": "添加地址"
+					}
+				},
+                {
+                    "path": "address/changeAddr",
+                    "style": {
+                        "navigationBarTitleText": "选择地址",
+                        "navigationStyle": "custom"
+                    }
+                },
+				{ //海报页面
+					"path": "poster/poster",
+					"style": {
+						"navigationBarTitleText": ""
+					}
+				}
+			]
+		},
+		{
+			"root": "ModuleCenter",
+			"pages": [
+				{
+					"path": "wallet/preDeposit",
+					"style": {
+						"navigationBarTitleText": "余额",
+						"navigationStyle": "custom"
+					}
+				},
+                {
+                	"path": "wallet/accountBill",
+                	"style": {
+                		"navigationBarTitleText": "账户明细详情",
+						"navigationStyle": "custom"
+                	}
+                },
+                {
+                	"path": "wallet/accountDet",
+                	"style": {
+                		"navigationBarTitleText": "账户明细",
+						"navigationStyle": "custom"
+                	}
+                },
+                {
+                	"path": "wallet/recharge",
+                	"style": {
+                		"navigationBarTitleText": "充值"
+                	}
+                },
+                {
+                	"path": "wallet/rechargeResult",
+                	"style": {
+                		"navigationBarTitleText": "充值结果"
+                	}
+                },
+                {
+                	"path": "wallet/withdraw",
+                	"style": {
+                		"navigationBarTitleText": "提现"
+                	}
+                },
+                {
+                	"path": "wallet/withdrawalsDetail",
+                	"style": {
+                		"navigationBarTitleText": "提现记录详情"
+                	}
+                },
+                {
+                	"path": "wallet/withdrawRecord",
+                	"style": {
+                		"navigationBarTitleText": "提现记录",
+						"navigationStyle": "custom"
+                	}
+                },
+                {
+                	"path": "wallet/withdrawSuccess",
+                	"style": {
+                		"navigationBarTitleText": "提现"
+                	}
+                },
+                {
+                	"path": "wallet/withdrawWay",
+                	"style": {
+                		"navigationBarTitleText": "提现"
+                	}
+                },
+				{
+					"path": "message/message",
+					"style": {
+						"navigationBarTitleText": "我的信息",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "message/messageList",
+					"style": {
+						"navigationBarTitleText": "信息列表",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "message/messageDetail",
+					"style": {
+						"navigationBarTitleText": "信息详情",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "invoice/invoice",
+					"style": {
+						"navigationBarTitleText": "发票",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+				 	"path": "invoice/invoiceDetail",
+				 	"style": {
+				 		"navigationBarTitleText": "发票详情",
+						"navigationStyle": "custom"
+				 	}
+				},
+				{
+					"path": "invoice/invoiceTitle",
+					"style": {
+						"navigationBarTitleText": "发票抬头",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "evaluate/evaluateInfo",
+					"style": {
+						"navigationBarTitleText": "评论列表",
+						"navigationStyle": "custom"
+					}
+				}, 
+				{
+					"path": "evaluate/addEvaluate",
+					"style": {
+						"navigationBarTitleText": "发表评论",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "evaluate/evaluateList",
+					"style": {
+						"navigationBarTitleText": "我的评论",
+                        "navigationStyle": "custom"
+					}
+				}, {
+					"path": "evaluate/evaluateDetail",
+					"style": {
+						"navigationBarTitleText": "评论详情",
+                        "navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "coupon/couponCenter",
+					"style": {
+						"navigationBarTitleText": "领券中心",
+                        "navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "coupon/couponList",
+					"style": {
+						"navigationBarTitleText": "优惠券列表",
+                        "navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "coupon/couponDetail",
+					"style": {
+						"navigationBarTitleText": "优惠券详情",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "coupon/couponHistory",
+					"style": {
+						"navigationBarTitleText": "历史优惠券",
+                        "navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "coupon/couponShops",
+					"style": {
+						"navigationBarTitleText": "可用优惠券店铺"
+					}
+				},
+				{
+					"path": "coupon/couponGoods",
+					"style": {
+						"navigationBarTitleText": "可用优惠券商品"
+                        
+					}
+				},
+
+				{
+					"path": "collection/collection",
+					"style": {
+						"navigationBarTitleText": "收藏列表",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "history/history",
+					"style": {
+						"navigationBarTitleText": "我的足迹",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "feedback/feedback",
+					"style": {
+						"navigationBarTitleText": "意见反馈",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "billDetail/billDetail",
+					"style": {
+						"navigationBarTitleText": "我的账单",
+                        "navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "billInfo/billInfo",
+					"style": {
+						"navigationBarTitleText": "账单详情",
+                        "navigationStyle": "custom"
+					}
+
+				},
+				{
+					"path": "question/help",
+					"style": {
+						"navigationBarTitleText": "帮助中心",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "question/helpList",
+					"style": {
+						"navigationBarTitleText": "帮助栏目",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "question/questionDetail",
+					"style": {
+						"navigationBarTitleText": "问题详情"
+					}
+				},
+				{
+					"path": "consult/consultList",
+					"style": {
+						"navigationBarTitleText": "商品问答",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "consult/consultSubmit",
+					"style": {
+						"navigationBarTitleText": "提交问答",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "consult/consultMy",
+					"style": {
+						"navigationBarTitleText": "我的问答",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "contact/contact",
+					"style": {
+						"navigationBarTitleText": "专属客服"
+					}
+				}
+
+			]
+		},
+		{
+			"root": "ModuleOrder",
+			"pages": [{
+					"path": "submitOrder/submitOrder",
+					"style": {
+						"navigationBarTitleText": "提交订单",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "submitOrder/payOrder",
+					"style": {
+						"navigationBarTitleText": "订单确认"
+					}
+				},
+				{
+					"path": "submitOrder/wxAliPay",
+					"style": {
+						"navigationBarTitleText": "支付宝支付"
+					}
+				},
+				{
+					"path": "orderList/orderList",
+					"style": {
+						"navigationBarTitleText": "订单列表",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "orderList/orderDetail",
+					"style": {
+						"navigationBarTitleText": "订单详情",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "logistics/logistics",
+					"style": {
+						"navigationBarTitleText": "物流信息",
+						"navigationStyle": "custom"
+					}
+				},
+			   {
+			   	"path": "submitOrder/orderPayResult",
+			   	"style": {
+			   		"navigationBarTitleText": "支付状态",
+					"navigationStyle": "custom"
+			   	}
+			   },
+				{
+					"path": "service/serviceRefund",
+					"style": {
+						"navigationBarTitleText": "申请售后",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "service/serviceDetail",
+					"style": {
+						"navigationBarTitleText": "售后详情",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "service/serviceList",
+					"style": {
+						"navigationBarTitleText": "售后列表",
+						"navigationStyle": "custom"
+					}
+				}
+			]
+		},
+		{
+			"root": "ModuleGoods",
+			"pages": [{
+					"path": "search/search",
+					"style": {
+						"navigationBarTitleText": "搜索",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "shopHome/shopIndex",
+					"style": {
+						"navigationBarTitleText": "店铺首页",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "shopHome/shopDetails",
+					"style": {
+						"navigationBarTitleText": "店铺信息",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "shopHome/shopCertificate",
+					"style": {
+						"navigationBarTitleText": "店铺资质",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "search/searchList",
+					"style": {
+						"navigationBarTitleText": "搜索列表",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "goodsDetail/goodsDetail",
+					"style": {
+						"navigationBarTitleText": "商品详情",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "goodsDetail/snapshotDetail",
+					"style": {
+						"navigationBarTitleText": "快照详情",
+						"navigationStyle": "custom"
+					}
+				},
+				{
+					"path": "goodComments/goodComments",
+					"style": {
+						"navigationBarTitleText": "商品评论",
+						"navigationStyle": "custom"
+					}
+				},
+                {
+                	"path": "search/prodGroupList",
+                	"style": {
+                		"navigationBarTitleText": "商品分组",
+                		"navigationStyle": "custom"
+                	}
+                }
+            ]
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#f6f7f8",
+		"h5": {
+			//H5不显示头部(用浏览器自带的头部)
+			"titleNView": false
+		},
+		"app-plus": {
+			// App平台在iOS上的input框，webview中的软键盘弹出时，默认在软键盘上方有一个横条，显示着：上一项、下一项和完成等按钮。如不想显示这个横条，可以配置
+			"softinputNavBar": "none"
+		}
+	},
+	"tabBar": {
+		"color": "#333333",
+		"selectedColor": "#333333",
+		"backgroundColor": "#fff",
+		"borderStyle": "white",
+		"height":"0px",//设置了0px，但小程序上还有个底部安全距离还是存在的，所以还是不得不用 uni.hideTabBar()
+
+		"list": [{
+				"pagePath": "pages/index/index"
+			},
+			{
+				"pagePath": "pages/category/category"
+			},
+			{
+				"pagePath": "pages/cart/cart"
+			}, {
+				"pagePath": "pages/my/my"
+			}
+		],
+		"position": "bottom"
+	},
+	"permission": {
+		"scope.userLocation": {
+			"desc": "你的位置信息将用于获取周围门店"
+		}
+	}
+}

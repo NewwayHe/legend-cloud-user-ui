@@ -1,0 +1,279 @@
+{
+    "name" : "朗尊优选",
+    "appid" : "__UNI__EAAC883",
+    "description" : "",
+    "versionName" : "1.0.0",
+    "versionCode" : 1,
+    "transformPx" : false,
+    /* 5+App特有相关 */
+    "app-plus" : {
+        "usingComponents" : true,
+        "nvueCompiler" : "uni-app",
+        "splashscreen" : {
+            "alwaysShowBeforeRender" : true,
+            "waiting" : false,
+            "autoclose" : true,
+            "delay" : 0
+        },
+        "safearea" : {
+            "bottom" : {
+                "offset" : "none"
+            }
+        },
+        /* 模块配置 */
+        "modules" : {
+            "Payment" : {},
+            "Maps" : {},
+            "OAuth" : {},
+            "Share" : {},
+            "VideoPlayer" : {},
+            "Geolocation" : {}
+        },
+        /* 应用发布信息 */
+        "distribute" : {
+            /* android打包配置 */
+            "android" : {
+                "permissions" : [
+                    "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_LOCATION_EXTRA_COMMANDS\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+                    "<uses-permission android:name=\"android.permission.CAMERA\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_NETWORK_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.CHANGE_WIFI_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.FLASHLIGHT\"/>",
+                    "<uses-permission android:name=\"android.permission.INTERNET\"/>",
+                    "<uses-permission android:name=\"android.permission.LOCATION_HARDWARE\"/>",
+                    "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\"/>",
+                    "<uses-permission android:name=\"android.permission.MOUNT_UNMOUNT_FILESYSTEMS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+                    "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+                    "<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+                    "<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+                    "<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>"
+                ],
+                "autoSdkPermissions" : false,
+                /* 申请获取手机存储权限 */
+                "permissionExternalStorage" : {
+                    "request" : "none",
+                    "prompt" : "应用保存运行状态等信息，需要获取读写手机存储（系统提示为访问设备上的照片、媒体内容和文件）权限，请允许。"
+                },
+                /* 申请获取手机号码权限 */
+                "permissionPhoneState" : {
+                    "request" : "none",
+                    "prompt" : "为保证您正常、安全地使用，需要获取设备识别码（部分手机提示为获取手机号码）使用权限，请允许。"
+                },
+                "abiFilters" : [ "armeabi-v7a", "arm64-v8a" ]
+            },
+            /* ios打包配置 */
+            "ios" : {
+                "privacyDescription" : {
+                    "NSPhotoLibraryUsageDescription" : "发表商品的评论时，本app是允许上传图片来发表商品的评论的，故须要读取商品的相册，用图片作为评论的图片。另外个人中心设置用户的头像时，也须要读取相册里的图片",
+                    "NSPhotoLibraryAddUsageDescription" : "发表商品的评论及个人中心设置用户头像时，需要用到拍照功能上传拍照到的图片，需要把拍照的图片写进相册里",
+                    "NSCameraUsageDescription" : "发表商品的评论时，本app是允许上传图片来发表商品的评论的，故须要调用摄像头来拍摄图片，用拍摄的图片作为评论商品的图片。另外个人中心设置用户的头像时，也可能要用到拍摄的图片",
+                    "NSLocationWhenInUseUsageDescription" : "本app需要根据获取你的定位位置，来决定离你最近的门店，算出哪个门店离你最近从而提示你去哪个门店提货。",
+                    "NSLocationAlwaysAndWhenInUseUsageDescription" : "本app需要根据获取你的定位位置，来决定离你最近的门店，算出哪个门店离你最近从而提示你去哪个门店提货。"
+                },
+                "idfa" : false,
+                "dSYMs" : false
+            },
+            /* SDK配置 */
+            "sdkConfigs" : {
+                "payment" : {
+                    "appleiap" : {},
+                    "weixin" : {
+                        "appid" : "",
+                        "UniversalLinks" : "https://mdiamonds.legendshop.cn/"
+                    },
+                    "alipay" : {}
+                },
+                "oauth" : {
+                    "weixin" : {
+                        "appid" : "",
+                        "appsecret" : "9a717fb770524ea681c9e88ae574279d",
+                        "UniversalLinks" : "https://mdiamonds.legendshop.cn/"
+                    },
+                    "qq" : {
+                        "appid" : "",
+                        "UniversalLinks" : "https://mdiamonds.legendshop.cn/"
+                    }
+                },
+                "share" : {
+                    "weixin" : {
+                        "appid" : "",
+                        "UniversalLinks" : "https://mdiamonds.legendshop.cn/"
+                    },
+                    "qq" : {
+                        "appid" : "",
+                        "UniversalLinks" : "https://mdiamonds.legendshop.cn/"
+                    }
+                },
+                "maps" : {
+                    "amap" : {
+                        "appkey_ios" : "",
+                        "appkey_android" : ""
+                    }
+                },
+                "ad" : {},
+                "geolocation" : {
+                    "amap" : {
+                        "__platform__" : [ "ios", "android" ],
+                        "appkey_ios" : "",
+                        "appkey_android" : ""
+                    },
+                    "system" : {
+                        "__platform__" : [ "ios", "android" ]
+                    }
+                }
+            },
+            "icons" : {
+                "android" : {
+                    "hdpi" : "unpackage/res/icons/72x72.png",
+                    "xhdpi" : "unpackage/res/icons/96x96.png",
+                    "xxhdpi" : "unpackage/res/icons/144x144.png",
+                    "xxxhdpi" : "unpackage/res/icons/192x192.png"
+                },
+                "ios" : {
+                    "appstore" : "unpackage/res/icons/1024x1024.png",
+                    "ipad" : {
+                        "app" : "unpackage/res/icons/76x76.png",
+                        "app@2x" : "unpackage/res/icons/152x152.png",
+                        "notification" : "unpackage/res/icons/20x20.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "proapp@2x" : "unpackage/res/icons/167x167.png",
+                        "settings" : "unpackage/res/icons/29x29.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "spotlight" : "unpackage/res/icons/40x40.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png"
+                    },
+                    "iphone" : {
+                        "app@2x" : "unpackage/res/icons/120x120.png",
+                        "app@3x" : "unpackage/res/icons/180x180.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "notification@3x" : "unpackage/res/icons/60x60.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "settings@3x" : "unpackage/res/icons/87x87.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png",
+                        "spotlight@3x" : "unpackage/res/icons/120x120.png"
+                    }
+                }
+            },
+            "splashscreen" : {
+                "android" : {
+                    "hdpi" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/Android/Android-480.png",
+                    "xhdpi" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/Android/Android-720.png",
+                    "xxhdpi" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/Android/Android-1080.png"
+                },
+                "ios" : {
+                    "iphone" : {
+                        "portrait-896h@3x" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/ios/1、1242x2688(6.5英寸、IphoneXS Max).png",
+                        "landscape-896h@3x" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/ios/2、2688x1242(6.5英寸、IphoneXS Max.png",
+                        "portrait-896h@2x" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/ios/3、828x1792(6.1英寸、IphoneXR).png",
+                        "landscape-896h@2x" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/ios/4、1792x828(6.1英寸、IphoneXR).png",
+                        "iphonex" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/ios/5、1125x2436(5.8英寸、IphoneXXS).png",
+                        "iphonexl" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/ios/6、2436x1125(5.8英寸、IphoneXXS).png",
+                        "retina55" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/ios/7、1242x2208(5.5英寸、Iphone678Plus).png",
+                        "retina55l" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/ios/8、2208x1242(5.5英寸、Iphone678Plus).png",
+                        "retina47" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/ios/9、750x1334(4.7英寸、Iphone678).png",
+                        "retina47l" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/ios/10、1334x750(4.7英寸、Iphone678).png",
+                        "retina40" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/ios/11、640x1136(4.0英寸、Iphone55S).png",
+                        "retina40l" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/ios/12、1136x640(4.0英寸、Iphone55S).png",
+                        "retina35" : "D:/【前端】/【VUE打包及上架】/备份资料/原生APP图标及启动页/ios/13、640x960(3.5英寸、Iphone44S).png"
+                    }
+                },
+                "iosStyle" : "common",
+                "androidStyle" : "common",
+                "useOriginalMsgbox" : true
+            }
+        },
+        "compilerVersion" : 3,
+        "nvueLaunchMode" : ""
+    },
+    /* 快应用特有相关 */
+    "quickapp" : {},
+    /* 小程序特有相关 */
+    "mp-weixin" : {
+        "appid" : "",
+        "setting" : {
+            "urlCheck" : false,
+            "es6" : true,
+            "minified" : true,
+            "postcss" : true
+        },
+        "usingComponents" : true,
+        "permission" : {
+            "scope.userLocation" : {
+                "desc" : "你的位置信息将用于计算商品运费" /*  高速公路行驶持续后台定位 */
+            }
+        }
+    },
+    // ,// dev6.0的微信小程序直播插件，用时才打开，不然运行客户的小程序时由于appid对应不上调试时运行不到
+    // "plugins": {
+    // 	"live-player-plugin": {  
+    // 		"version": "1.3.0",
+    // 		"provider": "wx2b03c6e691cd7370"
+    // 	}  
+    // }  
+    "mp-alipay" : {
+        "usingComponents" : true
+    },
+    "mp-baidu" : {
+        "usingComponents" : true
+    },
+    "mp-toutiao" : {
+        "usingComponents" : true,
+        "setting" : {
+            "es6" : true,
+            "postcss" : true,
+            "minified" : true
+        }
+    },
+    "h5" : {
+        "devServer" : {
+            "https" : false,
+            "host" : "0.0.0.0",
+            "hotOnly" : false,
+            // 设置代理
+            "proxy" : null,
+            "disableHostCheck" : true,
+            "allowedHosts" : [ ".wd.legendshop.cn" ]
+        },
+        "title" : "朗尊优选",
+        "domain" : "https://mdiamonds.legendshop.cn/",
+        "router" : {
+            "mode" : "history"
+        },
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : ""
+                }
+            }
+        },
+        "template" : "public/index.html",
+        "async" : {
+            "loading" : "loading", // 页面js加载时使用的组件（需注册为全局组件）
+            "error" : "error", // 页面js加载失败时使用的组件（需注册为全局组件）
+            "delay" : 200, // 展示 loading 加载组件的延时时间
+            "timeout" : 60000 // 页面js加载超时时间（超时后展示 error 对应的组件）
+        },
+        "optimization" : {
+            "treeShaking" : {
+                "enable" : true
+            }
+        }
+    },
+    "mp-qq" : {
+        "setting" : {
+            "es6" : true,
+            "postcss" : true,
+            "minified" : true
+        }
+    },
+    "vueVersion" : "2"
+}
+/* 5+App特有相关 */
+
