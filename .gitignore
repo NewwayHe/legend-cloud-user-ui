@@ -1,0 +1,10 @@
+/node_modules
+/unpackage/dist
+/package-lock.json
+/unpackage/debug/iOS_debug.ipa
+/unpackage/debug/.ios.ins
+/unpackage/cache/
+/unpackage/dist/
+/unpackage/release/
+/.hbuilderx
+/yarn.lock
