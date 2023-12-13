@@ -54,10 +54,10 @@ npm install
 npm install --registry=https://registry.npm.taobao.org
 
 ## 快速运行
-1、下载并安装：集成开发环境 HBuilderX （推荐，也可以使用 VSCode 或 WebStorm）
-2、菜单：文件 -> 导入 -> 从本地目录导入
-3、菜单：运行 -> 运行到内置浏览器（或运行到浏览器 -> Chrome 浏览器）。
-4、等待 HBuliderX 控制台编译。
+1. 下载并安装：集成开发环境 HBuilderX （推荐，也可以使用 VSCode 或 WebStorm）
+2. 菜单：文件 -> 导入 -> 从本地目录导入
+3. 菜单：运行 -> 运行到内置浏览器（或运行到浏览器 -> Chrome 浏览器）
+4. 等待 HBuliderX 控制台编译
 
 ## 代码格式检查
 npm run lint
