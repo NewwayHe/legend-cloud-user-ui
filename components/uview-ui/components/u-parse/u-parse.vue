@@ -21,16 +21,15 @@
 	var search;
 	// #ifndef H5 || APP-PLUS-NVUE || MP-360
 	import trees from './libs/trees';
-	var cache = {},
+	var cache = {};
 		// #ifdef MP-WEIXIN || MP-TOUTIAO
-		fs = uni.getFileSystemManager ? uni.getFileSystemManager() : null,
+		var fs = uni.getFileSystemManager ? uni.getFileSystemManager() : null;
 		// #endif
-		Parser = require('./libs/MpHtmlParser.js');
+		var Parser = require('./libs/MpHtmlParser.js');
 	var dom;
 	// 计算 cache 的 key
 	function hash(str) {
-		for (var i = str.length, val = 5381; i--;)
-			val += (val << 5) + str.charCodeAt(i);
+		for (var i = str.length, val = 5381; i--;) { val += (val << 5) + str.charCodeAt(i); }
 		return val;
 	}
 	// #endif
@@ -38,8 +37,8 @@
 	var {
 		windowWidth,
 		platform
-	} = uni.getSystemInfoSync(),
-		cfg = require('./libs/config.js');
+	} = uni.getSystemInfoSync();
+		var cfg = require('./libs/config.js');
 	// #endif
 	// #ifdef APP-PLUS-NVUE
 	var weexDom = weex.requireModule('dom');
@@ -71,7 +70,7 @@
 	 * @listens MIT
 	 */
 	export default {
-		name: 'parser',
+		name: 'Parser',
 		data() {
 			return {
 				// #ifdef H5 || MP-360
@@ -123,8 +122,7 @@
 			// 图片数组
 			this.imgList = [];
 			this.imgList.each = function(f) {
-				for (var i = 0, len = this.length; i < len; i++)
-					this.setItem(i, f(this[i], i, this));
+				for (var i = 0, len = this.length; i < len; i++) { this.setItem(i, f(this[i], i, this)); }
 			}
 			this.imgList.setItem = function(i, src) {
 				if (i == void 0 || !src) return;
@@ -143,7 +141,7 @@
 				this[i] = src;
 				// 暂存 data src
 				if (src.includes('data:image')) {
-					var filePath, info = src.match(/data:image\/(\S+?);(\S+?),(.+)/);
+					var filePath; var info = src.match(/data:image\/(\S+?);(\S+?),(.+)/);
 					if (!info) return;
 					// #ifdef MP-WEIXIN || MP-TOUTIAO
 					filePath = `${wx.env.USER_DATA_PATH}/${Date.now()}.${info[1]}`;
@@ -197,10 +195,11 @@
 				}
 				// #endif
 				// #ifdef MP-WEIXIN || MP-TOUTIAO
-				if (src && src.includes(uni.env.USER_DATA_PATH))
-					fs && fs.unlink({
+				if (src && src.includes(uni.env.USER_DATA_PATH)) {
+ fs && fs.unlink({
 						filePath: src
-					})
+					}) 
+}
 				// #endif
 			})
 			clearInterval(this._timer);
@@ -209,12 +208,11 @@
 			// 设置富文本内容
 			setContent(html, append) {
 				// #ifdef APP-PLUS-NVUE
-				if (!html)
-					return this.height = 1;
-				if (append)
-					this.$refs.web.evalJs("var b=document.createElement('div');b.innerHTML='" + html.replace(/'/g, "\\'") +
-						"';document.getElementById('parser').appendChild(b)");
-				else {
+				if (!html) { return this.height = 1; }
+				if (append) {
+ this.$refs.web.evalJs("var b=document.createElement('div');b.innerHTML='" + html.replace(/'/g, "\\'") +
+						"';document.getElementById('parser').appendChild(b)"); 
+} else {
 					html =
 						'<meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"><style>html,body{width:100%;height:100%;overflow:hidden}body{margin:0}</style><base href="' +
 						this.domain + '"><div id="parser"' + (this.selectable ? '>' : ' style="user-select:none">') + this._handleHtml(html).replace(/\n/g, '\\n') +
@@ -270,18 +268,17 @@
 				var _ts = this;
 				// 获取标题
 				var title = this.rtf.getElementsByTagName('title');
-				if (title.length && this.autosetTitle)
-					uni.setNavigationBarTitle({
+				if (title.length && this.autosetTitle) {
+ uni.setNavigationBarTitle({
 						title: title[0].innerText
-					})
+					}) 
+}
 				// 填充 domain
 				var fill = target => {
 					var src = target.getAttribute('src');
 					if (this.domain && src) {
 						if (src[0] == '/') {
-							if (src[1] == '/')
-								target.src = (this.domain.includes('://') ? this.domain.split('://')[0] : '') + ':' + src;
-							else target.src = this.domain + src;
+							if (src[1] == '/') { target.src = (this.domain.includes('://') ? this.domain.split('://')[0] : '') + ':' + src; } else target.src = this.domain + src;
 						} else if (!src.includes('://') && src.indexOf('data:') != 0) target.src = this.domain + '/' + src;
 					}
 				}
@@ -289,8 +286,7 @@
 				this.imgList.length = 0;
 				var imgs = this.rtf.getElementsByTagName('img');
 				for (let i = 0, j = 0, img; img = imgs[i]; i++) {
-					if (parseInt(img.style.width || img.getAttribute('width')) > windowWidth)
-						img.style.height = 'auto';
+					if (parseInt(img.style.width || img.getAttribute('width')) > windowWidth) { img.style.height = 'auto'; }
 					fill(img);
 					if (!img.hasAttribute('ignore') && img.parentElement.nodeName != 'A') {
 						img.i = j++;
@@ -309,8 +305,7 @@
 						}
 					}
 					img.onerror = function() {
-						if (cfg.errorImg)
-							_ts.imgList[this.i] = this.src = cfg.errorImg;
+						if (cfg.errorImg) { _ts.imgList[this.i] = this.src = cfg.errorImg; }
 						_ts.$emit('error', {
 							source: 'img',
 							target: this
@@ -327,8 +322,8 @@
 				for (var link of links) {
 					link.onclick = function(e) {
 						e.stopPropagation();
-						var jump = true,
-							href = this.getAttribute('href');
+						var jump = true;
+							var href = this.getAttribute('href');
 						_ts.$emit('linkpress', {
 							href,
 							ignore: () => jump = false
@@ -340,12 +335,11 @@
 										id: href.substr(1)
 									})
 								}
-							} else if (href.indexOf('http') == 0 || href.indexOf('//') == 0)
-								return true;
-							else
-								uni.navigateTo({
+							} else if (href.indexOf('http') == 0 || href.indexOf('//') == 0) { return true; } else {
+ uni.navigateTo({
 									url: href
-								})
+								}) 
+}
 						}
 						return false;
 					}
@@ -363,9 +357,9 @@
 						});
 					}
 					video.onplay = function() {
-						if (_ts.autopause)
-							for (let item, i = 0; item = _ts.videoContexts[i++];)
-								if (item != this) item.pause();
+						if (_ts.autopause) {
+ for (let item, i = 0; item = _ts.videoContexts[i++];) { if (item != this) item.pause(); } 
+}
 					}
 				}
 				// 音频处理
@@ -383,7 +377,7 @@
 				if (this.autoscroll) {
 					var tables = this.rtf.getElementsByTagName('table');
 					for (var table of tables) {
-						let div = document.createElement('div');
+						const div = document.createElement('div');
 						div.style.overflow = 'scroll';
 						table.parentNode.replaceChild(div, table);
 						div.appendChild(table);
@@ -404,9 +398,7 @@
 				// 缓存读取
 				if (this.useCache) {
 					var hashVal = hash(html);
-					if (cache[hashVal])
-						nodes = cache[hashVal];
-					else {
+					if (cache[hashVal]) { nodes = cache[hashVal]; } else {
 						nodes = parser.parse();
 						cache[hashVal] = nodes;
 					}
@@ -414,10 +406,11 @@
 				this.$emit('parse', nodes);
 				if (append) this.nodes = this.nodes.concat(nodes);
 				else this.nodes = nodes;
-				if (nodes.length && nodes.title && this.autosetTitle)
-					uni.setNavigationBarTitle({
+				if (nodes.length && nodes.title && this.autosetTitle) {
+ uni.setNavigationBarTitle({
 						title: nodes.title
-					})
+					}) 
+}
 				if (this.imgList) this.imgList.length = 0;
 				this.videoContexts = [];
 				this.$nextTick(() => {
@@ -468,9 +461,10 @@
 				// #endif
 				// #ifndef H5 || APP-PLUS-NVUE || MP-360
 				for (var i = 0, n; n = ns[i++];) {
-					if (n.type == 'text') txt += n.text.replace(/&nbsp;/g, '\u00A0').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-						.replace(/&amp;/g, '&');
-					else if (n.type == 'br') txt += '\n';
+					if (n.type == 'text') {
+ txt += n.text.replace(/&nbsp;/g, '\u00A0').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+						.replace(/&amp;/g, '&'); 
+} else if (n.type == 'br') txt += '\n';
 					else {
 						// 块级标签前后加换行
 						var block = n.name == 'p' || n.name == 'div' || n.name == 'tr' || n.name == 'li' || (n.name[0] == 'h' && n.name[1] >
@@ -485,17 +479,16 @@
 				return txt;
 			},
 			// 锚点跳转
-			in (obj) {
+			in(obj) {
 				if (obj.page && obj.selector && obj.scrollTop) this._in = obj;
 			},
 			navigateTo(obj) {
 				if (!this.useAnchor) return obj.fail && obj.fail('Anchor is disabled');
 				// #ifdef APP-PLUS-NVUE
-				if (!obj.id)
-					weexDom.scrollToElement(this.$refs.web);
-				else
-					this.$refs.web.evalJs('var pos=document.getElementById("' + obj.id +
-						'");if(pos)post({action:"linkpress",href:"#",offset:pos.offsetTop+' + (obj.offset || 0) + '})');
+				if (!obj.id) { weexDom.scrollToElement(this.$refs.web); } else {
+ this.$refs.web.evalJs('var pos=document.getElementById("' + obj.id +
+						'");if(pos)post({action:"linkpress",href:"#",offset:pos.offsetTop+' + (obj.offset || 0) + '})'); 
+}
 				obj.success && obj.success();
 				// #endif
 				// #ifndef APP-PLUS-NVUE
@@ -503,18 +496,20 @@
 				// #ifdef MP-WEIXIN || MP-QQ || MP-TOUTIAO
 				d = '>>>';
 				// #endif
-				var selector = uni.createSelectorQuery().in(this._in ? this._in.page : this).select((this._in ? this._in.selector :
-					'#_top') + (obj.id ? `${d}#${obj.id},${this._in?this._in.selector:'#_top'}${d}.${obj.id}` : '')).boundingClientRect();
+				var selector = uni.createSelectorQuery().in(this._in ? this._in.page : this).select((this._in ? this._in.selector
+					: '#_top') + (obj.id ? `${d}#${obj.id},${this._in ? this._in.selector : '#_top'}${d}.${obj.id}` : '')).boundingClientRect();
 				if (this._in) selector.select(this._in.selector).scrollOffset().select(this._in.selector).boundingClientRect();
 				else selector.selectViewport().scrollOffset();
 				selector.exec(res => {
 					if (!res[0]) return obj.fail && obj.fail('Label not found')
 					var scrollTop = res[1].scrollTop + res[0].top - (res[2] ? res[2].top : 0) + (obj.offset || 0);
 					if (this._in) this._in.page[this._in.scrollTop] = scrollTop;
-					else uni.pageScrollTo({
+					else {
+ uni.pageScrollTo({
 						scrollTop,
 						duration: 300
-					})
+					}) 
+}
 					obj.success && obj.success();
 				})
 				// #endif
@@ -523,9 +518,9 @@
 			getVideoContext(id) {
 				// #ifndef APP-PLUS-NVUE
 				if (!id) return this.videoContexts;
-				else
-					for (var i = this.videoContexts.length; i--;)
-						if (this.videoContexts[i].id == id) return this.videoContexts[i];
+				else {
+ for (var i = this.videoContexts.length; i--;) { if (this.videoContexts[i].id == id) return this.videoContexts[i]; } 
+}
 				// #endif
 			},
 			// #ifdef H5 || APP-PLUS-NVUE || MP-360
@@ -533,16 +528,13 @@
 				if (!append) {
 					// 处理 tag-style 和 userAgentStyles
 					var style = '<style>@keyframes _show{0%{opacity:0}100%{opacity:1}}img{max-width:100%}';
-					for (var item in cfg.userAgentStyles)
-						style += `${item}{${cfg.userAgentStyles[item]}}`;
-					for (item in this.tagStyle)
-						style += `${item}{${this.tagStyle[item]}}`;
+					for (var item in cfg.userAgentStyles) { style += `${item}{${cfg.userAgentStyles[item]}}`; }
+					for (item in this.tagStyle) { style += `${item}{${this.tagStyle[item]}}`; }
 					style += '</style>';
 					html = style + html;
 				}
 				// 处理 rpx
-				if (html.includes('rpx'))
-					html = html.replace(/[0-9.]+\s*rpx/g, $ => (parseFloat($) * windowWidth / 750) + 'px');
+				if (html.includes('rpx')) { html = html.replace(/[0-9.]+\s*rpx/g, $ => (parseFloat($) * windowWidth / 750) + 'px'); }
 				return html;
 			},
 			// #endif
@@ -557,50 +549,50 @@
 						this._text = d.text;
 						break;
 					case 'getTitle':
-						if (this.autosetTitle)
-							uni.setNavigationBarTitle({
+						if (this.autosetTitle) {
+ uni.setNavigationBarTitle({
 								title: d.title
-							})
+							}) 
+}
 						break;
 					case 'getImgList':
 						this.imgList.length = 0;
-						for (var i = d.imgList.length; i--;)
-							this.imgList.setItem(i, d.imgList[i]);
+						for (var i = d.imgList.length; i--;) { this.imgList.setItem(i, d.imgList[i]); }
 						break;
 					case 'preview':
 						var preview = true;
 						d.img.ignore = () => preview = false;
 						this.$emit('imgtap', d.img);
-						if (preview)
-							uni.previewImage({
+						if (preview) {
+ uni.previewImage({
 								current: d.img.i,
 								urls: this.imgList
-							})
+							}) 
+}
 						break;
 					case 'linkpress':
-						var jump = true,
-							href = d.href;
+						var jump = true;
+							var href = d.href;
 						this.$emit('linkpress', {
 							href,
 							ignore: () => jump = false
 						})
 						if (jump && href) {
 							if (href[0] == '#') {
-								if (this.useAnchor)
-									weexDom.scrollToElement(this.$refs.web, {
+								if (this.useAnchor) {
+ weexDom.scrollToElement(this.$refs.web, {
 										offset: d.offset
-									})
-							} else if (href.includes('://'))
-								plus.runtime.openWeb(href);
-							else
-								uni.navigateTo({
+									}) 
+}
+							} else if (href.includes('://')) { plus.runtime.openWeb(href); } else {
+ uni.navigateTo({
 									url: href
-								})
+								}) 
+}
 						}
 						break;
 					case 'error':
-						if (d.source == 'img' && cfg.errorImg)
-							this.imgList.setItem(d.target.i, cfg.errorImg);
+						if (d.source == 'img' && cfg.errorImg) { this.imgList.setItem(d.target.i, cfg.errorImg); }
 						this.$emit('error', {
 							source: d.source,
 							target: d.target
@@ -608,10 +600,12 @@
 						break;
 					case 'ready':
 						this.height = d.height;
-						if (d.ready) uni.createSelectorQuery().in(this).select('#_top').boundingClientRect().exec(res => {
+						if (d.ready) {
+ uni.createSelectorQuery().in(this).select('#_top').boundingClientRect().exec(res => {
 							this.rect = res[0];
 							this.$emit('ready', res[0]);
-						})
+						}) 
+}
 						break;
 					case 'click':
 						this.$emit('click');

@@ -55,7 +55,7 @@ export default {
 			type:String,
 			default:'3dot'
 		},
-		//动态图片主题颜色(必需是传16进制的颜色，传rgba值不行)
+		// 动态图片主题颜色(必需是传16进制的颜色，传rgba值不行)
 		color:{
 			type:String,
 			default:''
@@ -67,10 +67,10 @@ export default {
 	},
     computed: {
 		themesColor(){
-			return this.color||this.themes.color
+			return this.color || this.themes.color
 		},
 		themesRgb(){
-			return this.$utils.color.colorRgb(this.color||this.themes.color)
+			return this.$utils.color.colorRgb(this.color || this.themes.color)
 		},
         themesRGBA09() {
             return `rgba(${this.themesRgb.r}, ${this.themesRgb.g},${this.themesRgb.b},.9)`
@@ -101,7 +101,7 @@ export default {
         }
     },
 	mounted() {
-		this.key ++
+		this.key++
 	},
     methods: {}
 }

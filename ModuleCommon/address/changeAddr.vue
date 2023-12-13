@@ -62,7 +62,7 @@ export default {
     },
     watch: {},
     mounted() {
-		this.$nextTick(()=>{
+		this.$nextTick(() => {
 			if (this.location.region == '定位中') {
 			    this.goLocation();
 			}
@@ -76,15 +76,15 @@ export default {
             var myAmapFun = new amapFile.AMapWX({ key: this.$config.AmapKey });
             uni.getLocation({
                 type: 'wgs84',
-                success: (res)=> {
+                success: (res) => {
                     myAmapFun.getRegeo({
                         location: '' + res.longitude + ',' + res.latitude + '',
-                        success: (data)=> {
+                        success: (data) => {
                             console.log(data);
 							const city = data[0].regeocodeData.addressComponent.city;
 							const district = data[0].regeocodeData.addressComponent.district;
 							const province = data[0].regeocodeData.addressComponent.province;
-							let locationData = {
+							const locationData = {
 								lat: res.latitude,
 								lng: res.longitude,
 								addressDetail: data[0].regeocodeData.formatted_address,
@@ -92,14 +92,14 @@ export default {
 							};
 							this.$store.commit('setLocation', locationData);
                         },
-                        fail: (info)=> {
+                        fail: (info) => {
                             // 失败回调
                             uni.showToast({ title:'定位失败',icon:'none' })
                             console.log(info);
                         }
                     });
                 },
-                fail: (res)=> {
+                fail: (res) => {
                     uni.showToast({ title:'定位失败',icon:'none' })
                     console.log(res);
                 }
@@ -117,7 +117,7 @@ export default {
             if (item.location) {
                 myAmapFun.getRegeo({
                     location: item.location,
-                    success: (data)=> {
+                    success: (data) => {
                         console.log(data);
                         parms.name = data[0].regeocodeData.formatted_address;
                         parms.lng = data[0].longitude;
@@ -128,7 +128,7 @@ export default {
 						const city = data[0].regeocodeData.addressComponent.city;
 						const district = data[0].regeocodeData.addressComponent.district;
 						const province = data[0].regeocodeData.addressComponent.province;
-						let locationData = {
+						const locationData = {
 							lat: data[0].latitude,
 							lng: data[0].longitude,
 							addressDetail: data[0].regeocodeData.formatted_address,
@@ -137,7 +137,7 @@ export default {
 						this.$store.commit('setLocation', locationData);
                         uni.navigateBack()
                     },
-                    fail: (info)=> {
+                    fail: (info) => {
                         // 失败回调
                         console.log(info);
                     }
@@ -157,12 +157,12 @@ export default {
             console.log(lng, lat);
             myAmapFun.getRegeo({
                 location: '' + lng + ',' + lat + '',
-                success: (data)=> {
+                success: (data) => {
                     console.log(data);
 					const city = data[0].regeocodeData.addressComponent.city;
 					const district = data[0].regeocodeData.addressComponent.district;
 					const province = data[0].regeocodeData.addressComponent.province;
-					let locationData = {
+					const locationData = {
 						lat: data[0].latitude,
 						lng: data[0].longitude,
 						addressDetail: data[0].regeocodeData.formatted_address,
@@ -172,7 +172,7 @@ export default {
                     this.inputFocus();
                     uni.navigateBack()
                 },
-                fail: (info)=> {
+                fail: (info) => {
                     // 失败回调
                     console.log(info);
                 }
@@ -187,7 +187,7 @@ export default {
 
             myAmapFun.getInputtips({
                 keywords: this.searchText,
-                success: (data)=> {
+                success: (data) => {
                     this.searchDto = data.tips;
                     console.log(data);
                 }

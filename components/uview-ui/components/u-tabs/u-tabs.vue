@@ -47,17 +47,17 @@
 	 * @example <u-tabs ref="tabs" :list="list" :is-scroll="false"></u-tabs>
 	 */
 	export default {
-		name: "u-tabs",
+		name: 'UTabs',
 		props: {
 			// 导航菜单是否需要滚动，如只有2或者3个的时候，就不需要滚动了，此时使用flex平分tab的宽度
 			isScroll: {
 				type: Boolean,
 				default: true
 			},
-			//需循环的标签列表
+			// 需循环的标签列表
 			list: {
 				type: Array,
-				default () {
+				default() {
 					return [];
 				}
 			},
@@ -195,11 +195,11 @@
 		computed: {
 			// 移动bar的样式
 			tabBarStyle() {
-				let style = {
+				const style = {
 					width: this.barWidth + 'rpx',
 					transform: `translate(${this.scrollBarLeft}px, -100%)`,
 					// 滑块在页面渲染后第一次滑动时，无需动画效果
-					'transition-duration': `${this.barFirstTimeMove ? 0 : this.duration }s`,
+					'transition-duration': `${this.barFirstTimeMove ? 0 : this.duration}s`,
 					'background-color': this.activeColor,
 					height: this.barHeight + 'rpx',
 					// 设置一个很大的值，它会自动取能用的最大值，不用高度的一半，是因为高度可能是单数，会有小数出现
@@ -237,7 +237,7 @@
 			// 设置一个init方法，方便多处调用
 			async init() {
 				// 获取tabs组件的尺寸信息
-				let tabRect = await this.$uGetRect('#' + this.id);
+				const tabRect = await this.$uGetRect('#' + this.id);
 				// tabs组件距离屏幕左边的宽度
 				this.parentLeft = tabRect.left;
 				// tabs组件的宽度
@@ -247,14 +247,14 @@
 			// 点击某一个tab菜单
 			clickTab(index) {
 				// 点击当前活动tab，不触发事件
-				if(index == this.currentIndex) return ;
+				if(index == this.currentIndex) return;
 				// 发送事件给父组件
 				this.$emit('change', index);
 			},
 			// 查询tab的布局信息
 			getTabRect() {
 				// 创建节点查询
-				let query = uni.createSelectorQuery().in(this);
+				const query = uni.createSelectorQuery().in(this);
 				// 历遍所有tab，这里是执行了查询，最终使用exec()会一次性返回查询的数组结果
 				for (let i = 0; i < this.list.length; i++) {
 					// 只要size和rect两个参数
@@ -275,17 +275,17 @@
 			// 滚动scroll-view，让活动的tab处于屏幕的中间位置
 			scrollByIndex() {
 				// 当前活动tab的布局信息，有tab菜单的width和left(为元素左边界到父元素左边界的距离)等信息
-				let tabInfo = this.tabQueryInfo[this.currentIndex];
+				const tabInfo = this.tabQueryInfo[this.currentIndex];
 				if (!tabInfo) return;
 				// 活动tab的宽度
-				let tabWidth = tabInfo.width;
+				const tabWidth = tabInfo.width;
 				// 活动item的左边到tabs组件左边的距离，用item的left减去tabs的left
-				let offsetLeft = tabInfo.left - this.parentLeft;
+				const offsetLeft = tabInfo.left - this.parentLeft;
 				// 将活动的tabs-item移动到屏幕正中间，实际上是对scroll-view的移动
-				let scrollLeft = offsetLeft - (this.componentWidth - tabWidth) / 2;
+				const scrollLeft = offsetLeft - (this.componentWidth - tabWidth) / 2;
 				this.scrollLeft = scrollLeft < 0 ? 0 : scrollLeft;
 				// 当前活动item的中点点到左边的距离减去滑块宽度的一半，即可得到滑块所需的移动距离
-				let left = tabInfo.left + tabInfo.width / 2 - this.parentLeft;
+				const left = tabInfo.left + tabInfo.width / 2 - this.parentLeft;
 				// 计算当前活跃item到组件左边的距离
 				this.scrollBarLeft = left - uni.upx2px(this.barWidth) / 2;
 				// 第一次移动滑块的时候，barFirstTimeMove为true，放到延时中将其设置false

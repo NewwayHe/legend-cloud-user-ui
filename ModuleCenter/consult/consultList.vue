@@ -88,7 +88,7 @@ export default {
 		return {
 			data:{},
 			apiParmas:{
-				content:'',//咨询内容
+				content:'',// 咨询内容
 				productId:''
 			},
 			list:[],
@@ -110,8 +110,8 @@ export default {
 
 	onLoad(option) {
 		console.log();
-		this.data = option.data&&JSON.parse(decodeURIComponent(option.data))
-		this.apiParmas.productId = this.data&&this.data.productId||null
+		this.data = option.data && JSON.parse(decodeURIComponent(option.data))
+		this.apiParmas.productId = this.data && this.data.productId || null
 		listPage.loadListByPage(this,this.apiParmas)
 	},
 
@@ -145,7 +145,7 @@ export default {
 			listPage.loadListByPage(this,this.apiParmas)
 		},
 		clear(){
-			this.apiParmas.content=''
+			this.apiParmas.content = ''
 			listPage.loadListByPage(this,this.apiParmas)
 		}
 	}

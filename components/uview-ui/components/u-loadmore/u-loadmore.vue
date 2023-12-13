@@ -39,7 +39,7 @@
 	 * @example <u-loadmore :status="status" icon-type="iconType" load-text="loadText" />
 	 */
 	export default {
-		name: "u-loadmore",
+		name: 'ULoadmore',
 		props: {
 			// 组件背景色
 			bgColor: {
@@ -74,7 +74,7 @@
 			// 显示的文字
 			loadText: {
 				type: Object,
-				default () {
+				default() {
 					return {
 						loadmore: '加载更多',
 						loading: '正在加载...',
@@ -111,7 +111,7 @@
 		data() {
 			return {
 				// 粗点
-				dotText: "●"
+				dotText: '●'
 			}
 		},
 		computed: {

@@ -64,7 +64,7 @@
  * @example <u-image width="100%" height="300rpx" :src="src"></u-image>
  */
 export default {
-	name: 'u-image',
+	name: 'UImage',
 	props: {
 		// 图片地址
 		src: {
@@ -164,7 +164,7 @@ export default {
 	watch: {
 		src: {
 			immediate: true,
-			handler (n) {
+			handler(n) {
 				if(!n) {
 					// 如果传入null或者''，或者false，或者undefined，标记为错误状态
 					this.isError = true;
@@ -177,7 +177,7 @@ export default {
 	},
 	computed: {
 		wrapStyle() {
-			let style = {};
+			const style = {};
 			// 通过调用addUnit()方法，如果有单位，如百分比，px单位等，直接返回，如果是纯粹的数值，则加上rpx单位
 			style.width = this.$u.addUnit(this.width);
 			style.height = this.$u.addUnit(this.height);

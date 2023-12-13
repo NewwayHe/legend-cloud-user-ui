@@ -123,7 +123,7 @@ export default {
 		};
 	},
 	onLoad(option) {
-		let rectInfo = uni.getSystemInfoSync();
+		const rectInfo = uni.getSystemInfoSync();
 		this.width = rectInfo.windowWidth;
 		this.height = rectInfo.windowHeight - this.bottomNavHeight;
 		this.cropperOpt.width = this.width;
@@ -132,7 +132,7 @@ export default {
 
 		if (option.destWidth) this.destWidth = option.destWidth;
 		if (option.rectWidth) {
-			let rectWidth = Number(option.rectWidth);
+			const rectWidth = Number(option.rectWidth);
 			this.cropperOpt.cut = {
 				x: (this.width - rectWidth) / 2,
 				y: (this.height - rectWidth) / 2,
@@ -185,7 +185,7 @@ export default {
 		getCropperImage(isPre = false) {
 			if(!this.src) return this.$u.toast('请先选择图片再裁剪');
 
-			let cropper_opt = {
+			const cropper_opt = {
 				destHeight: Number(this.destWidth), // uni.canvasToTempFilePath要求这些参数为数值
 				destWidth: Number(this.destWidth),
 				fileType: this.fileType

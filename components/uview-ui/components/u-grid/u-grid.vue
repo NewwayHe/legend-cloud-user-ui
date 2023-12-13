@@ -14,7 +14,7 @@
  * @example <u-grid :col="3" @click="click"></u-grid>
  */
 export default {
-	name: 'u-grid',
+	name: 'UGrid',
 	props: {
 		// 分成几列
 		col: {
@@ -48,7 +48,7 @@ export default {
 			if(this.children.length) {
 				this.children.map(child => {
 					// 判断子组件(u-radio)如果有updateParentData方法的话，就就执行(执行的结果是子组件重新从父组件拉取了最新的值)
-					typeof(child.updateParentData) == 'function' && child.updateParentData();
+					typeof (child.updateParentData) === 'function' && child.updateParentData();
 				})
 			}
 		},
@@ -64,7 +64,7 @@ export default {
 		},
 		// 宫格对齐方式
 		gridStyle() {
-			let style = {};
+			const style = {};
 			switch(this.align) {
 				case 'left':
 					style.justifyContent = 'flex-start';
@@ -76,7 +76,7 @@ export default {
 					style.justifyContent = 'flex-end';
 					break;
 				default: style.justifyContent = 'flex-start';
-			};
+			}
 			return style;
 		}
 	},

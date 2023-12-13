@@ -2,9 +2,9 @@
 </template>
 
 <script>
-	import {parent, children} from '../common/relation';
+	import { parent, children } from '../common/relation';
 	export default {
-		name: 'lime-painter-qrcode',
+		name: 'LimePainterQrcode',
 		mixins:[children('painter')],
 		props: {
 			css: [String, Object],

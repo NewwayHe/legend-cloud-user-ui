@@ -18,7 +18,7 @@
 	 * @example <u-line color="red"></u-line>
 	 */
 	export default {
-		name: 'u-line',
+		name: 'ULine',
 		props: {
 			color: {
 				type: String,
@@ -52,7 +52,7 @@
 		},
 		computed: {
 			lineStyle() {
-				let style = {};
+				const style = {};
 				style.margin = this.margin;
 				// 如果是水平线条，边框高度为1px，再通过transform缩小一半，就是0.5px了
 				if(this.direction == 'row') {

@@ -16,7 +16,7 @@
 <script>
 import lsButton from '@/components/ls-app/ls-button/ls-button.vue';
 export default {
-    name: 'asyncLoading',
+    name: 'AsyncLoading',
 	components: {
 	    'ls-button': lsButton,
 	},

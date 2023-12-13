@@ -28,14 +28,14 @@ export default {
                     // color: '#FF3333'
                 }
             },
-			platform:'',  // 用户手机系统类型 安卓、苹果
+			platform:'', // 用户手机系统类型 安卓、苹果
         }
     },
 	computed: {
 		isWeiXinUrlTaoBao(){
 			let flag = false
 			// 如果是微信浏览器里打开并且url里有taobao字样
-			if ((this.$utils.getUa().isWeixin&&this.url.indexOf('taobao')!=-1)) {
+			if ((this.$utils.getUa().isWeixin && this.url.indexOf('taobao') != -1)) {
 				flag = true
 			}
 			return flag

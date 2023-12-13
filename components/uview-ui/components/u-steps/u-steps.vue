@@ -56,7 +56,7 @@
  * @example <u-steps :list="numList" active-color="#fa3534"></u-steps>
  */
 export default {
-	name: 'u-steps',
+	name: 'USteps',
 	props: {
 		// 步骤条的类型，dot|number
 		mode: {

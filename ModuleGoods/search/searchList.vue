@@ -219,11 +219,11 @@ import { mapState } from 'vuex'
 import pageUtil from '@/utils/pageUtils.js'
 import { searchHistory } from '@/utils/Cache'
 import { search } from '@/api/ModuleGoods.js'
-import  products  from '@/components/ls-app/ls-products/products'
+import products from '@/components/ls-app/ls-products/products'
 // 商品页面
-import  productItem  from '@/components/ls-app/ls-products/productItem'
+import productItem from '@/components/ls-app/ls-products/productItem'
 // 店铺页面
-import  shopItem  from '@/components/ls-app/ls-products/shopItem'
+import shopItem from '@/components/ls-app/ls-products/shopItem'
 // 用户页面
 import backTop from '@/components/goods/back-top.vue';
 let listPage = new pageUtil(search.searchProduct)
@@ -241,7 +241,7 @@ export default {
 		},
 		'maxPrice'(newValue, oldValue) {
 		},
-		"current"(newValue) {
+		'current'(newValue) {
 			uni.pageScrollTo({ scrollTop: 0 }) // 回到页面顶部
 		}
 	},
@@ -253,7 +253,7 @@ export default {
         return {
 			isFocus: false, // 输入框是否获取焦点
 			scrollNum: 100, // 设置为data，解决用户页面不显示的bug
-			scrollViewTop: "", // scroll-view滚动的距离
+			scrollViewTop: '', // scroll-view滚动的距离
 			isInputKey: true, // 控制搜索框上面的搜索小模块
 			current: 0, // 默认选中tab的下标
             goodsType: true, // 默認-纵向列表
@@ -263,10 +263,10 @@ export default {
 				// priceInterval: [], // 价格区间
                 sortBy: 'multiple' ,// multiple 默认排序(综合)  // price 价格排序  // sale 销量排序  // new 最新 // praise 好评
 				brandId: [], // 品牌
-				categoryId: "", // 商品类目
+				categoryId: '', // 商品类目
             },
-			minPrice: "", // 最低价
-			maxPrice: "", // 最高价
+			minPrice: '', // 最低价
+			maxPrice: '', // 最高价
             list: [],
             paging: {
                 status: 'loading',
@@ -275,25 +275,25 @@ export default {
             },
 			filterShow: false, // 筛选弹出层
 			tabsList: [
-				"商品",
-				"店铺",
+				'商品',
+				'店铺',
 			],
 			brands: [], // 品牌
 			categories: [], // 商品类目
 			screenList : [], // 其他参数
-			style: "find", // 内容类型
+			style: 'find', // 内容类型
 			currentTab: 0, // swiper用到的current值
-			selectScreen: {}, //筛选中ids {1:[],2:[],3:[]}
+			selectScreen: {}, // 筛选中ids {1:[],2:[],3:[]}
 			foldObj: {}, // 展开和收起对象
-			isCategory:false,//如果是点击【分类】进入本页面
-			isBrand:false,//如果是点击【品牌】进入本页面
+			isCategory:false,// 如果是点击【分类】进入本页面
+			isBrand:false,// 如果是点击【品牌】进入本页面
         }
     },
     onLoad(option) {
         this.$data['option'] = option || null
         this.searchQuery.key = option.searchText || '' // 搜索词进来
         this.searchQuery.categoryId = option.categoryId || null // 分类进来
-		this.isCategory = option.categoryId ? true : false // 分类进来
+		this.isCategory = !!option.categoryId // 分类进来
         this.searchQuery.shopId = option.shopId || null // 店铺首页装修进来
         this.searchQuery.shopCategoryId = option.shopCategoryId || null // 店铺分类进来
         if (option.brandId) {
@@ -301,7 +301,7 @@ export default {
 			this.isBrand = true
         }
 		this.getData()
-		this.$nextTick(()=>{
+		this.$nextTick(() => {
 			this.$refs.shopItem.getData()
 		})
     },
@@ -324,11 +324,11 @@ export default {
             this.goodsType = !this.goodsType
         },
 		enterSearch:uni.$utils.debounce(function(event){
-			if(this.currentTab===1){
+			if(this.currentTab === 1){
 				this.$refs.shopItem.getData()
 			}else{
 				listPage = new pageUtil(search.searchProduct)
-				const searchText = this.searchQuery.key&&this.$stringUtils.trim(this.searchQuery.key, 2)
+				const searchText = this.searchQuery.key && this.$stringUtils.trim(this.searchQuery.key, 2)
 				searchHistory.addSearchHistory(searchText)
 				listPage.loadListByPage(this, this.searchQuery)
 			}
@@ -342,7 +342,7 @@ export default {
         sortGood(type) {
             if (type == 'price') {		// 价格
                 if (this.searchQuery.sortBy != 'price') {
-                    this.searchQuery.descending = false//第一次进来时，默认是商品价格从低到高排序
+                    this.searchQuery.descending = false// 第一次进来时，默认是商品价格从低到高排序
                 } else {
                     this.searchQuery.descending = !this.searchQuery.descending
                 }
@@ -353,13 +353,11 @@ export default {
 				if (this.searchQuery.sortBy == type) return;
 				else this.searchQuery.sortBy = type;
 				this.searchQuery.descending = true
-			}
-			else if(type=='multiple') { 	// 默认综合 
+			} else if(type == 'multiple') { 	// 默认综合 
                 if (this.searchQuery.sortBy == type) return;
 				else this.searchQuery.sortBy = type;
 				this.searchQuery.descending = false
-			}
-			else{
+			} else{
 				if (this.searchQuery.sortBy != type) {
 					this.searchQuery.descending = true
 				} else {
@@ -367,7 +365,7 @@ export default {
 				}
 				this.searchQuery.sortBy = type
 			}
-			if(this.currentTab===1){
+			if(this.currentTab === 1){
 				this.$refs.shopItem.getData()
 			}else{
 				this.getData()
@@ -382,12 +380,12 @@ export default {
 						// 参数数据
 						this.screenList = res.data.specs
 						// 品牌数据
-						this.brands =  res.data.brands
+						this.brands = res.data.brands
 						this.foldObj['brands'] = {
 							isFold: false
 						}
 						// 分类数据
-						this.categories =  res.data.categories
+						this.categories = res.data.categories
 						this.foldObj['categories'] = {
 							isFold: false
 						}
@@ -401,7 +399,6 @@ export default {
 							})
 						}
 					}
-					
 				}
 			}
 		},
@@ -410,9 +407,9 @@ export default {
 		// 备注:这里的防抖不能用$u.debounce,不然会进不了方法(原因:u-view里的debounce,同一页面同时执行几个不同的debounce方法时,只会执行到第一个,其它的方法都执行不到)
 		getData:uni.$utils.debounce(function(){
 			// viewType:'good', // 展示类型 shop店铺类型 good 商品类型
-			//搜索商品
+			// 搜索商品
 			this.getScreenParams()
-			//搜索商品
+			// 搜索商品
 			listPage.loadListByPage(this, { ...this.searchQuery, priceInterval: this.checkPrice(), env: this.getScreenParams() }, { success: this.screenParams })
 		}),
 		// 清除输入框的内容
@@ -422,7 +419,7 @@ export default {
 		// 拼接其他参数
 		getScreenParams() {
 			let resultParams = ''
-			for (let key in this.selectScreen) {
+			for (const key in this.selectScreen) {
 				if (this.selectScreen[key] && this.selectScreen[key].length) {
 					resultParams += key + '_' + this.selectScreen[key].join('|') + ';'
 				}
@@ -442,9 +439,9 @@ export default {
 					const index = this.searchQuery.brandId.findIndex((item) => item == id)
 					this.searchQuery.brandId.splice(index, 1)
 				}
-			}  else if (type == 'cate') { 	// 分类
+			} else if (type == 'cate') { 	// 分类
 				if (this.searchQuery.categoryId == item.categoryId) {
-					this.searchQuery.categoryId = ""
+					this.searchQuery.categoryId = ''
 				} else {
 					this.searchQuery.categoryId = item.categoryId
 				}
@@ -460,15 +457,15 @@ export default {
 		},
 		// 筛选弹出层里面的点击了重置
 		cleanSelectItem() {
-			this.minPrice = "";
-			this.maxPrice = "";
+			this.minPrice = '';
+			this.maxPrice = '';
 			if (!this.isCategory) {
-				this.searchQuery.categoryId = "";//如果是分类进来，这个不需要变动
+				this.searchQuery.categoryId = '';// 如果是分类进来，这个不需要变动
 			}
 			if(!this.isBrand){
-				this.searchQuery.brandId = [];//如果是品牌进来，品牌ID也不需要变动
+				this.searchQuery.brandId = [];// 如果是品牌进来，品牌ID也不需要变动
 			}
-			for(let key in this.selectScreen) {
+			for(const key in this.selectScreen) {
 				this.selectScreen[key] = []
 			}
 			this.getData()
@@ -505,7 +502,7 @@ export default {
 		},
 		// 点击了关键字模块的关闭图标并且获取焦点
 		clearKey() {
-			this.searchQuery.key = "";
+			this.searchQuery.key = '';
 			this.isInputKey = false;
 			this.isFocus = true;
 			this.getData()
@@ -518,13 +515,13 @@ export default {
 		// 点击了返回顶部按钮，然后让scroll-view返回顶部
 		scrollViewGoBack() {
 			// 设置为0不生效，只能通过这种方式
-			this.$nextTick(()=>{
+			this.$nextTick(() => {
 				this.scrollViewTop = Math.random();
 			})
 		},
 		// scroll-view滚动时触发,把滚动的距离赋值给scrollTop
 		scrollView(e) {
-			this.$nextTick(()=> {
+			this.$nextTick(() => {
 				this.scrollTop = e.detail.scrollTop
 			});
 		},
@@ -533,22 +530,22 @@ export default {
 		checkPrice() {
 			let priceAccount = []
 			// 如果只有最少价格，没有输入最大价格
-			if (this.minPrice&&!this.maxPrice) {
+			if (this.minPrice && !this.maxPrice) {
 				priceAccount = [this.minPrice, '']
 			}else{
 				// 直接调用sort()排序：a-b数字升序，b-a数字降序
-				priceAccount = [this.minPrice, this.maxPrice].sort(function(a,b){return a-b});
+				priceAccount = [this.minPrice, this.maxPrice].sort(function(a,b){ return a - b });
 				this.minPrice = priceAccount[0];
 				this.maxPrice = priceAccount[1];
 			}
 			return priceAccount
 		},
 		inputMoney(ev, key) {
-			let { detail: { value } } = ev;
+			const { detail: { value }} = ev;
 			let price = ''
 			// value != 0 && (price = value.replace(/^(\d+(\.\d{0,2})?)(.*)$/gi, "$1"))
 			if(value){
-				price = value.replace(/^(\D*)((\d+(\.\d{0,2})?)?)(.*)$/gi, "$2")
+				price = value.replace(/^(\D*)((\d+(\.\d{0,2})?)?)(.*)$/gi, '$2')
 			}
 			// 这里必须用nextTick 否则会赋值失败
 			this.$nextTick(() => {

@@ -12,7 +12,7 @@
 	 * @example <u-time-line></u-time-line>
 	 */
 	export default {
-		name: "u-time-line",
+		name: 'UTimeLine',
 		data() {
 			return {
 

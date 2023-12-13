@@ -162,14 +162,14 @@ let itemH = 0 // 拖拽元素的高
 let itemXNun = 0 // 拖拽元素的列数
 
 export default {
-    name: 'ls-dragImage',
+    name: 'LsDragImage',
 	// #ifdef MP-WEIXIN
 	// 将自定义节点设置成虚拟的，更加接近Vue组件的表现，能更好的使用flex属性。这时在<组件name> 里加style和class是不会生效的
 	options: { virtualHost: true },
 	// #endif
     props: {
 		className:{
-			type: [String, Array,Boolean],//这里加个Boolean，是因为如果传className=""，小程序端会报错
+			type: [String, Array,Boolean],// 这里加个Boolean，是因为如果传className=""，小程序端会报错
 			default: ''
 		},
         value: {
@@ -235,7 +235,7 @@ export default {
 		// 开启之后 value 会变成一个object对象用以区分 图片或视频
 		// 为视频时 value的项会变成 { type: 'video', src: '' }
 		// 因此 在与后端做交互时 请按需过滤value
-		fileType:{//pic:上传图片，video:上传视频(支持type=1)
+		fileType:{ // pic:上传图片，video:上传视频(支持type=1)
 			type:String,
 			default:'pic'
 		}
@@ -252,7 +252,7 @@ export default {
 	        movableW: '', // 拖拽元素的宽(传CCS变量到item-move里)
 	        movableH: '' ,// 拖拽元素的高(传CCS变量到item-move里)
 			
-			previewVideoSrc: '',	//预览视频
+			previewVideoSrc: '',	// 预览视频
 			videoCloseShow: true,
 	    }
 	},
@@ -263,11 +263,11 @@ export default {
         lists: {
             handler(newValue, oldValue) {
                 // 监听数组变化
-                if (newValue&&newValue.length) {
+                if (newValue && newValue.length) {
                     // 有图片或图片数量改变时重新初始化
                     if (this.maxImageNum != 1) {
                         // 只有上传多张图片时才执行拖拽
-                        this.$nextTick(()=> {
+                        this.$nextTick(() => {
                             this.init()
                         })
                     }
@@ -308,7 +308,7 @@ export default {
             // 有图片时初始化
             if (this.maxImageNum != 1) {
                 // 只有上传多张图片时才执行拖拽
-                this.$nextTick(()=> {
+                this.$nextTick(() => {
                     this.init()
                 })
             }
@@ -362,7 +362,7 @@ export default {
             const left = e.currentTarget.offsetLeft
             const top = e.currentTarget.offsetTop
             this.beginIndex = index // 获取所在位置索引
-            this.$nextTick(()=> {
+            this.$nextTick(() => {
                 this.x = left // 119
                 this.y = top // 0
             })
@@ -465,7 +465,7 @@ export default {
         },
         imageTap(item, index) {
 			const _this = this;
-			let itemList = this.fileType == 'video' ? ['全屏预览视频'] : ['全屏预览大图'];
+			const itemList = this.fileType == 'video' ? ['全屏预览视频'] : ['全屏预览大图'];
 			itemList.push('删除（不可撤销）')
             // 图片点击事件
             uni.showActionSheet({
@@ -477,9 +477,9 @@ export default {
                     } else {
 						if (this.fileType == 'video') {
 							if (item.src) {
-								this.previewVideoSrc =  _this.photoServer + item.src
-							}else{//这个是编辑回选专用
-								this.previewVideoSrc =  _this.photoServer + item
+								this.previewVideoSrc = _this.photoServer + item.src
+							}else{ // 这个是编辑回选专用
+								this.previewVideoSrc = _this.photoServer + item
 							}
 						}else{
 							this.previewImage(_this.photoServer + item)// 预览
@@ -497,7 +497,7 @@ export default {
         },
 		// 视频上传
 		async videoUpload() {
-			const count = this.maxUploadNum - this.lists.length;	//剩余可以上传的数量
+			const count = this.maxUploadNum - this.lists.length;	// 剩余可以上传的数量
 			const uploader = new this.$Uploader()
 			const vedio_path = await uploader.chooseVideo()
 			if(vedio_path) {

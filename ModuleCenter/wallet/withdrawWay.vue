@@ -21,7 +21,7 @@
 export default {
 	data() {
 		return {
-			curPayType: 'WX_PAY', //当前支付方式
+			curPayType: 'WX_PAY', // 当前支付方式
 		};
 	},
 	computed: { },

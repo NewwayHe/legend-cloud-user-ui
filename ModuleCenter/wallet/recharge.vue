@@ -61,23 +61,22 @@ export default {
             show: false, // 是否显示 支付完成询问弹框
             payType: platformPayto.payType ,// platformPayto定义的支付类型
 			curPayType:'', // 用来记录支付方式以及choose cur显不显示
-			payTypeData:{//可用支付方式
-				FREE_PAY: 1,//免费支付
-				ALI_PAY:1,//支付宝支付
-				WX_PAY:1,//微信支付
-				SIMULATE_PAY:1,//模拟支付
+			payTypeData:{ // 可用支付方式
+				FREE_PAY: 1,// 免费支付
+				ALI_PAY:1,// 支付宝支付
+				WX_PAY:1,// 微信支付
+				SIMULATE_PAY:1,// 模拟支付
 			},
 			payTypeIcons:{
-			    'FREE_PAY':['icon-mianfei','#40CDA9','免费支付'],//免费支付
-			    'ALI_PAY':['icon-zhifubao','#0CAEEF','支付宝支付'],//支付宝支付
-			    'WX_PAY':['icon-weixinzhifu','#01CA02','微信支付'],//微信支付
-			    'SIMULATE_PAY':['icon-yinhangka','#FEB347','模拟支付'],//模拟支付
+			    'FREE_PAY':['icon-mianfei','#40CDA9','免费支付'],// 免费支付
+			    'ALI_PAY':['icon-zhifubao','#0CAEEF','支付宝支付'],// 支付宝支付
+			    'WX_PAY':['icon-weixinzhifu','#01CA02','微信支付'],// 微信支付
+			    'SIMULATE_PAY':['icon-yinhangka','#FEB347','模拟支付'],// 模拟支付
 			},
         };
     },
     computed: { },
     onLoad(option) {
-		
         // this.$applyStyle(this.themes.color);
 
         // 如果有路由参数

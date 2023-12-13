@@ -23,7 +23,7 @@
 	 * @example <u-link href="http://www.uviewui.com">蜀道难，难于上青天</u-link>
 	 */
 	export default {
-		name: "u-link",
+		name: 'ULink',
 		props: {
 			// 文字颜色
 			color: {

@@ -11,22 +11,22 @@ import Gps from '@/libs/json-gps/js_sdk/gps.js';
 const gps = new Gps()
 export default {
 	/** 获取当前经纬度(自动定位) */
-	getLocation({commit,state,dispatch},parmas){
+	getLocation({ commit,state,dispatch },parmas){
 		// gps.getLocation()：判断是否开启定位，如果已经开启了定位，会返回一个带经纬度的object值，如果未开启定位，会返回false值，并拉起弹框让用户去设置开启定位
 		return new Promise((resolve, reject) => {
-			if ((state.location.region == '定位中'&&!uni.getStorageSync('getLocationFail'))||parmas.reSet) {
+			if ((state.location.region == '定位中' && !uni.getStorageSync('getLocationFail')) || parmas.reSet) {
 				uni.getLocation({
 					type: 'gcj02',
-					geocode: true, //是否解析地址信息	仅App平台支持
+					geocode: true, // 是否解析地址信息	仅App平台支持
 					success: (res) => {
 						// 如果是H5端，进页面时马上手动定位触发setLocation()方法，这时已经进入getLocation()方法，却uni.getLocation()由于长时间没有获取数据成功，这时加个state.location.region == '定位中'防止把手动定位的数据覆盖掉
-						if (state.location.region == '定位中'||parmas.reSet) {
+						if (state.location.region == '定位中' || parmas.reSet) {
 							// #ifdef APP-PLUS
 							dispatch('__delLocationMsg',{ resolve:resolve, reject:reject, data:res, latitude:res.latitude, longitude:res.longitude })
 							// #endif
 							
 							// #ifndef APP-PLUS
-							commit('setLocation', {...state.location,lat:res.latitude,lng:res.longitude,});//这句话是新增，高德key不行的话，下面的myAmapFun.getRegeo会走fail，会加载很久，但这时自提下单要用到经纬度
+							commit('setLocation', { ...state.location,lat:res.latitude,lng:res.longitude });// 这句话是新增，高德key不行的话，下面的myAmapFun.getRegeo会走fail，会加载很久，但这时自提下单要用到经纬度
 							// APP上才有精确位置信息address，H5要用输入经纬度后用amapFile.AMapWX来获取详细地址信息
 							var myAmapFun = new amapFile.AMapWX({ key: uni.$config.AmapKey })
 							myAmapFun.getRegeo({
@@ -45,11 +45,11 @@ export default {
 					},
 					fail: (err) => {
 						// 如果点击了拒绝
-						if (err.errMsg&&err.errMsg.indexOf('获取定位权限失败') != -1) {
-							uni.setStorageSync('getLocationFail', true)//如果点击了取消，则再次进来时，就不主动请求获取权限
+						if (err.errMsg && err.errMsg.indexOf('获取定位权限失败') != -1) {
+							uni.setStorageSync('getLocationFail', true)// 如果点击了取消，则再次进来时，就不主动请求获取权限
 						}
 						reject(err)
-						console.log('getLocation--err:',err);//{"errMsg":"getLocation:fail 获取定位权限失败","errCode":22,"code":22}
+						console.log('getLocation--err:',err);// {"errMsg":"getLocation:fail 获取定位权限失败","errCode":22,"code":22}
 					}
 				})
 			}
@@ -57,8 +57,8 @@ export default {
 	},
 	
 	// 统一setLocation的参数，commit('setLocation', locationData)
-	__delLocationMsg:debounce(({commit},parmas)=>{
-		let locationData = {
+	__delLocationMsg:debounce(({ commit },parmas) => {
+		const locationData = {
 			lat:parmas.latitude,
 			lng:parmas.longitude,
 			region:'定位中',
@@ -67,7 +67,7 @@ export default {
 			district:'',
 			province:''
 		}
-		let data = parmas?.data
+		const data = parmas?.data
 		// H5端,如果map.vue进来
 		if (parmas.isTxMapKey) {
 			locationData.city = data?.cityname
@@ -89,7 +89,7 @@ export default {
 				locationData.province = data?.addressComponent?.province
 				locationData.addressDetail = data.formatted_address
 			}else{
-				//自动获取定位的字段
+				// 自动获取定位的字段
 				locationData.city = data.address?.city
 				locationData.district = data.address?.district
 				locationData.province = data.address?.province
@@ -146,26 +146,26 @@ export default {
 							}
 						});
 					} else {
-						dispatch('__uniChooseLocation',{ resolve:resolve, reject:reject, notSetLocation:parmas?.notSetLocation||false })
+						dispatch('__uniChooseLocation',{ resolve:resolve, reject:reject, notSetLocation:parmas?.notSetLocation || false })
 					}
 				}
 			});
 			// #endif
 			
 			// #ifndef MP
-			dispatch('__uniChooseLocation',{ resolve:resolve, reject:reject, notSetLocation:parmas?.notSetLocation||false })
+			dispatch('__uniChooseLocation',{ resolve:resolve, reject:reject, notSetLocation:parmas?.notSetLocation || false })
 			// #endif
 		})
 	},
 	
 	async __uniChooseLocation({ commit, state,dispatch },parmas) {
 		// H5端,如果config文件配置了腾讯地图的key值,则点击首页左上角的地图定位时,采用腾讯地图来定位,否则用高德地图定位
-		if (uni.$config.txMapKey&&uni.$utils.getUa().isH5) {
+		if (uni.$config.txMapKey && uni.$utils.getUa().isH5) {
 			uni.navigateTo({ url: `/pages/index/map?notSetLocation=${parmas.notSetLocation}` });
 		}else{
 			// 如果是app端,则需要判断是否开启了定位
 			// #ifdef APP-PLUS
-			let location = await gps.getLocation()//gps.getLocation()：判断是否开启定位，如果已经开启了定位，会返回一个带经纬度的object值，如果未开启定位，会返回false值，并拉起弹框让用户去设置开启定位
+			const location = await gps.getLocation()// gps.getLocation()：判断是否开启定位，如果已经开启了定位，会返回一个带经纬度的object值，如果未开启定位，会返回false值，并拉起弹框让用户去设置开启定位
 			// console.log(222,location);//{ "type": "WGS84", "altitude": 0, "latitude": 23.100252, "longitude": 113.371991, "speed": 0, "accuracy": 29, "errMsg": "getLocation:ok" }
 			if(location){
 				dispatch('__goChooseLocation',{ resolve:parmas.resolve, reject:parmas.reject, notSetLocation:parmas.notSetLocation })
@@ -182,11 +182,11 @@ export default {
 	__goChooseLocation({ commit, state,dispatch },parmas){
 		uni.chooseLocation({
 			success: res => {
-				dispatch('__getRegeo',{resolve:parmas.resolve, reject:parmas.reject,longitude:res.longitude, latitude:res.latitude, notSetLocation:parmas.notSetLocation})
+				dispatch('__getRegeo',{ resolve:parmas.resolve, reject:parmas.reject,longitude:res.longitude, latitude:res.latitude, notSetLocation:parmas.notSetLocation })
 			},
 			fail: err => {
 				if (state.location.region == '定位中') {
-					this.$navigateTo(`/ModuleCommon/address/changeAddr`); //如果这里解开的话，进入地图选点后，不选地图，点击‘取消’，会进入手动选地址页面
+					this.$navigateTo(`/ModuleCommon/address/changeAddr`); // 如果这里解开的话，进入地图选点后，不选地图，点击‘取消’，会进入手动选地址页面
 				}
 				console.log(err);
 			}

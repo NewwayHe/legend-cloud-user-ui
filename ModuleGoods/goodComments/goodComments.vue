@@ -119,10 +119,10 @@
 	
 	import { mapState } from 'vuex'
 	
-	const listPage = new pageUtil(goodsApi.commentPage,{notReset:true})
+	const listPage = new pageUtil(goodsApi.commentPage,{ notReset:true })
 	import pageScroll from '@/mixins/pageScroll.js'
 	export default {
-		name: 'good-comments',
+		name: 'GoodComments',
 		mixins: [pageScroll],
 		onLoad(options) {
 			this.comScore = options.comScore
@@ -143,7 +143,7 @@
 				// 请求所携带的参数
 				params: {
 				    condition: 'all',
-				    orderBy:'addtime',//排序方式 按评论时间排序： addtime 按评论平均分数排：averageScore
+				    orderBy:'addtime',// 排序方式 按评论时间排序： addtime 按评论平均分数排：averageScore
 				    productId: ''
 				},
 				paging: {
@@ -161,20 +161,20 @@
 			changeTab(style) {
 				if (style == 'rate') {
 					this.currentTab = 1;
-					this.params.orderBy = "averageScore"
+					this.params.orderBy = 'averageScore'
 				} else {
 					this.currentTab = 0;
-					this.params.orderBy = "addtime"
+					this.params.orderBy = 'addtime'
 				}
 				listPage.loadListByPage(this, this.params)
 			},
 			// 点击图片预览
 			clickImage(picArr,index) {
-				const arrPic = picArr.map(item =>{
+				const arrPic = picArr.map(item => {
 					let pic = this.photoServer + item;
-					if (pic.indexOf('dev6.0//dev6.0')!=-1) {
-						pic = pic.replace('dev6.0//dev6.0', 'dev6.0');//此判断是为了兼容旧数据
-					};
+					if (pic.indexOf('dev6.0//dev6.0') != -1) {
+						pic = pic.replace('dev6.0//dev6.0', 'dev6.0');// 此判断是为了兼容旧数据
+					}
 					return pic
 				});
 			    uni.previewImage({

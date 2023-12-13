@@ -55,7 +55,7 @@
 	 * @example <u-message-input mode="bottomLine"></u-message-input>
 	 */
 	export default {
-		name: "u-message-input",
+		name: 'UMessageInput',
 		props: {
 			// 最大输入长度
 			maxlength: {
@@ -70,7 +70,7 @@
 			// 显示模式，box-盒子模式，bottomLine-横线在底部模式，middleLine-横线在中部模式
 			mode: {
 				type: String,
-				default: "box"
+				default: 'box'
 			},
 			// 预置值
 			value: {
@@ -138,7 +138,7 @@
 		},
 		data() {
 			return {
-				valueModel: ""
+				valueModel: ''
 			}
 		},
 		computed: {
@@ -163,7 +163,7 @@
 		},
 		methods: {
 			getVal(e) {
-				let {
+				const {
 					value
 				} = e.detail
 				this.valueModel = value;

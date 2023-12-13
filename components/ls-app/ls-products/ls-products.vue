@@ -45,12 +45,12 @@ export default {
             type: Boolean,
             default: true
         },
-		//是否水平排列
+		// 是否水平排列
 		horizontal: {
             type: Boolean,
             default: true
         },
-		//列表数据
+		// 列表数据
 		goodlist: {
 		    type: [Array]
 		},
@@ -83,15 +83,15 @@ export default {
         }
     },
     computed: {
-        price() {//统一管理商品价格
+        price() { // 统一管理商品价格
             return function(money) {
                 let arr = []
-                if (money&&money.toString().indexOf("~")!=-1) {//判断money是否为1.00~2.00的模式
+                if (money && money.toString().indexOf('~') != -1) { // 判断money是否为1.00~2.00的模式
                     arr = [money,'']
                 }else{
-                    arr = this.$stringUtils.formatNumber(money ? money : 999)
+                    arr = this.$stringUtils.formatNumber(money || 999)
                 }
-                return  arr
+                return arr
             }
         },
 		
@@ -101,12 +101,12 @@ export default {
 		},
 		
 		themesrgba(){
-			let rgb = this.$utils.color.colorRgb(this.themesColor)
+			const rgb = this.$utils.color.colorRgb(this.themesColor)
 			return `rgba(${rgb.r},${rgb.g},${rgb.b},0.6)`
 		},
 		
 		gradientcolor(){
-			let rgb = this.$utils.color.colorRgb(this.themesColor)
+			const rgb = this.$utils.color.colorRgb(this.themesColor)
 			return `rgba(${rgb.r},${rgb.g},${rgb.b},0.7)`
 		}
     },

@@ -43,7 +43,7 @@
 	 * @example <u-index-list :scrollTop="scrollTop"></u-index-list>
 	 */
 	export default {
-		name: "u-index-list",
+		name: 'UIndexList',
 		props: {
 			sticky: {
 				type: Boolean,
@@ -63,7 +63,7 @@
 			},
 			indexList: {
 				type: Array,
-				default () {
+				default() {
 					return indexList()
 				}
 			},
@@ -196,7 +196,7 @@
 								anchorStyle = {
 									position: 'fixed',
 									top: `${stickyOffsetTop}px`,
-									zIndex: `${zIndex ? zIndex : this.$u.zIndex.indexListSticky}`,
+									zIndex: `${zIndex || this.$u.zIndex.indexListSticky}`,
 									color: `${activeColor}`
 								};
 							}
@@ -206,15 +206,15 @@
 						} else if (index === active - 1) {
 							const currentAnchor = children[index];
 							const currentOffsetTop = currentAnchor.top;
-							const targetOffsetTop = index === children.length - 1 ?
-								this.top :
-								children[index + 1].top;
+							const targetOffsetTop = index === children.length - 1
+								? this.top
+								: children[index + 1].top;
 							const parentOffsetHeight = targetOffsetTop - currentOffsetTop;
 							const translateY = parentOffsetHeight - currentAnchor.height;
 							const anchorStyle = {
 								position: 'relative',
 								transform: `translate3d(0, ${translateY}px, 0)`,
-								zIndex: `${zIndex ? zIndex : this.$u.zIndex.indexListSticky}`,
+								zIndex: `${zIndex || this.$u.zIndex.indexListSticky}`,
 								color: `${activeColor}`
 							};
 							item.active = active;

@@ -67,7 +67,7 @@ export default {
 	components: {},
 
 	props: {
-		brandParmas: Object, //品牌的参数
+		brandParmas: Object, // 品牌的参数
 
 		videoUrl: String, // 视频地址(有视频时才需要传)
 		bannerPics: Array, // banner图地址(数组)
@@ -82,9 +82,9 @@ export default {
 		return {
 			showVideo: false, // 显示视频组件
 			player: {}, // 用来接收视频对象，并用该对象调用video.js的方法
-			current: 0, //当前所在滑块的 index
-			muted: false, //video是否静音
-			fullScreen: false //video是否已全屏
+			current: 0, // 当前所在滑块的 index
+			muted: false, // video是否静音
+			fullScreen: false // video是否已全屏
 		};
 	},
 

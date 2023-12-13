@@ -35,7 +35,7 @@
 
 <script>
 	// 获取系统状态栏的高度
-	let systemInfo = uni.getSystemInfoSync();
+	const systemInfo = uni.getSystemInfoSync();
 	let menuButtonInfo = {};
 	// 如果是小程序，获取右上角胶囊的尺寸信息，避免导航栏右侧内容与胶囊重叠(支付宝小程序非本API，尚未兼容)
 	// #ifdef MP-WEIXIN || MP-BAIDU || MP-TOUTIAO || MP-QQ
@@ -65,7 +65,7 @@
 	 * @example <u-navbar back-text="返回" title="剑未配妥，出门已是江湖"></u-navbar>
 	 */
 	export default {
-		name: "u-navbar",
+		name: 'UNavbar',
 		props: {
 			// 导航栏高度，单位px，非rpx
 			height: {
@@ -95,7 +95,7 @@
 			// 返回的文字的 样式
 			backTextStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {
 						color: '#606266'
 					}
@@ -133,7 +133,7 @@
 			// 对象形式，因为用户可能定义一个纯色，或者线性渐变的颜色
 			background: {
 				type: Object,
-				default () {
+				default() {
 					return {
 						background: '#ffffff'
 					}
@@ -173,19 +173,19 @@
 		computed: {
 			// 导航栏内部盒子的样式
 			navbarInnerStyle() {
-				let style = {};
+				const style = {};
 				// 导航栏宽度，如果在小程序下，导航栏宽度为胶囊的左边到屏幕左边的距离
 				style.height = this.navbarHeight + 'px';
 				// // 如果是各家小程序，导航栏内部的宽度需要减少右边胶囊的宽度
 				// #ifdef MP
-				let rightButtonWidth = systemInfo.windowWidth - menuButtonInfo.left;
+				const rightButtonWidth = systemInfo.windowWidth - menuButtonInfo.left;
 				style.marginRight = rightButtonWidth + 'px';
 				// #endif
 				return style;
 			},
 			// 整个导航栏的样式
 			navbarStyle() {
-				let style = {};
+				const style = {};
 				style.zIndex = this.zIndex ? this.zIndex : this.$u.zIndex.navbar;
 				// 合并用户传递的背景色对象
 				Object.assign(style, this.background);
@@ -193,14 +193,14 @@
 			},
 			// 导航中间的标题的样式
 			titleStyle() {
-				let style = {};
+				const style = {};
 				// #ifndef MP
 				style.left = (systemInfo.windowWidth - uni.upx2px(this.titleWidth)) / 2 + 'px';
 				style.right = (systemInfo.windowWidth - uni.upx2px(this.titleWidth)) / 2 + 'px';
 				// #endif
 				// #ifdef MP
 				// 此处是为了让标题显示区域即使在小程序有右侧胶囊的情况下也能处于屏幕的中间，是通过绝对定位实现的
-				let rightButtonWidth = systemInfo.windowWidth - menuButtonInfo.left;
+				const rightButtonWidth = systemInfo.windowWidth - menuButtonInfo.left;
 				style.left = (systemInfo.windowWidth - uni.upx2px(this.titleWidth)) / 2 + 'px';
 				style.right = rightButtonWidth - (systemInfo.windowWidth - uni.upx2px(this.titleWidth)) / 2 + rightButtonWidth +
 					'px';
@@ -217,7 +217,7 @@
 				// 小程序特别处理，让导航栏高度 = 胶囊高度 + 两倍胶囊顶部与状态栏底部的距离之差(相当于同时获得了导航栏底部与胶囊底部的距离)
 				// 此方法有缺陷，暂不用(会导致少了几个px)，采用直接固定值的方式
 				// return menuButtonInfo.height + (menuButtonInfo.top - this.statusBarHeight) * 2;//导航高度
-				let height = systemInfo.platform == 'ios' ? 44 : 48;
+				const height = systemInfo.platform == 'ios' ? 44 : 48;
 				return this.height ? this.height : height;
 				// #endif
 			}

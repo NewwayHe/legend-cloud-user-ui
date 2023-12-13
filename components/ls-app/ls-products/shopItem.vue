@@ -47,7 +47,7 @@
 </template>
 
 <script>
-	import {search} from '@/api/ModuleGoods.js';
+	import { search } from '@/api/ModuleGoods.js';
 	import pageUtils from '@/utils/pageUtils.js';
 	import empty from '@/components/ls-app/ls-empty/ls-empty';
 	const listPage = new pageUtils(search.searchShop);

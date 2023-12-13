@@ -176,9 +176,9 @@
 </template>
 
 <script>
-	import dialogShopInvoice from './dialogShopInvoice.vue' //店家发票
-	import dialogGoodList from './dialogGoodList.vue' //浏览店家商品
-	import dialogShopSettl from './dialogShopSettl.vue' //浏览店家商品
+	import dialogShopInvoice from './dialogShopInvoice.vue' // 店家发票
+	import dialogGoodList from './dialogGoodList.vue' // 浏览店家商品
+	import dialogShopSettl from './dialogShopSettl.vue' // 浏览店家商品
 	import DialogCoupon from '@/components/submit-order/DialogCoupon'
 	import { orderApi } from '@/api/ModulesOrder.js';
 	export default {
@@ -201,8 +201,8 @@
 			return {
 				activeShop:{},
 				invoiceDict:{},
-				currentCoupon:[],//点击当前优惠券列表
-				unCouponList:[],//点击当前优惠券不可用列表
+				currentCoupon:[],// 点击当前优惠券列表
+				unCouponList:[],// 点击当前优惠券不可用列表
 				activeId:'',
 			}
 		},
@@ -216,8 +216,8 @@
 			},
 			// 切换优惠券
 			changeCoupon(coupon) {
-				let couponList=this.currentCoupon.reduce((pre,item)=>{
-					if(item.selectStatus==1){
+				let couponList = this.currentCoupon.reduce((pre,item) => {
+					if(item.selectStatus == 1){
 						pre.push(item.couponId)
 					}
 					return pre
@@ -225,21 +225,21 @@
 				if (coupon.selectStatus == 0) {
 					couponList.push(coupon.couponId)
 				}else{
-					couponList=couponList.filter(couponId=>couponId!=coupon.couponId)
+					couponList = couponList.filter(couponId => couponId != coupon.couponId)
 				}
 			
-				if(this.activeShop=="platform"){
+				if(this.activeShop == 'platform'){
 					orderApi.platformCoupon({
 					    confirmOrderId:this.orderInfo.id,
 					}, couponList).then(res => {
 					    this.orderInfo = res.data
-						this.currentCoupon=	res.data.platformCoupons//如果当前优惠券是平台
-						this.unCouponList=	res.data.platformUnAvailableCouponList//如果当前优惠券是平台
+						this.currentCoupon =	res.data.platformCoupons// 如果当前优惠券是平台
+						this.unCouponList =	res.data.platformUnAvailableCouponList// 如果当前优惠券是平台
 					    if(this.orderInfo.regionalSalesFlag) {
 					        this.showTip()
 					    }
 					}).catch(err => {
-					    console.log("change conpon", err)
+					    console.log('change conpon', err)
 					})
 				}else{
 					orderApi.changeCoupon({
@@ -247,15 +247,15 @@
 					    shopId: this.activeShop.shopId
 					}, couponList).then(res => {
 					    this.orderInfo = res.data
-						let activeShop = this.orderInfo.shopOrderList.find(item=>item.shopId==this.activeShop.shopId)
-						this.currentCoupon= activeShop.shopCouponDTO.couponItems
-						this.unCouponList= activeShop.shopCouponDTO.unavailableCouponItems
+						const activeShop = this.orderInfo.shopOrderList.find(item => item.shopId == this.activeShop.shopId)
+						this.currentCoupon = activeShop.shopCouponDTO.couponItems
+						this.unCouponList = activeShop.shopCouponDTO.unavailableCouponItems
 					    // this.$refs.coupon.changePopup()
 					    if(this.orderInfo.regionalSalesFlag) {
 					        this.showTip()
 					    }
 					}).catch(err => {
-					    console.log("change conpon", err)
+					    console.log('change conpon', err)
 					})
 				}
 			},
@@ -265,7 +265,7 @@
 			        content: '部分商品不支持该区域销售，请重新选择',
 			        cancelText: '返回',
 			        confirmText: '仍然购买',
-			        success: (res)=> {
+			        success: (res) => {
 			            if (res.cancel) {
 							this.$utils.pages.goBeforePage(1);
 			            }
@@ -274,9 +274,9 @@
 			},
 			// 选择优惠券
 			chooseCoupon(coupon,shop,unCoupon) {
-				this.activeShop=shop
-			    this.currentCoupon = coupon||[]
-			    this.unCouponList= unCoupon||[]
+				this.activeShop = shop
+			    this.currentCoupon = coupon || []
+			    this.unCouponList = unCoupon || []
 			    this.$refs.coupon.changePopup()
 			},
 			
@@ -309,7 +309,7 @@
 			// 检查店铺的商品状态
 			checkGoodStatus(shop) {
 			    let num = 0
-			    for(let item of shop.skuList) {
+			    for(const item of shop.skuList) {
 			        if (!item.statusFlag) {
 			            num++
 			        }
@@ -321,7 +321,7 @@
 			checkOneGood(shop) {
 			    console.log(shop)
 			    let num = 0
-			    for (let item of shop.skuList) {
+			    for (const item of shop.skuList) {
 			        if (item.statusFlag) {
 			            num++
 			        }

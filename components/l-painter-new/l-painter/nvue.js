@@ -22,8 +22,8 @@ export default {
 			return new Promise(resolve => {
 				dom.getComponentRect(this.$refs.limepainter, (res) => {
 					this.parentWidth = Math.ceil(res.size.width)
-					this.canvasWidth = this.canvasWidth || this.parentWidth ||300
-					this.canvasHeight = res.size.height || this.canvasHeight||150
+					this.canvasWidth = this.canvasWidth || this.parentWidth || 300
+					this.canvasHeight = res.size.height || this.canvasHeight || 150
 					resolve(res.size)
 				})
 			})
@@ -42,7 +42,7 @@ export default {
 					this.$emit('fail', res)
 				}
 				if (res.event == 'layoutChange') {
-					const data = typeof res.data == 'string' ? JSON.parse(res.data) : res.data
+					const data = typeof res.data === 'string' ? JSON.parse(res.data) : res.data
 					this.canvasWidth = Math.ceil(data.width);
 					this.canvasHeight = Math.ceil(data.height);
 				}
@@ -63,7 +63,7 @@ export default {
 							this.tempFilePath.shift()
 						}
 						if (this.isCanvasToTempFilePath) {
-							this.setFilePath(this.tempFilePath.join(''), {isEmit:true})
+							this.setFilePath(this.tempFilePath.join(''), { isEmit:true })
 						}
 					} else {
 						this.$emit('fail', 'canvas no data')
@@ -125,9 +125,9 @@ export default {
 		async render(args) {
 			try {
 				await this.getSize(args)
-				const {width} = args.css || args
+				const { width } = args.css || args
 				if(!width && this.parentWidth) {
-					Object.assign(args, {width: this.parentWidth})
+					Object.assign(args, { width: this.parentWidth })
 				}
 				const newNode = await this.calcImage(args);
 				await this.getWebViewInited()
@@ -147,35 +147,35 @@ export default {
 			}
 		},
 		getfile(e){
-			let url = plus.io.convertLocalFileSystemURL( e )
-			return new Promise((resolve,reject)=>{
+			const url = plus.io.convertLocalFileSystemURL(e)
+			return new Promise((resolve,reject) => {
 				plus.io.resolveLocalFileSystemURL(url, entry => {
 					var reader = null;
-					entry.file( file => {
+					entry.file(file => {
 						reader = new plus.io.FileReader();
-						reader.onloadend =  ( read )=> {
+						reader.onloadend = (read) => {
 							resolve(read.target.result)
 						};
-						reader.readAsDataURL( file );
-					}, function ( error ) {
-						alert( error.message );
-					} );
-				},err=>{
+						reader.readAsDataURL(file);
+					}, function(error) {
+						alert(error.message);
+					});
+				},err => {
 					resolve(e)
 				})
 			})
 		},
 		async calcImage(args) {
-			let node = JSON.parse(JSON.stringify(args))
+			const node = JSON.parse(JSON.stringify(args))
 			const urlReg = /url\((.+)\)/
-			const {backgroundImage} = node.css||{}
+			const { backgroundImage } = node.css || {}
 			const isBG = backgroundImage && urlReg.exec(backgroundImage)[1]
 			const url = node.url || node.src || isBG
 			if(['text', 'qrcode'].includes(node.type)) {
 				return node
 			}
-			if ((node.type === "image" || isBG) && url && !isBase64(url) && (this.osName == 'ios' ? true : !networkReg.test(url))) {
-				let {path} = await getImageInfo(url)
+			if ((node.type === 'image' || isBG) && url && !isBase64(url) && (this.osName == 'ios' ? true : !networkReg.test(url))) {
+				let { path } = await getImageInfo(url)
 				if(this.osName == 'ios') {
 					path = await this.getfile(path)
 				}
@@ -204,7 +204,7 @@ export default {
 				let tempFilePath = await this.getTempFilePath()
 				tempFilePath = await this.setFilePath(tempFilePath)
 				args.success({
-					errMsg: "canvasToTempFilePath:ok",
+					errMsg: 'canvasToTempFilePath:ok',
 					tempFilePath
 				})
 			} catch (e) {

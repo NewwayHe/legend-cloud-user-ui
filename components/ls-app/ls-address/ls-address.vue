@@ -83,7 +83,7 @@
 <script>
 import { addressApi } from '@/api/ModulesCommon.js';
 export default {
-	name: 'ls-address',
+	name: 'LsAddress',
 	props: {
 		mode: {
 			type: String,
@@ -169,7 +169,7 @@ export default {
 	},
 	computed: {
 		locationName() {
-			let nameList = this.location.map(item => {
+			const nameList = this.location.map(item => {
 				return item.selectName ? item.selectName : item.name;
 			});
 			return nameList;
@@ -214,7 +214,7 @@ export default {
 				this.selectIndex = newLocation.length - 1;
 				console.log(this.location);
 				for (let index = 0; index < this.location.length; index++) {
-					let map = {
+					const map = {
 						0: 'provinceData',
 						1: 'cityData',
 						2: 'areaData',
@@ -274,7 +274,7 @@ export default {
 
 		async switchAddress(value, key, type) {
 			// 防连续点击(当接口加载速度很慢时，用debounce，throttle都无法解决问题，只能用遮罩层)
-			uni.showLoading({ mask: true, title: '加载地址中...'});
+			uni.showLoading({ mask: true, title: '加载地址中...' });
 			let data = null;
 			if (key == this.location[this.selectIndex].key) {
 				return;
@@ -292,10 +292,10 @@ export default {
 			this.location[this.selectIndex].key = key;
 			data && data.length > 0 && type && (this.selectIndex += 1);
 			data && data.length > 0 && (this.location = [...this.location, { name: '请选择', selectName: '', key: '' }]);
-			if (type == 'endData'||!data.length) {
+			if (type == 'endData' || !data.length) {
 				this.onConfirm();
 			}
-			setTimeout(()=>{uni.hideLoading()},100)
+			setTimeout(() => { uni.hideLoading() },100)
 		},
 
 		change() {
@@ -305,7 +305,7 @@ export default {
 		// 确认
 		onConfirm() {
 			let isSelect = false; // 默认有选择
-			let values = [];
+			const values = [];
 			const keys = [];
 			this.location.forEach((item, index) => {
 				if (item.selectName == '') {

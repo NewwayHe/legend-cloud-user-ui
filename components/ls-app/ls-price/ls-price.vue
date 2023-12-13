@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: 'ls-price',
+    name: 'LsPrice',
 	// #ifdef MP-WEIXIN
 	// 将自定义节点设置成虚拟的，更加接近Vue组件的表现，能更好的使用flex属性。这时在<组件name> 里加style和class是不会生效的
 	options: { virtualHost: true },
@@ -23,7 +23,7 @@ export default {
             default: 0
         },
 		className:{
-			type: [String, Array,Boolean],//这里加个Boolean，是因为如果传className=""，小程序端会报错
+			type: [String, Array,Boolean],// 这里加个Boolean，是因为如果传className=""，小程序端会报错
 			default: ''
 		},
 		// 自定义样式，对象形式
@@ -77,12 +77,12 @@ export default {
             let options2 = {}
             if (this.options) {
                 options2 = {
-                    is: this.options.is||28, // integer-size,整数字体大小
-                    ic: this.options.ic?this.options.ic:!this.notThemes?this.themes.color:'', // integer-color,整数字体颜色，默认notThemes为false时是主题颜色，notThemes为true时不设颜色(承继父级元素的颜色)
-                    iw: this.options.iw||500, // integer-weight,整数字体字重
-                    ds: this.options.ds||24, // decimal-size,小数字体大小
-					dc: (this.options.dc||this.options.ic)?(this.options.dc||this.options.ic):!this.notThemes?this.themes.color:'', // decimal-color,小数字体颜色，默认notThemes为false时是主题颜色，notThemes为true时不设颜色(承继父级元素的颜色)
-                    dw: this.options.dw||500 // decimal-weight,小数字体字重
+                    is: this.options.is || 28, // integer-size,整数字体大小
+                    ic: this.options.ic ? this.options.ic : !this.notThemes ? this.themes.color : '', // integer-color,整数字体颜色，默认notThemes为false时是主题颜色，notThemes为true时不设颜色(承继父级元素的颜色)
+                    iw: this.options.iw || 500, // integer-weight,整数字体字重
+                    ds: this.options.ds || 24, // decimal-size,小数字体大小
+					dc: (this.options.dc || this.options.ic) ? (this.options.dc || this.options.ic) : !this.notThemes ? this.themes.color : '', // decimal-color,小数字体颜色，默认notThemes为false时是主题颜色，notThemes为true时不设颜色(承继父级元素的颜色)
+                    dw: this.options.dw || 500 // decimal-weight,小数字体字重
                 }
             } else {
                 options2 = {
@@ -97,15 +97,15 @@ export default {
             return options2
         },
         
-        priceTemp() {//统一管理商品价格
+        priceTemp() { // 统一管理商品价格
             return function(price) {
                 let arr = []
-                if (price&&price.toString().indexOf("~")!=-1) {//判断money是否为1.00~2.00的模式
+                if (price && price.toString().indexOf('~') != -1) { // 判断money是否为1.00~2.00的模式
                     arr = [price,'']
                 }else{
-                    arr = this.$stringUtils.formatNumber(price ? price : 0)
+                    arr = this.$stringUtils.formatNumber(price || 0)
                 }
-                return  arr
+                return arr
             }
         },
     },

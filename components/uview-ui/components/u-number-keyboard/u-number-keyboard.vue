@@ -52,7 +52,7 @@
 		computed: {
 			// 键盘需要显示的内容
 			numList() {
-				let tmp = [];
+				const tmp = [];
 				if (!this.dotEnabled && this.mode == 'number') {
 					if (!this.random) {
 						return [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
@@ -76,7 +76,7 @@
 			// 按键的样式，在非乱序&&数字键盘&&不显示点按钮时，index为9时，按键占位两个空间
 			itemStyle() {
 				return index => {
-					let style = {};
+					const style = {};
 					if (this.mode == 'number' && !this.dotEnabled && index == 9) style.flex = '0 0 66.6666666666%';
 					return style;
 				};
@@ -99,7 +99,7 @@
 			// 点击退格键
 			backspaceClick() {
 				this.$emit('backspace');
-				clearInterval(this.timer); //再次清空定时器，防止重复注册定时器
+				clearInterval(this.timer); // 再次清空定时器，防止重复注册定时器
 				this.timer = null;
 				this.timer = setInterval(() => {
 					this.$emit('backspace');

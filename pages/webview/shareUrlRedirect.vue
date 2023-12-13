@@ -11,7 +11,7 @@
 <script>
 	import loadingCss from '@/static/cssImage/loadingCss.vue';
 	export default {
-		components: {loadingCss},
+		components: { loadingCss },
 	    data() {
 	        return {
 	            url: '',
@@ -41,14 +41,14 @@
 			redirect(option){
 				let modulePath
 				let baseUrl
-				//判断跳转PC端还是移动端页面
+				// 判断跳转PC端还是移动端页面
 				modulePath = this.mobile
 				baseUrl = location.origin
 				if(!option.detailsType) {
 					location.href = baseUrl
 					return
 				}
-				this.url = baseUrl + modulePath[option.detailsType]+this.$u.queryParams({...{isPreview:true},...option})
+				this.url = baseUrl + modulePath[option.detailsType] + this.$u.queryParams({ ...{ isPreview:true },...option })
 				// console.log(location)
 				location.href = this.url
 			}

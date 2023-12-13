@@ -22,7 +22,7 @@ const oauth2ServiceImpl = {
             userApi
                 .login(params)
                 .then((res) => {
-                    if (res.code==201) {
+                    if (res.code == 201) {
                         result.success = true
                         result.msg = '用户认证失败!'
                         result.data = res
@@ -149,13 +149,13 @@ const oauth2ServiceImpl = {
                                 // console.log(res.target.authResult.access_token);
                                 // console.log(res.target.authResult.openid);
                                 // console.log(_method.getPlatform());
-								const authTypeStatus = {weixin:'WECHAT_APP',qq:'QQ_APP',sinaweibo:'WEIBO_APP'}//现在只能微信登录，QQ和微博是假的乱写的，到时再接
+								const authTypeStatus = { weixin:'WECHAT_APP',qq:'QQ_APP',sinaweibo:'WEIBO_APP' }// 现在只能微信登录，QQ和微博是假的乱写的，到时再接
                                 params = {
                                     type: provider,
                                     platform: _method.getPlatform(),
                                     credentials: res.target.authResult.access_token,
                                     principal: res.target.authResult.openid,
-									grant_type:'legendshop',//认证方式。这个是新加的，这个作用是让后台走我们自定义的认证方式
+									grant_type:'legendshop',// 认证方式。这个是新加的，这个作用是让后台走我们自定义的认证方式
 									user_type: 'USER',
 									auth_type: authTypeStatus[provider],
                                 }
@@ -164,12 +164,11 @@ const oauth2ServiceImpl = {
                                         params.refreshToken = res.target.authResult.refresh_token
                                     }
                                 }
-
                             }
                             // console.log('login-params:',params)
                             userApi.login(params).then((res) => {
                                     // console.log('login-res:',res)
-									if (res.code==201) {
+									if (res.code == 201) {
 										result.passportIdKey = res.data
 										result.platform = _method.getPlatform()
 										result.success = true

@@ -13,7 +13,7 @@
 	 * @example 暂无示例
 	 */
 	export default {
-		name: "u-th",
+		name: 'UTh',
 		props: {
 			// 宽度，百分比或者具体带单位的值，如30%， 200rpx等，一般使用百分比
 			width: {
@@ -33,7 +33,7 @@
 			this.parent = this.$u.$parent.call(this, 'u-table');
 			if (this.parent) {
 				// 将父组件的相关参数，合并到本组件
-				let style = {};
+				const style = {};
 				if (this.width) style.flex = `0 0 ${this.width}`;
 				style.textAlign = this.parent.align;
 				style.padding = this.parent.padding;

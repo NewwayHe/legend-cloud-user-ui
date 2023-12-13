@@ -73,7 +73,7 @@ export default {
             password: '', // 密码
             phone: '', // 手机号码
             code: '', // 验证码
-            hasClickCode:false,//【手机快捷登录】是否已经点击了【获取验证码】
+            hasClickCode:false,// 【手机快捷登录】是否已经点击了【获取验证码】
             passportIdKey: '',
             isWeixinH5: this.$utils.getUa().isWeixin,
 			showPassword:true,
@@ -91,7 +91,7 @@ export default {
         ...mapState(['systemConfig']),
         showBut() {
             // !this.loginMode:手机快捷登录;this.loginMode账号密码登录
-            return !this.loginMode?(this.phone&&this.code&&this.hasClickCode):(this.userName&&this.password);
+            return !this.loginMode ? (this.phone && this.code && this.hasClickCode) : (this.userName && this.password);
         }
     },
     onLoad(option) {
@@ -125,7 +125,7 @@ export default {
 			this.loginMode = item.index
 		},
         
-        //获取是否已经点击了【获取验证码】
+        // 获取是否已经点击了【获取验证码】
         change(val){
             this.hasClickCode = val
         },
@@ -154,7 +154,7 @@ export default {
 							uni.showToast({
 								title: '登录成功',
 								mask: true,
-								complete:()=> {
+								complete:() => {
 									setTimeout(() => {
 										this.$utils.pages.goBeforePage(1, ['login']); // 从什么页面过来的就跳回什么页面去
 									}, 1500);
@@ -163,7 +163,7 @@ export default {
 						} else {
 							uni.showToast({ title: res.msg, icon: 'none', duration: 2000 });
 						}
-					}).finally(()=>{
+					}).finally(() => {
 						return resolve()
 					})
 				} else {
@@ -188,7 +188,7 @@ export default {
 							uni.showToast({
 								title: '登录成功',
 								mask: true,
-								complete:()=> {
+								complete:() => {
 									setTimeout(() => {
 										this.$utils.pages.goBeforePage(1, ['login']); // 从什么页面过来的就跳回什么页面去
 									}, 1500);
@@ -197,7 +197,7 @@ export default {
 						} else {
 							uni.showToast({ title: res.msg, icon: 'none', duration: 2000 });
 						}
-					}).finally(()=>{
+					}).finally(() => {
 						return resolve()
 					})
 				}
@@ -211,11 +211,11 @@ export default {
         // #ifdef H5
         // 第三方登录(H5)
         oauthLoginH5(provider) {
-            this.$u.debounce(()=> {
+            this.$u.debounce(() => {
                 const title = '第三方登录';
                 let url = '';
                 // 如果不是微服务版本(即是正常版本)
-                url = this.$config.server + '/thirdlogin/' + provider + '/h5/authorize';//旧接口，没用的
+                url = this.$config.server + '/thirdlogin/' + provider + '/h5/authorize';// 旧接口，没用的
                 uni.navigateTo({ url: `/pages/webview/webview?title=${title}&url=${encodeURIComponent(url)}` });
             })
         },
@@ -230,13 +230,13 @@ export default {
                 success: res => {
                     console.log(res);
                     // console.log(res); // {"errMsg":"getProvider:ok","service":"oauth","provider":["weixin","qq","sinaweibo"]}
-					let statusIcon = {weixin:'weixin-circle-fill',qq:'qq-circle-fill',sinaweibo:'weibo-circle-fill'}
-					let statusColor = {weixin:'#50b038',qq:'#5d9bdd',sinaweibo:'#e75252'}
+					const statusIcon = { weixin:'weixin-circle-fill',qq:'qq-circle-fill',sinaweibo:'weibo-circle-fill' }
+					const statusColor = { weixin:'#50b038',qq:'#5d9bdd',sinaweibo:'#e75252' }
                     if (res.provider && res.provider.length) {
                         for (let i = 0; i < res.provider.length; i++) {
                             if (~filters.indexOf(res.provider[i])) {
                                 this.providerList.push({
-                                    value: res.provider[i],//weixin,qq,sinaweibo
+                                    value: res.provider[i],// weixin,qq,sinaweibo
                                     icon: statusIcon[res.provider[i]],
                                     color: statusColor[res.provider[i]]
                                 });

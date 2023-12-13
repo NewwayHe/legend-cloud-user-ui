@@ -43,7 +43,7 @@ const goodsApi = {
 
 	// 【用户】添加到货通知
 	productArrivalNoticeSave: (data) => request.post(`/product/p/productArrivalNotice/save`, data),
-	//商品快照
+	// 商品快照
 	productSnapshot: (data) => request.get(`/product/snapshot/get`, data),
 
 }

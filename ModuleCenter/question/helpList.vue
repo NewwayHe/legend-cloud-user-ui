@@ -20,7 +20,7 @@
 <script>
 	import { questionApi } from '@/api/ModulesUser.js'
 	import pageUtil from '@/utils/pageUtils.js'
-	let listPage = new pageUtil(questionApi.getQuestionArticle, { field: { list: 'articleList' }})
+	const listPage = new pageUtil(questionApi.getQuestionArticle, { field: { list: 'articleList' }})
 	export default {
 		data() {
 			return {
@@ -34,7 +34,7 @@
 			}
 		},
 		onLoad(options) {
-			this.artId = options.id;		//存储一份 为分页做预留
+			this.artId = options.id;		// 存储一份 为分页做预留
 			listPage.loadListByPage(this, { id: options.id })
 		},
 		onReachBottom() {

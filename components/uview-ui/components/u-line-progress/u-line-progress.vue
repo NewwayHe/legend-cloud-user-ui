@@ -34,7 +34,7 @@
 	 * @example <u-line-progress :percent="70" :show-percent="true"></u-line-progress>
 	 */
 	export default {
-		name: "u-line-progress",
+		name: 'ULineProgress',
 		props: {
 			// 两端是否显示半圆形
 			round: {
@@ -88,7 +88,7 @@
 		},
 		computed: {
 			progressStyle() {
-				let style = {};
+				const style = {};
 				style.width = this.percent + '%';
 				if(this.activeColor) style.backgroundColor = this.activeColor;
 				return style;

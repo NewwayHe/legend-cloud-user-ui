@@ -45,7 +45,7 @@
  * @example <u-swipe-action btn-text="收藏">...</u-swipe-action>
  */
 export default {
-	name: 'u-swipe-action',
+	name: 'USwipeAction',
 	props: {
 		// index值，用于得知点击删除的是哪个按钮
 		index: {
@@ -119,7 +119,7 @@ export default {
 		},
 		btnStyle() {
 			return style => {
-				let css = {};
+				const css = {};
 				style.width = this.btnWidth + 'rpx';
 				return style;
 			};

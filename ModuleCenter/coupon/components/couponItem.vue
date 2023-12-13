@@ -142,7 +142,7 @@ export default {
 							mask: true,
 							complete: () => {
 								// setTimeout(() => {
-									this.value.receiveCount ++
+									this.value.receiveCount++
 									this.value.receivedFlag = true;
 									this.$emit('input', this.value);
 								// }, 1500);
@@ -163,7 +163,7 @@ export default {
 			}
 		},
 		goCouponDetail(){
-			if(this.type==1){
+			if(this.type == 1){
 				this.$navigateTo(`/ModuleCenter/coupon/couponDetail?id=${this.value.id}&type=center`)
 			}
 		}

@@ -73,7 +73,7 @@ export default {
 			});
         }
 		// 当传过来的值是refundReturnLogisticsDTO时(用户售后订单退货物流)
-		if (!this.$u.test.isEmpty(option.refundReturnLogisticsDTO)&&JSON.parse(decodeURIComponent(option.refundReturnLogisticsDTO))) {
+		if (!this.$u.test.isEmpty(option.refundReturnLogisticsDTO) && JSON.parse(decodeURIComponent(option.refundReturnLogisticsDTO))) {
 			this.logisticsData = JSON.parse(decodeURIComponent(option.refundReturnLogisticsDTO)) || {}
 			this.logisticsArr = JSON.parse(this.logisticsData.trackingInformation) || []
 			this.paging.status = 'noMore'

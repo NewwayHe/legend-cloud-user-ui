@@ -12,7 +12,7 @@
 // 接口
 import { userApi } from '@/api/ModulesUser.js'
 export default {
-    name: 'ls-verify-code',
+    name: 'LsVerifyCode',
 	// #ifdef MP-WEIXIN
 	// 将自定义节点设置成虚拟的，更加接近Vue组件的表现，能更好的使用flex属性。这时在<组件name> 里加style和class是不会生效的
 	options: { virtualHost: true },
@@ -37,7 +37,7 @@ export default {
         * }
         */
         className:{
-        	type: [String, Array,Boolean],//这里加个Boolean，是因为如果传className=""，小程序端会报错
+        	type: [String, Array,Boolean],// 这里加个Boolean，是因为如果传className=""，小程序端会报错
         	default: ''
         },
         // 是否需要登录，false：不需要登录请求(用smsVerifyCode接口)，true：普通用户登录请求(用pSmsVerifyCode接口)
@@ -48,8 +48,8 @@ export default {
     },
     data() {
         return {
-            tips: '',//u-verification-code验证码倒计时专用
-            uniqueKey:this.$utils.pages.getPageRoute().url,//多个组件之间继续倒计时的区分key(用页面地址来区分)
+            tips: '',// u-verification-code验证码倒计时专用
+            uniqueKey:this.$utils.pages.getPageRoute().url,// 多个组件之间继续倒计时的区分key(用页面地址来区分)
         }
     },
     computed: { },
@@ -58,18 +58,18 @@ export default {
     },
 
     methods: {
-        //u-verification-code验证码倒计时专用
+        // u-verification-code验证码倒计时专用
         codeChange(text) {
         	this.tips = text;
         },
         
         // 发送验证码
         getVerifyCode() {
-            this.$u.debounce(()=> {
+            this.$u.debounce(() => {
                 // 禁止点击
-                if (!this.needLogin&&!this.$checkInfo([{ type: 'phone', value: this.params.mobile,msg:'请输入正确的手机号码' }])) return;
+                if (!this.needLogin && !this.$checkInfo([{ type: 'phone', value: this.params.mobile,msg:'请输入正确的手机号码' }])) return;
                 if(this.$refs.uCode.canGetCode) {
-                    let api = !this.needLogin ? 'smsVerifyCode' : 'pSmsVerifyCode'
+                    const api = !this.needLogin ? 'smsVerifyCode' : 'pSmsVerifyCode'
                     userApi[api](this.params).then((res) => {
                         if (res.code == 1) {
                             // 这里此提示会被this.start()方法中的提示覆盖

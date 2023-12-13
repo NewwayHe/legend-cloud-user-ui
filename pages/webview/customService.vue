@@ -27,7 +27,7 @@
 		},
 		data() {
 			return {
-				isLoadInfo: false,	//是否请求到个人信息[已登录情况下]
+				isLoadInfo: false,	// 是否请求到个人信息[已登录情况下]
 				src: '',
 				paging: {
 					status: 'loading',
@@ -46,11 +46,11 @@
 				agentId: ,			//当前租户
 			*/
 		   console.log('进来了--', options, this.themes)
-		   setTimeout(()=>{
+		   setTimeout(() => {
 		   	this.isLoadInfo = true
 		   	this.paging.status = 'noMore'
 		   	// this.src = this.$config.csServer + this.$u.queryParams({ ...options, themes: this.themes.color });
-		   	this.src = this.$config.csServer + '?opt='+ encodeURIComponent(JSON.stringify({ ...options, themes: this.themes.color }));//不加setTime的话，按F5刷新的主题颜色会传#CCCCCC
+		   	this.src = this.$config.csServer + '?opt=' + encodeURIComponent(JSON.stringify({ ...options, themes: this.themes.color }));// 不加setTime的话，按F5刷新的主题颜色会传#CCCCCC
 		   },500)
 		   
 			// #ifdef H5
@@ -82,7 +82,7 @@
 			// #ifdef H5
 			window.removeEventListener('popstate', this.onBackButtonPressed);
 			// #endif
-			this.src = ''//要把Socket关闭，不然后台监听不到用户已退出，isLoadInfo=false也能得到同样的效果，
+			this.src = ''// 要把Socket关闭，不然后台监听不到用户已退出，isLoadInfo=false也能得到同样的效果，
 		},
 		onUnload() {
 			// console.log('8080CS卸载XY',this)
@@ -97,7 +97,7 @@
 		methods: {
 			onBackButtonPressed() {
 				// console.log('onBackButtonPressed~~~')
-				this.src = ''//要把Socket关闭，不然后台监听不到用户已退出，isLoadInfo=false也能得到同样的效果，
+				this.src = ''// 要把Socket关闭，不然后台监听不到用户已退出，isLoadInfo=false也能得到同样的效果，
 			  // 处理物理返回按钮事件
 			},
 			receiveCsMsg(ev) {

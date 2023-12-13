@@ -90,7 +90,7 @@
 	 */
 	
 	export default {
-		name: 'u-calendar',
+		name: 'UCalendar',
 		props: {
 			safeAreaInsetBottom: {
 				type: Boolean,
@@ -200,7 +200,7 @@
 				type: String,
 				default: '结束'
 			},
-			//按钮样式类型
+			// 按钮样式类型
 			btnType: {
 				type: String,
 				default: 'primary'
@@ -274,11 +274,11 @@
 		methods: {
 			getColor(index, type) {
 				let color = type == 1 ? '' : this.color;
-				let day = index + 1
-				let date = `${this.year}-${this.month}-${day}`
-				let timestamp = new Date(date.replace(/\-/g, '/')).getTime();
-				let start = this.startDate.replace(/\-/g, '/')
-				let end = this.endDate.replace(/\-/g, '/')
+				const day = index + 1
+				const date = `${this.year}-${this.month}-${day}`
+				const timestamp = new Date(date.replace(/\-/g, '/')).getTime();
+				const start = this.startDate.replace(/\-/g, '/')
+				const end = this.endDate.replace(/\-/g, '/')
 				if ((this.isActiveCurrent && this.activeDate == date) || this.startDate == date || this.endDate == date) {
 					color = type == 1 ? this.activeBgColor : this.activeColor;
 				} else if (this.endDate && timestamp > new Date(start).getTime() && timestamp < new Date(end).getTime()) {
@@ -287,7 +287,7 @@
 				return color;
 			},
 			init() {
-				let now = new Date();
+				const now = new Date();
 				this.year = now.getFullYear();
 				this.month = now.getMonth() + 1;
 				this.day = now.getDate();
@@ -295,20 +295,20 @@
 				this.activeDate = this.today;
 				this.min = this.initDate(this.minDate);
 				this.max = this.initDate(this.maxDate || this.today);
-				this.startDate = "";
+				this.startDate = '';
 				this.startYear = 0;
 				this.startMonth = 0;
 				this.startDay = 0;
 				this.endYear = 0;
 				this.endMonth = 0;
 				this.endDay = 0;
-				this.endDate = "";
+				this.endDate = '';
 				this.isStart = true;
 				this.changeData();
 			},
-			//日期处理
+			// 日期处理
 			initDate(date) {
-				let fdate = date.split('-');
+				const fdate = date.split('-');
 				return {
 					year: Number(fdate[0] || 1920),
 					month: Number(fdate[1] || 1),
@@ -317,11 +317,11 @@
 			},
 			openDisAbled: function(year, month, day) {
 				let bool = true;
-				let date = `${year}/${month}/${day}`;
+				const date = `${year}/${month}/${day}`;
 				// let today = this.today.replace(/\-/g, '/');
-				let min = `${this.min.year}/${this.min.month}/${this.min.day}`;
-				let max = `${this.max.year}/${this.max.month}/${this.max.day}`;
-				let timestamp = new Date(date).getTime();
+				const min = `${this.min.year}/${this.min.month}/${this.min.day}`;
+				const max = `${this.max.year}/${this.max.month}/${this.max.day}`;
+				const timestamp = new Date(date).getTime();
 				if (timestamp >= new Date(min).getTime() && timestamp <= new Date(max).getTime()) {
 					bool = false;
 				}
@@ -333,20 +333,20 @@
 			formatNum: function(num) {
 				return num < 10 ? '0' + num : num + '';
 			},
-			//一个月有多少天
+			// 一个月有多少天
 			getMonthDay(year, month) {
-				let days = new Date(year, month, 0).getDate();
+				const days = new Date(year, month, 0).getDate();
 				return days;
 			},
 			getWeekday(year, month) {
-				let date = new Date(`${year}/${month}/01 00:00:00`);
+				const date = new Date(`${year}/${month}/01 00:00:00`);
 				return date.getDay();
 			},
 			checkRange(year) {
 				let overstep = false;
 				if (year < this.minYear || year > this.maxYear) {
 					uni.showToast({
-						title: "日期超出范围啦~",
+						title: '日期超出范围啦~',
 						icon: 'none'
 					})
 					overstep = true;
@@ -355,17 +355,16 @@
 			},
 			changeMonthHandler(isAdd) {
 				if (isAdd) {
-					let month = this.month + 1;
-					let year = month > 12 ? this.year + 1 : this.year;
+					const month = this.month + 1;
+					const year = month > 12 ? this.year + 1 : this.year;
 					if (!this.checkRange(year)) {
 						this.month = month > 12 ? 1 : month;
 						this.year = year;
 						this.changeData();
 					}
-
 				} else {
-					let month = this.month - 1;
-					let year = month < 1 ? this.year - 1 : this.year;
+					const month = this.month - 1;
+					const year = month < 1 ? this.year - 1 : this.year;
 					if (!this.checkRange(year)) {
 						this.month = month < 1 ? 12 : month;
 						this.year = year;
@@ -374,7 +373,7 @@
 				}
 			},
 			changeYearHandler(isAdd) {
-				let year = isAdd ? this.year + 1 : this.year - 1;
+				const year = isAdd ? this.year + 1 : this.year - 1;
 				if (!this.checkRange(year)) {
 					this.year = year;
 					this.changeData();
@@ -382,9 +381,9 @@
 			},
 			changeData() {
 				this.days = this.getMonthDay(this.year, this.month);
-				this.daysArr=this.generateArray(1,this.days)
+				this.daysArr = this.generateArray(1,this.days)
 				this.weekday = this.getWeekday(this.year, this.month);
-				this.weekdayArr=this.generateArray(1,this.weekday)
+				this.weekdayArr = this.generateArray(1,this.weekday)
 				this.showTitle = `${this.year}年${this.month}月`;
 				if (this.isChange && this.mode == 'date') {
 					this.btnFix(true);
@@ -394,11 +393,11 @@
 				day += 1;
 				if (!this.openDisAbled(this.year, this.month, day)) {
 					this.day = day;
-					let date = `${this.year}-${this.month}-${day}`;
+					const date = `${this.year}-${this.month}-${day}`;
 					if (this.mode == 'date') {
 						this.activeDate = date;
 					} else {
-						let compare = new Date(date.replace(/\-/g, '/')).getTime() < new Date(this.startDate.replace(/\-/g, '/')).getTime()
+						const compare = new Date(date.replace(/\-/g, '/')).getTime() < new Date(this.startDate.replace(/\-/g, '/')).getTime()
 						if (this.isStart || compare) {
 							this.startDate = date;
 							this.startYear = this.year;
@@ -407,8 +406,8 @@
 							this.endYear = 0;
 							this.endMonth = 0;
 							this.endDay = 0;
-							this.endDate = "";
-							this.activeDate = "";
+							this.endDate = '';
+							this.activeDate = '';
 							this.isStart = false;
 						} else {
 							this.endDate = date;
@@ -426,7 +425,7 @@
 			},
 			getWeekText(date) {
 				date = new Date(`${date.replace(/\-/g, '/')} 00:00:00`);
-				let week = date.getDay();
+				const week = date.getDay();
 				return '星期' + ['日', '一', '二', '三', '四', '五', '六'][week];
 			},
 			btnFix(show) {
@@ -434,17 +433,17 @@
 					this.close();
 				}
 				if (this.mode == 'date') {
-					let arr = this.activeDate.split('-')
-					let year = this.isChange ? this.year : Number(arr[0]);
-					let month = this.isChange ? this.month : Number(arr[1]);
-					let day = this.isChange ? this.day : Number(arr[2]);
-					//当前月有多少天
-					let days = this.getMonthDay(year, month);
-					let result = `${year}-${this.formatNum(month)}-${this.formatNum(day)}`;
-					let weekText = this.getWeekText(result);
+					const arr = this.activeDate.split('-')
+					const year = this.isChange ? this.year : Number(arr[0]);
+					const month = this.isChange ? this.month : Number(arr[1]);
+					const day = this.isChange ? this.day : Number(arr[2]);
+					// 当前月有多少天
+					const days = this.getMonthDay(year, month);
+					const result = `${year}-${this.formatNum(month)}-${this.formatNum(day)}`;
+					const weekText = this.getWeekText(result);
 					let isToday = false;
 					if (`${year}-${month}-${day}` == this.today) {
-						//今天
+						// 今天
 						isToday = true;
 					}
 					this.$emit('change', {
@@ -459,15 +458,15 @@
 					});
 				} else {
 					if (!this.startDate || !this.endDate) return;
-					let startMonth = this.formatNum(this.startMonth);
-					let startDay = this.formatNum(this.startDay);
-					let startDate = `${this.startYear}-${startMonth}-${startDay}`;
-					let startWeek = this.getWeekText(startDate)
+					const startMonth = this.formatNum(this.startMonth);
+					const startDay = this.formatNum(this.startDay);
+					const startDate = `${this.startYear}-${startMonth}-${startDay}`;
+					const startWeek = this.getWeekText(startDate)
 
-					let endMonth = this.formatNum(this.endMonth);
-					let endDay = this.formatNum(this.endDay);
-					let endDate = `${this.endYear}-${endMonth}-${endDay}`;
-					let endWeek = this.getWeekText(endDate);
+					const endMonth = this.formatNum(this.endMonth);
+					const endDay = this.formatNum(this.endDay);
+					const endDate = `${this.endYear}-${endMonth}-${endDay}`;
+					const endWeek = this.getWeekText(endDate);
 					this.$emit('change', {
 						startYear: this.startYear,
 						startMonth: this.startMonth,

@@ -130,7 +130,7 @@ export default {
 
         // 显示弹窗，并重置数据
         changePopup() {
-            this.show=!this.show
+            this.show = !this.show
             if (this.show) {
                 this.pageForm.curPage = 1
                 this.dataList = []

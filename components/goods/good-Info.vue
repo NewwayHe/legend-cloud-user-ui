@@ -44,7 +44,7 @@ export default {
 				return {};
 			}
 		},
-		skuType: String, //营销类型 拼团/团购/秒杀活动需传 普通（NORMAL，在这里规定普通商品的话值为空''，有值就是有活动） 团购（GROUP） 拼团（MERGE） 秒杀（SECKILL）
+		skuType: String, // 营销类型 拼团/团购/秒杀活动需传 普通（NORMAL，在这里规定普通商品的话值为空''，有值就是有活动） 团购（GROUP） 拼团（MERGE） 秒杀（SECKILL）
 	},
 
 	data() {
@@ -57,11 +57,11 @@ export default {
 		...mapState(['userInfo']),
 		price(){
 			// 如果有sku优惠折扣价格,则显示sku优惠折扣价格
-			return this.skuData.skuItem.discountPrice||this.skuData.skuItem.discountPrice==0?this.skuData.skuItem.discountPrice:this.skuData.skuItem.price
+			return this.skuData.skuItem.discountPrice || this.skuData.skuItem.discountPrice == 0 ? this.skuData.skuItem.discountPrice : this.skuData.skuItem.price
 		},
 		originalPrice(){
 			// 如果有sku优惠折扣价格,则划线价为现价
-			return this.skuData.skuItem.discountPrice||this.skuData.skuItem.discountPrice==0?this.skuData.skuItem.price:this.skuData.skuItem.originalPrice
+			return this.skuData.skuItem.discountPrice || this.skuData.skuItem.discountPrice == 0 ? this.skuData.skuItem.price : this.skuData.skuItem.originalPrice
 		}
 	},
 	watch: {},

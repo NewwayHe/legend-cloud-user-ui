@@ -7,10 +7,10 @@ const importFilters = (Vue) => {
 		if (val && String(val).includes('.')) {
 			let text = String(val)
 			// 如果只有1位小数，则后面拼一个0
-			if (String(val).split(".")[1].length == 1) {
+			if (String(val).split('.')[1].length == 1) {
 				text = String(val) + '0'
 			}
-			return '￥' + text.substring(0, text.indexOf(".") + 3); // 只取小数点后两位，后面的全部切割掉(不进行四舍五入)
+			return '￥' + text.substring(0, text.indexOf('.') + 3); // 只取小数点后两位，后面的全部切割掉(不进行四舍五入)
 		} else {
 			if (!val) val = 0;
 			return '￥' + Number(val).toFixed(2);
@@ -22,10 +22,10 @@ const importFilters = (Vue) => {
 			if (price && String(price).includes('.')) {
 				let text = String(price)
 				// 如果只有1位小数，则后面拼一个0
-				if (String(price).split(".")[1].length == 1) {
+				if (String(price).split('.')[1].length == 1) {
 					text = String(price) + '0'
 				}
-				return '￥' + text.substring(0, text.indexOf(".") + 3); // 只取小数点后两位，后面的全部切割掉(不进行四舍五入)
+				return '￥' + text.substring(0, text.indexOf('.') + 3); // 只取小数点后两位，后面的全部切割掉(不进行四舍五入)
 			} else {
 				if (!price) price = 0;
 				return '￥' + Number(val).toFixed(2);

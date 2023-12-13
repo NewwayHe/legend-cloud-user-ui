@@ -31,7 +31,7 @@
 	 * @example <u-badge :type="type" :count="count"></u-badge>
 	 */
 	export default {
-		name: 'u-badge',
+		name: 'UBadge',
 		mixins: [mixin],
 		// #ifdef MP-WEIXIN
 		// 将自定义节点设置成虚拟的，更加接近Vue组件的表现，能更好的使用flex属性。这时在<组件name> 里加style和class是不会生效的
@@ -115,7 +115,7 @@
 		computed: {
 			// 是否将badge中心与父组件右上角重合
 			boxStyle() {
-				let style = {};
+				const style = {};
 				return style;
 			},
 			// 整个组件的样式
@@ -142,16 +142,16 @@
 			},
 			showValue() {
 				switch (this.numberType) {
-					case "overflow":
-						return Number(this.value) > Number(this.max) ? this.max + "+" : this.value
+					case 'overflow':
+						return Number(this.value) > Number(this.max) ? this.max + '+' : this.value
 						break;
-					case "ellipsis":
-						return Number(this.value) > Number(this.max) ? "..." : this.value
+					case 'ellipsis':
+						return Number(this.value) > Number(this.max) ? '...' : this.value
 						break;
-					case "limit":
-						return Number(this.value) > 999 ? Number(this.value) >= 9999 ?
-							Math.floor(this.value / 1e4 * 100) / 100 + "w" : Math.floor(this.value /
-								1e3 * 100) / 100 + "k" : this.value
+					case 'limit':
+						return Number(this.value) > 999 ? Number(this.value) >= 9999
+							? Math.floor(this.value / 1e4 * 100) / 100 + 'w' : Math.floor(this.value /
+								1e3 * 100) / 100 + 'k' : this.value
 						break;
 					default:
 						return Number(this.value)

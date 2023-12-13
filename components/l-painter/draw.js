@@ -1,4 +1,4 @@
-import { toPx, isNumber, getImageInfo  } from './utils'
+import { toPx, isNumber, getImageInfo } from './utils'
 import { GD } from './gradient'
 import QR from './qrcode'
 
@@ -10,21 +10,21 @@ export class Draw {
 		this.isH5PathToBase64 = isH5PathToBase64
 		this.sleep = sleep
 	}
-	roundRect(x, y, w, h, r, fill = false, stroke = false, ) {
+	roundRect(x, y, w, h, r, fill = false, stroke = false) {
 		if (r < 0) return
-		const {ctx} = this
+		const { ctx } = this
 		ctx.beginPath()
 		if(!r) {
 			ctx.rect(x, y, w, h)
-		} else if(typeof r === 'number' && [0,1,-1].includes(w - r * 2) &&  [0, 1, -1].includes(h - r * 2)) {
+		} else if(typeof r === 'number' && [0,1,-1].includes(w - r * 2) && [0, 1, -1].includes(h - r * 2)) {
 			ctx.arc(x + w - r, y + h - r, r, 0, Math.PI * 2)
 		} else {
-			let {
+			const {
 				borderTopLeftRadius: tl = r || 0,
 				borderTopRightRadius: tr = r || 0,
 				borderBottomRightRadius: br = r || 0,
 				borderBottomLeftRadius: bl = r || 0
-			} = r || {r,r,r,r}
+			} = r || { r,r,r,r }
 			// 右下角
 			ctx.arc(x + w - br, y + h - br, br, 0, Math.PI * 0.5)
 			ctx.lineTo(x + bl, y + h)
@@ -42,8 +42,8 @@ export class Draw {
 		if (stroke) ctx.stroke()
 		if (fill) ctx.fill()
 	}
-	setTransform(box, {transform}) {
-		const {ctx} = this
+	setTransform(box, { transform }) {
+		const { ctx } = this
 		let {
 			scaleX = 1,
 			scaleY = 1,
@@ -53,7 +53,7 @@ export class Draw {
 			skewX = 0,
 			skewY = 0
 		} = transform || {}
-		let {
+		const {
 			left: x,
 			top: y,
 			width: w,
@@ -70,11 +70,11 @@ export class Draw {
 			ctx.rotate(rotate * Math.PI / 180)
 		}
 		if(skewX || skewY) {
-			ctx.transform(1, Math.tan(skewY * Math.PI/180), Math.tan(skewX * Math.PI/180), 1 , 0, 0)
+			ctx.transform(1, Math.tan(skewY * Math.PI / 180), Math.tan(skewX * Math.PI / 180), 1 , 0, 0)
 		}
 	}
 	setBackground(bg , w, h) {
-		const {ctx} = this
+		const { ctx } = this
 		if (!bg) {
 			// #ifndef MP-TOUTIAO || MP-BAIDU
 			ctx.setFillStyle('transparent')
@@ -88,22 +88,22 @@ export class Draw {
 			ctx.setFillStyle(bg)
 		}
 	}
-	setShadow({boxShadow: bs = []}) {
-		const {ctx} = this
+	setShadow({ boxShadow: bs = [] }) {
+		const { ctx } = this
 		if (bs.length) {
 			const [x, y, b, c] = bs
 			ctx.setShadow(x, y, b, c)
 		}
 	}
 	setBorder(box, style) {
-		const {ctx} = this
+		const { ctx } = this
 		let {
 			left: x,
 			top: y,
 			width: w,
 			height: h
 		} = box
-		const {border, borderBottom, borderTop, borderRight, borderLeft, borderRadius: r, opacity = 1} = style;
+		const { border, borderBottom, borderTop, borderRight, borderLeft, borderRadius: r, opacity = 1 } = style;
 		const {
 			borderWidth : bw = 0,
 			borderStyle : bs,
@@ -112,7 +112,7 @@ export class Draw {
 		const {
 			borderBottomWidth : bbw = bw,
 			borderBottomStyle : bbs = bs,
-			borderBottomColor : bbc= bc,
+			borderBottomColor : bbc = bc,
 		} = borderBottom || {}
 		const {
 			borderTopWidth: btw = bw,
@@ -127,15 +127,15 @@ export class Draw {
 		const {
 			borderLeftWidth: blw = bw,
 			borderLeftStyle: bls = bs,
-			borderLeftColor: blc  = bc,
+			borderLeftColor: blc = bc,
 		} = borderLeft || {}
 		
-		let {
+		const {
 			borderTopLeftRadius: tl = r || 0,
 			borderTopRightRadius: tr = r || 0,
 			borderBottomRightRadius: br = r || 0,
 			borderBottomLeftRadius: bl = r || 0
-		} = r || {r,r,r,r}
+		} = r || { r,r,r,r }
 		if(!borderBottom && !borderLeft && !borderTop && !borderRight && !border) return;
 		const _borderType = (w, s, c) => {
 			// #ifndef APP-NVUE
@@ -152,7 +152,7 @@ export class Draw {
 			// #endif
 			ctx.setStrokeStyle(c)
 		}
-		const _setBorder = (x1, y1, x2, y2, x3, y3, r1, r2, p1, p2, p3,  bw, bs, bc) => {
+		const _setBorder = (x1, y1, x2, y2, x3, y3, r1, r2, p1, p2, p3, bw, bs, bc) => {
 			ctx.save()
 			this.setOpacity(style)
 			this.setTransform(box, style)
@@ -172,11 +172,11 @@ export class Draw {
 			this.setTransform(box, style)
 			ctx.setLineWidth(bw)
 			_borderType(bw, bs, bc)
-			this.roundRect(-w/2, -h/2, w, h, r, false, bc ? true : false)
+			this.roundRect(-w / 2, -h / 2, w, h, r, false, !!bc)
 			ctx.restore()
 		}
-		x = -w/2
-		y = -h/2
+		x = -w / 2
+		y = -h / 2
 		if(borderBottom) {
 			_setBorder(x + w - br, y + h - br, x + bl, y + h, x + bl, y + h - bl, br, bl, 0.25, 0.5, 0.75, bbw, bbs, bbc)
 		}
@@ -193,18 +193,18 @@ export class Draw {
 			_setBorder(x + w - tr, y + tr, x + w, y + h - br, x + w - br, y + h - br, tr, br, 1.75, 2, 0.25, btw, bts, btc)
 		}
 	}
-	setOpacity({opacity = 1}) {
+	setOpacity({ opacity = 1 }) {
 		this.ctx.setGlobalAlpha(opacity)
 	}
 	drawView(box, style) {
-		const {ctx} = this
+		const { ctx } = this
 		const {
 			left: x,
 			top: y,
 			width: w,
 			height: h
 		} = box
-		let {
+		const {
 			borderRadius = 0,
 			border,
 			borderTop,
@@ -221,13 +221,13 @@ export class Draw {
 		this.setTransform(box, style)
 		this.setShadow(style)
 		this.setBackground(bg, w, h)
-		this.roundRect(-w/2, -h/2, w, h, borderRadius, true, false)
+		this.roundRect(-w / 2, -h / 2, w, h, borderRadius, true, false)
 		ctx.restore()
 		this.setBorder(box, style)
 	}
 	async drawImage(img, box = {}, style = {}, custom = true) {
-		await new Promise(async (resolve, reject) => {
-			const {ctx} = this
+		await new Promise(async(resolve, reject) => {
+			const { ctx } = this
 			const canvas = this.canvas
 			let {
 				borderRadius = 0,
@@ -235,7 +235,7 @@ export class Draw {
 				padding = {},
 				backgroundColor: bg,
 			} = style
-			const {paddingTop: pt = 0, paddingLeft: pl= 0, paddingRight: pr= 0, paddingBottom: pb = 0} = padding
+			const { paddingTop: pt = 0, paddingLeft: pl = 0, paddingRight: pr = 0, paddingBottom: pb = 0 } = padding
 			let {
 				left: x,
 				top: y,
@@ -250,9 +250,9 @@ export class Draw {
 					this.setBackground(bg, w, h)
 				}
 				this.setShadow(style)
-				x = -w/2
-				y = -h/2
-				this.roundRect(x, y, w, h, borderRadius, borderRadius ? true : false, false)
+				x = -w / 2
+				y = -h / 2
+				this.roundRect(x, y, w, h, borderRadius, !!borderRadius, false)
 			}
 			ctx.clip()
 			const _modeImage = (img) => {
@@ -337,15 +337,15 @@ export class Draw {
 			}
 			
 			if(typeof img === 'string') {
-				const {path: src, width, height} = await getImageInfo(img, this.isH5PathToBase64)
-				_drawImage({src, width, height})
+				const { path: src, width, height } = await getImageInfo(img, this.isH5PathToBase64)
+				_drawImage({ src, width, height })
 			} else {
 				_drawImage(img)
 			}
 		})
 	}
 	drawText(text, box, style, rules) {
-		const {ctx} = this
+		const { ctx } = this
 		let {
 			left: x,
 			top: y,
@@ -369,16 +369,16 @@ export class Draw {
 			borderRadius = 0,
 			textDecoration: td
 		} = style
-		const {paddingTop: pt = 0, paddingLeft: pl = 0} = padding
+		const { paddingTop: pt = 0, paddingLeft: pl = 0 } = padding
 		lineHeight = toPx(lineHeight, fontSize)
 		if (!text) return
 		ctx.save()
 		this.setOpacity(style)
 		this.setTransform(box, style)
-		x = -w/2
-		y = -h/2
+		x = -w / 2
+		y = -h / 2
 		ctx.setTextBaseline(va)
-		ctx.setFonts({fontFamily, fontSize, fontWeight, textStyle})
+		ctx.setFonts({ fontFamily, fontSize, fontWeight, textStyle })
 		ctx.setTextAlign(textAlign)
 		
 		if(bg) {
@@ -391,12 +391,12 @@ export class Draw {
 		 }
 		this.setShadow(style)
 		ctx.setFillStyle(color)
-		let rulesObj = {};
+		const rulesObj = {};
 		if(rules) {
 			if (rules.word.length > 0) {
 				for (let i = 0; i < rules.word.length; i++) {
-					let startIndex = 0,
-						index;
+					let startIndex = 0;
+						let index;
 					while ((index = text.indexOf(rules.word[i], startIndex)) > -1) {
 						rulesObj[index] = { 
 							reset: true
@@ -465,7 +465,7 @@ export class Draw {
 			switch (textAlign) {
 				case 'left':
 					x = x
-					to+= textWidth
+					to += textWidth
 					break
 				case 'center':
 					x = x - textWidth / 2
@@ -495,8 +495,8 @@ export class Draw {
 					ctx.lineTo(to, y - lineHeight);
 				}
 				if (/\bline-through\b/.test(td)) {
-					ctx.moveTo(x , y - lineHeight / 2 );
-					ctx.lineTo(to, y - lineHeight /2 );
+					ctx.moveTo(x , y - lineHeight / 2);
+					ctx.lineTo(to, y - lineHeight / 2);
 				}
 				ctx.closePath();
 				ctx.setStrokeStyle(color);
@@ -524,15 +524,15 @@ export class Draw {
 				let _char = ''
 				let _num = 1
 				if(width == t2){
-					_char ='\u3000'
+					_char = '\u3000'
 					_num = 1
 				} else {
 					_char = '\u0020'
 					_num = Math.ceil(width / t1)
 				}
-				return {char: new Array(_num).fill(_char).join(''), width}
+				return { char: new Array(_num).fill(_char).join(''), width }
 			} else {
-				return {char}
+				return { char }
 			}
 		}
 		const _setRulesObj = (text, index, x, y) => {
@@ -540,13 +540,13 @@ export class Draw {
 			rulesObj[index].y = y
 			rulesObj[index].char = text
 		}
-		const _setRules = (x, rs, text, textWidth, {startIndex = 0, endIndex}) => {
+		const _setRules = (x, rs, text, textWidth, { startIndex = 0, endIndex }) => {
 			let clonetext = text
 			if(/·/.test(text)) {
 				clonetext = clonetext.replace(/·/g, '.')
 				textWidth = ctx.measureText(clonetext, fontSize).width
 			}
-			let _text = text.split('')
+			const _text = text.split('')
 			let _x = x
 			let first = true
 			for (let i = 0; i < rs.length; i++) {
@@ -554,13 +554,13 @@ export class Draw {
 				const key = index - startIndex
 				const t = _text[key]
 				if(t) {
-					let {char, width} = _setText(rulesObj[index], t)
+					const { char, width } = _setText(rulesObj[index], t)
 					_text[key] = char
 					if(first) {
 						first = false
-						let dot = 0
-						let dot2 = 0
-						let num = 0
+						const dot = 0
+						const dot2 = 0
+						const num = 0
 						if(textAlign == 'center') {
 							_x = x - 0.5 * (textWidth - width - (dot2 - dot) * num)
 						}
@@ -568,11 +568,10 @@ export class Draw {
 							 _x = x - textWidth + width + (dot2 - dot) * num
 						}
 					}
-					_setRulesObj(t, index, _x  + ctx.measureText(clonetext.substring(0, key), fontSize).width, y + inlinePaddingTop)
+					_setRulesObj(t, index, _x + ctx.measureText(clonetext.substring(0, key), fontSize).width, y + inlinePaddingTop)
 				} else {
 					continue
 				}
-				
 			}
 			return _text
 		}
@@ -601,12 +600,12 @@ export class Draw {
 		let line = ''
 		let lineIndex = 0
 		let startIndex = 0
-		for(let index = 0 ; index <= chars.length; index++){
+		for(let index = 0; index <= chars.length; index++){
 			let ch = chars[index] || ''
 			const isLine = ch === '\n'
 			const isRight = ch == ''// index == chars.length
 			ch = isLine ? '' : ch;
-			let textline = line + ch
+			const textline = line + ch
 			let textWidth = ctx.measureText(textline, fontSize).width
 			// 绘制行数大于最大行数，则直接跳出循环
 			if (lineIndex >= maxLines) {
@@ -621,11 +620,11 @@ export class Draw {
 			}
 			
 			if (textWidth > w || isLine || isRight) {
-				let endIndex = index
+				const endIndex = index
 				lineIndex++
 				line = isRight && textWidth <= w ? textline : line
 				if(lineIndex === maxLines && textWidth > w) {
-					while( ctx.measureText(`${line}...`, fontSize).width > w) {
+					while(ctx.measureText(`${line}...`, fontSize).width > w) {
 						if (line.length <= 1) {
 							// 如果只有一个字符时，直接跳出循环
 							break;
@@ -637,7 +636,7 @@ export class Draw {
 				const rs = Object.keys(rulesObj)
 				let _text = ''
 				if(rs) {
-					_text = _setRules(x, rs, line, textWidth, {startIndex, endIndex})
+					_text = _setRules(x, rs, line, textWidth, { startIndex, endIndex })
 					_reset()
 				}
 				ctx.fillText(_text.join(''), _x, y + inlinePaddingTop)

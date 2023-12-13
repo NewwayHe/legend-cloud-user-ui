@@ -61,7 +61,7 @@ import { mapState } from 'vuex';
 // 装修功能组件
 import suspendBut from '@/components/floor/setUp/suspendBut.vue';
 
-//本页面特有components
+// 本页面特有components
 import bannerHeadSearch from './bannerHeadSearch.vue';
 
 // 楼层组件
@@ -114,11 +114,11 @@ export default {
 	},
 
 	props: {
-		indexData: { //装修楼层值
+		indexData: { // 装修楼层值
 			type: [Object, String],
 			default: () => {}
 		},
-		floorData: { //装修楼层值
+		floorData: { // 装修楼层值
 			type: [Object, String],
 			default: () => {}
 		},
@@ -136,22 +136,22 @@ export default {
 		},
 		conHeight: {
 		    type: [String, Number,Boolean],
-		    default: 0 //setUpHead组件的占位符高度
+		    default: 0 // setUpHead组件的占位符高度
 		},
 		isPoster: {
-			type: [Boolean,String, Number,],
+			type: [Boolean,String, Number],
 		    default: false
 		},
 		isSwiper: {
-			type: [Boolean,String, Number,],
+			type: [Boolean,String, Number],
 		    default: false
 		},
 	},
 
 	data() {
 		return {
-			prodListIndex:[],//当前楼层的数组
-			preloadIndex:[],//预加载的楼层的数组
+			prodListIndex:[],// 当前楼层的数组
+			preloadIndex:[],// 预加载的楼层的数组
 			isLoading:false,
 		};
 	},
@@ -210,20 +210,20 @@ export default {
 					this.preloadIndex.push(index)
 				}
 			})
-			if(this.prodListIndex[0] <= 4) {//如果所有的商品列表楼层少于等于4个，则全部楼层一次性展示所有楼层
+			if(this.prodListIndex[0] <= 4) { // 如果所有的商品列表楼层少于等于4个，则全部楼层一次性展示所有楼层
 				this.prodListIndex.splice(0,3)
 				this.preloadIndex.splice(0,3)
-			} else {//如果所有的商品列表楼层多于4个，则先展示前两个商品列表楼层以上的楼层(注：为了不让页面闪动，商品列表的前两个楼层以下的其它楼层，也同样不展示)
+			} else { // 如果所有的商品列表楼层多于4个，则先展示前两个商品列表楼层以上的楼层(注：为了不让页面闪动，商品列表的前两个楼层以下的其它楼层，也同样不展示)
 				this.prodListIndex.splice(0,1)
 				this.preloadIndex.splice(0,1)
 			}
 			
-			setTimeout(() => {//1.5秒后，预加载第三第四个商品列表及其以上的楼层
+			setTimeout(() => { // 1.5秒后，预加载第三第四个商品列表及其以上的楼层
 				this.preloadIndex.splice(0,2)
 			},1500)
 		},
 		
-		//这个不能删， 这个方法在父组件里onReachBottom下拉到底部时调用
+		// 这个不能删， 这个方法在父组件里onReachBottom下拉到底部时调用
 		handleIndex() {
 			if(this.isLoading) return
 			if(this.prodListIndex.length > 0) {

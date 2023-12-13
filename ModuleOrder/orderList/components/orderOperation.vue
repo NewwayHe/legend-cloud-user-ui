@@ -161,9 +161,9 @@ export default {
 		order: {
 			type: [Object, String, Array] //
 		},
-		columns:{ //退款原因
+		columns:{ // 退款原因
 			type:[Array],
-			default:()=>{return []}
+			default:() => { return [] }
 		}
 
 	},
@@ -181,8 +181,8 @@ export default {
 			showRefund: false,
 			boxShadow:'0px 0px 4px 2px rgba(0, 0, 0, 0.05)',
 			
-			voucherShow: false,	//提货凭证弹窗
-			voucherInfo: {},	//提货凭证信息
+			voucherShow: false,	// 提货凭证弹窗
+			voucherInfo: {},	// 提货凭证信息
 		};
 	},
 	computed: {

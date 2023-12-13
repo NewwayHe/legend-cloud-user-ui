@@ -98,7 +98,7 @@
 			// 配置参数
 			list: {
 				type: Array,
-				default () {
+				default() {
 					return []
 				}
 			},
@@ -129,7 +129,7 @@
 			// 是否隐藏原生tabbar
 			if(this.hideTabBar) uni.hideTabBar();
 			// 获取引入了u-tabbar页面的路由地址，该地址没有路径前面的"/"
-			let pages = getCurrentPages();
+			const pages = getCurrentPages();
 			// 页面栈中的最后一个即为项为当前页面，route属性为页面路径
 			this.pageUrl = pages[pages.length - 1].route;
 		},
@@ -139,7 +139,7 @@
 					// 历遍u-tabbar的每一项item时，判断是否传入了pagePath参数，如果传入了
 					// 和data中的pageUrl参数对比，如果相等，即可判断当前的item对应当前的tabbar页面，设置高亮图标
 					// 采用这个方法，可以无需使用v-model绑定的value值
-					let pagePath = this.list[index].pagePath;
+					const pagePath = this.list[index].pagePath;
 					// 如果定义了pagePath属性，意味着使用系统自带tabbar方案，否则使用一个页面用几个组件模拟tabbar页面的方案
 					// 这两个方案对处理tabbar item的激活与否方式不一样
 					if(pagePath) {
@@ -157,7 +157,7 @@
 			elColor() {
 				return (index) => {
 					// 判断方法同理于elIconPath
-					let pagePath = this.list[index].pagePath;
+					const pagePath = this.list[index].pagePath;
 					if(pagePath) {
 						if(pagePath == this.pageUrl || pagePath == '/' + this.pageUrl) return this.activeColor;
 						else return this.inactiveColor;
@@ -172,11 +172,11 @@
 		},
 		methods: {
 			async clickHandler(index) {
-				if(this.beforeSwitch && typeof(this.beforeSwitch) === 'function') {
+				if(this.beforeSwitch && typeof (this.beforeSwitch) === 'function') {
 					// 执行回调，同时传入索引当作参数
 					// 在微信，支付宝等环境(H5正常)，会导致父组件定义的customBack()函数体中的this变成子组件的this
 					// 通过bind()方法，绑定父组件的this，让this.customBack()的this为父组件的上下文
-					let beforeSwitch = this.beforeSwitch.bind(this.$u.$parent.call(this))(index);
+					const beforeSwitch = this.beforeSwitch.bind(this.$u.$parent.call(this))(index);
 					// 判断是否返回了promise
 					if (!!beforeSwitch && typeof beforeSwitch.then === 'function') {
 						await beforeSwitch.then(res => {
@@ -221,7 +221,7 @@
 			},
 			// 获取凸起按钮外层元素的left值，让其水平居中
 			getMidButtonLeft() {
-				let windowWidth = this.$u.sys().windowWidth;
+				const windowWidth = this.$u.sys().windowWidth;
 				// 由于安卓中css计算left: 50%的结果不准确，故用js计算
 				this.midButtonLeft = (windowWidth / 2) + 'px';
 			}

@@ -134,7 +134,7 @@ import { mapState } from 'vuex';
 import { getSkuKey, checkSpeItem, checkSkuKey } from '@/utils/skuUtils.js';
 
 export default {
-    name: 'sku-popup',
+    name: 'SkuPopup',
     components: {},
     props: {
         // 选中的skuItem
@@ -152,8 +152,8 @@ export default {
                 return {};
             }
         },
-        skuType: String, //营销类型： 拼团/团购/秒杀活动需传 普通（''，普通商品的话值为空''，有值就是有活动） 团购（GROUP） 拼团（MERGE） 秒杀（SECKILL）
-        source: String,//来源：good或者不填：商品详情页面，cart：购物车页面
+        skuType: String, // 营销类型： 拼团/团购/秒杀活动需传 普通（''，普通商品的话值为空''，有值就是有活动） 团购（GROUP） 拼团（MERGE） 秒杀（SECKILL）
+        source: String,// 来源：good或者不填：商品详情页面，cart：购物车页面
     },
 
     data() {
@@ -167,18 +167,18 @@ export default {
             skuPicList: [], // 左上角显示的图片列表(主规格图片)，(多规格时，是指SKU对应的图片，单规格或多规格但是无图模式时，是指SPU对应的图片)
 
             scrollLeft: 0,
-            sourceType: '' ,//点击事件的来源。'MERGEJoin'：拼团活动点击了merge-floor组件里的'参团')
-			skuBuyNumTemp:1,//skuBuyNum的缓存变量
+            sourceType: '' ,// 点击事件的来源。'MERGEJoin'：拼团活动点击了merge-floor组件里的'参团')
+			skuBuyNumTemp:1,// skuBuyNum的缓存变量
         };
     },
 
     computed: {
         ...mapState(['timeDiff']),
-        stocksTemp() {//统一管理商品/活动商品库存
+        stocksTemp() { // 统一管理商品/活动商品库存
             let num = 0
             // 备注：一、如果下面写成（库存：{{ stocks }}，当stocks == 0时，小程序下面这个却不会显示：（库存：0），而是显示了：（库存：）
             //      二、如果是活动商品就取activitySkuDTO.stocks值，如果是普通商品取stocks值
-            num = (this.skuType&&this.value.skuItem.activitySkuDTO? this.value.skuItem.activitySkuDTO.stocks : this.value.skuItem.stocks) || 0
+            num = (this.skuType && this.value.skuItem.activitySkuDTO ? this.value.skuItem.activitySkuDTO.stocks : this.value.skuItem.stocks) || 0
             return num
         },
         // 是否是单规格，6.0是用prodPropDtoList是否有值来判断是否为单规格的，但当商家后台设置多规格保存后再修改为单规格，则此时prodPropDtoList有值，但此时要用单规格的数据
@@ -187,23 +187,23 @@ export default {
         },
 		// 获取当前服务器上的时间戳
 		curTime(){
-			return new Date().getTime() - this.timeDiff//当前时间戳
+			return new Date().getTime() - this.timeDiff// 当前时间戳
 		},
 		// 是否限购，几个条件：一、quotaType有值('':无限购，O:每单限购，D:每日限购，W:每周限购，M:每月限购，Y:每年限购，A:终身限购)，二、现在的时间大于quotaTime限购时间、三、quotaCount限购数量有值
 		isQuota(){
 			let isTime = true
 			if (this.rawData.productQuotaDTO) {
-				const quotaTime = new Date((this.rawData.productQuotaDTO.quotaTime+' '+'00:00:00').replace(/\-/g, '/')).getTime() //获取限购时间当天凌晨的时间戳
+				const quotaTime = new Date((this.rawData.productQuotaDTO.quotaTime + ' ' + '00:00:00').replace(/\-/g, '/')).getTime() // 获取限购时间当天凌晨的时间戳
 				// 如果还未到限购时间
-				if (this.curTime<quotaTime) {
+				if (this.curTime < quotaTime) {
 					isTime = false
 				}
 			}
-			return this.rawData.productQuotaDTO&&this.rawData.productQuotaDTO.quotaType&&this.rawData.productQuotaDTO.quotaCount&&isTime
+			return this.rawData.productQuotaDTO && this.rawData.productQuotaDTO.quotaType && this.rawData.productQuotaDTO.quotaCount && isTime
 		},
 		price(){
 			// 如果有sku优惠折扣价格,则显示sku优惠折扣价格
-			return this.value.skuItem.discountPrice||this.value.skuItem.discountPrice==0?this.value.skuItem.discountPrice:this.value.skuItem.price
+			return this.value.skuItem.discountPrice || this.value.skuItem.discountPrice == 0 ? this.value.skuItem.discountPrice : this.value.skuItem.price
 		},
 		
 		/*
@@ -216,17 +216,17 @@ export default {
 		depositMoney(){
 		   let money = 0
 		   // 如果支付方式是定金尾款支付
-		   if (this.value.skuItem&&this.rawData.preSellProductBO&&this.rawData.preSellProductBO.payPctType==1) {
+		   if (this.value.skuItem && this.rawData.preSellProductBO && this.rawData.preSellProductBO.payPctType == 1) {
 			   // 如果有sku优惠折扣价格
-			   if (this.value.skuItem.discountPrice||this.value.skuItem.discountPrice==0) {
+			   if (this.value.skuItem.discountPrice || this.value.skuItem.discountPrice == 0) {
 				    // sku优惠折扣会在尾款里扣减,如果尾款不够扣减,则在定金里扣减
-					if ((this.value.skuItem.price*(100-this.rawData.preSellProductBO.payPct)/100)<(this.value.skuItem.price-this.value.skuItem.discountPrice)) {
+					if ((this.value.skuItem.price * (100 - this.rawData.preSellProductBO.payPct) / 100) < (this.value.skuItem.price - this.value.skuItem.discountPrice)) {
 						money = this.value.skuItem.discountPrice
 					}else{
-						money = this.value.skuItem.price*this.rawData.preSellProductBO.payPct/100
+						money = this.value.skuItem.price * this.rawData.preSellProductBO.payPct / 100
 					}
 			   }else{
-				   money = this.value.skuItem.price*this.rawData.preSellProductBO.payPct/100
+				   money = this.value.skuItem.price * this.rawData.preSellProductBO.payPct / 100
 			   }
 		   }
 		   return money
@@ -236,17 +236,17 @@ export default {
 		finalMoney(){
 		   let money = 0
 		   // 如果支付方式是定金尾款支付
-		   if (this.value.skuItem&&this.rawData.preSellProductBO&&this.rawData.preSellProductBO.payPctType==1) {
+		   if (this.value.skuItem && this.rawData.preSellProductBO && this.rawData.preSellProductBO.payPctType == 1) {
 			   // 如果有sku优惠折扣价格
-			   if (this.value.skuItem.discountPrice||this.value.skuItem.discountPrice==0) {
+			   if (this.value.skuItem.discountPrice || this.value.skuItem.discountPrice == 0) {
 				    // sku优惠折扣会在尾款里扣减,如果尾款不够扣减,则在定金里扣减
-					if ((this.value.skuItem.price*(100-this.rawData.preSellProductBO.payPct)/100)<(this.value.skuItem.price-this.value.skuItem.discountPrice)) {
+					if ((this.value.skuItem.price * (100 - this.rawData.preSellProductBO.payPct) / 100) < (this.value.skuItem.price - this.value.skuItem.discountPrice)) {
 						money = 0
 					}else{
-						money = this.value.skuItem.price*(100-this.rawData.preSellProductBO.payPct)/100
+						money = this.value.skuItem.price * (100 - this.rawData.preSellProductBO.payPct) / 100
 					}
 			   }else{
-				   money = this.value.skuItem.price*(100-this.rawData.preSellProductBO.payPct)/100
+				   money = this.value.skuItem.price * (100 - this.rawData.preSellProductBO.payPct) / 100
 			   }
 		   }
 		   return money
@@ -321,8 +321,8 @@ export default {
 
             // 单/多规格
             if (this.rawData.prodPropDtoList.length == 0 || !this.$checkInfo([{ type: 'hasValue', value: this.skuDict }])) {
-            //如果有prodPropDtoList.length，但后台设置的是单规格(这时this.skuDict=={})
-            //如果下面多格式不判断item.prodPropList.length==1时的情况，则要用这段来替换上面来避免报错
+            // 如果有prodPropDtoList.length，但后台设置的是单规格(这时this.skuDict=={})
+            // 如果下面多格式不判断item.prodPropList.length==1时的情况，则要用这段来替换上面来避免报错
             // if (this.rawData.prodPropDtoList.length == 0||!this.$checkInfo([{ type: 'hasValue', value: this.skuDict }])||!this.$checkInfo([{type:'hasValue',value:this.curSpe}]) {
                 skuItem = this.rawData.skuBOList[0];
                 prePicList = this.skuPicList = this.rawData.productPics;
@@ -333,7 +333,7 @@ export default {
                     for (const prod of initSku) {
                         const [key, value] = prod.split(':');
 						// 拼个‘id_’，解决对象键值为数字型时输出的对象自动排序的问题
-                        this.curSpe['id_'+key] = value;
+                        this.curSpe['id_' + key] = value;
                     }
                 } else {
                     // 获取当前已经选择的规格，并找出相应的SKU
@@ -342,16 +342,16 @@ export default {
                             item.prodPropList.forEach(ele => {
                                 if (item.prodPropList.length == 1) {
                                     // 如果SKU里只有一个，并且该SKU没库存，并且后台返回的selectFlag值是false，则要在JS改为选中该规格属性，否则下面会报没有curSpe的错
-                                    this.curSpe['id_'+item.id] = ele.id;
+                                    this.curSpe['id_' + item.id] = ele.id;
                                 } else {
                                     if (ele.selectFlag) {
-                                        this.curSpe['id_'+item.id] = ele.id;
+                                        this.curSpe['id_' + item.id] = ele.id;
                                     }
                                 }
                             });
                             if (!this.$checkInfo([{ type: 'hasValue', value: this.curSpe }])) {
                                 // 如果规格属性prodPropList下的所有的selectFlag都为false，则默认选中第一个规格属性
-                                this.curSpe['id_'+item.id] = item.prodPropList[0].id;
+                                this.curSpe['id_' + item.id] = item.prodPropList[0].id;
                             }
                         });
                     }
@@ -361,14 +361,14 @@ export default {
                 if (this.prodPropList.length) {
                     this.prodPropList.forEach(item => {
                         item.prodPropList.forEach(ele => {
-                            skuKey = getSkuKey(this.curSpe, 'id_'+item.id, ele.id).replace(/id_/g,'');//将前面拼上去的‘id_’删掉
+                            skuKey = getSkuKey(this.curSpe, 'id_' + item.id, ele.id).replace(/id_/g,'');// 将前面拼上去的‘id_’删掉
                             skuItem = this.skuDict[skuKey];
                             if (skuItem) {
                                 // this.$set(ele, 'isDisable', !((this.skuType?skuItem.activitySkuDTO.stocks:skuItem.stocks) > 0));
-                                this.$set(ele, 'isSelected', this.curSpe['id_'+item.id] == ele.id);
+                                this.$set(ele, 'isSelected', this.curSpe['id_' + item.id] == ele.id);
                             } else {
-                                this.$set(ele, 'isDisable', true); //新增，如果不存在这个skuItem，则让该按钮变为不可选
-                                this.$set(ele, 'isSelected', false); //新增，如果有bug，这个可以删掉，
+                                this.$set(ele, 'isDisable', true); // 新增，如果不存在这个skuItem，则让该按钮变为不可选
+                                this.$set(ele, 'isSelected', false); // 新增，如果有bug，这个可以删掉，
                             }
                             if (ele.isSelected) {
                                 // console.log(this.rawData.mainSpecificationId);//主规格的ID，单选，只有一个
@@ -383,20 +383,20 @@ export default {
                 }
                 // 找出相应的SKU并赋值
                 const key = Object.keys(this.curSpe).reduce((arr, item) => {
-					let itemkey = item.replace('id_','');//将前面拼上去的‘id_’删掉
+					const itemkey = item.replace('id_','');// 将前面拼上去的‘id_’删掉
 					arr.push(`${itemkey}:${this.curSpe[item]}`);
 					return arr;
 				}, []).join(';');
                 skuItem = this.skuDict[key];
             }
             // 判断当前SKU的库存>0则可以购买
-            if (skuItem && (this.skuType?skuItem.activitySkuDTO.stocks:skuItem.stocks) > 0) {
+            if (skuItem && (this.skuType ? skuItem.activitySkuDTO.stocks : skuItem.stocks) > 0) {
                 this.haveSku = true;
             }
 
             if (!this.$checkInfo([{ type: 'hasValue', value: prePicList }])) {
                 // 如果最终没有图片，则给它一个默认图片
-                prePicList = this.skuPicList = this.rawData.productPics&&this.rawData.productPics.length ? this.rawData.productPics : [this.rawData.pic];
+                prePicList = this.skuPicList = this.rawData.productPics && this.rawData.productPics.length ? this.rawData.productPics : [this.rawData.pic];
             }else{
                 // 如果prePicList有值但商品设置为无图样式，则取最外层的单规格图片为spu图片，specificationStyle--"TXT":无图样式;"PIC":图片样式;"GRAPHIC":图文样式
                 if (this.rawData.specificationStyle == 'TXT') {
@@ -415,12 +415,12 @@ export default {
         // 选择规格值
         chooseItem(speId, speItemId, speItemStatus, index) {
             if (index) {
-                //只有点击banner下的图片选择sku才会有index值
+                // 只有点击banner下的图片选择sku才会有index值
                 this.scrollLeft = (index - 1) * 60;
             }
             let status = speItemStatus;
 
-            this.curSpe['id_'+speId] = speItemId;
+            this.curSpe['id_' + speId] = speItemId;
 
             // 判断当前curSpe是否能确定一个SKU >1则不能确定SKU
             if (checkSpeItem(this.curSpe) > 1) {
@@ -433,7 +433,7 @@ export default {
                 this.haveSku = false;
                 this.prodPropList.forEach(item => {
                     if (item.id != speId) {
-                        this.curSpe['id_'+item.id] = false;
+                        this.curSpe['id_' + item.id] = false;
                     }
                     item.prodPropList.forEach(ele => {
                         this.$set(ele, 'isSelected', ele.id == speItemId);
@@ -454,15 +454,15 @@ export default {
                 let skuItem;
                 for (const item of this.prodPropList) {
                     for (const ele of item.prodPropList) {
-                        ele.isSelected = this.curSpe['id_'+item.id] === ele.id;
-						skuKey = getSkuKey(this.curSpe, 'id_'+item.id, ele.id).replace(/id_/g,'');//将前面拼上去的‘id_’删掉
+                        ele.isSelected = this.curSpe['id_' + item.id] === ele.id;
+						skuKey = getSkuKey(this.curSpe, 'id_' + item.id, ele.id).replace(/id_/g,'');// 将前面拼上去的‘id_’删掉
                         skuItem = this.skuDict[skuKey];
                         if (!skuItem) {
                             ele.isDisable = true;
                         } else {
                             // ele.isDisable = !((this.skuType?skuItem.activitySkuDTO.stocks:skuItem.stocks) > 0);
                         }
-                        if (this.curSpe['id_'+item.id]) {
+                        if (this.curSpe['id_' + item.id]) {
                             ele.isDisable = false;
                         }
                     }
@@ -480,17 +480,17 @@ export default {
                 // 控制变量，替换其中一个规格id以确定一个SKU，判断其stocks是否大于0来是否禁用
                 let skuKey;
                 let skuItem;
-                const spePicList = []; //banner图片及弹框左上角的图片数组
+                const spePicList = []; // banner图片及弹框左上角的图片数组
                 this.prodPropList.forEach(item => {
                     item.prodPropList.forEach(ele => {
-						skuKey = getSkuKey(this.curSpe, 'id_'+item.id, ele.id).replace(/id_/g,'');//将前面拼上去的‘id_’删掉
+						skuKey = getSkuKey(this.curSpe, 'id_' + item.id, ele.id).replace(/id_/g,'');// 将前面拼上去的‘id_’删掉
                         skuItem = this.skuDict[skuKey];
                         if (!skuItem) {
                             ele.isDisable = true;
                         } else {
                             // ele.isDisable = !((this.skuType?skuItem.activitySkuDTO.stocks:skuItem.stocks) > 0);
                         }
-                        ele.isSelected = this.curSpe['id_'+item.id] == ele.id;
+                        ele.isSelected = this.curSpe['id_' + item.id] == ele.id;
                         if (ele.isSelected) {
                             if (ele.imgList && ele.propId == this.rawData.mainSpecificationId) {
                                 spePicList.push(...ele.imgList);
@@ -503,7 +503,7 @@ export default {
 						
                 // 找出相应的SKU并赋值
                 const key = Object.keys(this.curSpe).reduce((arr, item) => {
-					let itemkey = item.replace('id_','');//将前面拼上去的‘id_’删掉
+					const itemkey = item.replace('id_','');// 将前面拼上去的‘id_’删掉
 					arr.push(`${itemkey}:${this.curSpe[item]}`);
 					return arr;
 				}, []).join(';');
@@ -554,7 +554,7 @@ export default {
         },
 
 		change(e){
-			let skuValue = this.value
+			const skuValue = this.value
 			skuValue.skuBuyNum = e.value
 			this.$emit('input', skuValue); // 如果不用input传值(用$set也不行)，小程序上父组件的值不会更新(H5正常)
 		},
@@ -564,7 +564,7 @@ export default {
 		// quotaCount:'',//限购数量
 		// quotaTime:'',//限购时间
 		getQuotaType(type){
-			const status = {'O':'每单','D':'每日','W':'每周','M':'每月','Y':'每年','A':'终身'}
+			const status = { 'O':'每单','D':'每日','W':'每周','M':'每月','Y':'每年','A':'终身' }
 			return status[type]
 		}
     }

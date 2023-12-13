@@ -32,20 +32,20 @@
 <script>
 	import { invoiceManage } from '@/api/ModulesUser'
 	import pageUtil from '@/utils/pageUtils.js';
-	const invoicePage = new pageUtil(invoiceManage.getInvoice, { field: { list: 'invoiceList'} });
+	const invoicePage = new pageUtil(invoiceManage.getInvoice, { field: { list: 'invoiceList' }});
 	export default {
 		data() {
 			return {
-				paging: {		//这个必须写 因为pageUtils是在调用了loadListByPage之后才往this身上加paging 页面上ls-empty使用了该变量
+				paging: {		// 这个必须写 因为pageUtils是在调用了loadListByPage之后才往this身上加paging 页面上ls-empty使用了该变量
 					status: 'loading',
 					error: false, // 是否错误
 					emptylist: false // 是否显示列表为空时的样式
 				},
-				invoiceParams: {		//抬头列表参数
+				invoiceParams: {		// 抬头列表参数
 					// curPage: 2,	//调试用
 					pageSize: 10,
 				},		
-				invoiceList: [],		//抬头列表数据
+				invoiceList: [],		// 抬头列表数据
 			}
 		},
 		computed: {

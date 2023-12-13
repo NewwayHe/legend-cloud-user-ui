@@ -142,8 +142,8 @@
 	export default {
 		data() {
 			return {
-				invoiceId: null,	//当前的发票ID
-				detailData: null,	//当前内容
+				invoiceId: null,	// 当前的发票ID
+				detailData: null,	// 当前内容
 				paging: {
 					status: 'loading',
 					error: false, // 是否错误

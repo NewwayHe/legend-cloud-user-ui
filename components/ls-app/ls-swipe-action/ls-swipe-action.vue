@@ -49,14 +49,14 @@
  * @example <u-swipe-action btn-text="收藏">...</u-swipe-action>
  */
 export default {
-    name: 'ls-swipe-action',
+    name: 'LsSwipeAction',
 	// #ifdef MP-WEIXIN
 	// 将自定义节点设置成虚拟的，更加接近Vue组件的表现，能更好的使用flex属性。这时在<组件name> 里加style和class是不会生效的
 	options: { virtualHost: true },
 	// #endif
     props: {
 		className:{
-			type: [String, Array,Boolean],//这里加个Boolean，是因为如果传className=""，小程序端会报错
+			type: [String, Array,Boolean],// 这里加个Boolean，是因为如果传className=""，小程序端会报错
 			default: ''
 		},
         // index值，用于得知点击删除的是哪个按钮

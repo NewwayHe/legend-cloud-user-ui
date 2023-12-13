@@ -37,7 +37,7 @@ const loginMixin = {
 							title: res.msg,
 							icon: 'none',
 							mask: true,
-							complete:()=> {
+							complete:() => {
 								setTimeout(() => {
 									uni.redirectTo({ url: '/ModulesUser/bindingPhone/bindingPhone' });
 								}, 1500);
@@ -50,7 +50,7 @@ const loginMixin = {
 							title: res.msg,
 							icon: 'none',
 							mask: true,
-							complete:()=> {
+							complete:() => {
 								setTimeout(() => {
 									pages.goBeforePage(1, ['login','authorization']); // 从什么页面过来的就跳回什么页面去
 								}, 1500);
@@ -60,7 +60,7 @@ const loginMixin = {
 				} else {
 					// 如果验证不通过，返回登录页面
 					uni.hideLoading();
-					uni.showToast({title: res.msg,icon: 'none',mask: true});
+					uni.showToast({ title: res.msg,icon: 'none',mask: true });
 				}
 			});
 		}),

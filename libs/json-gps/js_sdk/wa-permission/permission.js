@@ -4,35 +4,35 @@
 
 var isIos
 // #ifdef APP-PLUS
-isIos = (plus.os.name == "iOS")
+isIos = (plus.os.name == 'iOS')
 // #endif
 
 // 判断推送权限是否开启
 function judgeIosPermissionPush() {
 	var result = false;
-	var UIApplication = plus.ios.import("UIApplication");
+	var UIApplication = plus.ios.import('UIApplication');
 	var app = UIApplication.sharedApplication();
 	var enabledTypes = 0;
 	if (app.currentUserNotificationSettings) {
 		var settings = app.currentUserNotificationSettings();
-		enabledTypes = settings.plusGetAttribute("types");
-		console.log("enabledTypes1:" + enabledTypes);
+		enabledTypes = settings.plusGetAttribute('types');
+		console.log('enabledTypes1:' + enabledTypes);
 		if (enabledTypes == 0) {
-			console.log("推送权限没有开启");
+			console.log('推送权限没有开启');
 		} else {
 			result = true;
-			console.log("已经开启推送功能!")
+			console.log('已经开启推送功能!')
 		}
 		plus.ios.deleteObject(settings);
 	} else {
 		enabledTypes = app.enabledRemoteNotificationTypes();
 		if (enabledTypes == 0) {
-			console.log("推送权限没有开启!");
+			console.log('推送权限没有开启!');
 		} else {
 			result = true;
-			console.log("已经开启推送功能!")
+			console.log('已经开启推送功能!')
 		}
-		console.log("enabledTypes2:" + enabledTypes);
+		console.log('enabledTypes2:' + enabledTypes);
 	}
 	plus.ios.deleteObject(app);
 	plus.ios.deleteObject(UIApplication);
@@ -42,10 +42,10 @@ function judgeIosPermissionPush() {
 // 判断定位权限是否开启
 function judgeIosPermissionLocation() {
 	var result = false;
-	var cllocationManger = plus.ios.import("CLLocationManager");
+	var cllocationManger = plus.ios.import('CLLocationManager');
 	var status = cllocationManger.authorizationStatus();
 	result = (status != 2)
-	console.log("定位权限开启：" + result);
+	console.log('定位权限开启：' + result);
 	// 以下代码判断了手机设备的定位是否关闭，推荐另行使用方法 checkSystemEnableLocation
 	/* var enable = cllocationManger.locationServicesEnabled();
 	var status = cllocationManger.authorizationStatus();
@@ -64,15 +64,15 @@ function judgeIosPermissionLocation() {
 // 判断麦克风权限是否开启
 function judgeIosPermissionRecord() {
 	var result = false;
-	var avaudiosession = plus.ios.import("AVAudioSession");
+	var avaudiosession = plus.ios.import('AVAudioSession');
 	var avaudio = avaudiosession.sharedInstance();
 	var permissionStatus = avaudio.recordPermission();
-	console.log("permissionStatus:" + permissionStatus);
+	console.log('permissionStatus:' + permissionStatus);
 	if (permissionStatus == 1684369017 || permissionStatus == 1970168948) {
-		console.log("麦克风权限没有开启");
+		console.log('麦克风权限没有开启');
 	} else {
 		result = true;
-		console.log("麦克风权限已经开启");
+		console.log('麦克风权限已经开启');
 	}
 	plus.ios.deleteObject(avaudiosession);
 	return result;
@@ -81,14 +81,14 @@ function judgeIosPermissionRecord() {
 // 判断相机权限是否开启
 function judgeIosPermissionCamera() {
 	var result = false;
-	var AVCaptureDevice = plus.ios.import("AVCaptureDevice");
+	var AVCaptureDevice = plus.ios.import('AVCaptureDevice');
 	var authStatus = AVCaptureDevice.authorizationStatusForMediaType('vide');
-	console.log("authStatus:" + authStatus);
+	console.log('authStatus:' + authStatus);
 	if (authStatus == 3) {
 		result = true;
-		console.log("相机权限已经开启");
+		console.log('相机权限已经开启');
 	} else {
-		console.log("相机权限没有开启");
+		console.log('相机权限没有开启');
 	}
 	plus.ios.deleteObject(AVCaptureDevice);
 	return result;
@@ -97,14 +97,14 @@ function judgeIosPermissionCamera() {
 // 判断相册权限是否开启
 function judgeIosPermissionPhotoLibrary() {
 	var result = false;
-	var PHPhotoLibrary = plus.ios.import("PHPhotoLibrary");
+	var PHPhotoLibrary = plus.ios.import('PHPhotoLibrary');
 	var authStatus = PHPhotoLibrary.authorizationStatus();
-	console.log("authStatus:" + authStatus);
+	console.log('authStatus:' + authStatus);
 	if (authStatus == 3) {
 		result = true;
-		console.log("相册权限已经开启");
+		console.log('相册权限已经开启');
 	} else {
-		console.log("相册权限没有开启");
+		console.log('相册权限没有开启');
 	}
 	plus.ios.deleteObject(PHPhotoLibrary);
 	return result;
@@ -113,13 +113,13 @@ function judgeIosPermissionPhotoLibrary() {
 // 判断通讯录权限是否开启
 function judgeIosPermissionContact() {
 	var result = false;
-	var CNContactStore = plus.ios.import("CNContactStore");
+	var CNContactStore = plus.ios.import('CNContactStore');
 	var cnAuthStatus = CNContactStore.authorizationStatusForEntityType(0);
 	if (cnAuthStatus == 3) {
 		result = true;
-		console.log("通讯录权限已经开启");
+		console.log('通讯录权限已经开启');
 	} else {
-		console.log("通讯录权限没有开启");
+		console.log('通讯录权限没有开启');
 	}
 	plus.ios.deleteObject(CNContactStore);
 	return result;
@@ -128,13 +128,13 @@ function judgeIosPermissionContact() {
 // 判断日历权限是否开启
 function judgeIosPermissionCalendar() {
 	var result = false;
-	var EKEventStore = plus.ios.import("EKEventStore");
+	var EKEventStore = plus.ios.import('EKEventStore');
 	var ekAuthStatus = EKEventStore.authorizationStatusForEntityType(0);
 	if (ekAuthStatus == 3) {
 		result = true;
-		console.log("日历权限已经开启");
+		console.log('日历权限已经开启');
 	} else {
-		console.log("日历权限没有开启");
+		console.log('日历权限没有开启');
 	}
 	plus.ios.deleteObject(EKEventStore);
 	return result;
@@ -143,13 +143,13 @@ function judgeIosPermissionCalendar() {
 // 判断备忘录权限是否开启
 function judgeIosPermissionMemo() {
 	var result = false;
-	var EKEventStore = plus.ios.import("EKEventStore");
+	var EKEventStore = plus.ios.import('EKEventStore');
 	var ekAuthStatus = EKEventStore.authorizationStatusForEntityType(1);
 	if (ekAuthStatus == 3) {
 		result = true;
-		console.log("备忘录权限已经开启");
+		console.log('备忘录权限已经开启');
 	} else {
-		console.log("备忘录权限没有开启");
+		console.log('备忘录权限没有开启');
 	}
 	plus.ios.deleteObject(EKEventStore);
 	return result;
@@ -184,7 +184,7 @@ function requestAndroidPermission(permissionID) {
 				// }
 			},
 			function(error) {
-				console.log('申请权限错误：' + error.code + " = " + error.message);
+				console.log('申请权限错误：' + error.code + ' = ' + error.message);
 				resolve({
 					code: error.code,
 					message: error.message
@@ -196,21 +196,21 @@ function requestAndroidPermission(permissionID) {
 
 // 使用一个方法，根据参数判断权限
 function judgeIosPermission(permissionID) {
-	if (permissionID == "location") {
+	if (permissionID == 'location') {
 		return judgeIosPermissionLocation()
-	} else if (permissionID == "camera") {
+	} else if (permissionID == 'camera') {
 		return judgeIosPermissionCamera()
-	} else if (permissionID == "photoLibrary") {
+	} else if (permissionID == 'photoLibrary') {
 		return judgeIosPermissionPhotoLibrary()
-	} else if (permissionID == "record") {
+	} else if (permissionID == 'record') {
 		return judgeIosPermissionRecord()
-	} else if (permissionID == "push") {
+	} else if (permissionID == 'push') {
 		return judgeIosPermissionPush()
-	} else if (permissionID == "contact") {
+	} else if (permissionID == 'contact') {
 		return judgeIosPermissionContact()
-	} else if (permissionID == "calendar") {
+	} else if (permissionID == 'calendar') {
 		return judgeIosPermissionCalendar()
-	} else if (permissionID == "memo") {
+	} else if (permissionID == 'memo') {
 		return judgeIosPermissionMemo()
 	}
 	return false;
@@ -219,11 +219,11 @@ function judgeIosPermission(permissionID) {
 // 跳转到**应用**的权限页面
 function gotoAppPermissionSetting() {
 	if (isIos) {
-		var UIApplication = plus.ios.import("UIApplication");
+		var UIApplication = plus.ios.import('UIApplication');
 		var application2 = UIApplication.sharedApplication();
-		var NSURL2 = plus.ios.import("NSURL");
+		var NSURL2 = plus.ios.import('NSURL');
 		// var setting2 = NSURL2.URLWithString("prefs:root=LOCATION_SERVICES");		
-		var setting2 = NSURL2.URLWithString("app-settings:");
+		var setting2 = NSURL2.URLWithString('app-settings:');
 		application2.openURL(setting2);
 
 		plus.ios.deleteObject(setting2);
@@ -231,13 +231,13 @@ function gotoAppPermissionSetting() {
 		plus.ios.deleteObject(application2);
 	} else {
 		// console.log(plus.device.vendor);
-		var Intent = plus.android.importClass("android.content.Intent");
-		var Settings = plus.android.importClass("android.provider.Settings");
-		var Uri = plus.android.importClass("android.net.Uri");
+		var Intent = plus.android.importClass('android.content.Intent');
+		var Settings = plus.android.importClass('android.provider.Settings');
+		var Uri = plus.android.importClass('android.net.Uri');
 		var mainActivity = plus.android.runtimeMainActivity();
 		var intent = new Intent();
 		intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-		var uri = Uri.fromParts("package", mainActivity.getPackageName(), null);
+		var uri = Uri.fromParts('package', mainActivity.getPackageName(), null);
 		intent.setData(uri);
 		mainActivity.startActivity(intent);
 	}
@@ -248,18 +248,18 @@ function gotoAppPermissionSetting() {
 function checkSystemEnableLocation() {
 	if (isIos) {
 		var result = false;
-		var cllocationManger = plus.ios.import("CLLocationManager");
+		var cllocationManger = plus.ios.import('CLLocationManager');
 		var result = cllocationManger.locationServicesEnabled();
-		console.log("系统定位开启:" + result);
+		console.log('系统定位开启:' + result);
 		plus.ios.deleteObject(cllocationManger);
 		return result;
 	} else {
-		var context = plus.android.importClass("android.content.Context");
-		var locationManager = plus.android.importClass("android.location.LocationManager");
+		var context = plus.android.importClass('android.content.Context');
+		var locationManager = plus.android.importClass('android.location.LocationManager');
 		var main = plus.android.runtimeMainActivity();
 		var mainSvr = main.getSystemService(context.LOCATION_SERVICE);
 		var result = mainSvr.isProviderEnabled(locationManager.GPS_PROVIDER);
-		console.log("系统定位开启:" + result);
+		console.log('系统定位开启:' + result);
 		return result
 	}
 }

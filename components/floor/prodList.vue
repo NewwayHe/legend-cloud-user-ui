@@ -168,7 +168,7 @@
 <script>
 import floorMixin from '@/mixins/floor.js';
 import { trim } from '@/api/ModulesCommon';
-const scrollLoad = false//是否开启滚动到该楼层时才请求接口加载功能。当很多个楼层时，prodList组件在小程序端用jugeRefresh的话有可能会出现白屏，而且由于已经做了图片懒加载功能，其实一开始调用所有接口，并不会浪费太多流量
+const scrollLoad = false// 是否开启滚动到该楼层时才请求接口加载功能。当很多个楼层时，prodList组件在小程序端用jugeRefresh的话有可能会出现白屏，而且由于已经做了图片懒加载功能，其实一开始调用所有接口，并不会浪费太多流量
 export default {
 	components: {},
 	mixins: [floorMixin],
@@ -214,23 +214,23 @@ export default {
 			return this.$arrayUtils.arrToTwoDim(arr, num);
 		},
 		name() {
-			//统一管理商品名字
+			// 统一管理商品名字
 			return function(item) {
 				return item.productName || item.name ? item.productName || item.name : '商品示例名名称';
 			};
 		},
 		pic() {
-			//统一管理商品图片
+			// 统一管理商品图片
 			return function(item) {
 				return item.pic || item.image || item.productPic;
 			};
 		},
 		price() {
-			//统一管理商品价格
+			// 统一管理商品价格
 			return function(item) {
 				let arr = [];
 				if (item.price && item.price.toString().indexOf('~') != -1) {
-					//判断money是否为1.00~2.00的模式
+					// 判断money是否为1.00~2.00的模式
 					arr = [item.price, ''];
 				} else {
 					arr = this.$stringUtils.formatNumber(item.price ? item.price : 999);
@@ -244,10 +244,10 @@ export default {
 		floors: {
 		    handler(val) {
 				if(scrollLoad){
-					this.setMinHeight()//设置最少高度
+					this.setMinHeight()// 设置最少高度
 					if (this.loadState) {
 						this.loadState = false
-						this.$nextTick(()=> {
+						this.$nextTick(() => {
 							this.jugeRefresh()
 						})
 					}
@@ -284,8 +284,8 @@ export default {
 
 			// // 获取组件的尺寸信息
 			const tabRect = await this.$utils.getRect(this, '.scrollFlag', true)
-			this.rangeTop = tabRect[0].top + this.scrollTop||0
-			if (flag!='api') {//loadData()方法里再次执行jugeRefresh()时不执行loadData()，不然会进入死循环
+			this.rangeTop = tabRect[0].top + this.scrollTop || 0
+			if (flag != 'api') { // loadData()方法里再次执行jugeRefresh()时不执行loadData()，不然会进入死循环
 				if (this.windowHeight >= this.rangeTop) {
 					this.loadData();
 				}
@@ -316,8 +316,8 @@ export default {
 								}
 							});
 						}
-						this.$nextTick(()=>{
-							this.setMinHeight(this.goodsList,'api')//重新设置最少高度
+						this.$nextTick(() => {
+							this.setMinHeight(this.goodsList,'api')// 重新设置最少高度
 						})
 					}
 				});
@@ -337,7 +337,7 @@ export default {
 								});
 								this.$nextTick(() => {
 									this.init();
-									this.setMinHeight(this.goodsList,'api')//重新设置最少高度
+									this.setMinHeight(this.goodsList,'api')// 重新设置最少高度
 								});
 							}
 						}
@@ -355,7 +355,7 @@ export default {
 								});
 								this.$nextTick(() => {
 									this.init();
-									this.setMinHeight(this.goodsList,'api')//重新设置最少高度
+									this.setMinHeight(this.goodsList,'api')// 重新设置最少高度
 								});
 							}
 						}
@@ -372,15 +372,15 @@ export default {
 		},
 		setMinHeight(lists,api){
 			if (scrollLoad) {
-				let itemHeight = this.floors.listType == 1 ? 100 : this.floors.listType == 2 ? 258.5 : this.floors.listType == 3 ? 195 : 160 //每个元素的高度：详细列表，详细列表是140
-				let diyLength = this.floors.sourceType == 'goods'&&this.floors.data.goodsList ? this.floors.data.goodsList.length : this.floors.maxNum
-				let row =  this.floors.wrap ? Math.ceil( (lists?lists.length:diyLength) / this.floors.listType ) : 1 //占多少行， wrap==true:商品换行
-				this.minHeight = itemHeight * row * 2 * 0.93 //后面这个2，是rpx的意思 ， 每个元素的倍率系数：0.93是最少高度要是真实调试的93%(防止大于真实高度，如果设95%的话，不换行且三列时，最少高度会大于真实高度)，
-				if (api=='api') {
-					if (!lists||!lists.length) {
+				const itemHeight = this.floors.listType == 1 ? 100 : this.floors.listType == 2 ? 258.5 : this.floors.listType == 3 ? 195 : 160 // 每个元素的高度：详细列表，详细列表是140
+				const diyLength = this.floors.sourceType == 'goods' && this.floors.data.goodsList ? this.floors.data.goodsList.length : this.floors.maxNum
+				const row = this.floors.wrap ? Math.ceil((lists ? lists.length : diyLength) / this.floors.listType) : 1 // 占多少行， wrap==true:商品换行
+				this.minHeight = itemHeight * row * 2 * 0.93 // 后面这个2，是rpx的意思 ， 每个元素的倍率系数：0.93是最少高度要是真实调试的93%(防止大于真实高度，如果设95%的话，不换行且三列时，最少高度会大于真实高度)，
+				if (api == 'api') {
+					if (!lists || !lists.length) {
 						this.minHeight = 0
 					}
-					this.jugeRefresh('api')//接口请求完之后，重新设置一下rangeTop值
+					this.jugeRefresh('api')// 接口请求完之后，重新设置一下rangeTop值
 				}
 			}
 		}

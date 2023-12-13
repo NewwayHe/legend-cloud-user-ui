@@ -84,24 +84,24 @@
 </template>
 
 <script>
-import { invoiceManage } from "@/api/ModulesUser";
+import { invoiceManage } from '@/api/ModulesUser';
 export default {
 	data() {
 		return {
-			invoiceId: null, //编辑使用
+			invoiceId: null, // 编辑使用
 			formData: {
-				type: "NORMAL", //普通发票：NORMAL，增值税专票：DEDICATED
-				titleType: "PERSONAL", //[抬头类型]默认为普通发票的个人发票PERSONAL， 普通发票还有一种公司发票 COMPANY
-				company: "", //[抬头名称],
+				type: 'NORMAL', // 普通发票：NORMAL，增值税专票：DEDICATED
+				titleType: 'PERSONAL', // [抬头类型]默认为普通发票的个人发票PERSONAL， 普通发票还有一种公司发票 COMPANY
+				company: '', // [抬头名称],
 				// 公司--
-				invoiceHumNumber: "", //[税号]
-				registerAddr: "", //[公司地址]
-				registerPhone: "", //[电话号码]
-				depositBank: "", //[开户银行]
-				bankAccountNum: "", //[银行账户]
+				invoiceHumNumber: '', // [税号]
+				registerAddr: '', // [公司地址]
+				registerPhone: '', // [电话号码]
+				depositBank: '', // [开户银行]
+				bankAccountNum: '', // [银行账户]
 				// --公司
-				email: "", //[电子邮箱]
-				commonInvoiceFlag: false, //[是否默认]
+				email: '', // [电子邮箱]
+				commonInvoiceFlag: false, // [是否默认]
 			},
 			current:0,
 			paging: {
@@ -114,21 +114,21 @@ export default {
 	computed: {},
 	watch: {
 		// 当发票类型切换为 个人时 要将[公司的信息]去除
-		"formData.type"(nT) {
-			if (nT == "NORMAL") {
+		'formData.type'(nT) {
+			if (nT == 'NORMAL') {
 				Object.assign(this.formData, {
-					invoiceHumNumber: "", //[税号]
-					registerAddr: "", //[公司地址]
-					registerPhone: "", //[电话号码]
-					depositBank: "", //[开户银行]
-					bankAccountNum: "", //[银行账户]
+					invoiceHumNumber: '', // [税号]
+					registerAddr: '', // [公司地址]
+					registerPhone: '', // [电话号码]
+					depositBank: '', // [开户银行]
+					bankAccountNum: '', // [银行账户]
 				});
 			}
 		},
 	},
 	onLoad(options) {
 		// console.log('发票抬头--', options)
-		this.invoiceId = options.invoiceId||null;
+		this.invoiceId = options.invoiceId || null;
 		options.invoiceId && this.getInvoiceDetail();
 	},
 	methods: {
@@ -145,7 +145,7 @@ export default {
 				})
 				.then((res) => {
 					// console.log('res--',res)
-					Object.assign(this.formData, res.data); //这里要将所有数据回传给后端。。不能向下面那样
+					Object.assign(this.formData, res.data); // 这里要将所有数据回传给后端。。不能向下面那样
 					this.current = this.formData.type == 'DEDICATED' ? 1 : 0
 				}).finally((res) => {
 					this.paging.status = 'noMore'
@@ -154,43 +154,43 @@ export default {
 		// 保存并使用
 		handleSave() {
 			// 普通发票时(formData.type =='NORMAL'),formData.company为发票抬头,增值税发票时(formData.type == 'DEDICATED'),formData.company为公司名称
-			let commonCheck = [
-				//共有的校验
-				{ type: "hasValue", value: this.formData.company, msg: `请输入${this.formData.type == "NORMAL" ? "发票抬头" : "公司名称"}` },
+			const commonCheck = [
+				// 共有的校验
+				{ type: 'hasValue', value: this.formData.company, msg: `请输入${this.formData.type == 'NORMAL' ? '发票抬头' : '公司名称'}` },
 			];
 			
 			// 如果是普通发票并且【普票类型】选择了【公司抬头】，或者如果是增值税发票
-			if ((this.formData.type == "NORMAL" && this.formData.titleType == "COMPANY") || this.formData.type == "DEDICATED") {
-				commonCheck.push({ type: "tax", value: this.formData.invoiceHumNumber, msg: "税号必需是15或者17或者18或者20位字母、数字组成" })
+			if ((this.formData.type == 'NORMAL' && this.formData.titleType == 'COMPANY') || this.formData.type == 'DEDICATED') {
+				commonCheck.push({ type: 'tax', value: this.formData.invoiceHumNumber, msg: '税号必需是15或者17或者18或者20位字母、数字组成' })
 			}
 			
 			// 如果是增值税发票
-			if (this.formData.type == "DEDICATED") {
+			if (this.formData.type == 'DEDICATED') {
 				commonCheck.push(
-					{type: "hasValue", value: this.formData.registerAddr, msg: "请输入公司注册地址" },
-					{ type: "hasValue", value: this.formData.registerPhone, msg: "请输入公司注册电话" },
-					{ type: "phoneNum", value: this.formData.registerPhone, msg: "请输入正确的电话格式" },
-					{ type: "hasValue", value: this.formData.depositBank, msg: "请输入公司开户银行名称" },
-					{ type: "bankAccount", value: this.formData.bankAccountNum, msg: "请输入正确的银行账户号码" }
+					{ type: 'hasValue', value: this.formData.registerAddr, msg: '请输入公司注册地址' },
+					{ type: 'hasValue', value: this.formData.registerPhone, msg: '请输入公司注册电话' },
+					{ type: 'phoneNum', value: this.formData.registerPhone, msg: '请输入正确的电话格式' },
+					{ type: 'hasValue', value: this.formData.depositBank, msg: '请输入公司开户银行名称' },
+					{ type: 'bankAccount', value: this.formData.bankAccountNum, msg: '请输入正确的银行账户号码' }
 				)
 			}
 			
-			//共有的校验
-			commonCheck.push({ type: "email", value: this.formData.email, msg: "请输入正确格式的电子邮箱地址" })
+			// 共有的校验
+			commonCheck.push({ type: 'email', value: this.formData.email, msg: '请输入正确格式的电子邮箱地址' })
 			
 			if (!this.$checkInfo(commonCheck)) return;
 			this.addOrEdit();
 		},
 		addOrEdit() {
-			let isEdit = !!this.invoiceId;
-			let method = isEdit ? "editInvoice" : "addInvoice";
-			let params = this.$u.deepClone(this.formData);
+			const isEdit = !!this.invoiceId;
+			const method = isEdit ? 'editInvoice' : 'addInvoice';
+			const params = this.$u.deepClone(this.formData);
 			isEdit && (params.id = this.invoiceId);
-			if (this.formData.type == "NORMAL") {
-				//去除增值税的字段干扰
-				params.titleType = "PERSONAL";
+			if (this.formData.type == 'NORMAL') {
+				// 去除增值税的字段干扰
+				params.titleType = 'PERSONAL';
 				if (!isEdit) {
-					//如果是新增 编辑状态下不能去除 否则后端报错。。。
+					// 如果是新增 编辑状态下不能去除 否则后端报错。。。
 					delete params.invoiceHumNumber;
 					delete params.registerAddr;
 					delete params.registerPhone;
@@ -198,13 +198,13 @@ export default {
 					delete params.bankAccountNum;
 				}
 			}
-			console.log("formData--", params);
+			console.log('formData--', params);
 			invoiceManage[method](params)
 				.then((res) => {
 					console.log(res);
 					if (res.code) {
 						this.$refs.msgToast.show({
-							title: `${isEdit ? "编辑" : "新增"}成功`,
+							title: `${isEdit ? '编辑' : '新增'}成功`,
 							icon: false,
 							duration: 500,
 							callback: () => {
@@ -214,14 +214,14 @@ export default {
 					}
 				})
 				.catch((err) => {
-					console.log("edit error", err);
+					console.log('edit error', err);
 				});
 		},
 		// 删除
 		handleDel() {
 			uni.showModal({
-				title: "提示",
-				content: "数据删除后将无法恢复，确定删除？",
+				title: '提示',
+				content: '数据删除后将无法恢复，确定删除？',
 				success: (res) => {
 					if (res.confirm) {
 						invoiceManage
@@ -230,7 +230,7 @@ export default {
 								console.log(res);
 								if (res.code) {
 									this.$refs.msgToast.show({
-										title: "删除成功",
+										title: '删除成功',
 										icon: false,
 										duration: 500,
 										callback: () => {
@@ -240,9 +240,9 @@ export default {
 								}
 							})
 							.catch((err) => {
-								console.log("delete invoice err", err);
+								console.log('delete invoice err', err);
 								this.$refs.msgToast.show({
-									title: "该发票不存在或已被删除！",
+									title: '该发票不存在或已被删除！',
 									icon: false,
 								});
 							});
@@ -252,8 +252,8 @@ export default {
 		},
 		goback() {
 			uni.showModal({
-				title: "提示",
-				content: "是否需要取消此次操作，取消后更改的内容将不会被保存",
+				title: '提示',
+				content: '是否需要取消此次操作，取消后更改的内容将不会被保存',
 				success: (res) => {
 					if (res.confirm) {
 						if (!this.$utils.pages.getPageRoute(1)) {

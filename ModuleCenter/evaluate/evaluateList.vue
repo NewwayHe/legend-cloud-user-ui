@@ -154,22 +154,22 @@ import pageUtil from '@/utils/pageUtils.js'
 import { evaluate } from '@/api/ModulesUser'
 const listPage = new pageUtil(evaluate.getEvaluateList)
 export default {
-	name: 'evaluateList',
-    components: {  },
+	name: 'EvaluateList',
+    components: { },
     data() {
         return {
             params: {
                 condition: 1
             },
             list: [],
-			listPicMask: [],	//创建对应的列表图片属性{ sLeft: 0 } 用于控制展开第五张图片
+			listPicMask: [],	// 创建对应的列表图片属性{ sLeft: 0 } 用于控制展开第五张图片
             paging: {
                 status: 'loading',
                 error: false, // 是否错误
                 emptylist: false ,// 是否显示列表为空时的样式
 				total: 0
             },
-			curTab: 0,	//当前选中的Tab
+			curTab: 0,	// 当前选中的Tab
             // tabList: ['全部', '待评论', '待追评', '已追评'],
 			tabList: ['待评价', '已评价/追评'],
         }
@@ -181,15 +181,15 @@ export default {
 	watch: {
 		list(nL, oL) {
 			console.log('nL--', nL)
-			let nLen = nL.length, oLen = oL.length;
+			const nLen = nL.length; const oLen = oL.length;
 			if(nLen) {
-				let nArray = [], nArr = nL.slice(oL.length);
-				for(let i = 0, len = nLen - oLen; i<len; ++i) {
+				const nArray = []; const nArr = nL.slice(oL.length);
+				for(let i = 0, len = nLen - oLen; i < len; ++i) {
 					nArray.push({
-						id: nArr[i].orderItemId,	//这个必须要加ID 否则scroll-view的scroll-left会全部一致
+						id: nArr[i].orderItemId,	// 这个必须要加ID 否则scroll-view的scroll-left会全部一致
 						// sLeft: [0,0],	//不能用数组 因为页面侦测不到变化
-						first_sLeft: 0,	//[初评]滚动距离
-						add_sLeft: 0		//[追评]滚动距离
+						first_sLeft: 0,	// [初评]滚动距离
+						add_sLeft: 0		// [追评]滚动距离
 					})
 				}
 				// this.listPicMask = [...this.listPicMask, ...new Array(nLen - oLen).fill({ isClick: false, sLeft: 0})]
@@ -198,8 +198,8 @@ export default {
 				if(this.curTab == 0) {
 					// 必须使用一个新变量来改变数组 否则页面上的tabList不会重新渲染
 					// 使用key值会导致滑动动画有bug
-					let newTabList = ['已评价/追评']
-					this.$nextTick(()=>{
+					const newTabList = ['已评价/追评']
+					this.$nextTick(() => {
 						newTabList.unshift('待评价' + (this.paging.total > 0 ? `(${this.paging.total})` : ''))
 						this.tabList = newTabList;
 					})
@@ -221,7 +221,7 @@ export default {
 		if(this.isBackRefresh) {
 			console.log('重刷数据')
 			// this.params.condition = this.$data.condition
-			this.$nextTick(()=>{
+			this.$nextTick(() => {
 				this.getData()
 			})
 		}

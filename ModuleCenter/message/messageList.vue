@@ -140,20 +140,20 @@
 			},
 			
 			cleanUnread(){
-				uni.showModal({ title:'提示', content: '是否清除所有未读消息?',success: (res)=> {
+				uni.showModal({ title:'提示', content: '是否清除所有未读消息?',success: (res) => {
 					if (res.confirm) {
 						infoLise.cleanUnread()
 							.then(res => {
 								if (res.code) {
 									this.getData()
-									uni.showToast({title: '操作成功!'});
-									this.$nextTick(() => {  //刷新未读消息数
+									uni.showToast({ title: '操作成功!' });
+									this.$nextTick(() => { // 刷新未读消息数
 										uni.$store.commit('setMyInfo', {}) // 清空VUX里的用户信息
 									})
 								}
 							})
 					}
-				}});
+				} });
 			}
 
 		}

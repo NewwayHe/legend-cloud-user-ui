@@ -15,7 +15,7 @@
  * @example <u-waterfall :flowList="flowList"></u-waterfall>
  */
 export default {
-	name: "u-waterfall",
+	name: 'UWaterfall',
 	props: {
 		value: {
 			// 瀑布流数据
@@ -49,7 +49,7 @@ export default {
 	watch: {
 		copyFlowList(nVal, oVal) {
 			// 取差值，即这一次数组变化新增的部分
-			let startIndex = Array.isArray(oVal) && oVal.length > 0 ? oVal.length : 0;
+			const startIndex = Array.isArray(oVal) && oVal.length > 0 ? oVal.length : 0;
 			// 拼接上原有数据
 			this.tempList = this.tempList.concat(this.cloneData(nVal.slice(startIndex)));
 			this.splitData();
@@ -68,13 +68,13 @@ export default {
 	methods: {
 		async splitData() {
 			if (!this.tempList.length) return;
-			let leftRect = await this.$uGetRect('#u-left-column');
-			let rightRect = await this.$uGetRect('#u-right-column');
+			const leftRect = await this.$uGetRect('#u-left-column');
+			const rightRect = await this.$uGetRect('#u-right-column');
 			// 如果左边小于或等于右边，就添加到左边，否则添加到右边
-			let item = this.tempList[0];
+			const item = this.tempList[0];
 			// 解决多次快速上拉后，可能数据会乱的问题，因为经过上面的两个await节点查询阻塞一定时间，加上后面的定时器干扰
 			// 数组可能变成[]，导致此item值可能为undefined
-			if(!item) return ;
+			if(!item) return;
 			if (leftRect.height < rightRect.height) {
 				this.leftList.push(item);
 			} else if (leftRect.height > rightRect.height) {
@@ -143,7 +143,7 @@ export default {
 			index = this.value.findIndex(val => val[this.idKey] == id);
 			if(index != -1) {
 				// 首先复制一份value的数据
-				let data = this.cloneData(this.value);
+				const data = this.cloneData(this.value);
 				// 修改对应索引的key属性的值为value
 				data[index][key] = value;
 				// 修改父组件通过v-model绑定的变量的值

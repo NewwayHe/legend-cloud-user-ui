@@ -170,7 +170,7 @@ export default {
 			}
 		},
 		shopId: {
-			//如果有传shopId，则是店铺装修的组件
+			// 如果有传shopId，则是店铺装修的组件
 			type: [String, Number],
 			default: ''
 		}
@@ -178,7 +178,7 @@ export default {
 	data() {
 		return {
 			list: [],
-			listType1Height:200,//floors.listType==1时，盒子的高度，单位：rpx
+			listType1Height:200,// floors.listType==1时，盒子的高度，单位：rpx
 		};
 	},
 	computed: {

@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import deepClone from "@/components/uview-ui/libs/function/deepClone.js";
+import deepClone from '@/components/uview-ui/libs/function/deepClone.js';
 
 export default {
 	// 购物车角标

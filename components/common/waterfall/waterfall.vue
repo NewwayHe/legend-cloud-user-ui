@@ -156,15 +156,15 @@ export default {
     },
     data() {
         return {
-			listTemp:[],//this.list的缓存变量
+			listTemp:[],// this.list的缓存变量
             topArr: [], // left, right 多个时依次表示第几列的数据
             allPositionArr: [], // 保存所有的位置信息
             allHeightArr: [], // 保存所有的 height 信息
             height: 0, // 外层包裹高度
             oldNum: 0,
             num: 0,
-			maxHieght:400,//每个盒子最大的高度(为防有人恶意上传很长的图片霸屏)，单位：px
-			statusArr:[],//标记哪一个是超长的图片
+			maxHieght:400,// 每个盒子最大的高度(为防有人恶意上传很长的图片霸屏)，单位：px
+			statusArr:[],// 标记哪一个是超长的图片
         }
     },
 	computed: {
@@ -188,25 +188,25 @@ export default {
         imageLoadHandle(index,error) {
 			console.log('err--', error)
 			// 如果是错误的图片有error值,则显示默认图
-			if(error&&error.type=="error"){
+			if(error && error.type == 'error'){
 				this.$set(this.listTemp[index], 'error', true)
 			}
-			setTimeout(()=>{
+			setTimeout(() => {
 				const id = 'waterfalls-list-id-' + this.list[index][this.idKey]
 				const query = uni.createSelectorQuery().in(this)
 				query.select('#' + id).fields({ size: true }, (data) => {
 					this.num++
-					let dataHeight = data.height<=this.maxHieght?data.height:this.maxHieght
-					let status = {
+					const dataHeight = data.height <= this.maxHieght ? data.height : this.maxHieght
+					const status = {
 						superLong:false,
 						textHeight:0
 					}
-					if (data.height>this.maxHieght) {//为防有人恶意上传很长的图片霸屏，当盒子高度(图片+文字)大于maxHieght时，将盒子定死在maxHieght高
-						status.superLong = true//图片是否超长
+					if (data.height > this.maxHieght) { // 为防有人恶意上传很长的图片霸屏，当盒子高度(图片+文字)大于maxHieght时，将盒子定死在maxHieght高
+						status.superLong = true// 图片是否超长
 						const textId = 'waterfalls-text-id-' + this.list[index][this.idKey]
 						const query = uni.createSelectorQuery().in(this)
 						query.select('#' + textId).fields({ size: true }, (textData) => {
-							status.textHeight = textData.height//超长的图片记住文字的高度
+							status.textHeight = textData.height// 超长的图片记住文字的高度
 						}).exec()
 					}
 					this.$set(this.statusArr,index, status)
@@ -238,7 +238,6 @@ export default {
 					}
 				}).exec()
 			},500)
-
         },
         refresh() {
             const arr = []

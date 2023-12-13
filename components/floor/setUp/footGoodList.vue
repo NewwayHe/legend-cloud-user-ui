@@ -136,9 +136,9 @@ import pageUtils from '@/utils/pageUtils.js';
 import floorMixin from '@/mixins/floor.js';
 import { trim } from '@/api/ModulesCommon.js';
 import { search } from '@/api/ModuleGoods.js'
-const listPageGroup = new pageUtils(trim.trimGroupProductPage,{notReset:true});
-const listPageCategory = new pageUtils(search.searchProduct,{notReset:true})
-const scrollLoad = false//是否开启滚动到该楼层时才请求接口加载功能。当很多个楼层时，prodList组件在小程序端用jugeRefresh的话有可能会出现白屏，而且由于已经做了图片懒加载功能，其实一开始调用所有接口，并不会浪费太多流量
+const listPageGroup = new pageUtils(trim.trimGroupProductPage,{ notReset:true });
+const listPageCategory = new pageUtils(search.searchProduct,{ notReset:true })
+const scrollLoad = false// 是否开启滚动到该楼层时才请求接口加载功能。当很多个楼层时，prodList组件在小程序端用jugeRefresh的话有可能会出现白屏，而且由于已经做了图片懒加载功能，其实一开始调用所有接口，并不会浪费太多流量
 export default {
     components: {},
     mixins: [floorMixin],
@@ -160,16 +160,16 @@ export default {
             type: [String, Number],
             default: 0
         },
-        shopId: {//如果有传shopId，则是店铺装修的组件
+        shopId: { // 如果有传shopId，则是店铺装修的组件
             type: [String,Number],
             default: ''
         },
 		conHeight: {
 			type: [String, Number,Boolean],
-			default: 0 //setUpHead组件的占位符高度
+			default: 0 // setUpHead组件的占位符高度
 		},
 		isSwiper: {
-			type: [Boolean,String, Number,],
+			type: [Boolean,String, Number],
 			default: false
 		},
     },
@@ -179,14 +179,14 @@ export default {
 
             // feed楼层专用数据
             apiGroupParams: {
-                //查询分组接口时需要传入的参数
-                groupId: '', //商品分组ID
+                // 查询分组接口时需要传入的参数
+                groupId: '', // 商品分组ID
 				descending: false,
 				sort:''// '' 默认排序  // min_price 价格排序  //buys 销量排序
             },
             apiCategoryParams: {
-                //查询分类接口时需要传入的参数
-                categoryId: '', //分类Id
+                // 查询分类接口时需要传入的参数
+                categoryId: '', // 分类Id
                 key: '', // 搜索词
                 descending: false,
                 sortBy: 'multiple' // multiple 默认排序  // price 价格排序  //sale 销量排序
@@ -197,15 +197,15 @@ export default {
                 error: false, // 是否错误
                 emptylist: false // 是否显示列表为空时的样式
             },
-            current:0,//默认选中tab的下标,这个要在getData()里赋值，不然刷新页面的时间不更新下划线
+            current:0,// 默认选中tab的下标,这个要在getData()里赋值，不然刷新页面的时间不更新下划线
             windowHeight: 0, // 可视区的高
             // top:0,//tab栏的高度
             rangeTop: 0, // 距离顶部
             loadState: false, // 是否加载过(运行过getData()方法)
-            topState: false,//是否已经拿了tab栏的top值
+            topState: false,// 是否已经拿了tab栏的top值
             touchstarE:{
-                clientX:0,//记录划点击位置距离当前body可视区域的x坐标
-                clientY:0,//记录划点击位置距离当前body可视区域的y坐标
+                clientX:0,// 记录划点击位置距离当前body可视区域的x坐标
+                clientY:0,// 记录划点击位置距离当前body可视区域的y坐标
             },
         }
     },
@@ -221,7 +221,7 @@ export default {
                 list = this.floors.idList.map((item) => {
                     return item.name
                 })
-            } else if (this.floors.type == '商品分类'||this.floors.type == '分类') {
+            } else if (this.floors.type == '商品分类' || this.floors.type == '分类') {
                 list = this.floors.categoryIdList.map((item) => {
                     return item.name[item.name.length - 1]
                 })
@@ -229,35 +229,35 @@ export default {
             // console.log(list);
             return list
         },
-        tabBackgroundColor() {//组件tabs栏的背景色
-           return this.floors.tabBgThemeColor?this.parmas.themeColor:this.floors.tabBgColor?this.floors.tabBgColor:this.listBackgroundColor
+        tabBackgroundColor() { // 组件tabs栏的背景色
+           return this.floors.tabBgThemeColor ? this.parmas.themeColor : this.floors.tabBgColor ? this.floors.tabBgColor : this.listBackgroundColor
         },
-        listBackgroundColor() {//组件tab栏下面的ls-load-more列表的背景色
+        listBackgroundColor() { // 组件tab栏下面的ls-load-more列表的背景色
            return this.parmas.foot && this.parmas.foot.backgroundColor ? this.parmas.foot.backgroundColor : ''
         },
 
-        curTabColor() {//tab栏选中的按钮的颜色
+        curTabColor() { // tab栏选中的按钮的颜色
             return this.floors.tabCurThemeColor ? this.parmas.themeColor : this.floors.tabCurColor
         },
-        name() {//统一管理商品名字
+        name() { // 统一管理商品名字
             return function(item) {
                 return (item.productName || item.name) ? (item.productName || item.name) : '商品示例名名称'
             }
         },
-        pic() {//统一管理商品图片
+        pic() { // 统一管理商品图片
             return function(item) {
-                return  item.pic || item.image || item.productPic
+                return item.pic || item.image || item.productPic
             }
         },
-        price() {//统一管理商品价格
+        price() { // 统一管理商品价格
             return function(item) {
                 let arr = []
-                if (item.price&&item.price.toString().indexOf("~")!=-1) {//判断money是否为1.00~2.00的模式
+                if (item.price && item.price.toString().indexOf('~') != -1) { // 判断money是否为1.00~2.00的模式
                     arr = [item.price,'']
                 }else{
                     arr = this.$stringUtils.formatNumber(item.price ? item.price : 999)
                 }
-                return  arr
+                return arr
             }
         },
     },
@@ -269,20 +269,20 @@ export default {
                         this.apiGroupParams['groupId'] = this.floors.idList[0].id
                     }
                 }
-                if (newValue == '商品分类') {//如果是商城分类
+                if (newValue == '商品分类') { // 如果是商城分类
                     if (this.floors.categoryIdList && this.floors.categoryIdList.length) {
                         this.apiCategoryParams['categoryId'] = this.floors.categoryIdList[0].id[this.floors.categoryIdList[0].id.length - 1]
                     }
                 }
-                if (newValue == '分类') {//如果是店铺分类
+                if (newValue == '分类') { // 如果是店铺分类
                     if (this.floors.categoryIdList && this.floors.categoryIdList.length) {
                         this.apiCategoryParams['shopCategoryId'] = this.floors.categoryIdList[0].id[this.floors.categoryIdList[0].id.length - 1]
                         this.apiCategoryParams['shopIds'] = [this.shopId]
                     }
                 }
-                if (this.loadState&&scrollLoad) {
+                if (this.loadState && scrollLoad) {
                     this.loadState = false
-                    this.$nextTick(()=> {
+                    this.$nextTick(() => {
                         this.jugeRefresh()
                     })
                 }
@@ -306,10 +306,10 @@ export default {
         },
     },
     mounted() {
-        this.$nextTick(()=> {
+        this.$nextTick(() => {
 			if (scrollLoad) {
 				// 不加setTimeout的话,this.rangeTop有可能会算不准(因为其它例如热区/商品列表等楼层也要获取ref的,要等他们获取完后,该楼层的top值才能算准)
-				setTimeout(()=>{
+				setTimeout(() => {
 					this.jugeRefresh()
 				},100)
 			} else{
@@ -327,7 +327,7 @@ export default {
         
             // 获取组件的尺寸信息
             const tabRect = await this.$utils.getRect(this, '.scrollFlag')
-            this.rangeTop = tabRect.top + this.scrollTop||0
+            this.rangeTop = tabRect.top + this.scrollTop || 0
             // console.log('rangeTop~~~~~~~~',this.rangeTop);
             if (this.windowHeight >= this.rangeTop) {
                 this.getData()
@@ -336,15 +336,15 @@ export default {
         getData() {
             this.loadState = true
             if (this.floors.type == '商品分组') {
-                listPageGroup.loadListByPage(this, this.apiGroupParams,{complete:()=>{ uni.stopPullDownRefresh(); }})
+                listPageGroup.loadListByPage(this, this.apiGroupParams,{ complete:() => { uni.stopPullDownRefresh(); } })
             }
-            if (this.floors.type == '商品分类'||this.floors.type == '分类') {
-                listPageCategory.loadListByPage(this, this.apiCategoryParams,{complete:()=>{ uni.stopPullDownRefresh(); }})
+            if (this.floors.type == '商品分类' || this.floors.type == '分类') {
+                listPageCategory.loadListByPage(this, this.apiCategoryParams,{ complete:() => { uni.stopPullDownRefresh(); } })
             }
-			//当在页面在未加载完时迅速向下滚动(页面元素未加载完成)再点击tabs元素时，会出现$pageScrollTo计算错误的问题(该bug由于性能问题，无法解决，所以先屏幕)
-			//if(this.top&&this.scrollTop>this.top){
+			// 当在页面在未加载完时迅速向下滚动(页面元素未加载完成)再点击tabs元素时，会出现$pageScrollTo计算错误的问题(该bug由于性能问题，无法解决，所以先屏幕)
+			// if(this.top&&this.scrollTop>this.top){
 				// this.$emit('pageScrollTo',this.top)
-			//}
+			// }
         },
         
         // 切换tabs
@@ -353,10 +353,10 @@ export default {
             if (this.floors.type == '商品分组') {
                 this.apiGroupParams['groupId'] = this.floors.idList[item.index].id
             }
-            if (this.floors.type == '商品分类') { //如果是商城分类
+            if (this.floors.type == '商品分类') { // 如果是商城分类
                 this.apiCategoryParams['categoryId'] = this.floors.categoryIdList[item.index].id[this.floors.categoryIdList[item.index].id.length - 1]
             }
-            if (this.floors.type == '分类') {//如果是店铺分类
+            if (this.floors.type == '分类') { // 如果是店铺分类
                 this.apiCategoryParams['shopCategoryId'] = this.floors.categoryIdList[item.index].id[this.floors.categoryIdList[item.index].id.length - 1]
             }
             this.getData()
@@ -408,14 +408,14 @@ export default {
             }
         },
         touchend(e){
-            if(e.changedTouches[0]&&Math.abs(e.changedTouches[0].clientY - this.touchstarE.clientY)<50){
-                if (e.changedTouches[0].clientX - this.touchstarE.clientX<-50) {//向左划
-                    if(this.current==(this.tempList.length-1)) return
-					this.changeTab({index:this.current+1})
+            if(e.changedTouches[0] && Math.abs(e.changedTouches[0].clientY - this.touchstarE.clientY) < 50){
+                if (e.changedTouches[0].clientX - this.touchstarE.clientX < -50) { // 向左划
+                    if(this.current == (this.tempList.length - 1)) return
+					this.changeTab({ index:this.current + 1 })
                 }
-                if (e.changedTouches[0].clientX - this.touchstarE.clientX>50) {//向右划
-                    if(this.current==0) return
-					this.changeTab({index:this.current-1})
+                if (e.changedTouches[0].clientX - this.touchstarE.clientX > 50) { // 向右划
+                    if(this.current == 0) return
+					this.changeTab({ index:this.current - 1 })
                 }
             }
         },
@@ -436,13 +436,13 @@ export default {
 		//         }, 0)
 		//     })
 		// },
-        //父组件的onReachBottom(上拉触底事件的处理函数)里触发该方法，该方法不能删，不然会报错
+        // 父组件的onReachBottom(上拉触底事件的处理函数)里触发该方法，该方法不能删，不然会报错
         pageMore(){
-            if (this.list&&this.list.length) {
+            if (this.list && this.list.length) {
                 if (this.floors.type == '商品分组') {
                     listPageGroup.loadListByPageMore();
                 }
-                if (this.floors.type == '商品分类'||this.floors.type == '分类') {
+                if (this.floors.type == '商品分类' || this.floors.type == '分类') {
                     listPageCategory.loadListByPageMore();
                 }
             }

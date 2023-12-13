@@ -48,7 +48,7 @@ export default {
 	data() {
 		return {
 			weixinCode: '',
-			hasAuthorization: '', //userinfo 用户信息收取  phone 手机号授权
+			hasAuthorization: '', // userinfo 用户信息收取  phone 手机号授权
 			nickName: '',
 			extended: '', // 用户信息（watermark）,iv
 		};
@@ -67,7 +67,7 @@ export default {
 						provider: 'weixin',
 						success: infoRes => {
 							// console.log('infoRes:',infoRes);
-							let { encryptedData, iv } = infoRes;
+							const { encryptedData, iv } = infoRes;
 							this.extended = encryptedData + ',' + iv;
 						}
 					});
@@ -93,9 +93,9 @@ export default {
 			});
 		},
 		getUserInfo(res) {
-			let { encryptedData, iv } = res.detail;
+			const { encryptedData, iv } = res.detail;
 			this.extended = encryptedData + ',' + iv;
-			let params = {
+			const params = {
 				principal: 'CODE',
 				credentials: this.weixinCode,
 				extended: this.extended,
@@ -116,7 +116,7 @@ export default {
 			oauthService.login(parmas).then(res => {
 				if (res.success) {
 					if (res.data.code == 201) {
-						//第一次授权获取用户信息成功后，转换为手机授权
+						// 第一次授权获取用户信息成功后，转换为手机授权
 						this.hasAuthorization = 'phone';
 						this.weixinLogin();
 					} else {
@@ -131,8 +131,8 @@ export default {
 		},
 		getPhoneNumber(e) {
 			if (e.detail.errMsg == 'getPhoneNumber:ok') {
-				let { encryptedData, iv } = e.detail;
-				let params = {
+				const { encryptedData, iv } = e.detail;
+				const params = {
 					principal: encryptedData + ',' + iv,
 					credentials: this.weixinCode,
 					extended: this.extended,

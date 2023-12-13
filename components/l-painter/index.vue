@@ -18,13 +18,13 @@
 </template>
 
 <script>
-import { toPx, base64ToPath, compareVersion} from './utils';
+import { toPx, base64ToPath, compareVersion } from './utils';
 import { Draw } from './draw';
 import { Layout } from './layout';
 import { adaptor, expand } from './canvas';
 export default {
 	// version: '1.5.9.7',
-	name: 'l-painter',
+	name: 'LPainter',
 	props: {
 		board: Object,
 		fileType: {
@@ -44,7 +44,7 @@ export default {
 		isH5PathToBase64: Boolean,
 		sleep: {
 			type: Number,
-			default: 1000/30
+			default: 1000 / 30
 		},
 		// #ifdef MP-WEIXIN
 		type: {
@@ -106,11 +106,11 @@ export default {
 	},
 	mounted() {
 		// #ifdef MP-WEIXIN
-		const {SDKVersion, version, platform} = wx.getSystemInfoSync()
+		const { SDKVersion, version, platform } = wx.getSystemInfoSync()
 		// ios wx7.0.20 createImage bug
 		this.use2dCanvas = (this.type === '2d' && compareVersion(SDKVersion, '2.9.2') >= 0) && !(/ios/.test(platform) && /7.0.20/.test(version));
 		// #endif
-		this.$watch('board', async (val, old) => {
+		this.$watch('board', async(val, old) => {
 			if (JSON.stringify(val) === '{}' || !val) return;
 			this.render();
 		}, {
@@ -166,10 +166,10 @@ export default {
 					console.error(JSON.stringify(err))
 				})
 			}
-			return Promise.resolve({ctx, draw: this.draw});
+			return Promise.resolve({ ctx, draw: this.draw });
 		},
 		async custom(cb) {
-			const {ctx, draw} = await this.render({}, true)
+			const { ctx, draw } = await this.render({}, true)
 			ctx.save()
 			await cb(ctx, draw)
 			ctx.restore()
@@ -180,7 +180,7 @@ export default {
 			return Promise.resolve(true);
 		},
 		canvasDraw(flag = false) {
-			const {ctx} = this
+			const { ctx } = this
 			return new Promise(resolve => {
 				ctx.draw(flag, () => {
 					resolve(true);
@@ -190,7 +190,7 @@ export default {
 		async getContext() {
 			if(this.ctx && this.inited) {
 				return Promise.resolve(this.ctx)
-			};
+			}
 			const { type, use2dCanvas, dpr, boardWidth, boardHeight } = this;
 			await new Promise(resolve => this.$nextTick(resolve)) 
 			const _getContext = () => {
@@ -246,15 +246,14 @@ export default {
 						this.ctx = adaptor(ctx)
 						resolve(this.ctx);
 					});
-				
 			});
 		},
 		canvasToTempFilePath(args = {}) {
-		  const {use2dCanvas, canvasId} = this
+		  const { use2dCanvas, canvasId } = this
 		  return new Promise((resolve, reject) => {
 		    let { top: y = 0, left: x = 0, width, height } = this.boundary || this
-			let destWidth = width * this.dpr
-			let destHeight = height * this.dpr
+			const destWidth = width * this.dpr
+			const destHeight = height * this.dpr
 			// #ifdef MP-ALIPAY
 			width = width * this.dpr
 			height = height * this.dpr

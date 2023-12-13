@@ -106,7 +106,7 @@ export default {
 				return 0;
 			}
 			let num = 0;
-			for (let item of shop.skuList) {
+			for (const item of shop.skuList) {
 				if (item.statusFlag) {
 					num += item.totalCount;
 				}

@@ -39,16 +39,16 @@
 </template>
 
 <script>
-import { throttle  } from '@/utils/utils.js';
+import { throttle } from '@/utils/utils.js';
 export default {
-    name: 'ls-button',
+    name: 'LsButton',
 	// #ifdef MP-WEIXIN
 	// 将自定义节点设置成虚拟的，更加接近Vue组件的表现，能更好的使用flex属性。这时在<组件name> 里加style和class是不会生效的
 	options: { virtualHost: true },
 	// #endif
     props: {
 		className:{
-			type: [String, Array,Boolean],//这里加个Boolean，是因为如果传className=""，小程序端会报错
+			type: [String, Array,Boolean],// 这里加个Boolean，是因为如果传className=""，小程序端会报错
 			default: ''
 		},
 
@@ -83,7 +83,7 @@ export default {
             type: Number,
             default: 1500
         },
-		name: {		//在ls-header中使用asyncFunction时会导致name指向为ls-header 所以要增加prop来保证this的指向正确
+		name: {		// 在ls-header中使用asyncFunction时会导致name指向为ls-header 所以要增加prop来保证this的指向正确
 			type: String,
 			default: ''
 		},
@@ -215,7 +215,7 @@ export default {
 
     mounted() {
         // this.$nextTick(()=> {});
-		this.dbClickBtnFn= throttle(this.clickBtnFn,this.time)
+		this.dbClickBtnFn = throttle(this.clickBtnFn,this.time)
     },
 
     methods: {
@@ -231,14 +231,14 @@ export default {
             }
             if (this.time) {
                 if (this.asyncFunction) {
-					//微信小程序该函数内的this指向本组件，H5、安卓App指向父组件,所以必须统一this，指向
-					//uni.$u.$parent.call(this) from https://www.uviewui.com/js/fastUse.html
+					// 微信小程序该函数内的this指向本组件，H5、安卓App指向父组件,所以必须统一this，指向
+					// uni.$u.$parent.call(this) from https://www.uviewui.com/js/fastUse.html
 					
 					// #ifdef MP
-					let name = this.name || this.$parent.$options.name || ''
-					if (name) {//小程序，如果是在组件里(非页面)引用ls-button，则要输入父组件的name属性值
-						await this.asyncFunction.apply(uni.$u.$parent.call(this,name))//name，可选，页面或者父组件的name属性值，不传则默认查找页面(最顶层)的实例
-					}else{//小程序，如果是页面里引入ls-button，则不能传name值，如果传一个''空值，该this值指向会错误
+					const name = this.name || this.$parent.$options.name || ''
+					if (name) { // 小程序，如果是在组件里(非页面)引用ls-button，则要输入父组件的name属性值
+						await this.asyncFunction.apply(uni.$u.$parent.call(this,name))// name，可选，页面或者父组件的name属性值，不传则默认查找页面(最顶层)的实例
+					}else{ // 小程序，如果是页面里引入ls-button，则不能传name值，如果传一个''空值，该this值指向会错误
 						await this.asyncFunction.apply(uni.$u.$parent.call(this))
 					}
 					// #endif
@@ -256,10 +256,10 @@ export default {
             } else {
                 if (this.asyncFunction) {
 					// #ifdef MP
-					let name = this.name || this.$parent.$options.name || ''
-					if (name) {//小程序，如果是在组件里(非页面)引用ls-button，则要输入父组件的name属性值
-						await this.asyncFunction.apply(uni.$u.$parent.call(this,name))//name，可选，页面或者父组件的name属性值，不传则默认查找页面(最顶层)的实例
-					}else{//小程序，如果是页面里引入ls-button，则不能传name值，如果传一个''空值，该this值指向会错误
+					const name = this.name || this.$parent.$options.name || ''
+					if (name) { // 小程序，如果是在组件里(非页面)引用ls-button，则要输入父组件的name属性值
+						await this.asyncFunction.apply(uni.$u.$parent.call(this,name))// name，可选，页面或者父组件的name属性值，不传则默认查找页面(最顶层)的实例
+					}else{ // 小程序，如果是页面里引入ls-button，则不能传name值，如果传一个''空值，该this值指向会错误
 						await this.asyncFunction.apply(uni.$u.$parent.call(this))
 					}
 					// #endif

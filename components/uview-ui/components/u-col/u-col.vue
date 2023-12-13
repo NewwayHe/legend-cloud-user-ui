@@ -25,7 +25,7 @@
 	 * @example <u-col span="3"><view class="demo-layout bg-purple"></view></u-col>
 	 */
 	export default {
-		name: "u-col",
+		name: 'UCol',
 		props: {
 			// 占父容器宽度的多少等分，总分为12份
 			span: {

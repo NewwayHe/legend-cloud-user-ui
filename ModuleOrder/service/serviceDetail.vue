@@ -235,7 +235,7 @@ export default {
 
 			showPopup: false,
 			showRefund: false,
-			isEditLogistics:false ,//是否修改物流
+			isEditLogistics:false ,// 是否修改物流
 			
 			paging: {
 			    status: 'loading',
@@ -270,7 +270,7 @@ export default {
 	},
 	filters: {
 		getApplyType(applyType) {
-			let applyTypeDict = {
+			const applyTypeDict = {
 				1: '退款',
 				2: '退货',
 				'-1': '已撤销'
@@ -279,7 +279,7 @@ export default {
 		},
 		getApplyStatus(data) {
 			// applyType=3是商家主动申请取消订单，状态需单独判断
-			if(data.applyType==3){
+			if(data.applyType == 3){
 				if (data.applyStatus == 2) {
 					return '处理中';
 				}
@@ -321,9 +321,9 @@ export default {
 		},
 	},
 	mounted(){
-		orderApi.cancelReason().then(res=>{
+		orderApi.cancelReason().then(res => {
 			if(res.code && res.data.length){
-				this.columns = res.data.map(v=>{return v.value})
+				this.columns = res.data.map(v => { return v.value })
 			}
 		})
 	},
@@ -337,19 +337,19 @@ export default {
 			this.logisticsIndex = e.target.value;
 			this.logisticsForm.company = this.logisticsArr[this.logisticsIndex].name;
 		},
-		changePopup($event,isEdit=false) {
+		changePopup($event,isEdit = false) {
 			console.log(isEdit)
 			this.isEditLogistics = isEdit
 			this.showPopup = !this.showPopup;
 		},
 		goServiceRefund(refundData) {
 			// 整单退
-			if (this.refundData.orderStatus == 5||this.refundData.orderStatus == 2) {
+			if (this.refundData.orderStatus == 5 || this.refundData.orderStatus == 2) {
 				this.refundReason = '';
 				this.columsIndex = '';
 				this.showRefund = true;
 			// 部分退(refundData.orderStatus>5代表已发货)
-			} else if(this.refundData.orderStatus>5){
+			} else if(this.refundData.orderStatus > 5){
 				this.$navigateTo(`/ModuleOrder/service/serviceRefund?orderId=${this.refundData.orderId}&orderItemId=${this.refundData.orderItemId}`);
 			}
 		},
@@ -363,8 +363,8 @@ export default {
 			) {
 				return;
 			}
-			if(this.isEditLogistics==false){
-				let confirmParams = { ...this.logisticsForm, refundId: this.refundId, logisticsId: this.logisticsArr[this.logisticsIndex].id };
+			if(this.isEditLogistics == false){
+				const confirmParams = { ...this.logisticsForm, refundId: this.refundId, logisticsId: this.logisticsArr[this.logisticsIndex].id };
 				refundApi.confirmShip(confirmParams).then(res => {
 					if (res.code) {
 						this.changePopup();
@@ -372,7 +372,7 @@ export default {
 					}
 				});
 			}else{
-				let confirmParams = { ...this.logisticsForm, refundId: this.refundId, id: this.refundData.refundReturnLogisticsDTO.id, logisticsCompanyId: this.logisticsArr[this.logisticsIndex].id, orderNumber: this.refundData.orderNumber };
+				const confirmParams = { ...this.logisticsForm, refundId: this.refundId, id: this.refundData.refundReturnLogisticsDTO.id, logisticsCompanyId: this.logisticsArr[this.logisticsIndex].id, orderNumber: this.refundData.orderNumber };
 				refundApi.updateLogistic(confirmParams).then(res => {
 					if (res.code) {
 						this.changePopup();
@@ -496,8 +496,8 @@ export default {
 		},
 		
 		onInput(e){
-			setTimeout(()=>{
-				this.logisticsForm.logisticsNumber  = this.$stringUtils.trim(e.detail.value,2)
+			setTimeout(() => {
+				this.logisticsForm.logisticsNumber = this.$stringUtils.trim(e.detail.value,2)
 			},10) 
 		}
 	}

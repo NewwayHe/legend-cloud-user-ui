@@ -87,13 +87,13 @@
 				closeRecommend: true,
 				// #ifdef APP-PLUS
 				appSetting: {
-					locationAuthorized: '', //允许使用定位的开关
-					cameraAuthorized: '', //允许使用摄像头的开关
-					albumAuthorized: '' //允许使用相册的开关
+					locationAuthorized: '', // 允许使用定位的开关
+					cameraAuthorized: '', // 允许使用摄像头的开关
+					albumAuthorized: '' // 允许使用相册的开关
 				},
 				// #endif
 				// #ifdef MP
-				userLocation: false, //允许使用定位的开关
+				userLocation: false, // 允许使用定位的开关
 				// #endif
 			}
 		},

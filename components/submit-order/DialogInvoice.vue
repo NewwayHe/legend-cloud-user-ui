@@ -107,17 +107,17 @@
 </template>
 
 <script>
-import { invoiceManage } from "@/api/ModulesUser";
+import { invoiceManage } from '@/api/ModulesUser';
 
 const form = {
-	type: "NORMAL",
-	titleType: "PERSONAL",
-	company: "", // 如果是普票，则是抬头信息，如果是增值税,则是公司名称
-	invoiceHumNumber: "",
-	registerAddr: "",
-	registerPhone: "",
-	depositBank: "",
-	bankAccountNum: "",
+	type: 'NORMAL',
+	titleType: 'PERSONAL',
+	company: '', // 如果是普票，则是抬头信息，如果是增值税,则是公司名称
+	invoiceHumNumber: '',
+	registerAddr: '',
+	registerPhone: '',
+	depositBank: '',
+	bankAccountNum: '',
 	commonInvoiceFlag: false,
 };
 
@@ -139,19 +139,19 @@ export default {
 	},
 	created() {
 		this.formData = Object.assign({}, form);
-		this.$set(this.formData, "type", "NORMAL");
+		this.$set(this.formData, 'type', 'NORMAL');
 	},
 	computed: {},
 	watch: {
 		// 当发票类型切换为 个人时 要将[公司的信息]去除
-		"formData.type"(nT) {
-			if (nT == "NORMAL") {
+		'formData.type'(nT) {
+			if (nT == 'NORMAL') {
 				Object.assign(this.formData, {
-					invoiceHumNumber: "", //[税号]
-					registerAddr: "", //[公司地址]
-					registerPhone: "", //[电话号码]
-					depositBank: "", //[开户银行]
-					bankAccountNum: "", //[银行账户]
+					invoiceHumNumber: '', // [税号]
+					registerAddr: '', // [公司地址]
+					registerPhone: '', // [电话号码]
+					depositBank: '', // [开户银行]
+					bankAccountNum: '', // [银行账户]
 				});
 			}
 		},
@@ -163,36 +163,36 @@ export default {
 		submitInvoice() {
 			if (this.formData) {
 				// 普通发票时(formData.type =='NORMAL'),formData.company为发票抬头,增值税发票时(formData.type == 'DEDICATED'),formData.company为公司名称
-				let commonCheck = [
-					//共有的校验
-					{ type: "hasValue", value: this.formData.company, msg: `请输入${this.formData.type == "NORMAL" ? "发票抬头" : "公司名称"}` },
+				const commonCheck = [
+					// 共有的校验
+					{ type: 'hasValue', value: this.formData.company, msg: `请输入${this.formData.type == 'NORMAL' ? '发票抬头' : '公司名称'}` },
 				];
 				
 				// 如果是普通发票并且【普票类型】选择了【公司抬头】，或者如果是增值税发票
-				if ((this.formData.type == "NORMAL" && this.formData.titleType == "COMPANY") || this.formData.type == "DEDICATED") {
-					commonCheck.push({ type: "tax", value: this.formData.invoiceHumNumber, msg: "税号必需是15或者17或者18或者20位字母、数字组成" })
+				if ((this.formData.type == 'NORMAL' && this.formData.titleType == 'COMPANY') || this.formData.type == 'DEDICATED') {
+					commonCheck.push({ type: 'tax', value: this.formData.invoiceHumNumber, msg: '税号必需是15或者17或者18或者20位字母、数字组成' })
 				}
 				
 				// 如果是增值税发票
-				if (this.formData.type == "DEDICATED") {
+				if (this.formData.type == 'DEDICATED') {
 					commonCheck.push(
-						{type: "hasValue", value: this.formData.registerAddr, msg: "请输入公司注册地址" },
-						{ type: "hasValue", value: this.formData.registerPhone, msg: "请输入公司注册电话" },
-						{ type: "phoneNum", value: this.formData.registerPhone, msg: "请输入正确的电话格式" },
-						{ type: "hasValue", value: this.formData.depositBank, msg: "请输入公司开户银行名称" },
-						{ type: "bankAccount", value: this.formData.bankAccountNum, msg: "请输入正确的银行账户号码" }
+						{ type: 'hasValue', value: this.formData.registerAddr, msg: '请输入公司注册地址' },
+						{ type: 'hasValue', value: this.formData.registerPhone, msg: '请输入公司注册电话' },
+						{ type: 'phoneNum', value: this.formData.registerPhone, msg: '请输入正确的电话格式' },
+						{ type: 'hasValue', value: this.formData.depositBank, msg: '请输入公司开户银行名称' },
+						{ type: 'bankAccount', value: this.formData.bankAccountNum, msg: '请输入正确的银行账户号码' }
 					)
 				}
 				
-				//共有的校验
-				commonCheck.push({ type: "email", value: this.formData.email, msg: "请输入正确格式的电子邮箱地址" })
+				// 共有的校验
+				commonCheck.push({ type: 'email', value: this.formData.email, msg: '请输入正确格式的电子邮箱地址' })
 				
 				if (!this.$checkInfo(commonCheck)) return;
 				invoiceManage
 					.addInvoice(this.formData)
 					.then((res) => {
-						this.$set(this.formData, "id", res.data);
-						this.$emit("addInvoice", this.formData);
+						this.$set(this.formData, 'id', res.data);
+						this.$emit('addInvoice', this.formData);
 					})
 					.catch((err) => {
 						console.log(err);
@@ -201,10 +201,10 @@ export default {
 		},
 		// 切换发票类型
 		changeType(type) {
-			if (type == "NORMAL") {
-				this.formData.titleType = "PERSONAL";
+			if (type == 'NORMAL') {
+				this.formData.titleType = 'PERSONAL';
 			} else {
-				this.formData.titleType = "COMPANY";
+				this.formData.titleType = 'COMPANY';
 			}
 			this.formData.type = type;
 		},

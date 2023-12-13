@@ -170,7 +170,7 @@ import { couponApi } from '@/api/ModuleCenter'
 // VUE功能组件
     
 export default {
-    name: 'good-coupon',
+    name: 'GoodCoupon',
 
     components: {},
 
@@ -179,7 +179,7 @@ export default {
         list: Array,
         type: {
             type: [String,Number],
-            default:'good',//good：普通商品页面，cart：购物车页面
+            default:'good',// good：普通商品页面，cart：购物车页面
         },
     },
 
@@ -187,7 +187,7 @@ export default {
         return {
             listTemp:[],
             showPopup:false,
-            couponData:'',//优惠券详情
+            couponData:'',// 优惠券详情
             height: 240 // 记录主体class的高度
         };
     },
@@ -216,9 +216,9 @@ export default {
         // 领取优惠券
         getCoupon(id,index) {
             goodsApi.getCoupon(id).then((res) => {
-				if( res.code == 1 ){
+				if(res.code == 1){
 					uni.showToast({ title: '领取成功', icon: 'none' })
-					this.listTemp[index].receivedFlag = true//由于现在就算设置了不限领的优惠券，只要领取一张，在未用之前，都不能再领取，所以不用再重新请求接口
+					this.listTemp[index].receivedFlag = true// 由于现在就算设置了不限领的优惠券，只要领取一张，在未用之前，都不能再领取，所以不用再重新请求接口
 					this.$emit('getCouponSuccess')
 				}
             })
@@ -226,7 +226,7 @@ export default {
         // 获取优惠券详情
         getDetail(id,index) {
             this.couponData = ''
-            if(this.listTemp[index]['unfold']==true){//如果是点击已经展开的顶，则折叠起来
+            if(this.listTemp[index]['unfold'] == true){ // 如果是点击已经展开的顶，则折叠起来
                 this.$set(this.listTemp[index],'unfold',false)
                 return
             }
@@ -234,8 +234,8 @@ export default {
             for (var i = 0; i < this.listTemp.length; i++) {
                 this.$set(this.listTemp[i],'unfold',false)
             }
-            couponApi.couponGetById({id: id}).then((res) => {
-                if (res.code==1) {
+            couponApi.couponGetById({ id: id }).then((res) => {
+                if (res.code == 1) {
                     this.couponData = res.data
                     this.$set(this.listTemp[index],'unfold',true)
                 }

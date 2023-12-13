@@ -46,7 +46,7 @@
  * @example <u-circle-progress active-color="#2979ff" :percent="80"></u-circle-progress>
  */
 export default {
-	name: 'u-circle-progress',
+	name: 'UCircleProgress',
 	props: {
 		// 圆环进度百分比值
 		percent: {
@@ -146,12 +146,12 @@ export default {
 	},
 	methods: {
 		drawProgressBg() {
-			let ctx = uni.createCanvasContext(this.elBgId, this);
+			const ctx = uni.createCanvasContext(this.elBgId, this);
 			ctx.setLineWidth(this.borderWidthPx); // 设置圆环宽度
 			ctx.setStrokeStyle(this.inactiveColor); // 线条颜色
 			ctx.beginPath(); // 开始描绘路径
 			// 设置一个原点(110,110)，半径为100的圆的路径到当前路径
-			let radius = this.widthPx / 2;
+			const radius = this.widthPx / 2;
 			ctx.arc(radius, radius, radius - this.borderWidthPx, 0, 2 * Math.PI, false);
 			ctx.stroke(); // 对路径进行描绘
 			ctx.draw();
@@ -169,13 +169,13 @@ export default {
 			ctx.setLineWidth(this.borderWidthPx);
 			ctx.setStrokeStyle(this.circleColor);
 			// 将总过渡时间除以100，得出每修改百分之一进度所需的时间
-			let time = Math.floor(this.duration / 100);
+			const time = Math.floor(this.duration / 100);
 			// 结束角的计算依据为：将2π分为100份，乘以当前的进度值，得出终止点的弧度值，加起始角，为整个圆从默认的
 			// 3点钟方向开始画图，转为更好理解的12点钟方向开始作图，这需要起始角和终止角同时加上this.startAngle值
-			let endAngle = ((2 * Math.PI) / 100) * progress + this.startAngle;
+			const endAngle = ((2 * Math.PI) / 100) * progress + this.startAngle;
 			ctx.beginPath();
 			// 半径为整个canvas宽度的一半
-			let radius = this.widthPx / 2;
+			const radius = this.widthPx / 2;
 			ctx.arc(radius, radius, radius - this.borderWidthPx, this.startAngle, endAngle, false);
 			ctx.stroke();
 			ctx.draw();

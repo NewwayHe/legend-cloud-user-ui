@@ -1,7 +1,7 @@
 function AMapWX(a) {
-    ;(this.key = a.key), (this.requestConfig = { key: a.key, s: 'rsx', platform: 'WXJS', appname: a.key, sdkversion: '1.2.0', logversion: '2.0' })
+    (this.key = a.key), (this.requestConfig = { key: a.key, s: 'rsx', platform: 'WXJS', appname: a.key, sdkversion: '1.2.0', logversion: '2.0' })
 }
-;(AMapWX.prototype.getWxLocation = function(a, b) {
+(AMapWX.prototype.getWxLocation = function(a, b) {
     wx.getLocation({
         type: 'gcj02',
         success: function(a) {
@@ -179,7 +179,7 @@ function AMapWX(a) {
                         if (b.data.status && b.data.status == '1') {
                             if (((b = b.data), b && b.pois)) {
                                 for (c = [], d = 0; d < b.pois.length; d++) {
-                                    ;(e = d == 0 ? a.iconPathSelected : a.iconPath),
+                                    (e = d == 0 ? a.iconPathSelected : a.iconPath),
                                         c.push({
                                             latitude: parseFloat(b.pois[d].location.split(',')[1]),
                                             longitude: parseFloat(b.pois[d].location.split(',')[0]),
@@ -191,7 +191,7 @@ function AMapWX(a) {
                                             address: b.pois[d].address
                                         })
                                 }
-                                ;(f = { markers: c, poisData: b.pois }), a.success(f)
+                                (f = { markers: c, poisData: b.pois }), a.success(f)
                             }
                         } else a.fail({ errCode: b.data.infocode, errMsg: b.data.info })
                     },

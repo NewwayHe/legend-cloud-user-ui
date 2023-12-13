@@ -71,12 +71,12 @@
 	 * @example <u-swiper :list="list" mode="dot" indicator-pos="bottomRight"></u-swiper>
 	 */
 	export default {
-		name: "u-swiper",
+		name: 'USwiper',
 		props: {
 			// 轮播图的数据,格式如：[{image: 'xxxx', title: 'xxxx'}，{image: 'yyyy', title: 'yyyy'}]，其中title字段可选
 			list: {
 				type: Array,
-				default () {
+				default() {
 					return [];
 				}
 			},
@@ -88,7 +88,7 @@
 			// 用户自定义的指示器的样式
 			indicator: {
 				type: Object,
-				default () {
+				default() {
 					return {};
 				}
 			},
@@ -214,7 +214,7 @@
 				this.$emit('click', index);
 			},
 			change(e) {
-				let current = e.detail.current;
+				const current = e.detail.current;
 				this.uCurrent = current;
 				// 发出change事件，表示当前自动切换的index，从0开始
 				this.$emit('change', current);

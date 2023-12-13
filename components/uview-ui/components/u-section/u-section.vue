@@ -44,7 +44,7 @@
 	 * @example <u-section title="今日热门" :right="false"></u-section>
 	 */
 	export default {
-		name: "u-section",
+		name: 'USection',
 		props: {
 			// 标题信息
 			title: {

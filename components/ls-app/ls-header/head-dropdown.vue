@@ -44,12 +44,12 @@
 <script>
 import { mapState } from 'vuex';
 export default {
-	name: 'head-select',
+	name: 'HeadSelect',
 	components: {},
 	props: {
 		list: Array,
-		title: String, //标题的前缀
-		state: [String, Number], //用来记录是否已选
+		title: String, // 标题的前缀
+		state: [String, Number], // 用来记录是否已选
 		/**
 		 * 背景色
 		 */
@@ -75,7 +75,7 @@ export default {
 		...mapState(['stausBarHeight'])
 	},
 	mounted() {
-		if(this.state) {	//表头名称要与state进行同步
+		if(this.state) {	// 表头名称要与state进行同步
 			this.currentIndex = this.list.findIndex(item => item.value == this.state);
 		}
 	},

@@ -104,7 +104,7 @@
  * @example <u-card padding="30" title="card"></u-card>
  */
 export default {
-	name: 'u-card',
+	name: 'UCard',
 	props: {
 		// 与屏幕两侧是否留空隙
 		full: {

@@ -87,29 +87,29 @@
 <script>
 	import { evaluate } from '@/api/ModulesUser'
 	export default {
-		name: 'addEvaluate',
+		name: 'AddEvaluate',
 		components: {
 		},
 		data() {
 			return {
-				goodProdPic: 0,	//刷新ls-image更新
-				goodInfo: { prodPic: '' },	//当前评论的商品信息
+				goodProdPic: 0,	// 刷新ls-image更新
+				goodInfo: { prodPic: '' },	// 当前评论的商品信息
 				queryParams: null,
-				oldAnonymousFlag: 0,	//保存一份旧的匿名标签
-				anonymousFlag: 0,	//0为非匿名 1为匿名
+				oldAnonymousFlag: 0,	// 保存一份旧的匿名标签
+				anonymousFlag: 0,	// 0为非匿名 1为匿名
 				picFile: [],
 				formData: {
 					// 初评
-					score: 5,	//宝贝评分
-					shopScore: 5,	//店铺评分
-					logisticsScore: 5,	//物流评分
-					orderItemId: null,	//初评需要用到
-					anonymousFlag: false,	//是否匿名
+					score: 5,	// 宝贝评分
+					shopScore: 5,	// 店铺评分
+					logisticsScore: 5,	// 物流评分
+					orderItemId: null,	// 初评需要用到
+					anonymousFlag: false,	// 是否匿名
 					
-					content: '',		//评论内容
-					photos: '',		//图片/视频
+					content: '',		// 评论内容
+					photos: '',		// 图片/视频
 					
-					productCommentId: null,	//追评使用
+					productCommentId: null,	// 追评使用
 				},
 			}
 		},
@@ -124,7 +124,7 @@
 			totalRate() {
 				// 默认为1星
 				const { score = 5, shopScore = 5, logisticsScore = 5 } = this.formData
-				return ((score*1 + shopScore*1 + logisticsScore*1) / 3).toExponential(2)
+				return ((score * 1 + shopScore * 1 + logisticsScore * 1) / 3).toExponential(2)
 			}
 		},
 		onLoad(options) {
@@ -142,7 +142,7 @@
 						++this.goodProdPic;
 			        }
 			    })
-				if(this.queryParams.operation == 3) {	//如果是追评 要获取之前的评分
+				if(this.queryParams.operation == 3) {	// 如果是追评 要获取之前的评分
 					evaluate.getEvaluateDetail({ id: this.queryParams.id }).then((res) => {
 						if (res.code == 1) {
 							const { score = 1, shopScore = 1, logisticsScore = 1 } = res.data
@@ -158,7 +158,7 @@
 			// 是否匿名切换
 			anoyFlagChange(name) {
 				// console.log('切换--', name)
-				if(this.oldAnonymousFlag == name) {	//取反操作
+				if(this.oldAnonymousFlag == name) {	// 取反操作
 					this.anonymousFlag = 0;
 					this.oldAnonymousFlag = 0;
 				}else {
@@ -182,7 +182,7 @@
 						// 初评保存
 						
 						params = {
-							anonymousFlag: _that.anonymousFlag == 1 ? true : false,
+							anonymousFlag: _that.anonymousFlag == 1,
 							score: _that.formData.score,
 							shopScore: _that.formData.score,
 							logisticsScore: _that.formData.logisticsScore,
@@ -197,14 +197,14 @@
 								uni.showToast({
 									title: '提交成功!',
 									icon: 'none',
-									complete:()=> {
+									complete:() => {
 										setTimeout(() => {
 											_that.$utils.pages.goBeforePage(1)
 										}, 700)
 									}
 								})
 							}
-						}).finally(()=>{
+						}).finally(() => {
 							return resolve()
 						})
 					} else if (operation == 3) {
@@ -221,14 +221,14 @@
 								uni.showToast({
 									title: '提交成功!',
 									icon: 'none',
-									complete:()=> {
+									complete:() => {
 										setTimeout(() => {
 											_that.$utils.pages.goBeforePage(1)
 										}, 700)
 									}
 								})
 							}
-						}).finally(()=>{
+						}).finally(() => {
 							return resolve()
 						})
 					}

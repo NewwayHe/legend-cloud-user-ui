@@ -36,7 +36,7 @@
 </template>
 <script>
 export default {
-    name: 'good-params',
+    name: 'GoodParams',
     components: {},
 
     props: {
@@ -71,7 +71,7 @@ export default {
             handler(newValue, oldValue) {
                 if (newValue) {
                     this.prodParams = this.prodList
-                    this.$nextTick(() => {this.getClassProdParams()})
+                    this.$nextTick(() => { this.getClassProdParams() })
                 }
             },
             deep: true,

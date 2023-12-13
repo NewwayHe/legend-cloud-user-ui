@@ -65,7 +65,7 @@ export default {
 		return {
 			walletData: {},
 			predepositData: '',
-			showPreTip: false,	//点击[可用余额]问号时的弹窗
+			showPreTip: false,	// 点击[可用余额]问号时的弹窗
 		};
 	},
 	computed: { },

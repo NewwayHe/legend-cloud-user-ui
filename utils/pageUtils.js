@@ -17,13 +17,13 @@ class pageUtil {
 	_config = {
 		// 字段名
 		field: {
-			resData:'resData',//res.data的字段名
+			resData:'resData',// res.data的字段名
 			list: 'list', // 列表数组的字段名
 			paging: 'paging', // 分页的字段名
 			currPage: 'curPage',
 			pageSize: 'pageSize'
 		},
-		notReset:false,//应用场景：当有tab栏并且该tab栏不是fiexd在顶部而是在屏幕中间时，该值为false的话会先将list清空再请求数据，此时会出现页面先清空数据闪一下，再显示数据，并且滚动条会有变化，这样体验不好
+		notReset:false,// 应用场景：当有tab栏并且该tab栏不是fiexd在顶部而是在屏幕中间时，该值为false的话会先将list清空再请求数据，此时会出现页面先清空数据闪一下，再显示数据，并且滚动条会有变化，这样体验不好
 				// 当该值为true时，请求参数前,不会把list清空,并且在第一次加载时是用了深拷贝
 				// 1、删掉了 初始化列表数组vueThat[listKey] = [];
 				// 2、vueThat[listKey] = res.data.resultList 改为：vueThat[listKey] = uni.$u.deepClone(res.data.resultList);并且在数据请求成功后赋值请、没数据时、接口错误时 加入：vueThat[listKey] = [];
@@ -238,7 +238,7 @@ const _method = {
 					if (options.listHandler) {
 						res.data.resultList = options.listHandler(res.data.resultList)
 					}
-					//如果是关闭了【初始化列表数组】功能
+					// 如果是关闭了【初始化列表数组】功能
 					if(pageUtil._config.notReset){
 						if (res.data.curPageNO == 1) {
 							// 当页码是第一页时，直接赋值
@@ -248,13 +248,13 @@ const _method = {
 							// 否则追加
 							vueThat[listKey].push(...res.data.resultList)
 						}
-					//如果正常模式
+					// 如果正常模式
 					}else{
 						vueThat[listKey] = vueThat[listKey].concat(res.data.resultList)
 					}
 				} else {
 					code = handleSuccessCode.EMPTY_LIST
-					//如果是关闭了【初始化列表数组】功能
+					// 如果是关闭了【初始化列表数组】功能
 					if(pageUtil._config.notReset){
 						vueThat[listKey] = []
 					}
@@ -264,7 +264,7 @@ const _method = {
 				// 弹出消息提示是否合理？还是让调用者自己处理这种情况？
 				// uni.showToast({title:res.msg,icon:'none'})
 				code = handleSuccessCode.OTHER
-				//如果是关闭了【初始化列表数组】功能
+				// 如果是关闭了【初始化列表数组】功能
 				if(pageUtil._config.notReset){
 					vueThat[listKey] = []
 				}

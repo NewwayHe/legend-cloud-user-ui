@@ -146,11 +146,11 @@ export default {
 			altPayImgCue: false, // 支付宝支付提示
 			platform: '', // 用户手机系统类型 安卓、苹果
 			payTypeIcons: {
-				FREE_PAY: ['icon-mianfei', '#40CDA9'], //免费支付
-				ALI_PAY: ['icon-zhifubao', '#0CAEEF'], //支付宝支付
-				WX_PAY: ['icon-weixinzhifu', '#01CA02'], //微信支付
-				SIMULATE_PAY: ['icon-qianbao1', '#FEB347'], //模拟支付
-				GNETE_PAY: ['icon-yinhangka', '#0CAEEF'], //银联支付
+				FREE_PAY: ['icon-mianfei', '#40CDA9'], // 免费支付
+				ALI_PAY: ['icon-zhifubao', '#0CAEEF'], // 支付宝支付
+				WX_PAY: ['icon-weixinzhifu', '#01CA02'], // 微信支付
+				SIMULATE_PAY: ['icon-qianbao1', '#FEB347'], // 模拟支付
+				GNETE_PAY: ['icon-yinhangka', '#0CAEEF'], // 银联支付
 			},
 			paging: {
 				status: 'loading',
@@ -158,7 +158,7 @@ export default {
 				errMsg: '暂无数据',
 				emptylist: false // 是否显示列表为空时的样式
 			},
-			showWeiXinAliPay: false, //如果是微信端打开支付宝支付或者APP端易宝支付宝支付，并且请求接口成功，
+			showWeiXinAliPay: false, // 如果是微信端打开支付宝支付或者APP端易宝支付宝支付，并且请求接口成功，
 			timeOut: '',
 			haiBaoData: {}, // 易宝支付宝/微信支付专用(链接的支付二维码)
 			shareImg: '', // 支付二维码
@@ -171,7 +171,7 @@ export default {
 		...mapState(['userInfo']),
 		payTypeList() {
 			return this.payInfo.payTypeList.filter((item, index) => {
-				if (this.$utils.getUa().isMP && (item.payTypeId == 'YEEPAY_ALI_PAY'||item.payTypeId == 'ALI_PAY')) {
+				if (this.$utils.getUa().isMP && (item.payTypeId == 'YEEPAY_ALI_PAY' || item.payTypeId == 'ALI_PAY')) {
 					return;
 				} else {
 					return item;
@@ -192,7 +192,7 @@ export default {
 			this.payParams.orderNumber = JSON.parse(decodeURIComponent(option.orderNumber))
 		}
 		// 如果是APP端选择了易宝微信支付，调起小程序，则只执行surePay()方法--只有APP端拉起微信小程序支付才会传payType值
-		if (!(this.payParams.payType=='YEEPAY_WX_PAY')) {
+		if (!(this.payParams.payType == 'YEEPAY_WX_PAY')) {
 			this.toPay();
 		}
 		// #ifdef MP
@@ -205,8 +205,8 @@ export default {
 	onShow() {
 		// #ifdef MP
 		// 如果是APP端选择了易宝微信支付，就直接调起微信小程序进行支付--只有APP端拉起微信小程序支付才会传payType值
-		this.$nextTick(()=>{
-			if (this.payParams.payType=='YEEPAY_WX_PAY') {
+		this.$nextTick(() => {
+			if (this.payParams.payType == 'YEEPAY_WX_PAY') {
 				this.curPayType = this.payParams.payType
 				this.surePay(this.curPayType)
 			}
@@ -246,7 +246,7 @@ export default {
 							this.surePay();
 							return;
 						}
-						setTimeout(()=>{
+						setTimeout(() => {
 							if (this.payTypeList && this.payTypeList.length) {
 								this.curPayType = this.payTypeList[0].payTypeId;
 							}
@@ -284,9 +284,9 @@ export default {
 				this.platform = uni.getSystemInfoSync().platform;
 				uni.showLoading({ title: '正在支付...', mask: true });
 				// 如果是【APP端易宝微信支付】，则直接拉起小程序
-				if(this.$utils.getUa().isAPP&&this.curPayType == 'YEEPAY_WX_PAY'){
-					this.setTimeout(); //打开定时器每两秒请求一次接口看有没有支付成功
-					setTimeout(()=>{
+				if(this.$utils.getUa().isAPP && this.curPayType == 'YEEPAY_WX_PAY'){
+					this.setTimeout(); // 打开定时器每两秒请求一次接口看有没有支付成功
+					setTimeout(() => {
 						// 30分钟内还未支付的话,终止
 						uni.hideLoading();
 						return resolve()
@@ -296,9 +296,9 @@ export default {
 					// 唤醒微信app并访问H5页面(但要申请第三方ticket)
 					// plus.runtime.openURL(`weixin://dl/business/?ticket=${res.data.paymentResult}`);
 									
-					//找出分享到微信端
+					// 找出分享到微信端
 					plus.share.getServices(
-						(shareRes)=> {
+						(shareRes) => {
 							var shares = {};
 							for (var i = 0; i < shareRes.length; i++) {
 								var t = shareRes[i];
@@ -314,16 +314,16 @@ export default {
 							}
 							const url = `/ModuleOrder/submitOrder/payOrder${this.$u.queryParams(parmas)}`
 							// console.log('url:',url);
-							//拉起微信小程序
+							// 拉起微信小程序
 							sweixin
 								? sweixin.launchMiniProgram({
-									id: this.$config.wxOriginalId, //https://mp.weixin.qq.com/里【设置】-【帐号信息】->【原始ID】
+									id: this.$config.wxOriginalId, // https://mp.weixin.qq.com/里【设置】-【帐号信息】->【原始ID】
 									path: url
 								})
 								: plus.nativeUI.alert('当前环境不支持微信操作!');
 							return resolve()
 						},
-						(e)=> {
+						(e) => {
 							return resolve()
 							console.log('获取分享服务列表失败：' + e.message);
 						}
@@ -345,11 +345,11 @@ export default {
 									// const jumpAddress = `/ModuleOrder/submitOrder/wxAliPay?payData=${encodeURIComponent(res.data.paymentResult)}&subSettlementSn=${encodeURIComponent(res.data.paySettlementSn)}`
 									// location.replace(jumpAddress)// 由于IOS上点右上角的复制链接时，用uni.redirectTo跳转的话，?后面的参数是复制不了的，所以要用到location.replace()方法
 									// // uni.redirectTo({url: `/ModuleOrder/submitOrder/wxAliPay?payData=${encodeURIComponent(res.data.paymentResult)}&subSettlementSn=${encodeURIComponent(res.data.paySettlementSn)}`});
-									this.setTimeout(); //打开定时器每两秒请求一次接口看有没有支付成功
-									this.$nextTick(()=>{
+									this.setTimeout(); // 打开定时器每两秒请求一次接口看有没有支付成功
+									this.$nextTick(() => {
 										// 易宝支付宝支付,res.data.paymentResult是带有HTTP开头的链接
 										if (this.curPayType == 'YEEPAY_ALI_PAY') {
-											this.showWeiXinAliPay = true; //打开popup弹框
+											this.showWeiXinAliPay = true; // 打开popup弹框
 										}
 										// 支付宝支付,res.data.paymentResult是带有<form>表单格式
 										if (this.curPayType == 'ALI_PAY') {
@@ -358,7 +358,7 @@ export default {
 									})
 								} else {
 									this.$nextTick(() => {
-										if(this.curPayType=='YEEPAY_ALI_PAY'){
+										if(this.curPayType == 'YEEPAY_ALI_PAY'){
 											window.location.href = res.data.paymentResult;
 											// window.open(res.data.paymentResult);
 										}else{
@@ -369,7 +369,7 @@ export default {
 							// 否则返回的是JSON
 							} else {
 								// 如果是APP及易宝支付宝支付,则跳H5页面上访问支付宝的易宝链接，在H5页面上拉起支付宝支付
-								if (this.$utils.getUa().isAPP&&this.curPayType == 'YEEPAY_ALI_PAY') {
+								if (this.$utils.getUa().isAPP && this.curPayType == 'YEEPAY_ALI_PAY') {
 									this.payDatas = res.data.paymentResult;
 									const haiBaoDataTemp = {
 										css: {
@@ -396,19 +396,19 @@ export default {
 										]
 									};
 									this.$set(this, 'haiBaoData', haiBaoDataTemp);
-									this.setTimeout(); //打开定时器每两秒请求一次接口看有没有支付成功
+									this.setTimeout(); // 打开定时器每两秒请求一次接口看有没有支付成功
 									this.$nextTick(() => {
-										this.showWeiXinAliPay = true; //打开popup弹框
+										this.showWeiXinAliPay = true; // 打开popup弹框
 										plus.runtime.openWeb(res.data.paymentResult);
 									});
 								// 如果是正常支付(APP或小程序)
 								} else {
 									// 如果是APP端选择了易宝微信支付，调起小程序支付成功后，
-									if (payType=='YEEPAY_WX_PAY') {
+									if (payType == 'YEEPAY_WX_PAY') {
 										const payParams = {
-											orderNumber:encodeURIComponent(JSON.stringify(this.payParams.orderNumber)),//【支付失败】后点击【重新支付】用
-											settlementType:this.payParams.settlementType,//【支付失败】后点击【重新支付】用
-											amount:this.payInfo.amount,//【支付失败】后点击【重新支付】用
+											orderNumber:encodeURIComponent(JSON.stringify(this.payParams.orderNumber)),// 【支付失败】后点击【重新支付】用
+											settlementType:this.payParams.settlementType,// 【支付失败】后点击【重新支付】用
+											amount:this.payInfo.amount,// 【支付失败】后点击【重新支付】用
 											subSettlementSn:res.data.paySettlementSn,
 											payType:payType
 										};
@@ -417,9 +417,9 @@ export default {
 										});
 									}else{
 										const payParams = {
-											orderNumber:encodeURIComponent(JSON.stringify(this.payParams.orderNumber)),//【支付失败】后点击【重新支付】用
-											settlementType:this.payParams.settlementType,//【支付失败】后点击【重新支付】用
-											amount:this.payInfo.amount,//【支付失败】后点击【重新支付】用
+											orderNumber:encodeURIComponent(JSON.stringify(this.payParams.orderNumber)),// 【支付失败】后点击【重新支付】用
+											settlementType:this.payParams.settlementType,// 【支付失败】后点击【重新支付】用
+											amount:this.payInfo.amount,// 【支付失败】后点击【重新支付】用
 											subSettlementSn:res.data.paySettlementSn,
 										};
 										uni.redirectTo({
@@ -431,9 +431,9 @@ export default {
 						} else {
 							uni.showToast({ title: res.msg, duration: 2000, icon: 'none' });
 						}
-					}).catch(res=>{
+					}).catch(res => {
 						// 如果没有微信授权
-						if (res.code==-1000) {
+						if (res.code == -1000) {
 							// #ifdef MP
 							appToken.toLogin()
 							// #endif
@@ -443,7 +443,7 @@ export default {
 							}
 							// #endif
 						}
-					}).finally(()=>{ return resolve() })
+					}).finally(() => { return resolve() })
 				}
 			})
 		},
@@ -461,9 +461,9 @@ export default {
 								complete: () => {
 									setTimeout(() => {
 										const payParams = {
-											orderNumber:encodeURIComponent(JSON.stringify(this.payParams.orderNumber)),//【支付失败】后点击【重新支付】用
-											settlementType:this.payParams.settlementType,//【支付失败】后点击【重新支付】用
-											amount:this.payInfo.amount,//【支付失败】后点击【重新支付】用
+											orderNumber:encodeURIComponent(JSON.stringify(this.payParams.orderNumber)),// 【支付失败】后点击【重新支付】用
+											settlementType:this.payParams.settlementType,// 【支付失败】后点击【重新支付】用
+											amount:this.payInfo.amount,// 【支付失败】后点击【重新支付】用
 											subSettlementSn:respond.data.settlementSn,
 										};
 										uni.redirectTo({

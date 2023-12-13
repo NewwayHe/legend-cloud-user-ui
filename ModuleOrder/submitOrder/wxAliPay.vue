@@ -24,16 +24,16 @@ export default {
             isApple: false, // 实在安卓还是ios打开, 设备类型
             source: null, // 来源, 订单: ORDER, 充值: RECARGE
             payData: null ,// 支付成功返回的
-			timer:null, //调用定时器
-			num:null, //调用次数
-			subSettlementSn:null,//支付号
+			timer:null, // 调用定时器
+			num:null, // 调用次数
+			subSettlementSn:null,// 支付号
         };
     },
     created() { },
     onLoad(option) {
-	  this.payData=option.payData||null
-	  this.subSettlementSn=option.subSettlementSn||null
-	  this.source=option.source||null
+	  this.payData = option.payData || null
+	  this.subSettlementSn = option.subSettlementSn || null
+	  this.source = option.source || null
     },
 	computed: { },
 	
@@ -44,7 +44,7 @@ export default {
         this.isApple = getUa().isApple;
         // #endif
         // 如果不是微信浏览器, 则自动支付
-        if (!this.isWeixin&&this.payData) {
+        if (!this.isWeixin && this.payData) {
            this.$nextTick(() => {
                 document.forms[0].submit();
 			   // this.pollingPayResult()
@@ -66,22 +66,22 @@ export default {
 		clearInterval(this.timer)
 	},
     methods: {
-		//轮询支付结果
+		// 轮询支付结果
 		pollingPayResult(){
 				this.num++
 				// 获取成功的订单数据
 				orderApi.successOrderDetail(this.subSettlementSn).then(res => {
 				    if (res.code == 1) {
-						if(res.data.state===1){
+						if(res.data.state === 1){
 							 clearInterval(this.timer)
 							 uni.hideLoading()
 							 uni.redirectTo({
-							     url: `/ModuleOrder/submitOrder/orderPayResult?subSettlementSn=` +this.subSettlementSn
+							     url: `/ModuleOrder/submitOrder/orderPayResult?subSettlementSn=` + this.subSettlementSn
 							 });
 							 console.log('成功了')
 						}
 						// if(this.num===30){
-						if(this.num===5){
+						if(this.num === 5){
 							uni.hideLoading()
 							clearInterval(this.timer);
 						}

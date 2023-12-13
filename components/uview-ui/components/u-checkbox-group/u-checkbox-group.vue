@@ -24,7 +24,7 @@
 	 * @example <u-checkbox-group></u-checkbox-group>
 	 */
 	export default {
-		name: 'u-checkbox-group',
+		name: 'UCheckboxGroup',
 		mixins: [Emitter],
 		props: {
 			// 最多能选中多少个checkbox
@@ -95,7 +95,7 @@
 		},
 		methods: {
 			emitEvent() {
-				let values = [];
+				const values = [];
 				this.children.map(val => {
 					if(val.value) values.push(val.name);
 				})

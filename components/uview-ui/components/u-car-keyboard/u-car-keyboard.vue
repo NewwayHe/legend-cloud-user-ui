@@ -24,7 +24,7 @@
 
 <script>
 	export default {
-		name: "u-keyboard",
+		name: 'UKeyboard',
 		props: {
 			// 是否打乱键盘按键的顺序
 			random: {
@@ -78,7 +78,7 @@
 					'使',
 					'学'
 				];
-				let tmp = [];
+				const tmp = [];
 				// 打乱顺序
 				if (this.random) data = this.$u.randomArray(data);
 				// 切割成二维数组
@@ -127,7 +127,7 @@
 					'N',
 					'M'
 				];
-				let tmp = [];
+				const tmp = [];
 				if (this.random) data = this.$u.randomArray(data);
 				tmp[0] = data.slice(0, 10);
 				tmp[1] = data.slice(10, 20);
@@ -152,7 +152,7 @@
 			// 点击退格键
 			backspaceClick() {
 				this.$emit('backspace');
-				clearInterval(this.timer); //再次清空定时器，防止重复注册定时器
+				clearInterval(this.timer); // 再次清空定时器，防止重复注册定时器
 				this.timer = null;
 				this.timer = setInterval(() => {
 					this.$emit('backspace');

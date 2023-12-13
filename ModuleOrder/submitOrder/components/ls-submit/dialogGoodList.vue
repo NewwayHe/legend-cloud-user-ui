@@ -77,7 +77,7 @@ export default {
     methods: {
 		// 显示弹窗，并重置数据
 		changePopup() {
-		   this.show=!this.show
+		   this.show = !this.show
 		},
 		 // 返回当前商店的商品数量
 		getTotalNum(shop) {
@@ -85,7 +85,7 @@ export default {
 				return 0
 			}
 			let num = 0
-			for (let item of shop.skuList) {
+			for (const item of shop.skuList) {
 				num += item.totalCount
 			}
 			return num

@@ -143,7 +143,7 @@ export default {
 		},
 		// 文字内容的样式
 		textStyle() {
-			let style = {};
+			const style = {};
 			if (this.color) style.color = this.color;
 			else if(this.type == 'none') style.color = '#606266';
 			style.fontSize = this.fontSize + 'rpx';
@@ -179,7 +179,7 @@ export default {
 			this.$emit('getMore');
 		},
 		change(e) {
-			let index = e.detail.current;
+			const index = e.detail.current;
 			if(index == this.list.length - 1) {
 				this.$emit('end');
 			}

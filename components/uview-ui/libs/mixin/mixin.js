@@ -12,8 +12,8 @@ module.exports = {
 		// 解决办法为在组件根部再套一个没有任何作用的view元素
 		$uGetRect(selector, all,that) {
 			return new Promise(resolve => {
-				uni.createSelectorQuery().
-				in(that?that:this)[all ? 'selectAll' : 'select'](selector)
+				uni.createSelectorQuery()
+				.in(that || this)[all ? 'selectAll' : 'select'](selector)
 					.boundingClientRect(rect => {
 						if (all && Array.isArray(rect) && rect.length) {
 							resolve(rect)

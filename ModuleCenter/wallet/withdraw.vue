@@ -53,14 +53,14 @@ export default {
     data() {
         return {
 			formData:{
-				"amount": '',
-				"channel": "",
-				"payPassword": "",
-				"realName": "",
+				'amount': '',
+				'channel': '',
+				'payPassword': '',
+				'realName': '',
 			},
 			canAmount:0,
             Nomsg: false,
-            hasClickCode: false //是否已经点击了【获取验证码】
+            hasClickCode: false // 是否已经点击了【获取验证码】
         };
     },
     computed: { },
@@ -89,29 +89,29 @@ export default {
         }
     },
     onLoad(option) {
-       this.formData.channel=option.channel||''
-	   depositApi.wallet().then(res=>{
-	   	if(res.code&&res.data){
-	   		this.canAmount=res.data.availableAmount
+       this.formData.channel = option.channel || ''
+	   depositApi.wallet().then(res => {
+	   	if(res.code && res.data){
+	   		this.canAmount = res.data.availableAmount
 	   	}
 	   })
     },
     mounted() {},
     methods: {
-		//全部提现
+		// 全部提现
 		allWithdrawal(){
-			if(this.canAmount<=0)return
-			this.formData.amount=this.canAmount
+			if(this.canAmount <= 0)return
+			this.formData.amount = this.canAmount
 		},
 		clean(flag, index) {
 		     this.formData[flag] = '';
 		},
         toWithdraw() {
 			if(!this.$checkInfo([
-			    {type:'hasValue',value:this.formData.amount,msg:'请输入提现金额'},
-			    {type:'hasValue',value:this.formData.channel,msg:'请选择提现方式'},
-			    {type:'hasValue',value:this.formData.realName,msg:'请输入真实姓名'},
-			    {type:'payPwd',value:this.formData.payPassword,msg:'请输入正确的支付密码'},
+			    { type:'hasValue',value:this.formData.amount,msg:'请输入提现金额' },
+			    { type:'hasValue',value:this.formData.channel,msg:'请选择提现方式' },
+			    { type:'hasValue',value:this.formData.realName,msg:'请输入真实姓名' },
+			    { type:'payPwd',value:this.formData.payPassword,msg:'请输入正确的支付密码' },
 			])) return;
             depositApi.walletWithdraw(this.formData).then(res => {
             	this.hasClickCode = false;
@@ -122,7 +122,7 @@ export default {
                     uni.navigateTo({ url: `/ModuleCenter/wallet/withdrawSuccess?formData=${encodeURIComponent(JSON.stringify(self.formData))}` });
                     uni.hideLoading(); // 成功后马上清除Toast.loading
                 }
-			}).catch((err)=>{
+			}).catch((err) => {
 				if (err.response?.data.code == -1000) {
 					// #ifdef MP
 					appToken.toLogin()
@@ -134,7 +134,7 @@ export default {
 					// #endif
 					// #ifdef APP-PLUS
 					plus.oauth.getServices(
-						(services)=> {
+						(services) => {
 							// console.log('services: ' + JSON.stringify(services))
 							let auth = ''
 							services.forEach((element) => {
@@ -143,24 +143,24 @@ export default {
 								}
 							})
 							auth.logout(
-								(e)=> {},
-								(e)=> {}
+								(e) => {},
+								(e) => {}
 							) // 注销登录授权认证,这个可以删掉，但删掉后，要隔一段时间后才能让你选择另一个账号登录
 							auth.login(
-								(res)=> {
+								(res) => {
 									if (res.target) {
-										userApi.updateUserOpenId({thirdPartyIdentifier:res.target.authResult.openid,credentials:res.target.authResult.access_token,authType:'WECHAT_APP'}).then(res=>{
-											if (res.code&&!this.hasUpdateUserOpenId) {
+										userApi.updateUserOpenId({ thirdPartyIdentifier:res.target.authResult.openid,credentials:res.target.authResult.access_token,authType:'WECHAT_APP' }).then(res => {
+											if (res.code && !this.hasUpdateUserOpenId) {
 												this.toWithdraw()
-												this.$set(this,'hasUpdateUserOpenId',true)//已经请求过updateUserOpenId接口的，不再重新执行toWithdraw()方法
+												this.$set(this,'hasUpdateUserOpenId',true)// 已经请求过updateUserOpenId接口的，不再重新执行toWithdraw()方法
 											}
 										})
 									}
 								},
-								(error)=> {}
+								(error) => {}
 							)
 						},
-						(error)=> {}
+						(error) => {}
 					)
 					// #endif
 				}
@@ -171,7 +171,7 @@ export default {
         allAmount() {
             this.withdrawalsParams.amount = this.maxAmount;
         },
-        //获取是否已经点击了【获取验证码】
+        // 获取是否已经点击了【获取验证码】
         change(val) {
             this.hasClickCode = val;
         }

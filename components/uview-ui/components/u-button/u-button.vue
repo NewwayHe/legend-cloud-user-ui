@@ -83,7 +83,7 @@
  * @example <u-button>月落</u-button>
  */
 export default {
-	name: 'u-button',
+	name: 'UButton',
 	props: {
 		// 是否细边框
 		hairLine: {
@@ -273,7 +273,7 @@ export default {
 		getWaveQuery(e) {
 			this.getElQuery().then(res => {
 				// 查询返回的是一个数组节点
-				let data = res[0];
+				const data = res[0];
 				// 查询不到节点信息，不操作
 				if (!data.width || !data.width) return;
 				// 水波纹的最终形态是一个正方形(通过border-radius让其变为一个圆形)，这里要保证正方形的边长等于按钮的最长边
@@ -281,8 +281,8 @@ export default {
 				data.targetWidth = data.height > data.width ? data.height : data.width;
 				if (!data.targetWidth) return;
 				this.fields = data;
-				let touchesX = '',
-					touchesY = '';
+				let touchesX = '';
+					let touchesY = '';
 				// #ifdef MP-BAIDU
 				touchesX = e.changedTouches[0].clientX;
 				touchesY = e.changedTouches[0].clientY;
@@ -312,9 +312,9 @@ export default {
 				// 获取元素节点信息，请查看uniapp相关文档
 				// https://uniapp.dcloud.io/api/ui/nodes-info?id=nodesrefboundingclientrect
 				queryInfo = uni.createSelectorQuery().in(this);
-				//#ifdef MP-ALIPAY
+				// #ifdef MP-ALIPAY
 				queryInfo = uni.createSelectorQuery();
-				//#endif
+				// #endif
 				queryInfo.select('.u-btn').boundingClientRect();
 				queryInfo.exec(data => {
 					resolve(data);

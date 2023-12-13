@@ -99,22 +99,22 @@
 <script>
 	import { invoiceManage } from '@/api/ModulesUser'
 	import pageUtil from '@/utils/pageUtils.js';
-	const invoicePage = new pageUtil(invoiceManage.getUserInvoice, { field: { list: 'invoiceList'} });
+	const invoicePage = new pageUtil(invoiceManage.getUserInvoice, { field: { list: 'invoiceList' }});
 	export default {
 		data() {
 			return {
-				tabList: ['全部', '已开发票', '未开发票'],	//tab列表项
-				paging: {		//这个必须写 因为pageUtils是在调用了loadListByPage之后才往this身上加paging 页面上ls-empty使用了该变量
+				tabList: ['全部', '已开发票', '未开发票'],	// tab列表项
+				paging: {		// 这个必须写 因为pageUtils是在调用了loadListByPage之后才往this身上加paging 页面上ls-empty使用了该变量
 					status: 'loading',
 					error: false, // 是否错误
 					emptylist: false // 是否显示列表为空时的样式
 				},
-				invoiceParams: {		//发票列表参数
+				invoiceParams: {		// 发票列表参数
 					// curPage: 2,	//调试用
 					pageSize: 6,
-					hasInvoiceFlag: undefined,		//是否开发票 false为否
+					hasInvoiceFlag: undefined,		// 是否开发票 false为否
 				},		
-				invoiceList: [],		//发票列表数据
+				invoiceList: [],		// 发票列表数据
 			}
 		},
 		mounted() {
@@ -124,7 +124,7 @@
 		methods: {
 			// 分页tab切换
 			switchTab(item) {
-				let invoiceStatus = [undefined, true, false];	//tab对应的请求参数
+				const invoiceStatus = [undefined, true, false];	// tab对应的请求参数
 				this.invoiceParams.hasInvoiceFlag = invoiceStatus[item.index]
 				this.getData()
 			},

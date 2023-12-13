@@ -73,7 +73,7 @@
 import headSelect from './head-select.vue'
 import { mapState } from 'vuex'
 export default {
-    name: 'ls-header',
+    name: 'LsHeader',
     components: { 'head-select': headSelect },
 	// #ifdef MP-WEIXIN
 	// 将自定义节点设置成虚拟的，更加接近Vue组件的表现，能更好的使用flex属性。这时在<组件name> 里加style和class是不会生效的
@@ -81,7 +81,7 @@ export default {
 	// #endif
     props: {
 		className:{
-			type: [String, Array,Boolean],//这里加个Boolean，是因为如果传className=""，小程序端会报错
+			type: [String, Array,Boolean],// 这里加个Boolean，是因为如果传className=""，小程序端会报错
 			default: ''
 		},
         /**
@@ -167,7 +167,7 @@ export default {
 			if (this.backColor) {
 				toBackColor = this.backColor
 			}else{
-				toBackColor = this.theme||(this.background&&this.background!='#ffffff'&&this.background!='transparent') ? '#ffffff' : '#444'
+				toBackColor = this.theme || (this.background && this.background != '#ffffff' && this.background != 'transparent') ? '#ffffff' : '#444'
 			}
 			return toBackColor
 		}
@@ -176,7 +176,7 @@ export default {
     created() {},
 
     mounted() {
-        this.$nextTick(()=> {
+        this.$nextTick(() => {
             this.getBottomHight()
         })
     },
@@ -197,7 +197,7 @@ export default {
 				this.inzIndex = 9999 
 			} else {
 				// 等动画结束后才改变zIndex
-				setTimeout(()=>{
+				setTimeout(() => {
 					this.inzIndex = this.zIndex
 				},500)
 			}

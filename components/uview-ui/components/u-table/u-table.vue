@@ -21,7 +21,7 @@
 	 * @example <u-table></u-table>
 	 */
 	export default {
-		name: "u-table",
+		name: 'UTable',
 		props: {
 			borderColor: {
 				type: String,
@@ -49,7 +49,7 @@
 			// th的自定义样式
 			thStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {}
 				}
 			},
@@ -64,10 +64,10 @@
 		},
 		computed: {
 			tableStyle() {
-				let style = {};
+				const style = {};
 				style.borderLeft = `solid 1px ${this.borderColor}`;
 				style.borderTop = `solid 1px ${this.borderColor}`;
-				style.backgroundColor = this.bgColor;;
+				style.backgroundColor = this.bgColor;
 				return style;
 			}
 		}

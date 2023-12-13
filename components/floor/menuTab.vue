@@ -58,7 +58,7 @@ export default {
                 return {}
             }
         },
-        shopId: {//如果有传shopId，则是店铺装修的组件
+        shopId: { // 如果有传shopId，则是店铺装修的组件
             type: [String,Number],
             default: ''
         },

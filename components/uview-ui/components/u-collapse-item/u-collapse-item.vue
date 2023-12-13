@@ -40,7 +40,7 @@
 	 * @example <u-collapse-item :title="item.head" v-for="(item, index) in itemList" :key="index">{{item.body}}</u-collapse-item>
 	 */
 	export default {
-		name: "u-collapse-item",
+		name: 'UCollapseItem',
 		props: {
 			// 标题
 			title: {
@@ -67,10 +67,10 @@
 				type: [Number, String],
 				default: ''
 			},
-			//活动样式
+			// 活动样式
 			activeStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {}
 				}
 			},

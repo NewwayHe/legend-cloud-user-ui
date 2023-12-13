@@ -26,7 +26,6 @@ function throttle(func, wait = 500, immediate = true) {
 				typeof func === 'function' && func();
 			}, wait);
 		}
-		
 	}
-};
+}
 export default throttle

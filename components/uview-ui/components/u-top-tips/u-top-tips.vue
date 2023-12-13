@@ -15,7 +15,7 @@
 	 * @example <u-top-tips ref="uTips"></u-top-tips>
 	 */
 	export default {
-		name: "u-top-tips",
+		name: 'UTopTips',
 		props: {
 			// 导航栏高度，用于提示的初始化
 			navbarHeight: {

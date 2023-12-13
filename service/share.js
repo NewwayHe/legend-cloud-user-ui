@@ -14,7 +14,7 @@ const shareService = {
                 // 使用Hbuilder的H5+发送分享
                 plus.share.getServices(
                     function(services) {
-						console.log('services~~~~~',services)//[{"id":"sinaweibo","description":"新浪微博","authenticated":false,"accessToken":"","nativeClient":false},{"id":"qq","description":"QQ","authenticated":false,"accessToken":"","nativeClient":true},{"id":"weixin","description":"微信","authenticated":true,"accessToken":"","nativeClient":true}]
+						console.log('services~~~~~',services)// [{"id":"sinaweibo","description":"新浪微博","authenticated":false,"accessToken":"","nativeClient":false},{"id":"qq","description":"QQ","authenticated":false,"accessToken":"","nativeClient":true},{"id":"weixin","description":"微信","authenticated":true,"accessToken":"","nativeClient":true}]
                         let shares = ''
                         services.forEach((element) => {
                             if (element.id == provider) {

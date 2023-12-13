@@ -254,7 +254,7 @@ export default {
 			    error: false, // 是否错误
 			    emptylist: false // 是否显示列表为空时的样式
 			},
-			isBrand: false,	//是否进入品牌分类
+			isBrand: false,	// 是否进入品牌分类
         }
     },
     computed: {
@@ -268,7 +268,7 @@ export default {
 		}
 	},
 	watch: {
-		"currentIndex"(newIndex) {
+		'currentIndex'(newIndex) {
 			if (!newIndex == this.categoryArr.length) {
 				this.params.categoryId = this.categoryArr[newIndex].id
 			}
@@ -284,7 +284,7 @@ export default {
 		    if (switchOpt && switchOpt.isBrand) {
 				this.isBrand = switchOpt.isBrand
 		    }
-			uni.removeStorage({ key: 'floors-switch-option'}) //用完即删
+			uni.removeStorage({ key: 'floors-switch-option' }) // 用完即删
 		} catch (e) {
 			console.error('商品品牌获取storageOption失败')
 		}
@@ -296,8 +296,8 @@ export default {
 			this.categorySetTemp = this.categorySet
 			this.getCategory()
 		}else{
-			this.$store.dispatch('getCategorySet').then(res=>{
-				if (res.code&&res.data) {
+			this.$store.dispatch('getCategorySet').then(res => {
+				if (res.code && res.data) {
 					this.categorySetTemp = res.data
 					this.getCategory()
 				}
@@ -308,8 +308,8 @@ export default {
     mounted() {},
 
     onShow() {
-		this.$nextTick(()=>{
-			this.$refs.commentTabbat.setCurRoute()//这个是为了解决小程序端animate_动画播放过后，再次点击时，动画不生效的bug。
+		this.$nextTick(() => {
+			this.$refs.commentTabbat.setCurRoute()// 这个是为了解决小程序端animate_动画播放过后，再次点击时，动画不生效的bug。
 		})
     },
 
@@ -323,7 +323,7 @@ export default {
             // console.log(res.target);
         }
         return {
-            title: this.systemConfig&&this.systemConfig.domainName  ? this.systemConfig.domainName  : '',
+            title: this.systemConfig && this.systemConfig.domainName ? this.systemConfig.domainName : '',
             path: this.$utils.pages.getPageRoute().url
         }
     },
@@ -332,8 +332,8 @@ export default {
     methods: {
         // 父组件的onLoad(页面加载)里触发该方法，该方法不能删，不然会报错
         getData() {
-			listPage.loadListByPage(this, {...this.searchQuery, ...this.params })
-			//搜索商品
+			listPage.loadListByPage(this, { ...this.searchQuery, ...this.params })
+			// 搜索商品
         },
 		// 获取商品分类
         getCategory() {
@@ -347,7 +347,7 @@ export default {
 					this.categoryArr = res.data
 					this.params.categoryId = res.data[0].id
 					this.getData()
-                    this.$nextTick(()=> {
+                    this.$nextTick(() => {
                         if (this.isBrand) {
                             // 进页面时直接显示品牌分类
                             this.currentIndex = this.categoryArr.length
@@ -358,7 +358,7 @@ export default {
 				}
             }).catch((err) => {
 				this.catPaging.error = true
-				this.catPaging.errMsg = err.response&&err.response.data&&err.response.data.msg
+				this.catPaging.errMsg = err.response && err.response.data && err.response.data.msg
 			}).finally((res) => {
 				this.catPaging.status = 'noMore'
 				if (!this.$checkInfo([{ type: 'hasValue', value: this.categoryArr }])) {
@@ -384,7 +384,7 @@ export default {
         choseClassify(index, id) {
 			this.$pageScrollTo()
 			// 如果是一级分类无商品列表且是有图模式，则此时页面只显示有图片的一级分类，这时点击一分类，跳转到商品搜索列表
-			if (this.categorySetTemp.category==1&&!this.categorySetTemp.goods&&this.categorySetTemp.schema) {
+			if (this.categorySetTemp.category == 1 && !this.categorySetTemp.goods && this.categorySetTemp.schema) {
 				this.enterSearch(id)
 			}else{
 				this.params.categoryId = id

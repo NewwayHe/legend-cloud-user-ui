@@ -47,7 +47,7 @@
 	 * @example <u-keyboard mode="number" v-model="show"></u-keyboard> 
 	 */
 	export default {
-		name: "u-keyboard",
+		name: 'UKeyboard',
 		props: {
 			// 键盘的类型，number-数字键盘，card-身份证键盘，car-车牌号键盘
 			mode: {
@@ -127,7 +127,7 @@
 		},
 		data() {
 			return {
-				//show: false
+				// show: false
 			}
 		},
 		computed: {

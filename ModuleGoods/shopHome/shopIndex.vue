@@ -190,7 +190,7 @@ import productItem from '@/components/ls-app/ls-products/productItem';
 import mpShare from '@/mixins/mpShare.js'
 import pageScroll from '@/mixins/pageScroll.js'
 import { mapState } from 'vuex';
-const listPage = new pageUtils(search.searchProduct,{notReset:true});
+const listPage = new pageUtils(search.searchProduct,{ notReset:true });
 export default {
 	components: {
 		products,
@@ -227,16 +227,16 @@ export default {
 				error: false, // 是否错误
 				emptylist: false // 是否显示列表为空时的样式
 			},
-			category: [], //一级分类,
-			contactInfo: {}, //客服信息
-			isPreview: false,//如果是shareUrlRedirect页面跳过来预览(商家端或PC后台跳进来)，就加个遮罩层防止点击
+			category: [], // 一级分类,
+			contactInfo: {}, // 客服信息
+			isPreview: false,// 如果是shareUrlRedirect页面跳过来预览(商家端或PC后台跳进来)，就加个遮罩层防止点击
 
 		};
 	},
 	watch: {
 		scrollTop: {
 			handler(val) {
-				this.$nextTick(()=> {
+				this.$nextTick(() => {
 					uni.$u.debounce(() => {
 						if (val >= this.offsetTop) {
 							this.isFixed = true;
@@ -261,11 +261,11 @@ export default {
 		// 在这里设置点击sCategory页面里的“全部商品”时的跳转方法
 		this.$data['option'] = option;
 		this.searchQuery.shopId = option.shopId || '';
-		this.isPreview = option.isPreview&&option.isPreview!='false' ? true : false
+		this.isPreview = !!(option.isPreview && option.isPreview != 'false')
 		this.getList()
-		this.getShopHead(); //获取页面上店铺的头部信息
+		this.getShopHead(); // 获取页面上店铺的头部信息
 		this.$nextTick(() => {
-			this.getOffsetTop(); //获取tab栏在屏幕中的位置
+			this.getOffsetTop(); // 获取tab栏在屏幕中的位置
 		});
 		this.$store.dispatch('getContactInfo', option.shopId).then(res => {
 			if (res) {
@@ -299,9 +299,9 @@ export default {
 			this.$data['option'] = data;
 			this.searchQuery.shopId = data.shopId;
 			this.getList()
-			this.getShopHead(); //获取页面上店铺的头部信息
+			this.getShopHead(); // 获取页面上店铺的头部信息
 			this.$nextTick(() => {
-				this.getOffsetTop(); //获取tab栏在屏幕中的位置
+				this.getOffsetTop(); // 获取tab栏在屏幕中的位置
 			});
 			this.$store.dispatch('getContactInfo', data.shopId).then(res => {
 				if (res) {
@@ -315,7 +315,7 @@ export default {
 			});
 		},
 		getShopHead() {
-			//获取页面上店铺的头部信息
+			// 获取页面上店铺的头部信息
 			trim.shopIndex({ shopId: this.$data.option.shopId }).then(res => {
 				if (res.code == 1) {
 					this.shopHeadData = res.data;
@@ -323,7 +323,7 @@ export default {
 			});
 		},
 
-		//获取全部商品数据
+		// 获取全部商品数据
 		getList() {
 			this.$u.debounce(() => {
 				console.log(this.searchQuery);
@@ -333,7 +333,7 @@ export default {
 
 		// 点击tab栏时的方法
 		changeTab(item) {
-			this.$u.throttle(()=>{
+			this.$u.throttle(() => {
 				if (item == '商品') {
 					this.searchQuery = {
 						key: '', // 搜索词
@@ -348,7 +348,7 @@ export default {
 				}
 				this.action = item;
 				if (this.action == '商品' && !this.$checkInfo([{ type: 'hasValue', value: this.list }])) {
-					this.getList(); //获取全部商品数据
+					this.getList(); // 获取全部商品数据
 				}
 				if (this.action == '分类' && !this.$checkInfo([{ type: 'hasValue', value: this.category }])) {
 					this.toSCategory();
@@ -359,7 +359,7 @@ export default {
 						this.action = '商品';
 					});
 				}
-				this.$pageScrollTo(); //返回顶部
+				this.$pageScrollTo(); // 返回顶部
 			})
 		},
 
@@ -382,7 +382,7 @@ export default {
 				else this.searchQuery.sortBy = type;
 				this.searchQuery.descending = false;
 			}
-			this.$pageScrollTo(); //返回顶部
+			this.$pageScrollTo(); // 返回顶部
 			this.getList();
 		},
 
@@ -484,9 +484,9 @@ export default {
 			this.searchQuery[flag] = '';
 		},
 
-		//获取tab栏在屏幕中的位置
+		// 获取tab栏在屏幕中的位置
 		async getOffsetTop() {
-			let tabRect = await this.$utils.getRect(this, '.class-tab');
+			const tabRect = await this.$utils.getRect(this, '.class-tab');
 			this.offsetTop = tabRect.top;
 		},
 

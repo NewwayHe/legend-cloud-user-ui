@@ -55,7 +55,7 @@ export default {
 		return {
 			data: '',
 			apiParmas: {
-				content: '' //咨询内容
+				content: '' // 咨询内容
 			},
 			list: [],
 			paging: {

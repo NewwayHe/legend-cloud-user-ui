@@ -73,7 +73,7 @@
  * @example <u-cell-item icon="integral-fill" title="会员等级" value="新版本"></u-cell-item>
  */
 export default {
-	name: 'u-cell-item',
+	name: 'UCellItem',
 	props: {
         // 小程序不能在外面直接class，所以增加这个兼容
         className: {
@@ -197,7 +197,7 @@ export default {
         // 控制元素的padding
         padding:{
             type: [String,Number],
-            default: "16rpx 32rpx"
+            default: '16rpx 32rpx'
         },
         // 盒子外层的样式
         cssStyle: {
@@ -214,7 +214,7 @@ export default {
 	},
 	computed: {
 		arrowStyle() {
-			let style = {};
+			const style = {};
 			if (this.arrowDirection == 'up') style.transform = 'rotate(-90deg)';
 			else if (this.arrowDirection == 'down') style.transform = 'rotate(90deg)';
 			else style.transform = 'rotate(0deg)';

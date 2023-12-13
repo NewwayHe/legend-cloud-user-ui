@@ -22,7 +22,7 @@
 	 * @example <u-radio-group v-model="value"></u-radio-group>
 	 */
 	export default {
-		name: "u-radio-group",
+		name: 'URadioGroup',
 		mixins: [Emitter],
 		props: {
 			// 是否禁用所有单选框
@@ -81,7 +81,7 @@
 				if(this.children.length) {
 					this.children.map(child => {
 						// 判断子组件(u-radio)如果有updateParentData方法的话，就就执行(执行的结果是子组件重新从父组件拉取了最新的值)
-						typeof(child.updateParentData) == 'function' && child.updateParentData();
+						typeof (child.updateParentData) === 'function' && child.updateParentData();
 					})
 				}
 			},

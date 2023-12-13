@@ -48,18 +48,18 @@
 
 <script>
 export default {
-	name: 'ls-image',
+	name: 'LsImage',
 	// #ifdef MP-WEIXIN
 	// 将自定义节点设置成虚拟的，更加接近Vue组件的表现，能更好的使用flex属性。这时在<组件name> 里加style和class是不会生效的
 	options: { virtualHost: true },
 	// #endif
 	props: {
-		src: {// 图片路径
+		src: { // 图片路径
 			type: [String,Object,Boolean],
 			default: ''
 		}, 
 		className:{
-			type: [String, Array,Boolean],//这里加个Boolean，是因为如果传className=""，小程序端会报错
+			type: [String, Array,Boolean],// 这里加个Boolean，是因为如果传className=""，小程序端会报错
 			default: ''
 		},
 		// 最外层自定义样式，对象形式
@@ -109,11 +109,11 @@ export default {
 		    default: true
 		},
 		isPreview: {
-			//是否可以预览图片(这个优先级别比preImgList低,该值与preImgList的区别是，它只预览当前图片picture一张图片，不与current有关联)
+			// 是否可以预览图片(这个优先级别比preImgList低,该值与preImgList的区别是，它只预览当前图片picture一张图片，不与current有关联)
 			type: Boolean,
 			default: false
 		},
-		preImgList: { //预览的图片(这个优先级别比isPreview高，当该有值时，无论isPreview是否有值，都以本值为准)
+		preImgList: { // 预览的图片(这个优先级别比isPreview高，当该有值时，无论isPreview是否有值，都以本值为准)
 			type: [String, Array],
 			default: () => []
 		},
@@ -128,20 +128,20 @@ export default {
 		return {
 			// 初始化组件时，默认为加载中状态
 			loading: true,
-			isError:false,//图片是否不存在或错误
+			isError:false,// 图片是否不存在或错误
 			picture: '', // 不能写成picture:this.photoServer + this.src(这样会导致小程序无论图片是否存在也会走@error方法)
 			error1: '/static/images/defalut-img/default-head.png' ,// 则正方形的白色头像(可加背景)
 			
-			transitionMask:0,//用来控制遮罩层的动画时间(为了防止闪一下)，让未打开前，是0,打开后未读完setTimeout前是0，读完setTimeout后scale=0.25
-			opacityMask:0,//用来控制遮罩层的透明度，让未打开前，是0,打开后未开启动画前是0，开启动画后是1
+			transitionMask:0,// 用来控制遮罩层的动画时间(为了防止闪一下)，让未打开前，是0,打开后未读完setTimeout前是0，读完setTimeout后scale=0.25
+			opacityMask:0,// 用来控制遮罩层的透明度，让未打开前，是0,打开后未开启动画前是0，开启动画后是1
 		};
 	},
 	computed: {
 		// 自定义样式，对象形式
 		optionstyle() {
 			const style = {
-				height: this.options && this.options.h ? ((String(this.options.h).indexOf('%')> -1)?'100%':`${uni.$stringUtils.addUnit(this.options.h)}`) : '', // 处理高度
-				width: this.options && this.options.w ? ((String(this.options.w).indexOf('%')> -1)?'100%':`${uni.$stringUtils.addUnit(this.options.w)}`) : '', // 处理宽度
+				height: this.options && this.options.h ? ((String(this.options.h).indexOf('%') > -1) ? '100%' : `${uni.$stringUtils.addUnit(this.options.h)}`) : '', // 处理高度
+				width: this.options && this.options.w ? ((String(this.options.w).indexOf('%') > -1) ? '100%' : `${uni.$stringUtils.addUnit(this.options.w)}`) : '', // 处理宽度
 				borderRadius: this.options && this.options.br ? `${uni.$stringUtils.addUnit(this.options.br)}` : '', // 处理border线弧度
 				background: this.options && this.options.bg ? this.options.bg : '', // 处理图片背景
 			};
@@ -164,7 +164,7 @@ export default {
 		// scale-down	(宽度不变，高度自动变化，保持原图宽高比不变)保持原有尺寸比例。内容的尺寸与 none 或 contain 中的一个相同，取决于它们两个之间谁得到的对象尺寸会更小一些。
 		objectFit() {
 			let modeTemp = 'fill'
-			const status = {'scaleToFill':'fill','aspectFit':'contain','aspectFill':'cover','widthFix':'scale-down','heightFix':'scale-down'}
+			const status = { 'scaleToFill':'fill','aspectFit':'contain','aspectFill':'cover','widthFix':'scale-down','heightFix':'scale-down' }
 			modeTemp = status[this.mode]
 			return modeTemp
 		},
@@ -178,7 +178,7 @@ export default {
 			}
 			return loadingImage
 		},
-		imgObj() {//H5上图片懒加载专用
+		imgObj() { // H5上图片懒加载专用
 		    const imgTemp = {
 		        src: this.picture,
 		        error:this.errImg,
@@ -200,7 +200,7 @@ export default {
 						url = (newValue.startsWith('http') ? '' : this.photoServer) + newValue;
 					// #endif
 					if (url.indexOf('dev6.0//dev6.0') != -1) {
-						//此判断是为了兼容旧数据
+						// 此判断是为了兼容旧数据
 						url = url.replace('dev6.0//dev6.0', 'dev6.0');
 					}
 					if (Object.keys(this.osOptions) && Object.keys(this.osOptions).length != 0) {
@@ -210,13 +210,13 @@ export default {
 						// 如果设置了图片宽度，则用阿里云处理图片节省流量
 						const osHandle = {};
 						// osHandle.w = this.options.w
-						//阿里图片宽度：先将options.w里的px和rpx去掉，如果是options.w是纯数字或带有rpx或则*1,如果options.w带有px为单位则*2)
+						// 阿里图片宽度：先将options.w里的px和rpx去掉，如果是options.w是纯数字或带有rpx或则*1,如果options.w带有px为单位则*2)
 						osHandle.w =
 							uni.$stringUtils.addUnit(this.options.w).replace(/(rpx)|(px)/g, '') *
 							(this.options.w.toString().indexOf('rpx') == -1 && this.options.w.toString().indexOf('px') != -1 ? 2 : 1);
 						if (this.options.h && this.options.h != 'auto' && this.options.h.toString().indexOf('%') == -1) {
 							// osHandle.h = this.options.h
-							//阿里图片高度：先将options.h里的px和rpx去掉，如果是options.h是纯数字或带有rpx或则*1,如果options.h带有px为单位则*2)
+							// 阿里图片高度：先将options.h里的px和rpx去掉，如果是options.h是纯数字或带有rpx或则*1,如果options.h带有px为单位则*2)
 							osHandle.h =
 								uni.$stringUtils.addUnit(this.options.h).replace(/(rpx)|(px)/g, '') *
 								(this.options.h.toString().indexOf('rpx') == -1 && this.options.h.toString().indexOf('px') != -1 ? 2 : 1);
@@ -242,7 +242,7 @@ export default {
 					this.transitionMask = 0.5
 					this.opacityMask = 0
 					// 最后关闭动画过渡
-					setTimeout(()=>{
+					setTimeout(() => {
 						this.transitionMask = 0
 						this.opacityMask = 0
 					},25)
@@ -251,7 +251,7 @@ export default {
 					this.transitionMask = 0
 					this.opacityMask = 0
 					// 然后开启动画过渡
-					setTimeout(()=>{
+					setTimeout(() => {
 						this.transitionMask = 0.5
 						this.opacityMask = 1
 					},25)
@@ -279,7 +279,7 @@ export default {
 		load(e) {
 			// console.log('loading:',e.detail);
 			this.$emit('load', e)
-			this.loading = false;//H5上是用v-lazy上的"imgObj"，H5上该方法load(e)里的loading暂时无效，暂时还找不到解决办法
+			this.loading = false;// H5上是用v-lazy上的"imgObj"，H5上该方法load(e)里的loading暂时无效，暂时还找不到解决办法
 		},
 		saveImage(e) {
 			this.$emit('saveImage');
@@ -370,14 +370,14 @@ export default {
 				uni.previewImage({
 					current: this.current,
 					urls: uni.$u.test.array(this.preImgList) ? this.preImgList.map(item => this.photoServer + item) : [this.photoServer + this.preImgList],
-					complete: ()=> { 
+					complete: () => { 
 						this.$emit('isPreviewImgIng') 
 					}
 				});
-			}else if(this.isPreview&&!this.isError){//如果是烂图则不预览
+			}else if(this.isPreview && !this.isError){ // 如果是烂图则不预览
 				uni.previewImage({
 					urls:  [(this.src.startsWith('http') ? '' : this.photoServer) + this.src],
-					complete: ()=> { 
+					complete: () => { 
 						this.$emit('isPreviewImgIng') 
 					}
 				});

@@ -19,7 +19,7 @@
 	 */
 
 export default {
-	name: 'u-form',
+	name: 'UForm',
 	props: {
 		// 当前form的需要验证字段的集合
 		model: {
@@ -102,7 +102,7 @@ export default {
 				// 对所有的u-form-item进行校验
 				let valid = true; // 默认通过
 				let count = 0; // 用于标记是否检查完毕
-				let errorArr = []; // 存放错误信息
+				const errorArr = []; // 存放错误信息
 				this.fields.map(field => {
 					// 调用每一个u-form-item实例的validation的校验方法
 					field.validation('', error => {
@@ -119,7 +119,7 @@ export default {
 								this.$u.toast(errorArr[0]);
 							}
 							// 调用回调方法
-							if (typeof callback == 'function') callback(valid);
+							if (typeof callback === 'function') callback(valid);
 						}
 					});
 				});

@@ -106,7 +106,7 @@ export default {
 							}
 						});
 					}
-				}).finally(()=>{ return resolve() })
+				}).finally(() => { return resolve() })
 			})
 		},
 

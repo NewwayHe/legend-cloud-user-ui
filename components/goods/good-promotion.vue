@@ -70,10 +70,10 @@
 <script>
 	import { mapState } from 'vuex'
 	export default {
-		name: 'good-promotion',
+		name: 'GoodPromotion',
 		filters: {
 		    getStatusStr(status) {
-		        let statusType = {
+		        const statusType = {
 		            0: '满减',
 		            1: '满折',
 		            2: '限时折扣'
@@ -96,8 +96,8 @@
 			}
 		},
 		watch:{
-			"promoData"(newVal) {
-				console.log("zxcsadsa", newVal)
+			'promoData'(newVal) {
+				console.log('zxcsadsa', newVal)
 			}
 		},
 		created() {

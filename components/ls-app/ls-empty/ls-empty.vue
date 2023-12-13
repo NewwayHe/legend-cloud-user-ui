@@ -113,8 +113,8 @@
 import loadingCss from '@/static/cssImage/loadingCss.vue';
 import { mapState } from 'vuex'
 export default {
-    name: 'ls-empty',
-    components: {loadingCss},
+    name: 'LsEmpty',
+    components: { loadingCss },
 	// #ifdef MP-WEIXIN
 	// 将自定义节点设置成虚拟的，更加接近Vue组件的表现，能更好的使用flex属性。这时在<组件name> 里加style和class是不会生效的
 	options: { virtualHost: true },
@@ -130,27 +130,27 @@ export default {
 			default: '暂无数据'
 		},
 
-		//与ls-load-more同用
+		// 与ls-load-more同用
 		paging: {
 			type: Object,
 			default: () => {}
 		},
-		reLoad: {//当paging.error时，是否显示“重新加载”按钮(特别注意：写@reLoad时，一定要加上reLoad=true)
+		reLoad: { // 当paging.error时，是否显示“重新加载”按钮(特别注意：写@reLoad时，一定要加上reLoad=true)
 			type: Boolean,
 			default: false
 		},
-		//自定义‘重新加载’按钮的文字
+		// 自定义‘重新加载’按钮的文字
 		reLoadBut:{
 			type:String,
 			default: '重新加载'
 		},
-		//自定义paging.error时显示的文字
+		// 自定义paging.error时显示的文字
 		errorTxt:{
 			type:String,
 			default: '请求失败'
 		},
 		className:{
-			type: [String, Array,Boolean],//这里加个Boolean，是因为如果传className=""，小程序端会报错
+			type: [String, Array,Boolean],// 这里加个Boolean，是因为如果传className=""，小程序端会报错
 			default: ''
 		},
         bgColor: { // 背景颜色，默认为灰色
@@ -209,7 +209,7 @@ export default {
 
     methods: {
 		reLoading(){
-			this.$emit('reLoad')//(特别注意：写@reLoad时，一定要加上reLoad=true)
+			this.$emit('reLoad')// (特别注意：写@reLoad时，一定要加上reLoad=true)
 		}
 	}
 }

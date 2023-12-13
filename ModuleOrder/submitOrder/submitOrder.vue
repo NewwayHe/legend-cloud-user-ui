@@ -412,55 +412,55 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 
 // 页面组件
-import receivingAddr from "./components/ls-submit/receivingAddr.vue"; //收货地址
-import shopInfo from "./components/ls-submit/shopInfo.vue"; //下单店铺商品信息
-import invalidGoods from "./components/ls-submit/invalidGoods.vue"; //失效商品
+import receivingAddr from './components/ls-submit/receivingAddr.vue'; // 收货地址
+import shopInfo from './components/ls-submit/shopInfo.vue'; // 下单店铺商品信息
+import invalidGoods from './components/ls-submit/invalidGoods.vue'; // 失效商品
 
 // 弹窗组件
-import dialogShopInvoice from "./components/ls-submit/dialogShopInvoice.vue"; //店家发票
-import dialogGoodList from "./components/ls-submit/dialogGoodList.vue"; //浏览店家商品
-import dialogShopSettl from "./components/ls-submit/dialogShopSettl.vue"; //浏览店家商品
-import DialogCoupon from "@/components/submit-order/DialogCoupon"; //优惠券弹窗
-import { encryption } from "@/utils/encryption.js";
+import dialogShopInvoice from './components/ls-submit/dialogShopInvoice.vue'; // 店家发票
+import dialogGoodList from './components/ls-submit/dialogGoodList.vue'; // 浏览店家商品
+import dialogShopSettl from './components/ls-submit/dialogShopSettl.vue'; // 浏览店家商品
+import DialogCoupon from '@/components/submit-order/DialogCoupon'; // 优惠券弹窗
+import { encryption } from '@/utils/encryption.js';
 // import  * as encryption  from '@/utils/encryption.js';
 
-//api接口
-import { orderApi } from "@/api/ModulesOrder.js";
+// api接口
+import { orderApi } from '@/api/ModulesOrder.js';
 export default {
 	components: {
 		receivingAddr,
 		shopInfo,
 		invalidGoods,
-		"dialog-coupon": DialogCoupon,
+		'dialog-coupon': DialogCoupon,
 		dialogShopInvoice,
 		dialogGoodList,
 		dialogShopSettl,
 	},
 	data() {
 		return {
-			orderId: "", // 订单id
-			orderInfo: "", // 订单信息
-			addrId: "", // 订单地址Id
+			orderId: '', // 订单id
+			orderInfo: '', // 订单信息
+			addrId: '', // 订单地址Id
 			activeShop: {},
-			currentCoupon: [], //点击当前优惠券列表
-			unCouponList: [], //点击当前优惠券不可用列表
-			activeId: "",
-			userAddrId: "",
-			isPayPwd: false, //是否填写支付密码正确 正确后不可以改
-			password: "",
-			walletInfo: {}, //钱包信息
+			currentCoupon: [], // 点击当前优惠券列表
+			unCouponList: [], // 点击当前优惠券不可用列表
+			activeId: '',
+			userAddrId: '',
+			isPayPwd: false, // 是否填写支付密码正确 正确后不可以改
+			password: '',
+			walletInfo: {}, // 钱包信息
 			paging: {
-				status: "loading",
+				status: 'loading',
 				error: false, // 是否错误
 				emptylist: false, // 是否显示列表为空时的样式
 			},
 		};
 	},
 	computed: {
-		...mapState(["userInfo"]),
+		...mapState(['userInfo']),
 		themesRGBA08() {
 			return `rgba(${this.themes.rgb.r}, ${this.themes.rgb.g},${this.themes.rgb.b},.8)`;
 		},
@@ -468,8 +468,8 @@ export default {
 	watch: {},
 
 	onLoad(options) {
-		this.orderId = options.orderId || "";
-		this.userAddrId = options.addrId || "";
+		this.orderId = options.orderId || '';
+		this.userAddrId = options.addrId || '';
 		this.getWalletInfo();
 	},
 
@@ -480,8 +480,8 @@ export default {
 	onShow() {
 		this.$nextTick(() => {
 			// 如果内存中存在addressId，则认为是切换地址回来的，需要重新调接口
-			let addressId = uni.getStorageSync("addrId");
-			uni.removeStorageSync("addrId");
+			const addressId = uni.getStorageSync('addrId');
+			uni.removeStorageSync('addrId');
 			if (addressId) {
 				this.changeAddress(addressId);
 			} else {
@@ -496,7 +496,7 @@ export default {
 		// 订单详情页接口
 		initData() {
 			this.paging = {
-				status: "loading",
+				status: 'loading',
 				error: false, // 是否错误
 				emptylist: false, // 是否显示列表为空时的样式
 			};
@@ -505,9 +505,9 @@ export default {
 				.then((res) => {
 					if (res.code == 1) {
 						this.orderInfo = res.data;
-						this.addrId = this.orderInfo.userAddressBO ? this.orderInfo.userAddressBO.id : "";
-						for (let item of this.orderInfo.shopOrderList) {
-							this.$set(item, "couponList", {});
+						this.addrId = this.orderInfo.userAddressBO ? this.orderInfo.userAddressBO.id : '';
+						for (const item of this.orderInfo.shopOrderList) {
+							this.$set(item, 'couponList', {});
 						}
 						if (this.orderInfo.regionalSalesFlag) {
 							this.showTip();
@@ -518,8 +518,8 @@ export default {
 					this.paging.error = true;
 				})
 				.finally((res) => {
-					this.paging.status = "noMore";
-					if (!this.$checkInfo([{ type: "hasValue", value: this.orderInfo }])) {
+					this.paging.status = 'noMore';
+					if (!this.$checkInfo([{ type: 'hasValue', value: this.orderInfo }])) {
 						this.paging.emptylist = true;
 					}
 				});
@@ -528,7 +528,7 @@ export default {
 		// 切换地址重新获取订单数据
 		changeAddress(addressId) {
 			this.paging = {
-				status: "loading",
+				status: 'loading',
 				error: false, // 是否错误
 				emptylist: false, // 是否显示列表为空时的样式
 			};
@@ -537,7 +537,7 @@ export default {
 				.then((res) => {
 					if (res.code == 1) {
 						this.orderInfo = res.data;
-						this.addrId = this.orderInfo.userAddressBO ? this.orderInfo.userAddressBO.id : "";
+						this.addrId = this.orderInfo.userAddressBO ? this.orderInfo.userAddressBO.id : '';
 						if (this.orderInfo.regionalSalesFlag) {
 							this.showTip();
 						}
@@ -547,8 +547,8 @@ export default {
 					this.paging.error = true;
 				})
 				.finally((res) => {
-					this.paging.status = "noMore";
-					if (!this.$checkInfo([{ type: "hasValue", value: this.orderInfo }])) {
+					this.paging.status = 'noMore';
+					if (!this.$checkInfo([{ type: 'hasValue', value: this.orderInfo }])) {
 						this.paging.emptylist = true;
 					}
 				});
@@ -557,9 +557,9 @@ export default {
 		// 存在失效商品时显示弹窗(点击返回则返回到上一页)
 		showTip() {
 			uni.showModal({
-				content: "部分商品不支持该区域销售，请重新选择",
-				cancelText: "返回",
-				confirmText: "仍然购买",
+				content: '部分商品不支持该区域销售，请重新选择',
+				cancelText: '返回',
+				confirmText: '仍然购买',
 				success: (res) => {
 					if (res.cancel) {
 						this.$utils.pages.goBeforePage(1);
@@ -568,7 +568,7 @@ export default {
 			});
 		},
 
-		//获取钱包信息，用于钱包余额展示和平台是否开始余额支付
+		// 获取钱包信息，用于钱包余额展示和平台是否开始余额支付
 		getWalletInfo() {
 			orderApi.walletPayInfo().then((res) => {
 				if (res.code) {
@@ -576,7 +576,7 @@ export default {
 				}
 			});
 		},
-		//输入完密码框调取开启密码支付，需要把输入的密码给后端
+		// 输入完密码框调取开启密码支付，需要把输入的密码给后端
 		finish(value) {
 			this.password = value;
 			orderApi
@@ -586,16 +586,16 @@ export default {
 						this.orderInfo = res.data;
 						this.isPayPwd = true;
 					} else {
-						this.password = "";
+						this.password = '';
 					}
 				});
 		},
-		//切换为关闭状态需要调取接口，关闭余额支付
+		// 切换为关闭状态需要调取接口，关闭余额支付
 		changeSwitch() {
 			if (!this.walletInfo.amount) {
 				return uni.showToast({
-					icon: "none",
-					title: "钱包余额为空",
+					icon: 'none',
+					title: '钱包余额为空',
 				});
 			}
 			// if(this.orderInfo.useWalletInfo.useWallet){
@@ -604,13 +604,13 @@ export default {
 					this.orderInfo = res.data;
 					if (this.orderInfo.useWalletInfo.allowed) {
 						this.isPayPwd = false;
-						this.password = "";
+						this.password = '';
 					}
 				}
 			});
 			return;
 		},
-		//切换为关闭状态需要调取接口，关闭抵扣积分
+		// 切换为关闭状态需要调取接口，关闭抵扣积分
 		changePointsSwitch() {
 			orderApi.switchIntegralFlag({ confirmOrderId: this.orderId, integralFlag: !this.orderInfo.deductionFlag }).then((res) => {
 				if (res.code) {
@@ -620,7 +620,7 @@ export default {
 			return;
 		},
 
-		//选择发票后，发票信息修改到相应店铺
+		// 选择发票后，发票信息修改到相应店铺
 		invoiceHandle(currentInvoice) {
 			this.orderInfo.shopOrderList.forEach((shop, shopIndex) => {
 				if (shop.shopId == currentInvoice.shopId) {
@@ -633,9 +633,9 @@ export default {
 		// 提交订单
 		submitOrder() {
 			// 买家留言部分
-			let remarkList = [];
-			for (let shop of this.orderInfo.shopOrderList) {
-				let shopObj = {
+			const remarkList = [];
+			for (const shop of this.orderInfo.shopOrderList) {
+				const shopObj = {
 					shopId: shop.shopId,
 					message: shop.remark,
 				};
@@ -648,13 +648,13 @@ export default {
 					.submitOrder({
 						confirmOrderId: this.orderInfo.id,
 						orderMessage: JSON.stringify(remarkList),
-						deliveryType: 0, //配送类型 0快递 10自提 20二者
+						deliveryType: 0, // 配送类型 0快递 10自提 20二者
 						contactId: this.orderInfo?.userContactBO?.id,
 					})
 					.then((res) => {
 						if (res.code == 1) {
-							this.$store.dispatch("getCartNum"); //更新购物车数量
-							this.$store.dispatch("getUserInfo"); // 积分更新
+							this.$store.dispatch('getCartNum'); // 更新购物车数量
+							this.$store.dispatch('getUserInfo'); // 积分更新
 							const payParams = {
 								orderNumber: encodeURIComponent(JSON.stringify(res.data.orderNumberList)),
 								settlementType: res.data.settlementType,
@@ -664,7 +664,7 @@ export default {
 					})
 					.catch((err) => {
 						console.log(err);
-						uni.showToast({ title: "网络异常，请稍后再试", icon: "none" });
+						uni.showToast({ title: '网络异常，请稍后再试', icon: 'none' });
 					})
 					.finally(() => {
 						return resolve();
@@ -672,7 +672,7 @@ export default {
 			});
 		},
 		changeInvoice() {
-			this.$emit("orderChange");
+			this.$emit('orderChange');
 		},
 		// 切换优惠券
 		changeCoupon(coupon) {
@@ -688,7 +688,7 @@ export default {
 			} else {
 				couponList = couponList.filter((couponId) => couponId != coupon.couponId);
 			}
-			if (this.activeShop.couponType == "platform") {
+			if (this.activeShop.couponType == 'platform') {
 				orderApi
 					.platformCoupon(
 						{
@@ -698,14 +698,14 @@ export default {
 					)
 					.then((res) => {
 						this.orderInfo = res.data;
-						this.currentCoupon = res.data.platformCoupons; //如果当前优惠券是平台
-						this.unCouponList = res.data.platformUnAvailableCouponList; //如果当前优惠券是平台
+						this.currentCoupon = res.data.platformCoupons; // 如果当前优惠券是平台
+						this.unCouponList = res.data.platformUnAvailableCouponList; // 如果当前优惠券是平台
 						if (this.orderInfo.regionalSalesFlag) {
 							this.showTip();
 						}
 					})
 					.catch((err) => {
-						console.log("change conpon", err);
+						console.log('change conpon', err);
 					});
 			} else {
 				orderApi
@@ -718,7 +718,7 @@ export default {
 					)
 					.then((res) => {
 						this.orderInfo = res.data;
-						let activeShop = this.orderInfo.shopOrderList.find((item) => item.shopId == this.activeShop.shopId);
+						const activeShop = this.orderInfo.shopOrderList.find((item) => item.shopId == this.activeShop.shopId);
 						this.currentCoupon = activeShop.shopCouponDTO.couponItems;
 						this.unCouponList = activeShop.shopCouponDTO.unavailableCouponItems;
 						if (this.orderInfo.regionalSalesFlag) {
@@ -726,16 +726,16 @@ export default {
 						}
 					})
 					.catch((err) => {
-						console.log("change conpon", err);
+						console.log('change conpon', err);
 					});
 			}
 		},
 		// 存在失效商品时显示弹窗(点击返回则返回到上一页)
 		showTip() {
 			uni.showModal({
-				content: "部分商品不支持该区域销售，请重新选择",
-				cancelText: "返回",
-				confirmText: "仍然购买",
+				content: '部分商品不支持该区域销售，请重新选择',
+				cancelText: '返回',
+				confirmText: '仍然购买',
 				success: (res) => {
 					if (res.cancel) {
 						this.$utils.pages.goBeforePage(1);
@@ -745,9 +745,9 @@ export default {
 		},
 		// 选择优惠券
 		chooseCoupon(coupon, shop, unCoupon) {
-			console.log(coupon, "coupon");
-			console.log(unCoupon, "unCoupon");
-			console.log(shop, "shop");
+			console.log(coupon, 'coupon');
+			console.log(unCoupon, 'unCoupon');
+			console.log(shop, 'shop');
 			this.activeShop = shop;
 			this.currentCoupon = coupon || [];
 			this.unCouponList = unCoupon || [];
@@ -777,7 +777,7 @@ export default {
 
 		// 检查店铺的商品状态
 		checkGoodStatus(shop) {
-			let num = 0;
+			const num = 0;
 			return !(num == shop.skuList.length);
 		},
 
@@ -785,7 +785,7 @@ export default {
 		checkOneGood(shop) {
 			// console.log(shop);
 			let num = 0;
-			for (let item of shop.skuList) {
+			for (const item of shop.skuList) {
 				num++;
 			}
 			return num == 1;
@@ -794,7 +794,7 @@ export default {
 		// 返回当前商店的商品数量
 		getTotalNum(list) {
 			let num = 0;
-			for (let item of list) {
+			for (const item of list) {
 				num += item.totalCount;
 			}
 			return num;

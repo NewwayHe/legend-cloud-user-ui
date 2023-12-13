@@ -1,6 +1,6 @@
 const screen = uni.getSystemInfoSync().windowWidth / 750;
 // 缓存图片
-let cache = {}
+const cache = {}
 export function isNumber(value) {
 	return /^-?\d+(\.\d+)?$/.test(value);
 }
@@ -97,11 +97,11 @@ const base64ToArrayBuffer = (data) => {
 	 * Base64Binary.decodeArrayBuffer(base64_string); 
 	 */
 	const Base64Binary = {
-	  _keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+	  _keyStr : 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=',
 	  
 	  /* will return a  Uint8Array type */
 	  decodeArrayBuffer(input) {
-	    const bytes = (input.length/4) * 3;
+	    const bytes = (input.length / 4) * 3;
 	    const ab = new ArrayBuffer(bytes);
 	    this.decode(input, ab);
 	    return ab;
@@ -116,7 +116,7 @@ const base64ToArrayBuffer = (data) => {
 	  },
 	 
 	  decode(input, arrayBuffer) {
-	    //get last chars to see if are valid
+	    // get last chars to see if are valid
 	    input = this.removePaddingChars(input);
 	    input = this.removePaddingChars(input);
 	 
@@ -128,15 +128,12 @@ const base64ToArrayBuffer = (data) => {
 	    let i = 0;
 	    let j = 0;
 	    
-	    if (arrayBuffer)
-	      uarray = new Uint8Array(arrayBuffer);
-	    else
-	      uarray = new Uint8Array(bytes);
+	    if (arrayBuffer) { uarray = new Uint8Array(arrayBuffer); } else { uarray = new Uint8Array(bytes); }
 	    
-	    input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+	    input = input.replace(/[^A-Za-z0-9\+\/\=]/g, '');
 	    
-	    for (i=0; i<bytes; i+=3) {  
-	      //get the 3 octects in 4 ascii chars
+	    for (i = 0; i < bytes; i += 3) {  
+	      // get the 3 octects in 4 ascii chars
 	      enc1 = this._keyStr.indexOf(input.charAt(j++));
 	      enc2 = this._keyStr.indexOf(input.charAt(j++));
 	      enc3 = this._keyStr.indexOf(input.charAt(j++));
@@ -147,8 +144,8 @@ const base64ToArrayBuffer = (data) => {
 	      chr3 = ((enc3 & 3) << 6) | enc4;
 	  
 	      uarray[i] = chr1;      
-	      if (enc3 != 64) uarray[i+1] = chr2;
-	      if (enc4 != 64) uarray[i+2] = chr3;
+	      if (enc3 != 64) uarray[i + 1] = chr2;
+	      if (enc4 != 64) uarray[i + 2] = chr3;
 	    }
 	    return uarray;  
 	  }
@@ -168,15 +165,15 @@ export function base64ToPath(base64) {
 		// #ifdef MP
 		const fs = uni.getFileSystemManager()
 		
-		//自定义文件名
+		// 自定义文件名
 		if (!format) {
 			console.error('ERROR_BASE64SRC_PARSE')
 			reject(new Error('ERROR_BASE64SRC_PARSE'))
 		}
 		const time = new Date().getTime();
-		let pre = prefix()
+		const pre = prefix()
 		const filePath = `${pre.env.USER_DATA_PATH}/${time}.${format}`
-		let buffer = base64ToArrayBuffer(bodyData)
+		const buffer = base64ToArrayBuffer(bodyData)
 		fs.writeFile({
 			filePath,
 			data: buffer,
@@ -193,13 +190,13 @@ export function base64ToPath(base64) {
 		
 		// #ifdef H5
 		// mime类型
-		let mimeString = base64.split(',')[0].split(':')[1].split(';')[0]; 
-		//base64 解码
-		let byteString = atob(base64.split(',')[1]); 
-		//创建缓冲数组
-		let arrayBuffer = new ArrayBuffer(byteString.length);
-		//创建视图
-		let intArray = new Uint8Array(arrayBuffer); 
+		const mimeString = base64.split(',')[0].split(':')[1].split(';')[0]; 
+		// base64 解码
+		const byteString = atob(base64.split(',')[1]); 
+		// 创建缓冲数组
+		const arrayBuffer = new ArrayBuffer(byteString.length);
+		// 创建视图
+		const intArray = new Uint8Array(arrayBuffer); 
 		for (let i = 0; i < byteString.length; i++) {
 			intArray[i] = byteString.charCodeAt(i);
 		}
@@ -243,21 +240,21 @@ export function base64ToPath(base64) {
 export function pathToBase64(path) {
 	return new Promise((resolve, reject) => {
 		// #ifdef H5
-		const _canvas = ()=> {
-			let image = new Image();
+		const _canvas = () => {
+			const image = new Image();
 			image.onload = function() {
-				let canvas = document.createElement('canvas');
+				const canvas = document.createElement('canvas');
 				// 获取图片原始宽高
 				canvas.width = this.naturalWidth;
 				canvas.height = this.naturalHeight;
 				// 将图片插入画布并开始绘制
 				canvas.getContext('2d').drawImage(image, 0, 0);
-				let result = canvas.toDataURL('image/png')
+				const result = canvas.toDataURL('image/png')
 				resolve(result);
 				canvas.height = canvas.width = 0
 			}
 			image.src = path
-			image.setAttribute("crossOrigin",'Anonymous');
+			image.setAttribute('crossOrigin','Anonymous');
 			image.src = path;
             console.log('path:',path);
 			image.onerror = (error) => {
@@ -278,12 +275,12 @@ export function pathToBase64(path) {
 			};
 		}
 		const isFileReader = typeof FileReader === 'function'
-		if(/^(http|\/\/)/.test(path) && isFileReader ) {
+		if(/^(http|\/\/)/.test(path) && isFileReader) {
 			window.URL = window.URL || window.webkitURL;
 			const xhr = new XMLHttpRequest();
-			xhr.open("get", path, true);
+			xhr.open('get', path, true);
 			xhr.timeout = 2000;
-			xhr.responseType = "blob";
+			xhr.responseType = 'blob';
 			xhr.onload = function() {
 				if(this.status == 200) {
 					_fileReader(this.response)
@@ -345,7 +342,7 @@ export function pathToBase64(path) {
 }
 
 // #ifdef APP-PLUS
-const getLocalFilePath = (path)=> {
+const getLocalFilePath = (path) => {
     if (path.indexOf('_www') === 0 || path.indexOf('_doc') === 0 || path.indexOf('_documents') === 0 || path.indexOf('_downloads') === 0) {
         return path
     }
@@ -368,7 +365,7 @@ const getLocalFilePath = (path)=> {
 // #endif
 
 export function getImageInfo(img, isH5PathToBase64) {
-	return new Promise(async (resolve, reject) => {
+	return new Promise(async(resolve, reject) => {
 		const base64Reg = /^data:image\/(\w+);base64/
 		const localReg = /^\.|^\/(?=[^\/])/;
 		const networkReg = /^(http|\/\/)/
@@ -395,7 +392,7 @@ export function getImageInfo(img, isH5PathToBase64) {
 				src: img,
 				success: (image) => {
 					// #ifdef MP-WEIXIN || MP-BAIDU || MP-QQ || MP-TOUTIAO
-					image.path = localReg.test(img) ?  `/${image.path}` : image.path;
+					image.path = localReg.test(img) ? `/${image.path}` : image.path;
 					// #endif
 					// image.path = /^(http|\/\/|\/|wxfile|data:image\/(\w+);base64|file|bdfile|ttfile|blob)/.test(image.path) ? image.path : `/${image.path}`;
 					image.url = img
@@ -403,7 +400,7 @@ export function getImageInfo(img, isH5PathToBase64) {
 					resolve(cache[img])
 				},
 				fail(err) {
-					resolve({path: img})
+					resolve({ path: img })
 					console.error(`getImageInfo:fail ${img} failed ${JSON.stringify(err)}`);
 				}
 			})

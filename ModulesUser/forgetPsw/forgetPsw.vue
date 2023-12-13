@@ -54,7 +54,7 @@ export default {
             code: '', // 验证码
             nextType: false, // 下一步
             secretKey: '' ,// 核销秘钥
-            hasClickCode:false,//是否已经点击了【获取验证码】
+            hasClickCode:false,// 是否已经点击了【获取验证码】
         }
     },
 
@@ -62,21 +62,21 @@ export default {
         // 检测手机号码是否正确
         showBut() {
            // !this.nextType:(如果是第一步--获取验证码);this.nextType:(如果是第二步--输入密码)
-            return !this.nextType?(this.phone&&this.code):(this.pasw&&this.surePwd);
+            return !this.nextType ? (this.phone && this.code) : (this.pasw && this.surePwd);
         },
     },
     watch: {},
 
     mounted() {},
     methods: {
-        //获取是否已经点击了【获取验证码】
+        // 获取是否已经点击了【获取验证码】
         change(val){
             this.hasClickCode = val
         },
         
         // 修改手机号第一步
         nextStep() {
-            this.$u.debounce(()=> {
+            this.$u.debounce(() => {
                 if (!this.$checkInfo([
                     { type: 'phone', value: this.phone,msg:'请输入正确的手机号码' },
                     { type: 'hasValue', value: this.hasClickCode,msg:'请先点击“获取验证码”' },
@@ -99,7 +99,7 @@ export default {
 
         // 找回密码
         forgetConfirm() {
-            this.$u.debounce(()=> {
+            this.$u.debounce(() => {
                 if (!this.$checkInfo([
                     { type: 'loginPassword', value: this.pasw, msg: true },
                  ])) return;
@@ -113,7 +113,7 @@ export default {
                             title: '修改成功',
                             icon: 'none',
                             mask: true,
-                            complete:()=> {
+                            complete:() => {
                                 setTimeout(() => {
                                     uni.navigateTo({ url: '/ModulesUser/login/login' }) // 如果验证没通过，跳转至登录页面
                                 }, 1500)

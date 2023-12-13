@@ -85,14 +85,14 @@ export default {
 				        uni.showToast({
 				            title: '提交成功',
 				            mask: true,
-				            complete:()=> {
+				            complete:() => {
 				                setTimeout(() => {
 				                    this.$switchTab(`/pages/my/my`)
 				                }, 1000)
 				            }
 				        })
 				    }
-				}).finally(()=>{ return resolve() })
+				}).finally(() => { return resolve() })
 			})
         },
     }

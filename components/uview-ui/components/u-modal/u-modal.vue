@@ -62,7 +62,7 @@
 	 * @example <u-modal :src="title" :content="content"></u-modal>
 	 */
 	export default {
-		name: 'u-modal',
+		name: 'UModal',
 		props: {
 			// 是否显示Modal
 			value: {
@@ -132,28 +132,28 @@
 			// 标题的样式
 			titleStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {}
 				}
 			},
 			// 内容的样式
 			contentStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {}
 				}
 			},
 			// 取消按钮的样式
 			cancelStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {}
 				}
 			},
 			// 确定按钮的样式
 			confirmStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {}
 				}
 			},

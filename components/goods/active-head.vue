@@ -140,7 +140,7 @@ export default {
 				return {};
 			}
 		},
-		skuType: String //营销类型 拼团/团购/秒杀活动需传 普通（NORMAL，在这里规定普通商品的话值为空''，有值就是有活动） 团购（GROUP） 拼团（MERGE） 秒杀（SECKILL）
+		skuType: String // 营销类型 拼团/团购/秒杀活动需传 普通（NORMAL，在这里规定普通商品的话值为空''，有值就是有活动） 团购（GROUP） 拼团（MERGE） 秒杀（SECKILL）
 	},
 
 	data() {
@@ -156,11 +156,11 @@ export default {
 		},
 		price(){
 			// 如果有sku优惠折扣价格,则显示sku优惠折扣价格
-			return this.skuData.skuItem.discountPrice||this.skuData.skuItem.discountPrice==0?this.skuData.skuItem.discountPrice:this.skuData.skuItem.price
+			return this.skuData.skuItem.discountPrice || this.skuData.skuItem.discountPrice == 0 ? this.skuData.skuItem.discountPrice : this.skuData.skuItem.price
 		},
 		originalPrice(){
 			// 如果有sku优惠折扣价格,则划线价为现价
-			return this.skuData.skuItem.discountPrice||this.skuData.skuItem.discountPrice==0?this.skuData.skuItem.price:this.skuData.skuItem.originalPrice
+			return this.skuData.skuItem.discountPrice || this.skuData.skuItem.discountPrice == 0 ? this.skuData.skuItem.price : this.skuData.skuItem.originalPrice
 		},
 		// 判断活动是否过期,true:j显示倒计时，false：关闭倒计时，显示活动已过期
 		showTime() {
@@ -171,7 +171,7 @@ export default {
 			return this.startTime > new Date().getTime() - this.timeDiff;
 		},
 
-		//用来接收skuData.skuItem.activitySkuDTO.startTime的变量
+		// 用来接收skuData.skuItem.activitySkuDTO.startTime的变量
 		startTime() {
 			if (this.skuType && this.skuData.skuItem && this.skuData.skuItem.activitySkuDTO && this.skuData.skuItem.activitySkuDTO.startTimeStamp) {
 				return this.skuData.skuItem.activitySkuDTO.startTimeStamp;
@@ -192,7 +192,7 @@ export default {
 				return '';
 			}
 		},
-		//用来接收skuData.skuItem.activitySkuDTO.endTime的变量
+		// 用来接收skuData.skuItem.activitySkuDTO.endTime的变量
 		endTime() {
 			if (this.skuType && this.skuData.skuItem && this.skuData.skuItem.activitySkuDTO && this.skuData.skuItem.activitySkuDTO.endTimeStamp) {
 				return this.skuData.skuItem.activitySkuDTO.endTimeStamp;
@@ -218,17 +218,17 @@ export default {
 		depositMoney(){
 		   let money = 0
 		   // 如果支付方式是定金尾款支付
-		   if (this.skuData.skuItem&&this.goodData.preSellProductBO&&this.goodData.preSellProductBO.payPctType==1) {
+		   if (this.skuData.skuItem && this.goodData.preSellProductBO && this.goodData.preSellProductBO.payPctType == 1) {
 			   // 如果有sku优惠折扣价格
-			   if (this.skuData.skuItem.discountPrice||this.skuData.skuItem.discountPrice==0) {
+			   if (this.skuData.skuItem.discountPrice || this.skuData.skuItem.discountPrice == 0) {
 				    // sku优惠折扣会在尾款里扣减,如果尾款不够扣减,则在定金里扣减
-					if ((this.skuData.skuItem.price*(100-this.goodData.preSellProductBO.payPct)/100)<(this.skuData.skuItem.price-this.skuData.skuItem.discountPrice)) {
+					if ((this.skuData.skuItem.price * (100 - this.goodData.preSellProductBO.payPct) / 100) < (this.skuData.skuItem.price - this.skuData.skuItem.discountPrice)) {
 						money = this.skuData.skuItem.discountPrice
 					}else{
-						money = this.skuData.skuItem.price*this.goodData.preSellProductBO.payPct/100
+						money = this.skuData.skuItem.price * this.goodData.preSellProductBO.payPct / 100
 					}
 			   }else{
-				   money = this.skuData.skuItem.price*this.goodData.preSellProductBO.payPct/100
+				   money = this.skuData.skuItem.price * this.goodData.preSellProductBO.payPct / 100
 			   }
 		   }
 		   return money
@@ -238,17 +238,17 @@ export default {
 		finalMoney(){
 		   let money = 0
 		   // 如果支付方式是定金尾款支付
-		   if (this.skuData.skuItem&&this.goodData.preSellProductBO&&this.goodData.preSellProductBO.payPctType==1) {
+		   if (this.skuData.skuItem && this.goodData.preSellProductBO && this.goodData.preSellProductBO.payPctType == 1) {
 			   // 如果有sku优惠折扣价格
-			   if (this.skuData.skuItem.discountPrice||this.skuData.skuItem.discountPrice==0) {
+			   if (this.skuData.skuItem.discountPrice || this.skuData.skuItem.discountPrice == 0) {
 				    // sku优惠折扣会在尾款里扣减,如果尾款不够扣减,则在定金里扣减
-					if ((this.skuData.skuItem.price*(100-this.goodData.preSellProductBO.payPct)/100)<(this.skuData.skuItem.price-this.skuData.skuItem.discountPrice)) {
+					if ((this.skuData.skuItem.price * (100 - this.goodData.preSellProductBO.payPct) / 100) < (this.skuData.skuItem.price - this.skuData.skuItem.discountPrice)) {
 						money = 0
 					}else{
-						money = this.skuData.skuItem.price*(100-this.goodData.preSellProductBO.payPct)/100
+						money = this.skuData.skuItem.price * (100 - this.goodData.preSellProductBO.payPct) / 100
 					}
 			   }else{
-				   money = this.skuData.skuItem.price*(100-this.goodData.preSellProductBO.payPct)/100
+				   money = this.skuData.skuItem.price * (100 - this.goodData.preSellProductBO.payPct) / 100
 			   }
 		   }
 		   return money

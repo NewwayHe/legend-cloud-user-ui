@@ -4,7 +4,7 @@ const _expand = ctx => {
 	ctx._measureText = ctx.measureText
 	// #endif
 	return {
-		setFonts({fontFamily: ff = 'sans-serif', fontSize: fs = 14, fontWeight: fw = 'normal' , textStyle: ts = 'normal'}) {
+		setFonts({ fontFamily: ff = 'sans-serif', fontSize: fs = 14, fontWeight: fw = 'normal' , textStyle: ts = 'normal' }) {
 			// let ctx = this.ctx
 			// 设置属性
 			// #ifndef MP-TOUTIAO
@@ -13,7 +13,7 @@ const _expand = ctx => {
 			// #endif
 			// #ifdef MP-TOUTIAO
 			fw = fw == 'bold' ? 'bold' : ''
-			ts =  ts == 'italic' ? 'italic' : ''
+			ts = ts == 'italic' ? 'italic' : ''
 			// #endif
 			ctx.font = `${ts} ${fw} ${fs}px ${ff}`;
 		},
@@ -21,9 +21,9 @@ const _expand = ctx => {
 		measureText(text, fontSize) {
 			// app measureText为0需要累加计算0
 			return {
-				width: text.split("").reduce((widthScaleSum, char) => {
-				let code = char.charCodeAt(0);
-				let widthScale = CHAR_WIDTH_SCALE_MAP[code - 0x20] || 1;
+				width: text.split('').reduce((widthScaleSum, char) => {
+				const code = char.charCodeAt(0);
+				const widthScale = CHAR_WIDTH_SCALE_MAP[code - 0x20] || 1;
 				return widthScaleSum + widthScale;
 			  }, 0) * fontSize
 			};

@@ -333,7 +333,7 @@ const color = {
 		return value;
 	},
 
-	//转化颜色(rgba转16进制，主要目的是把透明度去掉)
+	// 转化颜色(rgba转16进制，主要目的是把透明度去掉)
 	// 例子： 值为：rgba(166, 115, 115, 0.3) ，转化16进制为： #e4d5d5 (把透明度去掉，在背景色为白色的情况下看上去是一样的)
 	// 	this.$utils.color.getHexColor(rgba(166, 115, 115, 0.3)) = '#e4d5d5'
 	getHexColor(color) { // 传的color须为字符串
@@ -343,10 +343,10 @@ const color = {
 				.replace(/\)/, '') // 把 ")" 去掉，变成 "194, 7, 15, 1"
 				.replace(/[\s+]/g, '') // 把空格去掉，变成 "194,7,15,1"
 				.split(',') // 变成数组 [194,7,15,1]
-			var a = parseFloat(values[3] || 1), // values[3]是rgba中的a值，没有的话设置a为1，a可能为小数，所以用parseFloat函数
-				r = Math.floor(a * parseInt(values[0]) + (1 - a) * 255), // 转换为16进制
-				g = Math.floor(a * parseInt(values[1]) + (1 - a) * 255),
-				b = Math.floor(a * parseInt(values[2]) + (1 - a) * 255)
+			var a = parseFloat(values[3] || 1); // values[3]是rgba中的a值，没有的话设置a为1，a可能为小数，所以用parseFloat函数
+				var r = Math.floor(a * parseInt(values[0]) + (1 - a) * 255); // 转换为16进制
+				var g = Math.floor(a * parseInt(values[1]) + (1 - a) * 255);
+				var b = Math.floor(a * parseInt(values[2]) + (1 - a) * 255)
 			color = '#' +
 				('0' + r.toString(16)).slice(-2) + // 转换后的16进制可能为一位，比如 7 就转换为 7 ， 15 转换为 f
 				('0' + g.toString(16)).slice(-2) + // 当为一位的时候就在前面加个 0，

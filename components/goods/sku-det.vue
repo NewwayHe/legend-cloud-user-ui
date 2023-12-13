@@ -18,7 +18,7 @@
 
 <script>
 export default {
-    name: 'sku-det',
+    name: 'SkuDet',
 
     components: {},
 

@@ -134,8 +134,8 @@ export default {
                 emptylist: true // 是否显示列表为空时的样式[这个一开始为true 否则页面先读取了list会导致报错]
             },
             evaluateType: 1, // 评论状态
-			firstReply: null,	//初评内容
-			sndReply: null,		//追评内容
+			firstReply: null,	// 初评内容
+			sndReply: null,		// 追评内容
         }
     },
     computed: {
@@ -143,8 +143,8 @@ export default {
         // 综合评分
         totalRate() {
 			// 默认为1星
-			const { score = 1, shopScore = 1, logisticsScore = 1 } = !!this.firstReply ? this.firstReply : {};
-			return ((score*1 + shopScore*1 + logisticsScore*1) / 3).toExponential(2)
+			const { score = 1, shopScore = 1, logisticsScore = 1 } = this.firstReply ? this.firstReply : {};
+			return ((score * 1 + shopScore * 1 + logisticsScore * 1) / 3).toExponential(2)
         },
     },
     onLoad(option) {
@@ -155,11 +155,10 @@ export default {
     onShow() {
 		if(this.isBackRefresh) {
 			console.log('重刷数据')
-			this.$nextTick(()=>{
+			this.$nextTick(() => {
 				this.refreshData()
 			})
 		}
-		
     },
     methods: {
 		refreshData() {
@@ -185,27 +184,27 @@ export default {
 			
 			let detailQuest = [goodReply, firstReply, sndReply]
 			
-			if(this.evaluateType == 2) {	//初评
+			if(this.evaluateType == 2) {	// 初评
 				detailQuest = detailQuest.slice(0, 2)
 			}
 			
-			Promise.all(detailQuest.map(each => each())).then((res)=>{
+			Promise.all(detailQuest.map(each => each())).then((res) => {
 				// console.log('res--',res)
 				res.forEach((item,index) => {
 					if(item.code) {
 						index != 0 && (item.data.picFile = this.$u.test.isEmpty(item.data.photos) ? [] : JSON.parse(item.data.photos))
-						index == 0 && (this.list = item.data);		//商品数据
-						index == 1 && (this.firstReply = item.data);	//初评
-						index == 2 && (this.sndReply = item.data);		//追评
+						index == 0 && (this.list = item.data);		// 商品数据
+						index == 1 && (this.firstReply = item.data);	// 初评
+						index == 2 && (this.sndReply = item.data);		// 追评
 					}
 				})
 				console.log('请求完--',this.list, this.firstReply, this.sndReply)
 			}).catch(err => {
 				console.log('err--',err)
 				this.paging.error = true;
-			}).finally(()=>{
+			}).finally(() => {
 				this.paging.status = 'noMore'
-				if(this.$u.test.isEmpty(this.list)) {	//如果商品信息为空 则整个页面都为空
+				if(this.$u.test.isEmpty(this.list)) {	// 如果商品信息为空 则整个页面都为空
 					return this.paging.emptylist = true;
 				}
 				// 如果查看初评 则初评数据获取失败时 展示为空
@@ -218,7 +217,6 @@ export default {
 				}
 				this.paging.emptylist = false
 			})
-			
         },
 
         // 图片预览

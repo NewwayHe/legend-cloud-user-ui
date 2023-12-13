@@ -84,9 +84,9 @@ export default {
     },
     watch: {},
     onLoad(options) {
-		this.params.couponId=options.id||''
-		this.params.shopId=options.shop||''
-		this.params.useType=options.type||''
+		this.params.couponId = options.id || ''
+		this.params.shopId = options.shop || ''
+		this.params.useType = options.type || ''
         this.getCouponData()
         listPage.loadListByPage(this, this.params)
     },

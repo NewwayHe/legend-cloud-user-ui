@@ -70,7 +70,7 @@
  * @example <u-popup v-model="show"><view>出淤泥而不染，濯清涟而不妖</view></u-popup>
  */
 export default {
-	name: 'u-popup',
+	name: 'UPopup',
 	props: {
 		/**
 		 * 显示状态
@@ -247,7 +247,7 @@ export default {
 		},
 		// 中部弹窗的特有样式
 		centerStyle() {
-			let style = {};
+			const style = {};
 			style.width = this.width ? this.getUnitValue(this.width) : this.getUnitValue(this.length);
 			// 中部弹出的模式，如果没有设置高度，就用auto值，由内容撑开高度
 			style.height = this.height ? this.getUnitValue(this.height) : 'auto';

@@ -148,7 +148,7 @@ export default {
 		},
 		// 文字内容的样式
 		textStyle() {
-			let style = {};
+			const style = {};
 			if (this.color) style.color = this.color;
 			else if(this.type == 'none') style.color = '#606266';
 			style.fontSize = this.fontSize + 'rpx';
@@ -167,10 +167,10 @@ export default {
 	},
 	methods: {
 		initSize() {
-			let query = [],
-				boxWidth = 0,
-				textWidth = 0;
-			let textQuery = new Promise((resolve, reject) => {
+			const query = [];
+				const boxWidth = 0;
+				const textWidth = 0;
+			const textQuery = new Promise((resolve, reject) => {
 				uni.createSelectorQuery()
 					.in(this)
 					.select(`#u-notice-content`)

@@ -26,7 +26,7 @@
 	 * @example <u-switch v-model="checked" active-color="red" inactive-color="#eee"></u-switch>
 	 */
 	export default {
-		name: "u-switch",
+		name: 'USwitch',
 		props: {
 			// 是否为加载中状态
 			loading: {
@@ -81,7 +81,7 @@
 		},
 		computed: {
 			switchStyle() {
-				let style = {};
+				const style = {};
 				style.fontSize = this.size + 'rpx';
 				style.backgroundColor = this.value ? this.activeColor : this.inactiveColor;
 				return style;

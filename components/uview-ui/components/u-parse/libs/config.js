@@ -56,10 +56,9 @@ var cfg = {
 }
 
 function makeMap(str) {
-	var map = Object.create(null),
-		list = str.split(',');
-	for (var i = list.length; i--;)
-		map[list[i]] = true;
+	var map = Object.create(null);
+		var list = str.split(',');
+	for (var i = list.length; i--;) { map[list[i]] = true; }
 	return map;
 }
 

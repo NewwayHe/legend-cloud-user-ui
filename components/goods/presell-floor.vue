@@ -69,7 +69,7 @@
 import countDown from '@/components/common/countdown/count-down.vue';
 
 export default {
-	name: 'presell-floor',
+	name: 'PresellFloor',
 	components: { 'count-down': countDown },
 
 	props: {

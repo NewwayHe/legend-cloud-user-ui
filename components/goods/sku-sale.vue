@@ -38,7 +38,7 @@
 <script>
 import { cartApi } from '@/api/ModulesOrder.js';
 export default {
-	name: 'sku-sale',
+	name: 'SkuSale',
 	props: {
 		saleList: {
 			type: [Array, Object]

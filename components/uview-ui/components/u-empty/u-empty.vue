@@ -38,7 +38,7 @@
 	 * @example <u-empty text="所谓伊人，在水一方" mode="list"></u-empty>
 	 */
 	export default {
-		name: "u-empty",
+		name: 'UEmpty',
 		props: {
 			// 图标路径
 			src: {

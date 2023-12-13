@@ -20,17 +20,17 @@
 	 * @example <u-time-line-item node-top="2">...</u-time-line-item>
 	 */
 	export default {
-		name: "u-time-line-item",
+		name: 'UTimeLineItem',
 		props: {
 			// 节点的背景颜色
 			bgColor: {
 				type: String,
-				default: "#ffffff"
+				default: '#ffffff'
 			},
 			// 节点左边图标绝对定位的top值
 			nodeTop: {
 				type: [String, Number],
-				default: ""
+				default: ''
 			}
 		},
 		data() {
@@ -40,10 +40,10 @@
 		},
 		computed: {
 			nodeStyle() {
-				let style = {
+				const style = {
 					backgroundColor: this.bgColor,
 				};
-				if (this.nodeTop != "") style.top = this.nodeTop + 'rpx';
+				if (this.nodeTop != '') style.top = this.nodeTop + 'rpx';
 				return style;
 			}
 		}

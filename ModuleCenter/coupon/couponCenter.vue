@@ -57,7 +57,7 @@ import { couponApi } from '@/api/ModuleCenter.js'
 import pageUtil from '@/utils/pageUtils.js'
 import { mapState } from 'vuex'
 
-const listPage = new pageUtil( couponApi.couponReceivable )
+const listPage = new pageUtil(couponApi.couponReceivable)
 
 export default {
     components: { goCouponList, couponItems },
@@ -66,7 +66,7 @@ export default {
             params: {
                 shopProviderFlag: '',
 				name:'',
-				shopId: '', //店铺Id
+				shopId: '', // 店铺Id
             },
             list: [],
             num: 0,
@@ -85,7 +85,7 @@ export default {
     watch: {},
     onLoad() {
         this.getData()
-		this.$nextTick(()=>{
+		this.$nextTick(() => {
 			this.init(0)
 		})
     },
@@ -117,7 +117,7 @@ export default {
         checkType(type,index) {
             this.params.shopProviderFlag = type
 			this.init(index)
-            this.$nextTick(()=>{
+            this.$nextTick(() => {
                 this.getData()
             })
         },
@@ -126,8 +126,8 @@ export default {
 		async init(index) {
 			// 获取tabs组件的尺寸信息
 			const lastItemRect = await this.$utils.getRect(this, `#tab-item-${index}`);
-			this.lineWidth = lastItemRect.width//28
-			this.lineLeft = lastItemRect.left//48.5
+			this.lineWidth = lastItemRect.width// 28
+			this.lineLeft = lastItemRect.left// 48.5
 		},
      },
 }

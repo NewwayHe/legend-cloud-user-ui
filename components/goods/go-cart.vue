@@ -30,7 +30,7 @@ export default {
 			default: 'var(--themescolor)'
 		},
 		buttonSize: {
-			//当buttonFixed或shareButton为true时，按钮的大小，单位rpx
+			// 当buttonFixed或shareButton为true时，按钮的大小，单位rpx
 			type: [Number, String],
 			default: 70
 		},
@@ -40,17 +40,17 @@ export default {
 			default: false
 		},
 		fixedRight: {
-			//当buttonFixed为true时，控制靠右定位，单位rpx
+			// 当buttonFixed为true时，控制靠右定位，单位rpx
 			type: [Number, String],
 			default: 10
 		},
 		fixedBottom: {
-			//当buttonFixed为true时，控制靠下定位，单位rpx
+			// 当buttonFixed为true时，控制靠下定位，单位rpx
 			type: [Number, String],
 			default: 60
 		},
 		zIndex: {
-			//当buttonFixed为true时，控制靠下定位，单位rpx
+			// 当buttonFixed为true时，控制靠下定位，单位rpx
 			type: [Number, String],
 			default: 99
 		},

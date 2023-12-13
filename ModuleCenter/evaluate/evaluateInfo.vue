@@ -100,7 +100,7 @@ export default {
 	},
 
     onShow() {
-		this.$nextTick(()=>{
+		this.$nextTick(() => {
 			this.getData()
 		})
     },

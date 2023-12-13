@@ -25,7 +25,7 @@
 <script>
 	import uniIcons from '../../uni-app/uni-icons/uni-icons.vue'
 	export default {
-		name: 'ls-collapse-item',
+		name: 'LsCollapseItem',
 		components: {
 			uniIcons
 		},
@@ -107,7 +107,7 @@
 			this.collapse.childrens.push(this)
 			if (String(this.collapse.accordion) === 'true') {
 				if (this.isOpen) {
-					let lastEl = this.collapse.childrens[this.collapse.childrens.length - 2]
+					const lastEl = this.collapse.childrens[this.collapse.childrens.length - 2]
 					if (lastEl) {
 						this.collapse.childrens[this.collapse.childrens.length - 2].isOpen = false
 					}
@@ -129,7 +129,7 @@
 					})
 				}
 				this.isOpen = !this.isOpen
-                if (type!='icon') {
+                if (type != 'icon') {
                     this.$emit('change')
                     this.collapse.onChange && this.collapse.onChange()
                 }

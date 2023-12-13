@@ -4,10 +4,10 @@
  * @license MIT
  */
 (function(global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-		typeof define === 'function' && define.amd ? define(factory) :
-		(global.WeCropper = factory());
-}(this, (function() {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory()
+		: typeof define === 'function' && define.amd ? define(factory)
+		: (global.WeCropper = factory());
+}(this, function() {
 	'use strict';
 
 	var device = void 0;
@@ -18,8 +18,8 @@
 	}
 
 	function setTouchState(instance) {
-		var arg = [],
-			len = arguments.length - 1;
+		var arg = [];
+			var len = arguments.length - 1;
 		while (len-- > 0) arg[len] = arguments[len + 1];
 
 		TOUCH_STATE.forEach(function(key, i) {
@@ -52,8 +52,8 @@
 				return tmp.id
 			},
 			set: function set(value) {
-				if (typeof(value) !== 'string') {
-					console.error(("id：" + value + " is invalid"));
+				if (typeof (value) !== 'string') {
+					console.error(('id：' + value + ' is invalid'));
 				}
 				tmp.id = value;
 			}
@@ -64,8 +64,8 @@
 				return tmp.width
 			},
 			set: function set(value) {
-				if (typeof(value) !== 'number') {
-					console.error(("width：" + value + " is invalid"));
+				if (typeof (value) !== 'number') {
+					console.error(('width：' + value + ' is invalid'));
 				}
 				tmp.width = value;
 			}
@@ -76,8 +76,8 @@
 				return tmp.height
 			},
 			set: function set(value) {
-				if (typeof(value) !== 'number') {
-					console.error(("height：" + value + " is invalid"));
+				if (typeof (value) !== 'number') {
+					console.error(('height：' + value + ' is invalid'));
 				}
 				tmp.height = value;
 			}
@@ -88,8 +88,8 @@
 				return tmp.pixelRatio
 			},
 			set: function set(value) {
-				if (typeof(value) !== 'number') {
-					console.error(("pixelRatio：" + value + " is invalid"));
+				if (typeof (value) !== 'number') {
+					console.error(('pixelRatio：' + value + ' is invalid'));
 				}
 				tmp.pixelRatio = value;
 			}
@@ -100,8 +100,8 @@
 				return tmp.scale
 			},
 			set: function set(value) {
-				if (typeof(value) !== 'number') {
-					console.error(("scale：" + value + " is invalid"));
+				if (typeof (value) !== 'number') {
+					console.error(('scale：' + value + ' is invalid'));
 				}
 				tmp.scale = value;
 			}
@@ -112,10 +112,10 @@
 				return tmp.zoom
 			},
 			set: function set(value) {
-				if (typeof(value) !== 'number') {
-					console.error(("zoom：" + value + " is invalid"));
+				if (typeof (value) !== 'number') {
+					console.error(('zoom：' + value + ' is invalid'));
 				} else if (value < 0 || value > 10) {
-					console.error("zoom should be ranged in 0 ~ 10");
+					console.error('zoom should be ranged in 0 ~ 10');
 				}
 				tmp.zoom = value;
 			}
@@ -126,8 +126,8 @@
 				return tmp.src
 			},
 			set: function set(value) {
-				if (typeof(value) !== 'string') {
-					console.error(("src：" + value + " is invalid"));
+				if (typeof (value) !== 'string') {
+					console.error(('src：' + value + ' is invalid'));
 				}
 				tmp.src = value;
 			}
@@ -138,8 +138,8 @@
 				return tmp.cut
 			},
 			set: function set(value) {
-				if (typeof(value) !== 'object') {
-					console.error(("cut：" + value + " is invalid"));
+				if (typeof (value) !== 'object') {
+					console.error(('cut：' + value + ' is invalid'));
 				}
 				tmp.cut = value;
 			}
@@ -150,8 +150,8 @@
 				return tmp.boundStyle
 			},
 			set: function set(value) {
-				if (typeof(value) !== 'object') {
-					console.error(("boundStyle：" + value + " is invalid"));
+				if (typeof (value) !== 'object') {
+					console.error(('boundStyle：' + value + ' is invalid'));
 				}
 				tmp.boundStyle = value;
 			}
@@ -340,12 +340,12 @@
 		self.on = function(event, fn) {
 			if (EVENT_TYPE.indexOf(event) > -1) {
 				if (tools_7(fn)) {
-					event === 'ready' ?
-						fn(self) :
-						self[("on" + (firstLetterUpper(event)))] = fn;
+					event === 'ready'
+						? fn(self)
+						: self[('on' + (firstLetterUpper(event)))] = fn;
 				}
 			} else {
-				console.error(("event: " + event + " is invalid"));
+				console.error(('event: ' + event + ' is invalid'));
 			}
 			return self
 		};
@@ -353,8 +353,8 @@
 
 	function wxPromise(fn) {
 		return function(obj) {
-			var args = [],
-				len = arguments.length - 1;
+			var args = [];
+				var len = arguments.length - 1;
 			while (len-- > 0) args[len] = arguments[len + 1];
 
 			if (obj === void 0) obj = {};
@@ -385,27 +385,26 @@
 	var base64 = createCommonjsModule(function(module, exports) {
 		/*! http://mths.be/base64 v0.1.0 by @mathias | MIT license */
 		(function(root) {
-
 			// Detect free variables `exports`.
-			var freeExports = 'object' == 'object' && exports;
+			var freeExports = 'object' === 'object' && exports;
 
 			// Detect free variable `module`.
-			var freeModule = 'object' == 'object' && module &&
+			var freeModule = 'object' === 'object' && module &&
 				module.exports == freeExports && module;
 
 			// Detect free variable `global`, from Node.js or Browserified code, and use
 			// it as `root`.
-			var freeGlobal = typeof commonjsGlobal == 'object' && commonjsGlobal;
+			var freeGlobal = typeof commonjsGlobal === 'object' && commonjsGlobal;
 			if (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal) {
 				root = freeGlobal;
 			}
 
-			/*--------------------------------------------------------------------------*/
+			/* --------------------------------------------------------------------------*/
 
 			var InvalidCharacterError = function(message) {
 				this.message = message;
 			};
-			InvalidCharacterError.prototype = new Error;
+			InvalidCharacterError.prototype = new Error();
 			InvalidCharacterError.prototype.name = 'InvalidCharacterError';
 
 			var error = function(message) {
@@ -527,8 +526,8 @@
 			// Some AMD build optimizers, like r.js, check for specific condition patterns
 			// like the following:
 			if (
-				typeof undefined == 'function' &&
-				typeof undefined.amd == 'object' &&
+				typeof undefined === 'function' &&
+				typeof undefined.amd === 'object' &&
 				undefined.amd
 			) {
 				undefined(function() {
@@ -545,7 +544,6 @@
 			} else { // in Rhino or a web browser
 				root.base64 = base64;
 			}
-
 		}(commonjsGlobal));
 	});
 
@@ -907,18 +905,18 @@
 						fn = customOptions;
 					}
 
-					var arg = canvasOptions.componentContext ?
-						[canvasOptions, canvasOptions.componentContext] :
-						[canvasOptions];
+					var arg = canvasOptions.componentContext
+						? [canvasOptions, canvasOptions.componentContext]
+						: [canvasOptions];
 
 					return canvasToTempFilePath.apply(null, arg)
 				})
 				.then(function(res) {
 					var tempFilePath = res.tempFilePath;
 
-					return tools_7(fn) ?
-						fn.call(self, tempFilePath, null) :
-						tempFilePath
+					return tools_7(fn)
+						? fn.call(self, tempFilePath, null)
+						: tempFilePath
 				})
 				.catch(function(err) {
 					if (tools_7(fn)) {
@@ -1100,17 +1098,17 @@
 		 * @param imgTop 图片左上角纵坐标值
 		 */
 		self.outsideBound = function(imgLeft, imgTop) {
-			self.imgLeft = imgLeft >= x ?
-				x :
-				self.scaleWidth + imgLeft - x <= width ?
-				x + width - self.scaleWidth :
-				imgLeft;
+			self.imgLeft = imgLeft >= x
+				? x
+				: self.scaleWidth + imgLeft - x <= width
+				? x + width - self.scaleWidth
+				: imgLeft;
 
-			self.imgTop = imgTop >= y ?
-				y :
-				self.scaleHeight + imgTop - y <= height ?
-				y + height - self.scaleHeight :
-				imgTop;
+			self.imgTop = imgTop >= y
+				? y
+				: self.scaleHeight + imgTop - y <= height
+				? y + height - self.scaleHeight
+				: imgTop;
 		};
 
 		/**
@@ -1206,7 +1204,7 @@
 		};
 	}
 
-	var version = "1.3.9";
+	var version = '1.3.9';
 
 	var WeCropper = function WeCropper(params) {
 		var self = this;
@@ -1261,5 +1259,4 @@
 	WeCropper.prototype.update = update;
 
 	return WeCropper;
-
-})));
+}));

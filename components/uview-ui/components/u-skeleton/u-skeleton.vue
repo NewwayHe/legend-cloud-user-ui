@@ -52,7 +52,7 @@
 	 * @example <u-skeleton :loading="true" :animation="true"></u-skeleton>
 	 */
 	export default {
-		name: "u-skeleton",
+		name: 'USkeleton',
 		props: {
 			// 需要渲染的元素背景颜色，十六进制或者rgb等都可以
 			elColor: {
@@ -72,7 +72,7 @@
 			// 圆角值，只对类名为u-skeleton-fillet的元素生效，为数值，不带单位
 			borderRadius: {
 				type: [String, Number],
-				default: "10"
+				default: '10'
 			},
 			// 是否显示骨架，true-显示，false-隐藏
 			loading: {
@@ -162,7 +162,7 @@
 		// 组件被挂载
 		mounted() {
 			// 获取系统信息
-			let systemInfo = uni.getSystemInfoSync();
+			const systemInfo = uni.getSystemInfoSync();
 			this.windowHeight = systemInfo.windowHeight;
 			this.windowWinth = systemInfo.windowWidth;
 			this.selecterQueryInfo();

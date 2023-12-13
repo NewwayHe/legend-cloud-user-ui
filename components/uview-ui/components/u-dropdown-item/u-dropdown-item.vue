@@ -34,7 +34,7 @@
 	 * @example <u-dropdown-item title="标题"></u-dropdown-item>
 	 */
 	export default {
-		name: 'u-dropdown-item',
+		name: 'UDropdownItem',
 		props: {
 			// 当前选中项的value值
 			value: {
@@ -49,7 +49,7 @@
 			// 选项数据，如果传入了默认slot，此参数无效
 			options: {
 				type: Array,
-				default () {
+				default() {
 					return []
 				}
 			},
@@ -91,7 +91,7 @@
 		methods: {
 			init() {
 				// 获取父组件u-dropdown
-				let parent = this.$u.$parent.call(this, 'u-dropdown');
+				const parent = this.$u.$parent.call(this, 'u-dropdown');
 				if (parent) {
 					this.parent = parent;
 					// 将子组件的激活颜色配置为父组件设置的激活和未激活时的颜色
@@ -99,7 +99,7 @@
 					this.inactiveColor = parent.inactiveColor;
 					// 将本组件的this，放入到父组件的children数组中，让父组件可以操作本(子)组件的方法和属性
 					// push进去前，显判断是否已经存在了本实例，因为在子组件内部数据变化时，会通过父组件重新初始化子组件
-					let exist = parent.children.find(val => {
+					const exist = parent.children.find(val => {
 						return this === val;
 					})
 					if (!exist) parent.children.push(this);

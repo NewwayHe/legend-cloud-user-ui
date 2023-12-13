@@ -102,10 +102,10 @@ import pageUtil from '@/utils/pageUtils.js';
 import { goodsApi, user } from '@/api/ModuleGoods.js';
 import { shopDetail } from '@/api/ModuleShop.js';
 
-const listPage1 = new pageUtil(goodsApi.favoriteProductPage, { field: { list: 'prodList', paging: 'prodPaging' } });
-const listPage2 = new pageUtil(goodsApi.favoriteShopPage, { field: { list: 'shopList', paging: 'shopPaging' } });
+const listPage1 = new pageUtil(goodsApi.favoriteProductPage, { field: { list: 'prodList', paging: 'prodPaging' }});
+const listPage2 = new pageUtil(goodsApi.favoriteShopPage, { field: { list: 'shopList', paging: 'shopPaging' }});
 export default {
-	name: 'collection',
+	name: 'Collection',
 	components: {},
 	data() {
 		return {
@@ -143,7 +143,7 @@ export default {
 	},
 	computed: {
 		hasSelectedList() {
-			//已经选中的列表
+			// 已经选中的列表
 			return this.resultList.filter(item => item.selected);
 		},
 		allSelected() {
@@ -176,7 +176,7 @@ export default {
 		 * @param {*} isAppend 是否已经加载过，true：已经加载过，false：第一次加载
 		 */
 		getData() {
-			//不往里面塞一个selected的话，computed里的hasSelectedList，allSelected值及HTML上不会因为selected变化而变化
+			// 不往里面塞一个selected的话，computed里的hasSelectedList，allSelected值及HTML上不会因为selected变化而变化
 			listPage1.loadListByPage(
 				this,
 				{},
@@ -212,14 +212,14 @@ export default {
 		},
 		// swiper-item左右移动，通知tabs的滑块跟随移动
 		transition(e) {
-			let dx = e.detail.dx;
+			const dx = e.detail.dx;
 			this.$refs.uTabs.setDx(dx);
 		},
 
 		// 由于swiper的内部机制问题，快速切换swiper不会触发dx的连续变化，需要在结束时重置状态
 		// swiper滑动结束，分别设置tabs和swiper的状态
 		animationfinish(e) {
-			let current = e.detail.current;
+			const current = e.detail.current;
 			this.$refs.uTabs.setFinishCurrent(current);
 			this.swiperCurrent = current;
 			this.current = current;
@@ -275,9 +275,9 @@ export default {
 				this.changeStatus(item)
 			}
 		},
-		//与上面的capture()方法一起同时执行
+		// 与上面的capture()方法一起同时执行
 		goGoodsDetail(id){
-			if(!this.clooseFlag&&id){
+			if(!this.clooseFlag && id){
 				this.$navigateTo(`/ModuleGoods/goodsDetail/goodsDetail?id=${id}`)
 			}
 		},
@@ -327,7 +327,7 @@ export default {
 								.then(res => {
 									if (res.code == 1) {
 										this.prodList = arr2;
-										//当全部都删完时，则显示ls-empty组件
+										// 当全部都删完时，则显示ls-empty组件
 										if (!this.prodList.length) {
 											this.prodPaging.emptylist = true;
 										}
@@ -343,7 +343,7 @@ export default {
 								.then(res => {
 									if (res.code == 1) {
 										this.shopList = arr2;
-										//当全部都删完时，则显示ls-empty组件
+										// 当全部都删完时，则显示ls-empty组件
 										if (!this.shopList.length) {
 											this.shopPaging.emptylist = true;
 										}
@@ -357,7 +357,7 @@ export default {
 		},
 		// 分割多张图片 只显示第一张
 		splitImage(images) {
-			return images?images.split(',')[0]:null
+			return images ? images.split(',')[0] : null
 		}
 	}
 };

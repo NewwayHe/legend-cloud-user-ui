@@ -122,7 +122,7 @@ import { couponApi } from '@/api/ModuleCenter'
 import mpShare from '@/mixins/mpShare.js'
 export default {
 	components: { couponItems,goCouponList },
-	mixins: [ mpShare ],
+	mixins: [mpShare],
     data() {
         return {
             couponId: '',
@@ -134,7 +134,7 @@ export default {
 			    emptylist: false // 是否显示列表为空时的样式
 			},
 			couponUserId: '', // 用户领券ID
-			isPreview: false,//如果是shareUrlRedirect页面跳过来预览(商家端或PC后台跳进来)，就加个遮罩层防止点击
+			isPreview: false,// 如果是shareUrlRedirect页面跳过来预览(商家端或PC后台跳进来)，就加个遮罩层防止点击
         }
     },
     computed: {
@@ -151,10 +151,10 @@ export default {
 		this.couponId = options.id || null
 		this.type = options.type || null
 		this.couponUserId = options.couponUserId || null
-		this.isPreview = options.isPreview ? true : false
-		//如果是积分商城里点击了积分优惠券进来
-		if (this.type=='integral') {
-			this.couponData = JSON.parse(decodeURIComponent(options.item||null))//如果是积分商城里点击了积分优惠券进来
+		this.isPreview = !!options.isPreview
+		// 如果是积分商城里点击了积分优惠券进来
+		if (this.type == 'integral') {
+			this.couponData = JSON.parse(decodeURIComponent(options.item || null))// 如果是积分商城里点击了积分优惠券进来
 			this.paging.status = 'noMore'
 		}else{
 			this.getData()
@@ -179,7 +179,7 @@ export default {
 				id: this.couponId,
 				couponUserId: this.couponUserId
 			}).then((res) => {
-				if(res.code == 1 ){
+				if(res.code == 1){
 					this.couponData = res.data
 				} 
 			}).catch((err) => {

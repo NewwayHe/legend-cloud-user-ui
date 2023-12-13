@@ -52,54 +52,53 @@ export default {
     methods: {
 		itemStyle(index) {
 			let style = '';
-			if (Number(this.type)==1&&this.list) {
+			if (Number(this.type) == 1 && this.list) {
 				if (this.list.length == 2) {
-					if (index==0) {
-						style =  { transform: `rotate(-30deg) translate(-30rpx, 0rpx)`};
+					if (index == 0) {
+						style = { transform: `rotate(-30deg) translate(-30rpx, 0rpx)` };
 					}
-					if (index==1) {
-						style =  { transform: `rotate(30deg) translate(30rpx, 0rpx)`};
+					if (index == 1) {
+						style = { transform: `rotate(30deg) translate(30rpx, 0rpx)` };
 					}
 				}
 				if (this.list.length == 3) {
-					if (index==0) {
-						style =  { transform: `rotate(-45deg) translate(-40rpx, 20rpx)`};
+					if (index == 0) {
+						style = { transform: `rotate(-45deg) translate(-40rpx, 20rpx)` };
 					}
-					if (index==2) {
-						style =  { transform: `rotate(45deg) translate(40rpx, 20rpx)`};
+					if (index == 2) {
+						style = { transform: `rotate(45deg) translate(40rpx, 20rpx)` };
 					}
 				}
 				if (this.list.length == 4) {
-					if (index==0) {
-						style =  { transform: `rotate(-60deg) translate(-60rpx, 30rpx)`};
+					if (index == 0) {
+						style = { transform: `rotate(-60deg) translate(-60rpx, 30rpx)` };
 					}
-					if (index==1) {
-						style =  { transform: `rotate(-20deg) translate(-10rpx, 0rpx)`};
+					if (index == 1) {
+						style = { transform: `rotate(-20deg) translate(-10rpx, 0rpx)` };
 					}
-					if (index==2) {
-						style =  { transform: `rotate(20deg) translate(10rpx, 0rpx)`};
+					if (index == 2) {
+						style = { transform: `rotate(20deg) translate(10rpx, 0rpx)` };
 					}
-					if (index==3) {
-						style =  { transform: `rotate(60deg) translate(60rpx, 30rpx)`};
+					if (index == 3) {
+						style = { transform: `rotate(60deg) translate(60rpx, 30rpx)` };
 					}
 				}
 				if (this.list.length == 5) {
-					if (index==0) {
-						style =  { transform: `rotate(-70deg) translate(-84rpx, 30rpx)`};
+					if (index == 0) {
+						style = { transform: `rotate(-70deg) translate(-84rpx, 30rpx)` };
 					}
-					if (index==1) {
-						style =  { transform: `rotate(-30deg) translate(-20rpx, 0rpx)`};
+					if (index == 1) {
+						style = { transform: `rotate(-30deg) translate(-20rpx, 0rpx)` };
 					}
-					if (index==2) {
-						style =  { transform: `rotate(0deg) translate(0rpx, -20rpx)`};
+					if (index == 2) {
+						style = { transform: `rotate(0deg) translate(0rpx, -20rpx)` };
 					}
-					if (index==3) {
-						style =  { transform: `rotate(30deg) translate(20rpx, 0rpx)`};
+					if (index == 3) {
+						style = { transform: `rotate(30deg) translate(20rpx, 0rpx)` };
 					}
-					if (index==4) {
-						style =  { transform: `rotate(70deg) translate(84rpx, 30rpx)`};
+					if (index == 4) {
+						style = { transform: `rotate(70deg) translate(84rpx, 30rpx)` };
 					}
-					
 				}
 			}
 			style = this.$u.deepMerge(style, this.cssStyle);

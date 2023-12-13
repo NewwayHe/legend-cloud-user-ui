@@ -11,9 +11,9 @@ function timeFrom(dateTime = null, format = 'yyyy-mm-dd') {
 	if (!dateTime) dateTime = Number(new Date());
 	// 如果dateTime长度为10或者13，则为秒和毫秒的时间戳，如果超过13位，则为其他的时间格式
 	if (dateTime.toString().length == 10) dateTime *= 1000;
-	let timestamp = + new Date(Number(dateTime));
+	const timestamp = +new Date(Number(dateTime));
 
-	let timer = (Number(new Date()) - timestamp) / 1000;
+	const timer = (Number(new Date()) - timestamp) / 1000;
 	// 如果小于5分钟,则返回"刚刚",其他以此类推
 	let tips = '';
 	switch (true) {

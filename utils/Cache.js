@@ -81,7 +81,7 @@ const searchHistory = {
             return []
         }
         for (let i = 0; i < words.length; i++) {
-			if (words[i] == '' || typeof words[i] == 'undefined' || words[i] == ' ') {
+			if (words[i] == '' || typeof words[i] === 'undefined' || words[i] == ' ') {
 				words.splice(i, 1);
 				i = i - 1;
 			}

@@ -28,7 +28,7 @@ export default {
                 uni.showModal({
                     title: '登录提示',
                     content: '您拒绝了授权，我们将拿不到您的头像、昵称等信息，确认继续？',
-                    success: (res)=> {
+                    success: (res) => {
                         if (res.confirm) {
                             this.login(null, null)
                         } else if (res.cancel) {
@@ -52,7 +52,7 @@ export default {
             })
 
             uni.login({
-                success:(res)=> {
+                success:(res) => {
                     console.log('wx.login成功结果: %o', res)
                     uni.showLoading({ mask: true, title: '正在登录...' }) // 不加这个的话，在调用成功后，会有很长时间的显示空白页面
 
@@ -70,7 +70,7 @@ export default {
                     }
                 },
 
-                fail:(error)=> {
+                fail:(error) => {
                     console.log('wx.login失败: %o', error)
                     this.$switchTab(`/pages/index/index`)
                     uni.showToast({ title: '自动登录失败, 请联系客服!', icon: 'none', duration: 2000 })

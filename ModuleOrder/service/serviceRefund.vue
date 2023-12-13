@@ -113,11 +113,11 @@ export default {
 	},
 	computed: {
 		...mapState(['timeDiff', 'stausBarHeight', 'wxMenuBut']),
-		//是否只有一条数据
+		// 是否只有一条数据
 		isFirst() {
 			return this.orderList.length == 1;
 		},
-		//最多退款金额
+		// 最多退款金额
 		refundAmount() {
 			return this.orderList.reduce((pre, item, index) => {
 				if (this.form.orderItemIds.includes(item.id)) {
@@ -162,14 +162,14 @@ export default {
 	},
 	onShow() {},
 	mounted(){
-		refundApi.cancelReason().then(res=>{
+		refundApi.cancelReason().then(res => {
 			if(res.code && res.data.length){
-				this.columns = res.data.map(v=>{return v})
+				this.columns = res.data.map(v => { return v })
 			}
 		})
 	},
 	methods: {
-		//获取退货信息
+		// 获取退货信息
 		getRefundDetail() {
 			refundApi.refundApply({ orderId: this.form.orderId, orderItemId: this.orderItemId }).then(res => {
 				if (res.code) {
@@ -186,7 +186,7 @@ export default {
 		changeReason(e) {
 			this.form.reason = this.columns[e[0]];
 		},
-		//checkbox改变
+		// checkbox改变
 		checkboxChange(item) {
 			const check = this.form.orderItemIds.includes(item.id);
 			if (item.status != 1 || this.isFirst) return;
@@ -222,9 +222,9 @@ export default {
 				if (!this.$checkInfo([{ type: 'hasValue', value: this.form.reason, msg: '请选择原因' }])) {
 					this.show = true
 					return resolve()
-				};
+				}
 				if (this.form.refundType == 1) {
-					if (!this.$checkInfo([{ type: 'hasValue', value: this.form.refundAmount, msg: `请输入退款${this.applyData.orderType == 'I'?'积分':'金额'}`}])) {
+					if (!this.$checkInfo([{ type: 'hasValue', value: this.form.refundAmount, msg: `请输入退款${this.applyData.orderType == 'I' ? '积分' : '金额'}` }])) {
 						this.focus = true
 						return resolve()
 					}
@@ -242,7 +242,7 @@ export default {
 					if (res.code) {
 						this.$navigateTo(`/ModuleOrder/service/serviceList`);
 					}
-				}).finally(()=>{ return resolve() })
+				}).finally(() => { return resolve() })
 			})
 		},
 		// 切换售后类型

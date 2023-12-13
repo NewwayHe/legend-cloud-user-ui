@@ -81,7 +81,7 @@
 	import LimePainter from '@/components/l-painter-new/l-painter/l-painter.vue';
 	import loadingCss from '@/static/cssImage/loadingCss.vue';
 	export default {
-		name: 'voucherPop',
+		name: 'VoucherPop',
 		components: {
 			LimePainter,
 			loadingCss,
@@ -135,8 +135,8 @@
 		},
 		data() {
 			return {
-				isLoading: true,	//是否在生成二维码
-				imageUrl: null,	//图片地址
+				isLoading: true,	// 是否在生成二维码
+				imageUrl: null,	// 图片地址
 				isPainterOk: false,
 			}
 		},
@@ -158,7 +158,7 @@
 				// #ifndef H5
 				uni.saveImageToPhotosAlbum({
 					filePath: this.imageUrl,
-					success:(res)=> {
+					success:(res) => {
 						if (res.errMsg == 'saveImageToPhotosAlbum:ok') {
 							uni.showToast({
 								title: '保存图片成功',
@@ -167,7 +167,7 @@
 							this.$emit('input', false)
 						}
 					},
-					fail:(err)=> {
+					fail:(err) => {
 						if (!err.errMsg.includes('cancel')) {
 							// 如果微信没有授权，则要重新请求相册授权
 							uni.showModal({
@@ -189,7 +189,6 @@
 					}
 				});
 				// #endif
-				
 			},
 			
 			// 用于小程序做画板渲染 否则小程序上会出现两张图片 一张其实是canvas引起的bug

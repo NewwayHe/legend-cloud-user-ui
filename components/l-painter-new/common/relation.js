@@ -1,9 +1,9 @@
-const styles = (v ='') =>  v.split(';').filter(v => v && !/^[\n\s]+$/.test(v)).map(v => {
+const styles = (v = '') => v.split(';').filter(v => v && !/^[\n\s]+$/.test(v)).map(v => {
 						const key = v.slice(0, v.indexOf(':'))
-						const value = v.slice(v.indexOf(':')+1)
+						const value = v.slice(v.indexOf(':') + 1)
 						return {
 							[key
-								.replace(/-([a-z])/g, function() { return arguments[1].toUpperCase()})
+								.replace(/-([a-z])/g, function() { return arguments[1].toUpperCase() })
 								.replace(/\s+/g, '')
 							]: value.replace(/^\s+/, '').replace(/\s+$/, '') || ''
 						}
@@ -27,7 +27,7 @@ export function parent(parent) {
 			css: { 
 				handler(v) {
 					if(this.canvasId) {
-						this.el.css = (typeof v == 'object' ? v : v && Object.assign(...styles(v))) || {}
+						this.el.css = (typeof v === 'object' ? v : v && Object.assign(...styles(v))) || {}
 						this.canvasWidth = this.el.css && this.el.css.width || this.canvasWidth
 						this.canvasHeight = this.el.css && this.el.css.height || this.canvasHeight
 					}
@@ -48,16 +48,14 @@ export function children(parent, options = {}) {
 		watch: {
 			el: {
 				handler(v, o) {
-					if(JSON.stringify(v) != JSON.stringify(o))
-						this.bindRelation()
+					if(JSON.stringify(v) != JSON.stringify(o)) { this.bindRelation() }
 				},
 				deep: true,
 				immediate: true
 			},
 			src: {
 				handler(v, o) {
-					if(v != o)
-						this.bindRelation()
+					if(v != o) { this.bindRelation() }
 				},
 				immediate: true
 			},
@@ -69,15 +67,13 @@ export function children(parent, options = {}) {
 			},
 			css: {
 				handler(v, o) {
-					if(v != o)
-						this.el.css = (typeof v == 'object' ? v : v && Object.assign(...styles(v))) || {}
+					if(v != o) { this.el.css = (typeof v === 'object' ? v : v && Object.assign(...styles(v))) || {} }
 				},
 				immediate: true
 			},
 			replace: {
 				handler(v, o) {
-					if(JSON.stringify(v) != JSON.stringify(o))
-						this.bindRelation()
+					if(JSON.stringify(v) != JSON.stringify(o)) { this.bindRelation() }
 				},
 				deep: true,
 				immediate: true
@@ -91,9 +87,9 @@ export function children(parent, options = {}) {
 				get: () => this[parent] || [],
 			})
 			Object.defineProperty(this, 'index', {
-				get: () =>  {
+				get: () => {
 					this.bindRelation();
-					const {parent: {el: {views=[]}={}}={}} = this
+					const { parent: { el: { views = [] } = {}} = {}} = this
 					return views.indexOf(this.el)
 				},
 			});
@@ -130,7 +126,7 @@ export function children(parent, options = {}) {
 				if (!this.parent) {
 					return;
 				}
-				let views = this.parent.el.views || [];
+				const views = this.parent.el.views || [];
 				if(views.indexOf(this.el) !== -1) {
 					this.parent.el.views = views.map(v => v._uid == this._uid ? this.el : v)
 				} else {

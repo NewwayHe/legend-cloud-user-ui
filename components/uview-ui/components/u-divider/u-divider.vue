@@ -33,7 +33,7 @@
  * @example <u-divider color="#fa3534">长河落日圆</u-divider>
  */
 export default {
-	name: 'u-divider',
+	name: 'UDivider',
 	props: {
 		// 单一边divider横线的宽度(数值)，单位rpx。或者百分比
 		halfWidth: {
@@ -88,7 +88,7 @@ export default {
 	},
 	computed: {
 		lineStyle() {
-			let style = {};
+			const style = {};
 			if(String(this.halfWidth).indexOf('%') != -1) style.width = this.halfWidth;
 			else style.width = this.halfWidth + 'rpx';
 			// borderColor优先级高于type值

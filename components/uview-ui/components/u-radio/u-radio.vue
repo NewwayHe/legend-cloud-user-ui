@@ -31,7 +31,7 @@
 	 * @example <u-radio :label-disabled="false">门掩黄昏，无计留春住</u-radio>
 	 */
 	export default {
-		name: "u-radio",
+		name: 'URadio',
 		props: {
 			// radio的名称
 			name: {
@@ -120,7 +120,7 @@
 			},
 			// 设置radio的状态，要求radio的name等于parent的value时才为选中状态
 			iconStyle() {
-				let style = {};
+				const style = {};
 				if (this.elActiveColor && this.parentData.value == this.name && !this.elDisabled) {
 					style.borderColor = this.elActiveColor;
 					style.backgroundColor = this.elActiveColor;
@@ -130,20 +130,22 @@
 				return style;
 			},
 			iconColor() {
-				return this.name ==  this.parentData.value ? '#ffffff' : 'transparent';
+				return this.name == this.parentData.value ? '#ffffff' : 'transparent';
 			},
 			iconClass() {
-				let classes = [];
+				const classes = [];
 				classes.push('u-radio__icon-wrap--' + this.elShape);
 				if (this.name == this.parentData.value) classes.push('u-radio__icon-wrap--checked');
 				if (this.elDisabled) classes.push('u-radio__icon-wrap--disabled');
-				if (this.name == this.parentData.value && this.elDisabled) classes.push(
-					'u-radio__icon-wrap--disabled--checked');
+				if (this.name == this.parentData.value && this.elDisabled) {
+ classes.push(
+					'u-radio__icon-wrap--disabled--checked'); 
+}
 				// 支付宝小程序无法动态绑定一个数组类名，否则解析出来的结果会带有","，而导致失效
 				return classes.join(' ');
 			},
 			radioStyle() {
-				let style = {};
+				const style = {};
 				if (this.parentData.width) {
 					style.width = this.$u.addUnit(this.parentData.width);
 					// #ifdef MP

@@ -60,7 +60,7 @@ export default {
                     content: `十分抱歉，若您不同意《服务协议和隐私政策》我们将无法为你提供服务`,
                     cancelText: '关闭应用',
                     confirmText: '我再想想',
-                    success: (res)=> {
+                    success: (res) => {
                         if (res.confirm) {
                             this.appAgree = true
                         } else if (res.cancel) {

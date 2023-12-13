@@ -227,7 +227,7 @@ export default {
 				// 只要有元素并且第一个元素有children属性，继续历遍
 				while(column[0][this.childName]) {
 					column = column[0] ? column[0][this.childName] : {};
-					num ++;
+					num++;
 				}
 				this.columnNum = num;
 			}
@@ -263,7 +263,7 @@ export default {
 			let tmp = null;
 			for(let i = 0; i < this.columnNum; i++) {
 				tmp = this.columnData[i][this.defaultSelector[i]];
-				let data = {
+				const data = {
 					value: tmp ? tmp[this.valueName] : null,
 					label: tmp ? tmp[this.labelName] : null
 				};
@@ -275,7 +275,7 @@ export default {
 		// 列选项
 		columnChange(e) {
 			let index = null;
-			let columnIndex = e.detail.value;
+			const columnIndex = e.detail.value;
 			// 由于后面是需要push进数组的，所以需要先清空数组
 			this.selectValue = [];
 			if(this.mode == 'mutil-column-auto') {
@@ -294,22 +294,21 @@ export default {
 				// 在历遍的过程中，可能由于上一步修改this.columnData，导致产生连锁反应，程序触发columnChange，会有多次调用
 				// 只有在最后一次数据稳定后的结果是正确的，此前的历遍中，可能会产生undefined，故需要判断
 				columnIndex.map((item, index) => {
-					let data = this.columnData[index][columnIndex[index]];
-					let tmp = {
+					const data = this.columnData[index][columnIndex[index]];
+					const tmp = {
 						value: data ? data[this.valueName] : null,
 						label: data ? data[this.labelName] : null,
 					};
 					// 判断是否有需要额外携带的参数
 					if(data && data.extra !== undefined) tmp.extra = data.extra;
 					this.selectValue.push(tmp);
-
 				})
 				// 保存这一次的结果，用于下次列发生变化时作比较
 				this.lastSelectIndex = columnIndex;
 			} else if(this.mode == 'single-column') {
-				let data = this.columnData[0][columnIndex[0]];
+				const data = this.columnData[0][columnIndex[0]];
 				// 初始默认选中值
-				let tmp = {
+				const tmp = {
 					value: data ? data[this.valueName] : null,
 					label: data ? data[this.labelName] : null,
 				};
@@ -319,9 +318,9 @@ export default {
 			} else if(this.mode == 'mutil-column') {
 				// 初始默认选中值
 				columnIndex.map((item, index) => {
-					let data = this.columnData[index][columnIndex[index]];
+					const data = this.columnData[index][columnIndex[index]];
 					// 初始默认选中值
-					let tmp = {
+					const tmp = {
 						value: data ? data[this.valueName] : null,
 						label: data ? data[this.labelName] : null,
 					};

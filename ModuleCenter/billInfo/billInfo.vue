@@ -76,7 +76,7 @@ export default {
 	components: {},
     data() {
         return {
-			billId: null,	//当前账单的ID 存储一份用于empty重新加载
+			billId: null,	// 当前账单的ID 存储一份用于empty重新加载
             list: null,
             show: false,
 			paging: {

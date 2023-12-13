@@ -94,7 +94,7 @@
 </template>
 
 <script>
-import props from "./props.js";
+import props from './props.js';
 /**
  * Input 输入框
  * @description  此组件为一个输入框，默认没有边框和样式，是专门为配合表单组件u-form而设计的，利用它可以快速实现表单验证，输入内容，下拉选择等功能。
@@ -138,7 +138,7 @@ import props from "./props.js";
  * @example <u-input v-model="value" :password="true" suffix-icon="lock-fill" />
  */
 export default {
-    name: "ls-input",
+    name: 'LsInput',
     mixins: [props],
 	// #ifdef MP-WEIXIN
 	// 将自定义节点设置成虚拟的，更加接近Vue组件的表现，能更好的使用flex属性。这时在<组件name> 里加style和class是不会生效的
@@ -147,7 +147,7 @@ export default {
     data() {
         return {
             // 输入框的值
-            innerValue: "",
+            innerValue: '',
             // 是否处于获得焦点状态
             focused: false,
             // value是否第一次变化，在watch中，由于加入immediate属性，会在第一次触发，此时不应该认为value发生了变化
@@ -182,21 +182,21 @@ export default {
         // 是否显示清除控件
         isShowClear() {
             const { clearable, readonly, focused, innerValue } = this;
-            return !!clearable && !readonly && !!focused && innerValue !== "";
+            return !!clearable && !readonly && !!focused && innerValue !== '';
         },
         // 组件的类名
         inputClass() {
-            let classes = [],
-                { border, disabled, shape } = this;
-            border === "surround" &&
-                (classes = classes.concat(["u-border", "u-input--radius"]));
+            let classes = [];
+                const { border, disabled, shape } = this;
+            border === 'surround' &&
+                (classes = classes.concat(['u-border', 'u-input--radius']));
             classes.push(`u-input--${shape}`);
-            border === "bottom" &&
+            border === 'bottom' &&
                 (classes = classes.concat([
-                    "u-border-bottom",
-                    "u-input--no-radius",
+                    'u-border-bottom',
+                    'u-input--no-radius',
                 ]));
-            return classes.join(" ");
+            return classes.join(' ');
         },
         // 组件的样式
         wrapperStyle() {
@@ -206,8 +206,8 @@ export default {
                 style.backgroundColor = this.disabledColor;
             }
             // 无边框时，去除内边距
-            if (this.border === "none") {
-                style.padding = "0";
+            if (this.border === 'none') {
+                style.padding = '0';
             } else {
 				style.padding = this.padding;
 				// if (this.padding) {
@@ -239,7 +239,7 @@ export default {
 		},
         // 当键盘输入时，触发input事件
         onInput(e) {
-            let { value = "" } = e.detail || {};
+            const { value = '' } = e.detail || {};
             // 格式化过滤方法
             const formatter = this.formatter || this.innerFormatter
             const formatValue = formatter(value)
@@ -256,56 +256,55 @@ export default {
 			if (this.type == 'number' || this.precision || this.precision === 0) {
 				// 如果不传min值,由于type = 'number'，input是可以输入‘+-123’的，此时页面上能显示‘+-123’，但事实上innerValue的值为：''，此时要将innerValue设为undefined
 				if (this.min === '' && !this.innerValue) {
-					this.innerValue = 0 //此之前innerValue的值为'',要先将innerValue设一个非空值(设为undefined不行，还是为空，页面渲染不会有变化)，让它有变化，页面上的渲染才会发生变化
+					this.innerValue = 0 // 此之前innerValue的值为'',要先将innerValue设一个非空值(设为undefined不行，还是为空，页面渲染不会有变化)，让它有变化，页面上的渲染才会发生变化
 					this.$nextTick(() => {
 						this.innerValue = undefined
-						this.$emit("input", this.innerValue);
+						this.$emit('input', this.innerValue);
 					})
 				} else {
 					// 当type=number类型时,键盘是可以输入+-的,这时页面上看到+-4,但其实innerValue值是为''
-					if (((this.min === 0 || this.min) && !this.innerValue && this.innerValue!==this.min) || this.min > Number(this.innerValue)) {
+					if (((this.min === 0 || this.min) && !this.innerValue && this.innerValue !== this.min) || this.min > Number(this.innerValue)) {
 						// if ((this.min == 0 || this.min) && this.min > this.innerValue) {
-						this.innerValue = this.min //如果this.min === 0，就要加上这句话让它下面的innerValue = undefined有变化从而使页面更新渲染
+						this.innerValue = this.min // 如果this.min === 0，就要加上这句话让它下面的innerValue = undefined有变化从而使页面更新渲染
 						this.$nextTick(() => {
 							// 以下三种情况,看用户体验来切换
 							// this.innerValue = this.min === 0?undefined:this.min	//当this.min === 0时，如：输入'+-123'(这时value打印出来值为''),让value值置空而不是显示0，但这种会有一个缺点，当我输入+-123时，插件会强行变为min值直接给后台保存
-							this.innerValue = undefined	//只要value值少于min，则将输入框置空
+							this.innerValue = undefined	// 只要value值少于min，则将输入框置空
 							// this.innerValue = this.min	//只要value值少于min，则将输入框value值变为min值(但这种会有一个缺点，当我输入+-123时，插件会强行变为min值直接给后台保存)
-							this.$emit("input", this.innerValue);
+							this.$emit('input', this.innerValue);
 						})
 					}
 				}
 			}
 			// end 以下这段为新增
 			
-            this.$emit("blur", event.detail.value);
+            this.$emit('blur', event.detail.value);
             // H5端的blur会先于点击清除控件的点击click事件触发，导致focused
             // 瞬间为false，从而隐藏了清除控件而无法被点击到
             this.$stringUtils.sleep(50).then(() => {
                 this.focused = false;
             });
             // 尝试调用u-form的验证方法
-            this.formValidate(this, "blur");
+            this.formValidate(this, 'blur');
         },
         // 输入框聚焦时触发
         onFocus(event) {
             this.focused = true;
-            this.$emit("focus");
+            this.$emit('focus');
         },
         // 点击完成按钮时触发
         onConfirm(event) {
-            this.$emit("confirm", this.innerValue);
+            this.$emit('confirm', this.innerValue);
         },
         // 键盘高度发生变化的时候触发此事件
         // 兼容性：微信小程序2.7.0+、App 3.1.0+
 		onkeyboardheightchange() {
-            this.$emit("keyboardheightchange");
+            this.$emit('keyboardheightchange');
         },
         // 内容发生变化，进行处理
         valueChange() {
 			// start 以下这段为新增
 			if (this.innerValue) {
-				
 				// :precision="2" :min="0"
 				if (this.precision || this.precision === 0) {
 					this.innerValue = this.$stringUtils.inputDigits(this.innerValue, this.precision,this.min)
@@ -316,22 +315,22 @@ export default {
 			}
 			// end 以下这段为新增
 			
-            let value = this.innerValue;
+            const value = this.innerValue;
             this.$nextTick(() => {
-                this.$emit("input", value);
+                this.$emit('input', value);
                 // 标识value值的变化是由内部引起的
                 this.changeFromInner = true;
-                this.$emit("change", value);
+                this.$emit('change', value);
                 // 尝试调用u-form的验证方法
-                this.formValidate(this, "change");
+                this.formValidate(this, 'change');
             });
         },
         // 点击清除控件
         onClear() {
-            this.innerValue = "";
+            this.innerValue = '';
             this.$nextTick(() => {
                 this.valueChange();
-                this.$emit("clear");
+                this.$emit('clear');
             });
         },
         /**
@@ -341,8 +340,8 @@ export default {
          */
         clickHandler() {
             // #ifdef APP-NVUE
-            if (uni.$u.os() === "android") {
-                const formItem = uni.$u.$parent.call(this, "u-form-item");
+            if (uni.$u.os() === 'android') {
+                const formItem = uni.$u.$parent.call(this, 'u-form-item');
                 if (formItem) {
                     formItem.clickHandler();
                 }

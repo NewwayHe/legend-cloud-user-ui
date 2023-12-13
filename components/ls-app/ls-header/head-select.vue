@@ -79,7 +79,7 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-    name: 'head-select',
+    name: 'HeadSelect',
     components: {},
     props: {
         /**
@@ -118,7 +118,7 @@ export default {
 			this.$emit('clickHeadSelect', this.on) // 告诉页面已经点击了头部下拉菜单里的选项(准备离开该页面),用到beforeRouteLeaver且记录了浏览历史的页面要拿到该参数进行判断将阻止离开页面的条件清空
 			const pages = getCurrentPages();
 			const curPage = pages.slice(-1)[0].route;
-			let isStill = false;	//是否原地跳转
+			let isStill = false;	// 是否原地跳转
 			switch(flag) {
 				case 'serviceChat':
 					isStill = curPage == 'ModuleGoods/serviceChat/serviceChat';
@@ -136,7 +136,7 @@ export default {
 			if(isStill) {
 				this.$refs.popover.changeFalse()
 				return;
-			};
+			}
             this.$nextTick(() => {
                 if (flag == 'serviceChat') {
                     // 去客服

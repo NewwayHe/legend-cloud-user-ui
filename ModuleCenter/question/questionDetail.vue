@@ -22,7 +22,7 @@ export default {
 
     data() {
         return {
-            QuestionDetail: {}, //问题详情
+            QuestionDetail: {}, // 问题详情
 			paging: {
 			    status: 'loading',
 			    error: false, // 是否错误
@@ -47,7 +47,7 @@ export default {
 				this.paging.error = true
             }).finally((res) => {
 				this.paging.status = 'noMore'
-                //如果没有商品数据
+                // 如果没有商品数据
                 if (!this.$checkInfo([{ type: 'hasValue', value: this.QuestionDetail }])) {
 					this.paging.emptylist = true
                 }

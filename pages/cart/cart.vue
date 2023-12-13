@@ -290,7 +290,7 @@ export default {
 					style: {}
 				}
 			],
-			cartKey: 0, //防止手动修改input值后，点击加减显示不回显问题
+			cartKey: 0, // 防止手动修改input值后，点击加减显示不回显问题
 			currentItem: {},
 			goodData: {},
 			skuData: {
@@ -306,14 +306,14 @@ export default {
 			discountAmount: '', // 优惠价格
 			selectCount: '', // 已选择商品
 			skuParmas: '', // 传送到ls-Sku组件的变量(注意请参考ls-Sku组件的格式名字传里面的变量)，(注意，这个要写成''，不能写成{}，不然判断该对象时内容为空但依然为true)
-			couponPage: {	//优惠券分页加载
+			couponPage: {	// 优惠券分页加载
 				shopId:'',
 				skuIds: '',
-				curPage:1,	//当前页
-				pageCount: 1,	//总页数
+				curPage:1,	// 当前页
+				pageCount: 1,	// 总页数
 			},
-			couponDTOList: [], //优惠券集合
-			oldTotalCount: 0, //当input框聚焦时，用来记录数据更改前的值(用来做到像京东那样的，当删掉原来的购物数量时，当该input框失去焦点时，该值变成删掉前的值)
+			couponDTOList: [], // 优惠券集合
+			oldTotalCount: 0, // 当input框聚焦时，用来记录数据更改前的值(用来做到像京东那样的，当删掉原来的购物数量时，当该input框失去焦点时，该值变成删掉前的值)
 			paging: {
 				status: 'loading',
 				error: false, // 是否错误
@@ -338,8 +338,8 @@ export default {
 		if (appToken.isLogin()) {
 			this.getData();
 		}
-		this.$nextTick(()=>{
-			this.$refs.commentTabbat.setCurRoute()//这个是为了解决小程序端animate_动画播放过后，再次点击时，动画不生效的bug。
+		this.$nextTick(() => {
+			this.$refs.commentTabbat.setCurRoute()// 这个是为了解决小程序端animate_动画播放过后，再次点击时，动画不生效的bug。
 		})
 	},
 
@@ -369,19 +369,19 @@ export default {
 		},
 		openCoupon(shopItem) {
 			// console.log(shopItem);
-			let skuIds = [];
+			const skuIds = [];
 			shopItem.shopCartDiscountList &&
 				shopItem.shopCartDiscountList.length &&
 				shopItem.shopCartDiscountList.forEach(ele => {
 					ele.cartItemList.forEach(element => {
-						element.skuId && skuIds.push(element.skuId); //获取该店铺里存在购物车中的sku级数集合
+						element.skuId && skuIds.push(element.skuId); // 获取该店铺里存在购物车中的sku级数集合
 					});
 				});
 			// 每次打开都要重置参数
 			Object.assign(this.couponPage, {
 				curPage: 1,
-				shopId: shopItem.shopId,	//保存一份用作分页
-				skuIds: skuIds.join(),	//保存一份用作分页
+				shopId: shopItem.shopId,	// 保存一份用作分页
+				skuIds: skuIds.join(),	// 保存一份用作分页
 				pageCount: 1,
 			})
 			// console.log(skuIds);
@@ -397,11 +397,11 @@ export default {
 		},
 		// 获取更多优惠券
 		getCouponMore() {
-			if( (this.couponPage.curPage + 1) > this.couponPage.pageCount) {
+			if((this.couponPage.curPage + 1) > this.couponPage.pageCount) {
 				// console.log('加载完了')
-				return ;
+				return;
 			}
-			this.$u.debounce(()=>{
+			this.$u.debounce(() => {
 				// console.log('获取更多--')
 				couponApi.couponReceivable({ shopId: this.couponPage.shopId, skuIds: this.couponPage.skuIds, curPage: ++this.couponPage.curPage, pageSize: 10 }).then(res => {
 					if(res.code){
@@ -561,8 +561,8 @@ export default {
 
 		// 结算
 		settlement() {
-			let comProduct = 0; //勾选的普通商品数量
-			let preProduct = 0; //勾选的预售商品数量
+			let comProduct = 0; // 勾选的普通商品数量
+			let preProduct = 0; // 勾选的预售商品数量
 			this.shopCartList.map(item1 => {
 				item1.shopCartDiscountList.map(item2 => {
 					item2.cartItemList.map(item3 => {
@@ -675,7 +675,7 @@ export default {
 				if (res.code == 1) {
 					this.getCartList();
 					this.$nextTick(() => {
-						this.$store.dispatch('getCartNum'); //更新购物车数量
+						this.$store.dispatch('getCartNum'); // 更新购物车数量
 					});
 				}
 			});
@@ -792,7 +792,7 @@ export default {
 			this.$refs.skuPopup.changePopup();
 		},
 
-		//点击'换促销'里的确定按钮后
+		// 点击'换促销'里的确定按钮后
 		confirmSkuSale() {
 			this.getCartList();
 		},

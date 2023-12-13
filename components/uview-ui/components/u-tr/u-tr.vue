@@ -12,7 +12,7 @@
 	 * @example <u-tr></u-tr>
 	 */
 	export default {
-		name: "u-tr",
+		name: 'UTr',
 	}
 </script>
 

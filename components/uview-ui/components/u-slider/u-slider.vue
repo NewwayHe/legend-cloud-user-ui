@@ -47,7 +47,7 @@
  * @example <u-slider v-model="value" />
  */
 export default {
-	name: 'u-slider',
+	name: 'USlider',
 	props: {
 		// 当前进度百分比值，范围0-100
 		value: {
@@ -141,7 +141,7 @@ export default {
 			if (this.disabled) return;
 			this.startX = 0;
 			// 触摸点集
-			let touches = event.touches[0];
+			const touches = event.touches[0];
 			// 触摸点到屏幕左边的距离
 			this.startX = touches.clientX;
 			// 此处的this.value虽为props值，但是通过$emit('input')进行了修改
@@ -154,7 +154,7 @@ export default {
 			// 连续触摸的过程会一直触发本方法，但只有手指触发且移动了才被认为是拖动了，才发出事件
 			// 触摸后第一次移动已经将status设置为moving状态，故触摸第二次移动不会触发本事件
 			if (this.status == 'start') this.$emit('start');
-			let touches = event.touches[0];
+			const touches = event.touches[0];
 			// 滑块的左边不一定跟屏幕左边接壤，所以需要减去最外层父元素的左边值
 			this.distanceX = touches.clientX - this.sliderRect.left;
 			// 获得移动距离对整个滑块的百分比值，此为带有多位小数的值，不能用此更新视图
@@ -179,7 +179,7 @@ export default {
 			// 不允许滑动的值超过max最大值，百分比也不能超过100
 			if(width > this.max || width > 100) return;
 			// 设置移动的百分比值
-			let barStyle = {
+			const barStyle = {
 				width: width + '%'
 			};
 			// 移动期间无需过渡动画

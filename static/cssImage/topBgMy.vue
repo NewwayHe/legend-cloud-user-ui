@@ -168,26 +168,26 @@ export default {
 		}
     },
     props: {
-		color: {//背景颜色
+		color: { // 背景颜色
 		    type: String,
 		    default:''
 		},
-		borderRadius: {//是底部是否带弧度
+		borderRadius: { // 是底部是否带弧度
 		    type: Boolean,
 		    default: true
 		},
-		type: {//类型，根据不同的类型，波动效果和云朵的定位不同
+		type: { // 类型，根据不同的类型，波动效果和云朵的定位不同
 		    type: [String,Number],
 		    default: 1
 		},
-		scale: {//根据屏幕滚动的缩放值
+		scale: { // 根据屏幕滚动的缩放值
 		    type: [String,Number],
 		    default: 1
 		}
 	},
     computed: {
 		itemColor(){
-			return this.color||this.themes.color
+			return this.color || this.themes.color
 		},
 		colorRgb(){
 			return this.$utils.color.colorRgb(this.itemColor)
@@ -221,7 +221,7 @@ export default {
         }
     },
 	mounted() {
-		this.key ++
+		this.key++
 	},
     methods: {}
 }

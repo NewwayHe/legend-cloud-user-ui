@@ -53,7 +53,7 @@
  * @example <u-icon name="photo" color="#2979ff" size="28"></u-icon>
  */
 export default {
-	name: 'u-icon',
+	name: 'UIcon',
 	props: {
 		// 图标类名
 		name: {
@@ -189,9 +189,9 @@ export default {
 			} else if (this.color && this.$u.config.type.includes(this.color)) classes.push('u-icon__icon--' + this.color)
 			// 阿里，头条，百度小程序通过数组绑定类名时，无法直接使用[a, b, c]的形式，否则无法识别
 			// 故需将其拆成一个字符串的形式，通过空格隔开各个类名
-			//#ifdef MP-ALIPAY || MP-TOUTIAO || MP-BAIDU
+			// #ifdef MP-ALIPAY || MP-TOUTIAO || MP-BAIDU
 			classes = classes.join(' ')
-			//#endif
+			// #endif
 			return classes
 		},
 		iconStyle() {
@@ -214,7 +214,7 @@ export default {
 			return this.name.indexOf('/') !== -1
 		},
 		imgStyle() {
-			let style = {}
+			const style = {}
 			// 如果设置width和height属性，则优先使用，否则使用size属性
 			style.width = this.width ? this.$u.addUnit(this.width) : this.$u.addUnit(this.size)
 			style.height = this.height ? this.$u.addUnit(this.height) : this.$u.addUnit(this.size)
@@ -247,9 +247,9 @@ export default {
 			else classes.push('u-icon__icon--primary')
 			// 阿里，头条，百度小程序通过数组绑定类名时，无法直接使用[a, b, c]的形式，否则无法识别
 			// 故需将其拆成一个字符串的形式，通过空格隔开各个类名
-			//#ifdef MP-ALIPAY || MP-TOUTIAO || MP-BAIDU
+			// #ifdef MP-ALIPAY || MP-TOUTIAO || MP-BAIDU
 			classes = classes.join(' ')
-			//#endif
+			// #endif
 			return classes
 		}
 	},

@@ -41,12 +41,12 @@ export default {
 	props: {},
 	data() {
 		return {
-			time: 5, //多少秒后自动关闭广告图，单位：秒
-			countdownTime:this.time,//倒计时，一开始时是等于time，倒计时完毕后等于0
+			time: 5, // 多少秒后自动关闭广告图，单位：秒
+			countdownTime:this.time,// 倒计时，一开始时是等于time，倒计时完毕后等于0
 			timeOut: '',
-			overdueHoure: 24, //单位：小时。已经显示过广告后，设置超过多少个小时后打开APP才显示广告，默认值：24
-			type: 2, //计时器样式。1：数字，2：转圈圈
-			appStartAdv: uni.getStorageSync('appStartAdv')&&JSON.parse(uni.getStorageSync('appStartAdv')),
+			overdueHoure: 24, // 单位：小时。已经显示过广告后，设置超过多少个小时后打开APP才显示广告，默认值：24
+			type: 2, // 计时器样式。1：数字，2：转圈圈
+			appStartAdv: uni.getStorageSync('appStartAdv') && JSON.parse(uni.getStorageSync('appStartAdv')),
 		};
 	},
 	computed: {
@@ -62,11 +62,11 @@ export default {
 				// 如果没加载过app广告或者加载过app广告时间超过一天,则开启广告
 				if (!oldTime || (oldTime && CurrentTime - oldTime > this.overdueHoure * 60 * 60 * 1000)) {
 					if (newVal && newVal.img) {
-						uni.setStorageSync('curTime', CurrentTime); //将当前时间的时间戳放到缓存里，24时时内不会显示app登录广告
+						uni.setStorageSync('curTime', CurrentTime); // 将当前时间的时间戳放到缓存里，24时时内不会显示app登录广告
 						this.setTime();
 					}
 				} else {
-					this.$emit('timeOut'); //如果倒计时完毕或者点击了跳过就关闭广告图
+					this.$emit('timeOut'); // 如果倒计时完毕或者点击了跳过就关闭广告图
 				}
 			},
 			immediate: true,
@@ -75,7 +75,7 @@ export default {
 		countdownTime: {
 			handler(newVal, oldVal) {
 				if (!newVal) {
-					this.$emit('timeOut'); //如果倒计时完毕或者点击了跳过就关闭广告图
+					this.$emit('timeOut'); // 如果倒计时完毕或者点击了跳过就关闭广告图
 				}
 			},
 			immediate: true,
@@ -93,14 +93,14 @@ export default {
 			this.timeOut = setInterval(() => {
 				this.countdownTime--;
 				if (this.countdownTime == 0) {
-					this.$emit('timeOut'); //如果倒计时完毕或者点击了跳过就关闭广告图
+					this.$emit('timeOut'); // 如果倒计时完毕或者点击了跳过就关闭广告图
 					clearInterval(this.timeOut);
 				}
 			}, 1000);
 		},
 		stop() {
 			clearInterval(this.timeOut);
-			this.$emit('timeOut'); //如果倒计时完毕或者点击了跳过就关闭广告图
+			this.$emit('timeOut'); // 如果倒计时完毕或者点击了跳过就关闭广告图
 		},
 		clickImg(url) {
 			let urlData = {};

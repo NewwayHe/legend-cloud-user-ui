@@ -35,20 +35,20 @@
 </template>
 
 <script>
-import { questionApi } from "@/api/ModulesUser.js";
-import pageUtil from "@/utils/pageUtils.js";
-const questionPage = new pageUtil(questionApi.getQuestionType, { field: { list: "questionTypeList" } });
+import { questionApi } from '@/api/ModulesUser.js';
+import pageUtil from '@/utils/pageUtils.js';
+const questionPage = new pageUtil(questionApi.getQuestionType, { field: { list: 'questionTypeList' }});
 export default {
 	data() {
 		return {
 			questionTypeList: [],
 			paging: {
-				status: "loading",
+				status: 'loading',
 				error: false, // 是否错误
 				emptylist: false, // 是否显示列表为空时的样式
 			},
 			questionParams: {
-				//栏目列表参数
+				// 栏目列表参数
 				// curPage: 2,	//调试用
 				pageSize: 10,
 			},
@@ -66,7 +66,7 @@ export default {
 	methods: {
 		// 跳转 对应栏目 页面
 		navigateToList(liId) {
-			this.$u.route("/ModuleCenter/question/helpList", { id: liId });
+			this.$u.route('/ModuleCenter/question/helpList', { id: liId });
 		},
 	},
 };

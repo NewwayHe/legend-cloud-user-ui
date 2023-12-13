@@ -1,5 +1,5 @@
-import deepMerge from "../function/deepMerge";
-import validate from "../function/test";
+import deepMerge from '../function/deepMerge';
+import validate from '../function/test';
 class Request {
 	// 设置全局默认配置
 	setConfig(customConfig) {
@@ -11,11 +11,11 @@ class Request {
 	request(options = {}) {
 		// 检查请求拦截
 		if (this.interceptor.request && typeof this.interceptor.request === 'function') {
-			let tmpConfig = {};
-			let interceptorRequest = this.interceptor.request(options);
+			const tmpConfig = {};
+			const interceptorRequest = this.interceptor.request(options);
 			if (interceptorRequest === false) {
 				// 返回一个处于pending状态中的Promise，来取消原promise，避免进入then()回调
-				return new Promise(()=>{});
+				return new Promise(() => {});
 			}
 			this.options = interceptorRequest;
 		}
@@ -37,7 +37,7 @@ class Request {
 				if(this.config.originalData) {
 					// 判断是否存在拦截器
 					if (this.interceptor.response && typeof this.interceptor.response === 'function') {
-						let resInterceptors = this.interceptor.response(response);
+						const resInterceptors = this.interceptor.response(response);
 						// 如果拦截器不返回false，就将拦截器返回的内容给this.$u.post的then回调
 						if (resInterceptors !== false) {
 							resolve(resInterceptors);
@@ -52,7 +52,7 @@ class Request {
 				} else {
 					if (response.statusCode == 200) {
 						if (this.interceptor.response && typeof this.interceptor.response === 'function') {
-							let resInterceptors = this.interceptor.response(response.data);
+							const resInterceptors = this.interceptor.response(response.data);
 							if (resInterceptors !== false) {
 								resolve(resInterceptors);
 							} else {
@@ -75,8 +75,8 @@ class Request {
 			}
 
 			// 判断用户传递的URL是否/开头,如果不是,加上/，这里使用了uView的test.js验证库的url()方法
-			options.url = validate.url(options.url) ? options.url : (this.config.baseUrl + (options.url.indexOf('/') == 0 ?
-				options.url : '/' + options.url));
+			options.url = validate.url(options.url) ? options.url : (this.config.baseUrl + (options.url.indexOf('/') == 0
+				? options.url : '/' + options.url));
 			
 			// 是否显示loading
 			// 加一个是否已有timer定时器的判断，否则有两个同时请求的时候，后者会清除前者的定时器id
@@ -166,4 +166,4 @@ class Request {
 		}
 	}
 }
-export default new Request
+export default new Request()

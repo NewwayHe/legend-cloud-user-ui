@@ -36,7 +36,7 @@ class Router {
 			// object对象转为get类型的参数
 			query = uni.$u.queryParams(params, false);
 			// 因为已有get参数,所以后面拼接的参数需要带上"&"隔开
-			return url += "&" + query
+			return url += '&' + query
 		} else {
 			// 直接拼接参数，因为此处url中没有后面的query参数，也就没有"?/&"之类的符号
 			query = uni.$u.queryParams(params);

@@ -321,12 +321,12 @@ export default {
 			columsIndex: '',
 			params: {
 				pageSize: 6,
-				status: '', //订单状态 全部（0）、待付款（1）、待成团（2）、待发货（5）、待签收（10）、待收货（15）、已完成（20）、已取消（-5）
-				orderType: '', //订单类型 ['':'全部订单',O:普通订单,P:预售订单,S:秒杀订单,G:团购订单,MG:拼团订单,I:积分订单]
-				productName: '', //商品名称
-				orderNumber: '', //订单编号
-				shipmentNumber: '', //物流单号
-				shopName: '', //商家名称
+				status: '', // 订单状态 全部（0）、待付款（1）、待成团（2）、待发货（5）、待签收（10）、待收货（15）、已完成（20）、已取消（-5）
+				orderType: '', // 订单类型 ['':'全部订单',O:普通订单,P:预售订单,S:秒杀订单,G:团购订单,MG:拼团订单,I:积分订单]
+				productName: '', // 商品名称
+				orderNumber: '', // 订单编号
+				shipmentNumber: '', // 物流单号
+				shopName: '', // 商家名称
 			},
 			list: [], // 列表数据
 			paging: {
@@ -386,7 +386,7 @@ export default {
 			return obj;
 		},
 		
-		//备注：如果直接在HTML上用Object.values(statusObj)的话(该过程会导致list连续变化，ls-tabs会连续执行多次init()方法，导致ls-tabs会定位不准确)
+		// 备注：如果直接在HTML上用Object.values(statusObj)的话(该过程会导致list连续变化，ls-tabs会连续执行多次init()方法，导致ls-tabs会定位不准确)
 		statusValues() {
 			return Object.values(this.statusObj);
 		},
@@ -395,7 +395,7 @@ export default {
 		},
 		// 区分orderType
 		guideOrderType() {
-			let typeMap = {
+			const typeMap = {
 				'P': '预',
 				'G': '团',
 				'S': '秒',
@@ -424,9 +424,9 @@ export default {
 		// #endif
 	},
 	mounted() {
-		refundApi.cancelReason().then(res=>{
+		refundApi.cancelReason().then(res => {
 			if(res.code && res.data.length){
-				this.columns = res.data.map(v=>{return v})
+				this.columns = res.data.map(v => { return v })
 			}
 		})
 	},
@@ -448,8 +448,8 @@ export default {
 		},
 		// 选择orderType订单类型
 		changeList(key) {
-			this.params.status = 0; //重置ls-tabs的下划线
-			this.current = 0; //重置ls-tabs的下划线
+			this.params.status = 0; // 重置ls-tabs的下划线
+			this.current = 0; // 重置ls-tabs的下划线
 			this.params.orderType = key;
 			this.changeShowList();
 			this.getData();
@@ -460,7 +460,7 @@ export default {
 			this.showList = !this.showList;
 		},
 
-		//点击右上角的搜索按钮
+		// 点击右上角的搜索按钮
 		clickSearch() {
 			// 如果搜索框是正在打开状态，则点击搜索按钮进行搜索
 			if (this.isShow) {
@@ -583,7 +583,7 @@ export default {
 		changeSelect(key, val) {
 			// console.log(key, val);
 			this.selectKey = key;
-			for (let key1 in this.popoverOptions) {
+			for (const key1 in this.popoverOptions) {
 				if (key1 != key) {
 					this.params[key1] = '';
 				}

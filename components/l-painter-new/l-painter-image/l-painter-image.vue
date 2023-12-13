@@ -3,9 +3,9 @@
 </template>
 
 <script>
-	import {parent, children} from '../common/relation';
+	import { parent, children } from '../common/relation';
 	export default {
-		name: 'lime-painter-image',
+		name: 'LimePainterImage',
 		mixins:[children('painter')],
 		props: {
 			css: [String, Object],

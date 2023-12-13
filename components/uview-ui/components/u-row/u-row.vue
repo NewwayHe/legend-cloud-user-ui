@@ -20,7 +20,7 @@
 	 * @example <u-row gutter="16"></u-row>
 	 */
 	export default {
-		name: "u-row",
+		name: 'URow',
 		props: {
 			// 给col添加间距，左右边距各占一半
 			gutter: {

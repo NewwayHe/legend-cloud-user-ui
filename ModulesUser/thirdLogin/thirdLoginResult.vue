@@ -61,7 +61,7 @@ export default {
 						uni.showToast({
 						    title: '登录成功',
 						    mask: true,
-						    complete:()=> {
+						    complete:() => {
 						       this.toNavigate()
 						    }
 						})

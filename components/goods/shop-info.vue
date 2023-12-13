@@ -44,7 +44,7 @@
 </template>
 <script>
 export default {
-    name: 'shop-info',
+    name: 'ShopInfo',
 
     components: {},
 

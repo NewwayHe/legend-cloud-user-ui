@@ -142,7 +142,7 @@ export default {
     },
     computed: {
         ...mapState(['stausBarHeight']),
-        indicatorColor(){//指示器颜色
+        indicatorColor(){ // 指示器颜色
             return this.floors.indicatorThemeColor ? this.parmas.themeColor : this.floors.indicatorColor
         },
         indicatorNavRGB02() {
@@ -178,7 +178,7 @@ export default {
         },
         
         async getOffsetBot() {
-            let tabRect = await this.$utils.getRect(this,'.search-isFirstFloor');
+            const tabRect = await this.$utils.getRect(this,'.search-isFirstFloor');
             if (tabRect.bottom) {
 				this.$emit('offsetBottom', tabRect.bottom + 100)
             } else {

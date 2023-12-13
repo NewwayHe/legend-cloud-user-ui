@@ -13,13 +13,13 @@ const StringUtils = {
 		if (value) {
 			if (value == '00') {
 				return '0';
-			}else if(String(value).indexOf(".")>-1){//把小数点.去掉
+			}else if(String(value).indexOf('.') > -1){ // 把小数点.去掉
 				let valueTemp = String(value).replace('.','')
-				if (value.length > 1 && value[0] == '0') {//把0.1里的0去掉
+				if (value.length > 1 && value[0] == '0') { // 把0.1里的0去掉
 					valueTemp = valueTemp.slice(1)
 				}
 				return valueTemp
-			} else if (value.length > 1 && value[0] == '0') {//把01里的0去掉
+			} else if (value.length > 1 && value[0] == '0') { // 把01里的0去掉
 				return value.slice(1)
 			} else{
 				return String(value).replace('.', '').replace(/[^0-9]/g, '')
@@ -39,33 +39,32 @@ const StringUtils = {
 				return '0';
 			} else {
 				// 如果要求输入的是正整数
-				if(digits===0||digits==="0"){
-					if(String(value).indexOf(".")>-1){//把小数点.去掉
+				if(digits === 0 || digits === '0'){
+					if(String(value).indexOf('.') > -1){ // 把小数点.去掉
 						let valueTemp = String(value).replace('.','')
-						if (value.length > 1 && value[0] == '0') {//把0.1里的0去掉
+						if (value.length > 1 && value[0] == '0') { // 把0.1里的0去掉
 							valueTemp = valueTemp.slice(1)
 						}
 						return valueTemp
-					} else if (value.length > 1 && value[0] == '0') {//把01里的0去掉
+					} else if (value.length > 1 && value[0] == '0') { // 把01里的0去掉
 						return value.slice(1)
 					} else{
 						return String(value).replace('.', '').replace(/[^0-9]/g, '')
 					}
-				//如果要求输入的是小数
+				// 如果要求输入的是小数
 				}else{
-					if(Number(min)>=0&&(String(value).indexOf("-")>-1||String(value).indexOf("+")>-1)){//如果min>=0，则不准输入-，把负号+-去掉
+					if(Number(min) >= 0 && (String(value).indexOf('-') > -1 || String(value).indexOf('+') > -1)){ // 如果min>=0，则不准输入-，把负号+-去掉
 						return String(value).replace('-','').replace('+','')
-					} else if (value.length > 1 && value[0] == '0' && value[1] != '.') {//把01里的0去掉
+					} else if (value.length > 1 && value[0] == '0' && value[1] != '.') { // 把01里的0去掉
 						return value.slice(1)
 					} else {
 						var regs1 = new RegExp(/[\.]{3,}/)
 						var regs2 = new RegExp(/[\.]([0-9]{2}).*$/)
 						// return String(value).replace(/[^\0-9.]/g, '').replace(/[\.]{2,}/, ".").replace(/[\.]([0-9]{2}).*$/, '.$1').replace(/[A-Z|a-z|\（|\）|[ ]|\s*|\(|\)|\【|\】|\u4e00-\u9fa5]{0,20}/, '')
-						return String(value).replace(/[^\0-9.]/g, '').replace(new RegExp(`[\.]{${digits},}`), ".").replace(new RegExp(`[\.]([0-9]{${digits}}).*$`), '.$1').replace(/[A-Z|a-z|\（|\）|[ ]|\s*|\(|\)|\【|\】|\u4e00-\u9fa5]{0,20}/, '')
+						return String(value).replace(/[^\0-9.]/g, '').replace(new RegExp(`[\.]{${digits},}`), '.').replace(new RegExp(`[\.]([0-9]{${digits}}).*$`), '.$1').replace(/[A-Z|a-z|\（|\）|[ ]|\s*|\(|\)|\【|\】|\u4e00-\u9fa5]{0,20}/, '')
 					}
 				}
 			}
-
 		}
 	},
 	
@@ -79,12 +78,12 @@ const StringUtils = {
 		if (value) {
 			if (value == '00') {
 				return '0';
-			} else if(String(value).indexOf("-")>-1){//把负号-去掉
+			} else if(String(value).indexOf('-') > -1){ // 把负号-去掉
 				return String(value).replace('-','')
-			} else if (value.length > 1 && value[0] == '0' && value[1] != '.') {//把01里的0去掉
+			} else if (value.length > 1 && value[0] == '0' && value[1] != '.') { // 把01里的0去掉
 				return value.slice(1)
 			} else {
-				return String(value).replace(/[^\0-9.]/g, '').replace(/[\.]{2,}/, ".").replace(/[\.]([0-9]{2}).*$/, '.$1').replace(/[A-Z|a-z|\（|\）|[ ]|\s*|\(|\)|\【|\】|\u4e00-\u9fa5]{0,20}/, '')
+				return String(value).replace(/[^\0-9.]/g, '').replace(/[\.]{2,}/, '.').replace(/[\.]([0-9]{2}).*$/, '.$1').replace(/[A-Z|a-z|\（|\）|[ ]|\s*|\(|\)|\【|\】|\u4e00-\u9fa5]{0,20}/, '')
 			}
 		}
 	},
@@ -99,9 +98,9 @@ const StringUtils = {
 			if (value == '00') {
 				return '0';
 			} else {
-				let reg = /^((0.[1-9]{1})|(([1-9]{1})(.\d{1})?))$/
-				if (value == 0) {//防止下面match报错
-					return value //0.1
+				const reg = /^((0.[1-9]{1})|(([1-9]{1})(.\d{1})?))$/
+				if (value == 0) { // 防止下面match报错
+					return value // 0.1
 				} else if (value.length > 1 && value[0] == '0' && value[1] != '.') {
 					return value.slice(1)
 				} else if (String(value).match(reg)) {
@@ -190,12 +189,12 @@ const StringUtils = {
      * @return {Array}   返回一个数组，Array[0]是整数部分，Array[1]是小数部分，
      * 例如：numData(9999) = 10万；{{item.thumbNum | numFormat('赞')}}(item.thumbNum值为0或不存在时，就显示'赞'字)
      */
-    numData(numData,defVal=0) {
+    numData(numData,defVal = 0) {
         var param = {};
-        let num = Number(numData)
-        var k = 10000,
-            sizes = ['', '万', '亿', '万亿'],
-            i;
+        const num = Number(numData)
+        var k = 10000;
+            var sizes = ['', '万', '亿', '万亿'];
+            var i;
         if (num < k) {
             param.value = num
             param.unit = ''
@@ -230,8 +229,8 @@ const StringUtils = {
 	 */
 	addStyle(customStyle, target = 'object') {
 		// 字符串转字符串，对象转对象情形，直接返回
-		if (this.isEmpty(customStyle) || typeof(customStyle) === 'object' && target === 'object' || target === 'string' &&
-			typeof(customStyle) === 'string') {
+		if (this.isEmpty(customStyle) || typeof (customStyle) === 'object' && target === 'object' || target === 'string' &&
+			typeof (customStyle) === 'string') {
 			return customStyle
 		}
 		// 字符串转对象
@@ -358,7 +357,7 @@ const StringUtils = {
      *       type:  1-所有空格  2-前后空格  3-前空格 4-后空格
      * @return {String}
      */
-    trim(str, type=1) {
+    trim(str, type = 1) {
 		if (!str) return ''
         switch (type) {
             case 1:

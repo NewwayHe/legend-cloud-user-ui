@@ -101,7 +101,7 @@ import Emitter from '../../libs/util/emitter.js';
  * @example <u-input v-model="value" :type="type" :border="border" />
  */
 export default {
-	name: 'u-input',
+	name: 'UInput',
 	mixins: [Emitter],
 	props: {
 		value: {
@@ -230,11 +230,13 @@ export default {
 		value(nVal, oVal) {
 			this.defaultValue = nVal;
 			// 当值发生变化，且为select类型时(此时input被设置为disabled，不会触发@input事件)，模拟触发@input事件
-			if(nVal != oVal && this.type == 'select') this.handleInput({
+			if(nVal != oVal && this.type == 'select') {
+ this.handleInput({
 				detail: {
 					value: nVal
 				}
-			})
+			}) 
+}
 		},
 	},
 	computed: {
@@ -245,8 +247,8 @@ export default {
 		getStyle() {
 			let style = {};
 			// 如果没有自定义高度，就根据type为input还是textare来分配一个默认的高度
-			style.minHeight = this.height ? this.height + 'rpx' : this.type == 'textarea' ?
-				this.textareaHeight + 'rpx' : this.inputHeight + 'rpx';
+			style.minHeight = this.height ? this.height + 'rpx' : this.type == 'textarea'
+				? this.textareaHeight + 'rpx' : this.inputHeight + 'rpx';
 			style = Object.assign(style, this.customStyle);
 			return style;
 		},
@@ -286,7 +288,7 @@ export default {
 			setTimeout(() => {
 				// 头条小程序由于自身bug，导致中文下，每按下一个键(尚未完成输入)，都会触发一次@input，导致错误，这里进行判断处理
 				// #ifdef MP-TOUTIAO
-				if(this.$u.trim(value) == this.lastValue) return ;
+				if(this.$u.trim(value) == this.lastValue) return;
 				this.lastValue = value;
 				// #endif
 				// 将当前的值发送到 u-form-item 进行校验
@@ -308,7 +310,7 @@ export default {
 			setTimeout(() => {
 				// 头条小程序由于自身bug，导致中文下，每按下一个键(尚未完成输入)，都会触发一次@input，导致错误，这里进行判断处理
 				// #ifdef MP-TOUTIAO
-				if(this.$u.trim(value) == this.lastValue) return ;
+				if(this.$u.trim(value) == this.lastValue) return;
 				this.lastValue = value;
 				// #endif
 				// 将当前的值发送到 u-form-item 进行校验

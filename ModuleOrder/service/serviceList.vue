@@ -55,14 +55,14 @@
 
 <script>
 import { mapState } from 'vuex';
-import headDropdown  from '@/components/ls-app/ls-header/head-dropdown.vue'
+import headDropdown from '@/components/ls-app/ls-header/head-dropdown.vue'
 import lsSignet from '@/components/ls-app/ls-signet/ls-signet.vue'
 import pageUtil from '@/utils/pageUtils.js';
 import { refundApi, orderApi } from '@/api/ModulesOrder';
 const listPage = new pageUtil(refundApi.refundPage);
 
 export default {
-	components: {'head-dropdown':headDropdown,'ls-signet':lsSignet},
+	components: { 'head-dropdown':headDropdown,'ls-signet':lsSignet },
 	data() {
 		return {
 			current: 0, // 默认选中tab的下标
@@ -72,7 +72,7 @@ export default {
 				'2': '已完成/已结束'
 			},
 			parmas: {
-				applyType: '', //’'':全部,1:退款,2:退款且退货
+				applyType: '', // ’'':全部,1:退款,2:退款且退货
 				orderRefundStatus: 0 ,// 0:默认,1:在处理,2:处理完成
 			},
 			paging: {
@@ -99,7 +99,7 @@ export default {
 	},
 	computed: {
 		...mapState(['timeDiff', 'stausBarHeight', 'wxMenuBut']),
-		//备注：如果直接在HTML上用Object.values(statusObj)的话(该过程会导致list连续变化，ls-tabs会连续执行多次init()方法，导致ls-tabs会定位不准确)
+		// 备注：如果直接在HTML上用Object.values(statusObj)的话(该过程会导致list连续变化，ls-tabs会连续执行多次init()方法，导致ls-tabs会定位不准确)
 		orderRefundStatusValues() {
 			return Object.values(this.orderRefundStatusObj);
 		},
@@ -151,10 +151,10 @@ export default {
 				if (applyStatus == 3) {
 					return '已通过';
 				}
-				if (goodsStatus == -4||applyStatus == -4) {
+				if (goodsStatus == -4 || applyStatus == -4) {
 					return '已拒绝';
 				}
-				if (goodsStatus == -1||applyStatus == -1 || applyStatus == -2) {
+				if (goodsStatus == -1 || applyStatus == -1 || applyStatus == -2) {
 					return '已取消';
 				}
 			}else {

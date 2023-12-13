@@ -35,7 +35,7 @@
 	 * @example <u-tag text="雪月夜" type="success" />
 	 */
 	export default {
-		name: 'u-tag',
+		name: 'UTag',
 		// 是否禁用这个标签，禁用的话，会屏蔽点击事件
 		props: {
 			// 标签类型info、primary、success、warning、error
@@ -110,7 +110,7 @@
 		},
 		computed: {
 			customStyle() {
-				let style = {};
+				const style = {};
 				// 文字颜色（如果有此值，会覆盖type值的颜色）
 				if(this.color) style.color = this.color;
 				// tag的背景颜色（如果有此值，会覆盖type值的颜色）
@@ -121,12 +121,12 @@
 				return style;
 			},
 			iconStyle() {
-				if(!this.closeable) return ;
-				let style = {};
+				if(!this.closeable) return;
+				const style = {};
 				if(this.size == 'mini') style.fontSize = '20rpx';
 				else style.fontSize = '22rpx';
 				if(this.mode == 'plain' || this.mode == 'light') style.color = this.type;
-				else if(this.mode == 'dark')  style.color = "#ffffff";
+				else if(this.mode == 'dark') style.color = '#ffffff';
 				if(this.closeColor) style.color = this.closeColor;
 				return style;
 			},
@@ -135,7 +135,7 @@
 				// 如果定义了关闭图标的颜色，就用此值，否则用字体颜色的值
 				// 如果上面的二者都没有，如果是dark深色模式，图标就为白色
 				// 最后如果上面的三者都不合适，就返回type值给图标获取颜色
-				let color = '';
+				const color = '';
 				if(this.closeColor) return this.closeColor;
 				else if(this.color) return this.color;
 				else if(this.mode == 'dark') return '#ffffff';
@@ -146,7 +146,7 @@
 			// 标签被点击
 			clickTag() {
 				// 如果是disabled状态，不发送点击事件
-				if(this.disabled) return ;
+				if(this.disabled) return;
 				this.$emit('click', this.index);
 			},
 			// 点击标签关闭按钮

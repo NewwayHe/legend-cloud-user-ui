@@ -80,7 +80,7 @@ export default {
 				emptylist: false // 是否显示列表为空时的样式
 			},
 			list: [],
-			dateShow: false ,//日历是否隐藏
+			dateShow: false ,// 日历是否隐藏
 		};
 	},
 	computed: {
@@ -89,15 +89,14 @@ export default {
 			return this.params.startDate && this.params.endDate;
 		},
 		accountObj() {
-			let obj = {};
+			const obj = {};
 			this.list.forEach(item => {
-				let currentTime = this.$options.filters.dateformat(item.updateTime,'YYYY-MM-DD');
+				const currentTime = this.$options.filters.dateformat(item.updateTime,'YYYY-MM-DD');
 				if (obj.hasOwnProperty(currentTime)) {
 					obj[currentTime].push(item);
 				} else {
 					obj[currentTime] = [item];
 				}
-
 			});
 			return obj;
 		}
@@ -110,7 +109,7 @@ export default {
 		this.getData();
 	},
 	methods: {
-		//获取总收入和总支出
+		// 获取总收入和总支出
 		getTotal(list, type = 'DEDUCTION') {
 			return list.reduce((pre, cur, curIndex) => {
 				if (cur.operationType == type) {

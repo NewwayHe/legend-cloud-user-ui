@@ -24,9 +24,9 @@
 				    // 接收位置信息，用户选择确认位置点后选点组件会触发该事件，回传用户的位置信息
 				    var loc = e.data;
 				    if (loc && loc.module == 'locationPicker') {
-				        //防止其他应用也会向该页面post信息，需判断module是否为'locationPicker'
-						this.$store.dispatch('__delLocationMsg',{ data:loc, latitude:loc.latlng.lat, longitude:loc.latlng.lng,isTxMapKey:true, notSetLocation:options.notSetLocation=='true'?true:false })
-				        this.$navigateBack()//如果用$switchTab跳index的话，会出现点击穿透的问题
+				        // 防止其他应用也会向该页面post信息，需判断module是否为'locationPicker'
+						this.$store.dispatch('__delLocationMsg',{ data:loc, latitude:loc.latlng.lat, longitude:loc.latlng.lng,isTxMapKey:true, notSetLocation:options.notSetLocation == 'true' })
+				        this.$navigateBack()// 如果用$switchTab跳index的话，会出现点击穿透的问题
 				    }
 				});
 			}, false);

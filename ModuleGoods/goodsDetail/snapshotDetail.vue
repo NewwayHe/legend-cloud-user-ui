@@ -94,7 +94,7 @@ import backTop from '@/components/goods/back-top.vue';
 import { mapState } from 'vuex';
 
 export default {
-	name: 'snapshotDetail',
+	name: 'SnapshotDetail',
 	components: {
 		'good-head': goodsHead,
 		'good-banner': goodsbanner,
@@ -115,9 +115,9 @@ export default {
 		return {
 			parmas: {
 				productId: '', // SPU的商品id
-				activityId: '', //活动id 拼团/团购/秒杀活动需传
-				skuId: '', //秒杀skuId 秒杀活动需传
-				skuType: '' //营销类型： 拼团/团购/秒杀活动需传 普通（''，普通商品的话值为空''，有值就是有活动） 团购（GROUP） 拼团（MERGE） 秒杀（SECKILL）
+				activityId: '', // 活动id 拼团/团购/秒杀活动需传
+				skuId: '', // 秒杀skuId 秒杀活动需传
+				skuType: '' // 营销类型： 拼团/团购/秒杀活动需传 普通（''，普通商品的话值为空''，有值就是有活动） 团购（GROUP） 拼团（MERGE） 秒杀（SECKILL）
 			},
 			snapshotId: null,
 			goodData: {}, // 获取商品详情(注意，这个要写成''，不能写成{}，不然判断该对象时内容为空但依然为true)
@@ -148,7 +148,7 @@ export default {
 				errMsg: '该商品已被删除或已被下线',
 				emptylist: false // 是否显示列表为空时的样式
 			},
-			isPreview: false,//如果是shareUrlRedirect页面跳过来预览(商家端或PC后台跳进来)，就加个遮罩层防止点击
+			isPreview: false,// 如果是shareUrlRedirect页面跳过来预览(商家端或PC后台跳进来)，就加个遮罩层防止点击
 		};
 	},
 
@@ -165,7 +165,7 @@ export default {
 		tabArr() {
 			let arr = ['商品', '详情', '评价'];
 			this.$nextTick(() => {
-				//不加$nextTick的话如果是 ['商品', '详情', '评价']，会先变成 ['商品', '评价']再变回['商品', '详情', '评价']
+				// 不加$nextTick的话如果是 ['商品', '详情', '评价']，会先变成 ['商品', '评价']再变回['商品', '详情', '评价']
 				if (!this.goodData.content && !this.goodData.paramGroupBOList) {
 					arr = arr.filter(item => {
 						return item != '详情';
@@ -221,12 +221,12 @@ export default {
 		this.parmas = {
 			token: option.token || null, // 预览token
 			productId: option.id || null, // SPU的商品id
-			activityId: option.activityId || null, //活动id 拼团/团购/秒杀活动需传
-			skuId: option.skuId || null, //秒杀skuId 秒杀活动需传
-			skuType: option.skuType || null //营销类型： 拼团/团购/秒杀活动需传 普通（''，普通商品的话值为空''，有值就是有活动） 团购（GROUP） 拼团（MERGE） 秒杀（SECKILL）
+			activityId: option.activityId || null, // 活动id 拼团/团购/秒杀活动需传
+			skuId: option.skuId || null, // 秒杀skuId 秒杀活动需传
+			skuType: option.skuType || null // 营销类型： 拼团/团购/秒杀活动需传 普通（''，普通商品的话值为空''，有值就是有活动） 团购（GROUP） 拼团（MERGE） 秒杀（SECKILL）
 		};
 		this.snapshotId = option.snapshotId || null;
-		this.isPreview = option.isPreview&&option.isPreview!='false' ? true : false
+		this.isPreview = !!(option.isPreview && option.isPreview != 'false')
 	},
 	mounted() {},
 	onShow() {

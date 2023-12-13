@@ -27,7 +27,7 @@
 	 * @example <u-checkbox v-model="checked" :disabled="false">天涯</u-checkbox>
 	 */
 	export default {
-		name: "u-checkbox",
+		name: 'UCheckbox',
 		props: {
 			// checkbox的名称
 			name: {
@@ -113,7 +113,7 @@
 				return this.shape ? this.shape : (this.parent ? this.parent.shape : 'square');
 			},
 			iconStyle() {
-				let style = {};
+				const style = {};
 				// 既要判断是否手动禁用，还要判断用户v-model绑定的值，如果绑定为false，那么也无法选中
 				if (this.elActiveColor && this.value && !this.isDisabled) {
 					style.borderColor = this.elActiveColor; 
@@ -128,7 +128,7 @@
 				return this.value ? '#ffffff' : 'transparent';
 			},
 			iconClass() {
-				let classes = [];
+				const classes = [];
 				classes.push('u-checkbox__icon-wrap--' + this.elShape);
 				if (this.value == true) classes.push('u-checkbox__icon-wrap--checked');
 				if (this.isDisabled) classes.push('u-checkbox__icon-wrap--disabled');
@@ -137,7 +137,7 @@
 				return classes.join(' ');
 			},
 			checkboxStyle() {
-				let style = {};
+				const style = {};
 				if(this.parent && this.parent.width) {
 					style.width = this.parent.width;
 					// #ifdef MP

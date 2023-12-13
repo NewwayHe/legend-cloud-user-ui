@@ -40,7 +40,7 @@
 
 		},
 		onShow() {
-			infoLise.unReadCount().then((res)=>{
+			infoLise.unReadCount().then((res) => {
 				if (res.code) {
 					this.data = res.data
 				}

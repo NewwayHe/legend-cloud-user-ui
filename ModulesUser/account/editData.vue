@@ -212,40 +212,40 @@ export default {
 			surePwd: '', // 确认密码
 			newCode: '', // 新验证码
 			secretKey: '', // 校验秘钥(修改修改登录密码时获取到的秘钥，或修改手机号时旧手机获取到的秘钥)
-			hasClickCode: false ,//是否已经点击了【获取验证码】
-			step:1,//checkType == 'phone'修改手机号码，checkType == 'loginpwd'修改登录密码专用
+			hasClickCode: false ,// 是否已经点击了【获取验证码】
+			step:1,// checkType == 'phone'修改手机号码，checkType == 'loginpwd'修改登录密码专用
 		};
 	},
 	computed: {
 		showBut() {
 			let show = '';
-			//如果是修改昵称
+			// 如果是修改昵称
 			if (this.checkType == 'nickname') {
 				show = this.newNickname;
 			}
-			//如果是修改登录密码
+			// 如果是修改登录密码
 			if (this.checkType == 'loginpwd') {
 				// 如果是第一步:获取验证码
-				if (this.step==1) {
+				if (this.step == 1) {
 					show = this.phone && this.code;
 				}
 				// 如果是第二步:输入密码
-				if (this.step==2) {
+				if (this.step == 2) {
 					show = this.surePwd;
 				}
 			}
-			//如果是修改支付密码
+			// 如果是修改支付密码
 			if (this.checkType == 'paypwd') {
 				show = this.phone && this.code && this.newPwd && this.surePwd;
 			}
-			//如果是修改手机号
+			// 如果是修改手机号
 			if (this.checkType == 'phone') {
 				// 如果是第一步:获取验证码
-				if (this.step==1) {
+				if (this.step == 1) {
 					show = this.phone && this.code;
 				}
 				// 如果是第二步:输入密码
-				if (this.step==2) {
+				if (this.step == 2) {
 					show = this.newPhone && this.newCode;
 				}
 			}
@@ -329,7 +329,7 @@ export default {
 			});
 		},
 
-		//获取是否已经点击了【获取验证码】
+		// 获取是否已经点击了【获取验证码】
 		change(val) {
 			this.hasClickCode = val;
 		},
@@ -337,8 +337,7 @@ export default {
 		nextLoginPwd() {
 			this.$u.debounce(() => {
 				// console.log('this.code:', this.code);
-				if (!this.$checkInfo([{ type: 'hasValue', value: this.hasClickCode, msg: '请先点击‘获取验证码’' }, { type: 'code', value: this.code, msg: '请输入正确的验证码' }]))
-					return;
+				if (!this.$checkInfo([{ type: 'hasValue', value: this.hasClickCode, msg: '请先点击‘获取验证码’' }, { type: 'code', value: this.code, msg: '请输入正确的验证码' }])) { return; }
 				const params = {
 					code: this.code,
 					codeType: 'MODIFY_LOGIN_PASSWORD'
@@ -360,8 +359,7 @@ export default {
 						{ type: 'code', value: this.code, msg: '请输入正确的验证码' },
 						{ type: 'payPwd', value: this.newPwd, msg: '支付密码由6位数字组成' }
 					])
-				)
-					return;
+				) { return; }
 				if (this.newPwd != this.surePwd) {
 					uni.showToast({ title: '两次密码不一致', icon: 'none' });
 					return;
@@ -392,8 +390,7 @@ export default {
 		// 修改手机号第一步
 		next() {
 			this.$u.debounce(() => {
-				if (!this.$checkInfo([{ type: 'hasValue', value: this.hasClickCode, msg: '请先点击‘获取验证码’' }, { type: 'code', value: this.code, msg: '请输入正确的验证码' }]))
-					return;
+				if (!this.$checkInfo([{ type: 'hasValue', value: this.hasClickCode, msg: '请先点击‘获取验证码’' }, { type: 'code', value: this.code, msg: '请输入正确的验证码' }])) { return; }
 				const params = {
 					code: this.code,
 					codeType: 'MODIFY_BINDING_MOBILE'
@@ -417,8 +414,7 @@ export default {
 						{ type: 'hasValue', value: this.hasClickCode, msg: '请先点击‘获取验证码’' },
 						{ type: 'code', value: this.newCode, msg: '请输入正确的验证码' }
 					])
-				)
-					return;
+				) { return; }
 				userApi
 					.updatePhone({
 						mobile: this.newPhone,
@@ -428,7 +424,7 @@ export default {
 					})
 					.then(res => {
 						if (res.code) {
-							uni.showToast({ title:'修改手机号成功', icon:'none',mask : true} )
+							uni.showToast({ title:'修改手机号成功', icon:'none',mask : true })
 							this.step = 3
 						}
 					})
@@ -465,7 +461,7 @@ export default {
 		
 		// 获取昵称，注意:在电脑微信开发者工具调试时,不会触发到该方法,只有真机时才会生效
 		getNickname(e){
-			setTimeout(()=>{
+			setTimeout(() => {
 				this.newNickname = e.detail.value
 			},10) 
 		}

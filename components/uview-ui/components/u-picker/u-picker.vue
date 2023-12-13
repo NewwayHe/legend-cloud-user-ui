@@ -127,7 +127,7 @@ import areas from '../../libs/util/area.js';
  * @example <u-picker v-model="show" mode="time"></u-picker>
  */
 export default {
-	name: 'u-picker',
+	name: 'UPicker',
 	props: {
 		// picker中需要显示的参数
 		params: {
@@ -338,7 +338,7 @@ export default {
 			// 目前(2020-05-25)uni-app对微信小程序编译有错误，导致v-if为false中的内容也执行，错误导致
 			// 单列模式或者多列模式中的getItemValue同时被执行，故在这里再加一层判断
 			if (this.mode == mode) {
-				return typeof item == 'object' ? item[this.rangeKey] : item;
+				return typeof item === 'object' ? item[this.rangeKey] : item;
 			}
 		},
 		// 小于10前面补0，用于月份，日期，时分秒等
@@ -355,11 +355,11 @@ export default {
 			return [...Array(end + 1).keys()].slice(start);
 		},
 		getIndex: function(arr, val) {
-			let index = arr.indexOf(val);
+			const index = arr.indexOf(val);
 			// 如果index为-1(即找不到index值)，~(-1)=-(-1)-1=0，导致条件不成立
 			return ~index ? index : 0;
 		},
-		//日期时间处理
+		// 日期时间处理
 		initTimeValue() {
 			// 格式化时间，在IE浏览器(uni不存在此情况)，无法识别日期间的"-"间隔符号
 			let fdate = this.defaultTime.replace(/\-/g, '/');
@@ -437,7 +437,7 @@ export default {
 			this.valueArr.splice(this.valueArr.length - 1, 1, this.getIndex(this.months, this.month));
 		},
 		setDays() {
-			let totalDays = new Date(this.year, this.month, 0).getDate();
+			const totalDays = new Date(this.year, this.month, 0).getDate();
 			this.days = this.generateArray(1, totalDays);
 			let index = 0;
 			// 这里不能使用类似setMonths()中的this.valueArr.splice(this.valueArr.length - 1, xxx)做法
@@ -586,7 +586,7 @@ export default {
 		// 获取时间戳
 		getTimestamp() {
 			// yyyy-mm-dd为安卓写法，不支持iOS，需要使用"/"分隔，才能二者兼容
-			let time = this.year + '/' + this.month + '/' + this.day + ' ' + this.hour + ':' + this.minute + ':' + this.second;
+			const time = this.year + '/' + this.month + '/' + this.day + ' ' + this.hour + ':' + this.minute + ':' + this.second;
 			return new Date(time).getTime() / 1000;
 		}
 	}

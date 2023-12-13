@@ -28,12 +28,12 @@
 	 * @example <u-subsection active-color="#ff9900"></u-subsection>
 	 */
 	export default {
-		name: "u-subsection",
+		name: 'USubsection',
 		props: {
 			// tab的数据
 			list: {
 				type: Array,
-				default () {
+				default() {
 					return [];
 				}
 			},
@@ -122,8 +122,8 @@
 			// 将list的数据，传入listInfo数组，因为不能修改props传递的list值
 			// 可以接受直接数组形式，或者数组元素为对象的形式，如：['简介', '评论'],或者[{name: '简介'}, {name: '评论'}]
 			this.listInfo = this.list.map((val, index) => {
-				if (typeof val != 'object') {
-					let obj = {
+				if (typeof val !== 'object') {
+					const obj = {
 						width: 0,
 						name: val
 					};
@@ -151,7 +151,7 @@
 			// 文字的样式
 			textStyle() {
 				return index => {
-					let style = {};
+					const style = {};
 					// 设置字体颜色
 					if (this.mode == 'subsection') {
 						if (index == this.currentIndex) {
@@ -176,7 +176,7 @@
 			// 每个分段器item的样式
 			itemStyle() {
 				return index => {
-					let style = {};
+					const style = {};
 					if (this.mode == 'subsection') {
 						// 设置border的样式
 						style.borderColor = this.activeColor;
@@ -188,7 +188,7 @@
 			},
 			// mode=button时，外层view的样式
 			subsectionStyle() {
-				let style = {};
+				const style = {};
 				style.height = uni.upx2px(this.height) + 'px';
 				if (this.mode == 'button') {
 					style.backgroundColor = this.bgColor;
@@ -199,7 +199,7 @@
 			},
 			// 滑块的样式
 			itemBarStyle() {
-				let style = {};
+				const style = {};
 				style.backgroundColor = this.activeColor;
 				style.zIndex = 1;
 				if (this.mode == 'button') {
@@ -254,7 +254,7 @@
 			},
 			// 获取各个tab的节点信息
 			getTabsInfo() {
-				let view = uni.createSelectorQuery().in(this);
+				const view = uni.createSelectorQuery().in(this);
 				for (let i = 0; i < this.list.length; i++) {
 					view.select('.u-item-' + i).boundingClientRect();
 				}

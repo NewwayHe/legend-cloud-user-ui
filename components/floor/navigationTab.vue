@@ -66,7 +66,7 @@ export default {
 			}
 		},
 		shopId: {
-			//如果有传shopId，则是店铺装修的组件
+			// 如果有传shopId，则是店铺装修的组件
 			type: [String, Number],
 			default: ''
 		}
@@ -74,24 +74,24 @@ export default {
 	data() {
 		return {
 			current: 0, // 当前的索引
-			currentHeight: 100 //当前容器的高度
+			currentHeight: 100 // 当前容器的高度
 		};
 	},
 	computed: {
 		indicatorNavRGB03() {
-			let rgb = this.$utils.color.colorRgb(this.floors.indicatorThemeColor ? this.parmas.themeColor : this.floors.indicatorColor);
+			const rgb = this.$utils.color.colorRgb(this.floors.indicatorThemeColor ? this.parmas.themeColor : this.floors.indicatorColor);
 			return `rgba(${rgb.r}, ${rgb.g},${rgb.b},.3)`;
 		},
 		indicatorNavRGB09() {
-			let rgb = this.$utils.color.colorRgb(this.floors.indicatorThemeColor ? this.parmas.themeColor : this.floors.indicatorColor);
+			const rgb = this.$utils.color.colorRgb(this.floors.indicatorThemeColor ? this.parmas.themeColor : this.floors.indicatorColor);
 			return `rgba(${rgb.r}, ${rgb.g},${rgb.b},.9)`;
 		},
 		tempList() {
-			let arr = this.floors.data && this.floors.data.tabList && this.floors.data.tabList.length ? this.floors.data.tabList : [];
+			const arr = this.floors.data && this.floors.data.tabList && this.floors.data.tabList.length ? this.floors.data.tabList : [];
 			if (arr && arr.length) {
 				for (var i = 0; i < arr.length; i++) {
 					for (var j = 0; j < arr[i].imgList.length; j++) {
-						//把不在有效时间的元素过滤掉
+						// 把不在有效时间的元素过滤掉
 						arr[i].imgList = arr[i].imgList.filter(item => {
 							return (
 								!item.time ||
@@ -105,9 +105,9 @@ export default {
 						arr.splice(i, 1);
 					}
 					this.$nextTick(() => {
-						let index = arr.findIndex(item => {
+						const index = arr.findIndex(item => {
 							return item.isSelect;
-						}); //找出后台设置的正在选中的那一个元素的index
+						}); // 找出后台设置的正在选中的那一个元素的index
 						this.current = index || 0;
 					});
 				}
@@ -120,7 +120,7 @@ export default {
 			handler(newValue, oldValue) {
 				this.$nextTick(() => {
 					setTimeout(() => {
-						//加setTimeout是因为app端要加
+						// 加setTimeout是因为app端要加
 						this.init();
 					}, 100);
 				});
@@ -135,7 +135,7 @@ export default {
 		// 设置一个init方法，方便多处调用
 		async init() {
 			// 获取组件的尺寸信息
-			let tabRect = await this.$utils.getRect(this, '.tabListItem' + this.current);
+			const tabRect = await this.$utils.getRect(this, '.tabListItem' + this.current);
 			this.currentHeight = tabRect.height;
 		},
 		// 轮播图指示器改变

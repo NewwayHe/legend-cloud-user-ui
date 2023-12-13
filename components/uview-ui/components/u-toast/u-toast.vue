@@ -19,7 +19,7 @@
 	 * @example <u-toast ref="uToast" />
 	 */
 	export default {
-		name: "u-toast",
+		name: 'UToast',
 		props: {
 			// z-index值
 			zIndex: {
@@ -50,7 +50,7 @@
 			iconName() {
 				// 只有不为none，并且type为error|warning|succes|info时候，才显示图标
 				if (['error', 'warning', 'success', 'info'].indexOf(this.tmpConfig.type) >= 0 && this.tmpConfig.icon) {
-					let icon = this.$u.type2icon(this.tmpConfig.type);
+					const icon = this.$u.type2icon(this.tmpConfig.type);
 					return icon;
 				}
 			},
@@ -76,7 +76,7 @@
 					clearTimeout(this.timer);
 					this.timer = null;
 					// 判断是否存在callback方法，如果存在就执行
-					typeof(this.tmpConfig.callback) === 'function' && this.tmpConfig.callback();
+					typeof (this.tmpConfig.callback) === 'function' && this.tmpConfig.callback();
 					this.timeEnd();
 				}, this.tmpConfig.duration);
 			},
@@ -104,7 +104,7 @@
 						if (/.*\/.*\?.*=.*/.test(this.tmpConfig.url)) {
 							// object对象转为get类型的参数
 							query = this.$u.queryParams(this.tmpConfig.params, false);
-							this.tmpConfig.url = this.tmpConfig.url + "&" + query;
+							this.tmpConfig.url = this.tmpConfig.url + '&' + query;
 						} else {
 							query = this.$u.queryParams(this.tmpConfig.params);
 							this.tmpConfig.url += query;

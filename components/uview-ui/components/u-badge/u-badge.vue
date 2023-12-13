@@ -35,7 +35,7 @@
 	 * @example <u-badge type="error" count="7"></u-badge>
 	 */
 	export default {
-		name: 'u-badge',
+		name: 'UBadge',
 		props: {
 			// primary,warning,success,error,info
 			type: {
@@ -47,7 +47,7 @@
 				type: String,
 				default: 'default'
 			},
-			//是否是圆点
+			// 是否是圆点
 			isDot: {
 				type: Boolean,
 				default: false
@@ -102,20 +102,20 @@
 		computed: {
 			// 是否将badge中心与父组件右上角重合
 			boxStyle() {
-				let style = {};
+				const style = {};
 				if(this.isCenter) {
 					style.top = 0;
 					style.right = 0;
 					// Y轴-50%，意味着badge向上移动了badge自身高度一半，X轴50%，意味着向右移动了自身宽度一半
-					style.transform = "translateY(-50%) translateX(50%)";
+					style.transform = 'translateY(-50%) translateX(50%)';
 				} else {
 					style.top = this.offset[0] + 'rpx';
 					style.right = this.offset[1] + 'rpx';
-					style.transform = "translateY(0) translateX(0)";
+					style.transform = 'translateY(0) translateX(0)';
 				}
 				// 如果尺寸为mini，后接上scal()
 				if(this.size == 'mini') {
-					style.transform = style.transform + " scale(0.8)";
+					style.transform = style.transform + ' scale(0.8)';
 				}
 				return style;
 			},

@@ -83,8 +83,8 @@ export default {
 				emptylist: false // 是否显示列表为空时的样式
 			},
 			list: [],
-			dateShow: false, //日历是否隐藏
-			cacheList: [],	//缓存处理过的数组
+			dateShow: false, // 日历是否隐藏
+			cacheList: [],	// 缓存处理过的数组
 		};
 	},
 	filters: {},
@@ -114,10 +114,10 @@ export default {
 		// 此时拿该下标的数组内容 做数据处理
 		// 搜索时 list会被置空 导致长度为0 要排除这种情况的处理 同时清除cacheList
 		list(nL, oL) {
-			let oLen = oL.length;
+			const oLen = oL.length;
 			// console.log('nL--', nL)
 			if(nL.length) {
-				let operateList = nL.slice(oLen);	//切割获取新增加的数据
+				let operateList = nL.slice(oLen);	// 切割获取新增加的数据
 				operateList = this.$u.deepClone(operateList);
 				operateList.forEach((li) => {
 					const existLi = this.cacheList.findIndex(item => item.dateGroupId == li.dateGroupId)
@@ -127,7 +127,7 @@ export default {
 						this.cacheList[existLi]['customerBillDTOList'].push(...li.customerBillDTOList);
 					}
 				})
-			}else {			//重新搜索
+			}else {			// 重新搜索
 				this.cacheList = []
 			}
 			// console.log('cacheList--', this.cacheList)

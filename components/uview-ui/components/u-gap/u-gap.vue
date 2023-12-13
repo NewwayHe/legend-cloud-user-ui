@@ -14,7 +14,7 @@
  * @example <u-gap height="80" bg-color="#bbb"></u-gap>
  */
 export default {
-	name: "u-gap",
+	name: 'UGap',
 	props: {
 		bgColor: {
 			type: String,

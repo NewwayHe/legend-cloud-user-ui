@@ -35,7 +35,7 @@ export default {
                 titleType: 'PERSONAL',
                 commonInvoiceFlag: false
             },
-			listDropdown: [		//头部下拉选择列表
+			listDropdown: [		// 头部下拉选择列表
 				{
 					name: '我的发票',
 					value: 1,
@@ -45,26 +45,26 @@ export default {
 					value: 2,
 				},
 			],
-			dropState: 1,	//默认为 [我的发票]
+			dropState: 1,	// 默认为 [我的发票]
         }
     },
     onLoad(options) {
-		let { state = 1 } = options;	//如果是从 个人设置跳转而来 则根据state做列表显示
+		const { state = 1 } = options;	// 如果是从 个人设置跳转而来 则根据state做列表显示
 		this.dropState = state;
     },
 	onShow() {
 		// 这里必须用setTimeout 
 		// 因为在APP的环境下 编辑等操作后的utils.goBeforePage会晚于onShow的时机 小程序和H5则早于onShow
-		setTimeout(()=>{
-			if(this.isBackRefresh) {		//登录、新增、编辑、删除返回重刷数据
-				let curDrop = this.dropState == 1 ? 'invoiceList' : 'invoiceTitle'
+		setTimeout(() => {
+			if(this.isBackRefresh) {		// 登录、新增、编辑、删除返回重刷数据
+				const curDrop = this.dropState == 1 ? 'invoiceList' : 'invoiceTitle'
 				this.$refs[curDrop].getData()
 			}
 		}, 200)
 	},
 	onReachBottom() {
 		// console.log('reach--')
-		let curDrop = this.dropState == 1 ? 'invoiceList' : 'invoiceTitle'
+		const curDrop = this.dropState == 1 ? 'invoiceList' : 'invoiceTitle'
 		this.$refs[curDrop].loadMore()
 	},
     methods: {

@@ -22,7 +22,7 @@
 	 * @example <u-mask :show="show" @click="show = false"></u-mask>
 	 */
 	export default {
-		name: "u-mask",
+		name: 'UMask',
 		props: {
 			// 是否显示遮罩
 			show: {
@@ -37,7 +37,7 @@
 			// 用户自定义样式
 			customStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {}
 				}
 			},
@@ -79,15 +79,17 @@
 		computed: {
 			maskStyle() {
 				let style = {};
-				style.backgroundColor = "rgba(0, 0, 0, 0.6)";
+				style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
 				if(this.show) style.zIndex = this.zIndex ? this.zIndex : this.$u.zIndex.mask;
 				else style.zIndex = -1;
 				style.transition = `all ${this.duration / 1000}s ease-in-out`;
 				// 判断用户传递的对象是否为空，不为空就进行合并
-				if (Object.keys(this.customStyle).length) style = { 
+				if (Object.keys(this.customStyle).length) {
+ style = { 
 					...style,
 					...this.customStyle
-				};
+				}; 
+}
 				return style;
 			}
 		},

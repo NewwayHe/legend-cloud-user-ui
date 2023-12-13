@@ -151,9 +151,9 @@ import { goodsApi } from '@/api/ModuleGoods.js'
 
 import { mapState } from 'vuex'
 
-const listPage = new pageUtil(goodsApi.commentPage,{notReset:true})
+const listPage = new pageUtil(goodsApi.commentPage,{ notReset:true })
 export default {
-    name: 'good-comment',
+    name: 'GoodComment',
 
     components: {},
 
@@ -171,7 +171,7 @@ export default {
         return {
             params: {
                 condition: 'all',
-                orderBy:'addtime',//排序方式 按评论时间排序： addtime 按评论平均分数排：averageScore
+                orderBy:'addtime',// 排序方式 按评论时间排序： addtime 按评论平均分数排：averageScore
                 productId: ''
             },
             list: [],
@@ -193,8 +193,8 @@ export default {
                 'append':`追评`,
             },
             current: 0, // 默认选中tab的下标
-            showSelect:false,//点击右上角的‘按**排序’
-            //点击右上角的‘按**排序’弹出的列表
+            showSelect:false,// 点击右上角的‘按**排序’
+            // 点击右上角的‘按**排序’弹出的列表
             popoverOptions:{
                 'addtime':'按时间排序',
                 'averageScore':'按评分排序',
@@ -204,16 +204,16 @@ export default {
 
     computed: {
         ...mapState(['stausBarHeight']),
-        //备注：如果直接在HTML上用Object.values(comNumOptions)的话(该过程会导致list连续变化，ls-tabs会连续执行多次init()方法，导致ls-tabs会定位不准确)
+        // 备注：如果直接在HTML上用Object.values(comNumOptions)的话(该过程会导致list连续变化，ls-tabs会连续执行多次init()方法，导致ls-tabs会定位不准确)
         comNumValues(){
             if (this.commentNumber) {
                 this.comNumOptions = {
-                    'all':`全部(${this.commentNumber.all||0})`,
-                    'good':`好评(${this.commentNumber.good||0})`,
-                    'medium':`中评(${this.commentNumber.medium||0})`,
-                    'poor':`差评(${this.commentNumber.poor||0})`,
-                    'photo':`有图(${this.commentNumber.photo||0})`,
-                    'append':`追评(${this.commentNumber.append||0})`,
+                    'all':`全部(${this.commentNumber.all || 0})`,
+                    'good':`好评(${this.commentNumber.good || 0})`,
+                    'medium':`中评(${this.commentNumber.medium || 0})`,
+                    'poor':`差评(${this.commentNumber.poor || 0})`,
+                    'photo':`有图(${this.commentNumber.photo || 0})`,
+                    'append':`追评(${this.commentNumber.append || 0})`,
                 }
             }
             return Object.values(this.comNumOptions)
@@ -240,8 +240,8 @@ export default {
         })
         
         // 详情页-评论-统计
-        goodsApi.commentAalysis({productId:this.prodId}).then(res => {
-            if (res.code==1) {
+        goodsApi.commentAalysis({ productId:this.prodId }).then(res => {
+            if (res.code == 1) {
                 this.commentNumber = res.data;
             }
         });
@@ -259,7 +259,7 @@ export default {
 			    url: `/ModuleGoods/goodComments/goodComments?productId=${this.prodId}&comScore=${this.goodScore.comScore}`
 			})
 		},
-        pageMore(){//父组件的onReachBottom方法
+        pageMore(){ // 父组件的onReachBottom方法
             listPage.loadListByPageMore()
         },
         // 改变请求评论的类型
@@ -279,7 +279,7 @@ export default {
             console.log(flag);
             this.params.orderBy = flag
             this.$refs.popover.change()
-            this.$nextTick(()=>{
+            this.$nextTick(() => {
                 listPage.loadListByPage(this, this.params)
             })
         },

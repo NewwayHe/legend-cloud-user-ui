@@ -34,7 +34,7 @@ import { trim } from '@/api/ModulesCommon.js';
 const listPage = new pageUtil(trim.groupProductPage);
 
 export default {
-    components: { ProList, SearchCon,},
+    components: { ProList, SearchCon },
     data() {
         return {
             goodsType: true, // 默認-纵向列表
@@ -69,7 +69,7 @@ export default {
     // 自定义好友分享。
     onShareAppMessage(res) {
         return { 
-            title: this.systemConfig&&this.systemConfig.domainName  ? this.systemConfig.domainName  : '',
+            title: this.systemConfig && this.systemConfig.domainName ? this.systemConfig.domainName : '',
             path: '/ModuleGoods/search/prodGroupList?id=' + this.params.groupId,
         };
     },

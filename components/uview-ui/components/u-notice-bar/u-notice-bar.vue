@@ -79,7 +79,7 @@
  * @example <u-notice-bar :more-icon="true" :list="list"></u-notice-bar>
  */
 export default {
-	name: "u-notice-bar",
+	name: 'UNoticeBar',
 	props: {
 		// 显示的内容，数组
 		list: {

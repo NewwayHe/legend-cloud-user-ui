@@ -89,13 +89,13 @@ export default {
             floorArr: [], // 接收mobile/index接口的res.data.floors
 
             pageId: '',
-            shopId:'',//如果该变量有值，该海报就是店铺海报
+            shopId:'',// 如果该变量有值，该海报就是店铺海报
 			paging: {
 			    status: 'loading',
 			    error: false, // 是否错误
 			    emptylist: false // 是否显示列表为空时的样式
 			},
-			templateId:'',//预览海报模板ID，如果有该id，则该页面是调用trim.sDecoratePageShow()接口
+			templateId:'',// 预览海报模板ID，如果有该id，则该页面是调用trim.sDecoratePageShow()接口
         }
     },
 
@@ -106,7 +106,7 @@ export default {
     onLoad(option) {
         this.pageId = option.pageId || null
 		this.templateId = option.templateId || null
-        this.shopId = this.$checkInfo([{ type: 'hasValue', value: option.shopId }])?option.shopId:null //不$checkInfo hasValue的话，链接上的undefined会认为是有值
+        this.shopId = this.$checkInfo([{ type: 'hasValue', value: option.shopId }]) ? option.shopId : null // 不$checkInfo hasValue的话，链接上的undefined会认为是有值
 		// console.log(this.shopId);
         this.getData()
     },
@@ -124,7 +124,7 @@ export default {
             // console.log(res.target);
         }
         return {
-            title: this.systemConfig&&this.systemConfig.domainName  ? this.systemConfig.domainName  : '',
+            title: this.systemConfig && this.systemConfig.domainName ? this.systemConfig.domainName : '',
             path: this.$utils.pages.getPageRoute().url
         }
     },
@@ -134,7 +134,7 @@ export default {
         // 获取楼层数据
         getData() {
             const that = this
-			const api = this.templateId&&this.shopId ? 'sDecoratePageShow' : this.templateId ? 'adminDecoratePageShow' : this.shopId ? 'posterPage' : 'showMobilePosterPage'//this.templateId 如果是后台显示的预览页面
+			const api = this.templateId && this.shopId ? 'sDecoratePageShow' : this.templateId ? 'adminDecoratePageShow' : this.shopId ? 'posterPage' : 'showMobilePosterPage'// this.templateId 如果是后台显示的预览页面
 			const parmas = this.templateId ? { id: this.templateId,shopId:this.shopId } : { pageId:this.pageId, shopId:this.shopId }
 			this.paging = {
 				status: 'loading',
@@ -142,8 +142,8 @@ export default {
 				emptylist: false // 是否显示列表为空时的样式
 			}
 			trim[api](parmas).then(res => {
-				if (res.code&&res.data) {
-					this.indexData = this.templateId?JSON.parse(res.data.data):res.data
+				if (res.code && res.data) {
+					this.indexData = this.templateId ? JSON.parse(res.data.data) : res.data
 					this.floorArr = this.indexData.floors
 					console.log('indexData:',this.indexData)
 		
@@ -159,7 +159,7 @@ export default {
 				this.paging.error = true
 			}).finally((res) => {
 				this.paging.status = 'noMore'
-				//如果没有数据
+				// 如果没有数据
 				if (!this.$checkInfo([{ type: 'hasValue', value: this.floorArr }])) {
 					this.paging.emptylist = true
 				}

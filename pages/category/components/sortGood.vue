@@ -59,8 +59,8 @@ export default {
 
 	data() {
 		return {
-			bannerList: [], //轮播图
-			currentBanner: 0 //当前banner图的index
+			bannerList: [], // 轮播图
+			currentBanner: 0 // 当前banner图的index
 		};
 	},
 
@@ -126,8 +126,8 @@ export default {
 				}
 				this.value.sortBy = type;
 			}
-			this.$emit('input',this.value)//小程序要加这个，不然父组件的value不会变化
-			this.$nextTick(()=>{
+			this.$emit('input',this.value)// 小程序要加这个，不然父组件的value不会变化
+			this.$nextTick(() => {
 				this.$emit('getData')
 			})
 		}

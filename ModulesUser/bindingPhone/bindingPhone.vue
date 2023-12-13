@@ -53,12 +53,12 @@ export default {
             code: '', // 验证码
             thirdloginHref: '', // 当是点击分享的链接(例如拼团)，在Cache.js里将链接放到缓存里后，用该变量来接收该链接地址(登录成功后跳到该链接)，该变量只用于微信端的H5
             isWeixin: this.$utils.getUa().isWeixin || false,
-            hasClickCode:false,//是否已经点击了【获取验证码】
+            hasClickCode:false,// 是否已经点击了【获取验证码】
         }
     },
     computed: {
         showBut() {
-            return (this.phone&&this.code);
+            return (this.phone && this.code);
         },
     },
     onLoad() {
@@ -71,18 +71,18 @@ export default {
     },
     onUnload() {},
     methods: {
-        //获取是否已经点击了【获取验证码】
+        // 获取是否已经点击了【获取验证码】
         change(val){
             this.hasClickCode = val
         },
         
         // 修改手机号第一步
         next() {
-            this.$u.debounce(()=> {
+            this.$u.debounce(() => {
                 if (!this.$checkInfo([
-                    {type: 'phone',value: this.phone,msg: '请输入正确的手机号码'},
-                    {type: 'hasValue',value: this.hasClickCode,msg: '请先点击‘获取验证码’'},
-                    {type: 'code',value: this.code,msg: '请输入正确的验证码'},
+                    { type: 'phone',value: this.phone,msg: '请输入正确的手机号码' },
+                    { type: 'hasValue',value: this.hasClickCode,msg: '请先点击‘获取验证码’' },
+                    { type: 'code',value: this.code,msg: '请输入正确的验证码' },
                 ])) return;
                 uni.showLoading({
                     mask: true,
@@ -108,7 +108,7 @@ export default {
                         uni.showToast({
                             title: '登录成功',
                             mask: true,
-                            complete:()=> {
+                            complete:() => {
                                 setTimeout(() => {
                                     this.$utils.pages.goBeforePage(1, ['login']) // 从什么页面过来的就跳回什么页面去
                                 }, 1500)

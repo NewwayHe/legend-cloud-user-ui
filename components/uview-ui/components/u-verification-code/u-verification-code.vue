@@ -20,7 +20,7 @@
 	 * @example <u-verification-code :seconds="seconds" @end="end" @start="start" ref="uCode" 
 	 */
 	export default {
-		name: "u-verification-code",
+		name: 'UVerificationCode',
 		props: {
 			// 倒计时总秒数
 			seconds: {
@@ -74,10 +74,10 @@
 		methods: {
 			checkKeepRunning() {
 				// 获取上一次退出页面(H5还包括刷新)时的时间戳，如果没有上次的保存，此值可能为空
-				let lastTimestamp = Number(uni.getStorageSync(this.uniqueKey + '_$uCountDownTimestamp'));
+				const lastTimestamp = Number(uni.getStorageSync(this.uniqueKey + '_$uCountDownTimestamp'));
 				if(!lastTimestamp) return this.changeEvent(this.startText);
 				// 当前秒的时间戳
-				let nowTimestamp = Math.floor((+ new Date()) / 1000);
+				const nowTimestamp = Math.floor((+new Date()) / 1000);
 				// 判断当前的时间戳，是否小于上一次的本该按设定结束，却提前结束的时间戳
 				if(this.keepRunning && lastTimestamp && lastTimestamp > nowTimestamp) {
 					// 剩余尚未执行完的倒计秒数
@@ -134,7 +134,7 @@
 				// 倒计时尚未结束，结果大于0；倒计时已经开始，就会小于初始值，如果等于初始值，说明没有开始倒计时，无需处理
 				if(this.secNum > 0 && this.secNum <= this.seconds) {
 					// 获取当前时间戳(+ new Date()为特殊写法)，除以1000变成秒，再去除小数部分
-					let nowTimestamp = Math.floor((+ new Date()) / 1000);
+					const nowTimestamp = Math.floor((+new Date()) / 1000);
 					// 将本该结束时候的时间戳保存起来 => 当前时间戳 + 剩余的秒数
 					uni.setStorage({
 						key: this.uniqueKey + '_$uCountDownTimestamp',

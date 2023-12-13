@@ -171,7 +171,7 @@ export default {
         delAddress() {
             uni.showModal({
                 content: '是否删除该地址',
-                success: (res)=> {
+                success: (res) => {
                     if (res.confirm) {
                         addressManage.delAddress(this.addrId).then((res) => {
                             if (res.code == 1) {

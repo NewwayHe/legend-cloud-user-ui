@@ -49,7 +49,7 @@
 	 * @event {Function} close 点击关闭按钮时触发
 	 */
 	export default {
-		name: 'u-alert-tips',
+		name: 'UAlertTips',
 		props: {
 			// 显示文字
 			title: {
@@ -134,7 +134,7 @@
 		},
 		computed: {
 			uTitleStyle() {
-				let style = {};
+				const style = {};
 				// 如果有描述文字的话，标题进行加粗
 				style.fontWeight = this.description ? 500 : 'normal';
 				// 将用户传入样式对象和style合并，传入的优先级比style高，同属性会被覆盖

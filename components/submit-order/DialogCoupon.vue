@@ -68,15 +68,15 @@
 	export default {
 		components: {},
 		props: {
-			couponList: { //可用优惠券
+			couponList: { // 可用优惠券
 				type: Array | Object,
-				default () {
+				default() {
 					return []
 				}
 			},
-			unCouponList: { //不可用优惠券
+			unCouponList: { // 不可用优惠券
 				type: Array | Object,
-				default () {
+				default() {
 					return []
 				}
 			}
@@ -92,12 +92,12 @@
 		watch: {
 			couponList: {
 				handler(newVal) {
-					if (newVal&&newVal.length==0) {
-						this.current=1
+					if (newVal && newVal.length == 0) {
+						this.current = 1
 					}else{
-						this.current=0
+						this.current = 0
 					}
-					this.list = this.current===0 ? this.couponList : this.unCouponList
+					this.list = this.current === 0 ? this.couponList : this.unCouponList
 				},
 				immediate: true,
 				deep: true
@@ -109,19 +109,18 @@
 		methods: {
 			couponType(coupon){
 				if(coupon.shopProviderFlag){
-					if(coupon.productItems&&coupon.productItems.length>0){
+					if(coupon.productItems && coupon.productItems.length > 0){
 						return '店铺商品券'
 					}else{
 						return '店铺通用券'
 					}
 				}else{
-					if(coupon.shopItems&&coupon.shopItems.length>0){
+					if(coupon.shopItems && coupon.shopItems.length > 0){
 						return '平台店铺券'
 					}else{
 						return '平台通用券'
 					}
 				}
-				
 			},
 			// 显示弹窗，并重置数据
 			changePopup() {
@@ -138,7 +137,7 @@
 				this.$emit('couponHandle', couponItem)
 			},
 			changeTab(item){
-				this.list = item.index===0 ? this.couponList : this.unCouponList
+				this.list = item.index === 0 ? this.couponList : this.unCouponList
 			},
 			scroll() {}
 		}

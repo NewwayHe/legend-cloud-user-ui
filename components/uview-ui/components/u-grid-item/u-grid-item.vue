@@ -22,7 +22,7 @@
 	 * @example <u-grid-item></u-grid-item>
 	 */
 	export default {
-		name: "u-grid-item",
+		name: 'UGridItem',
 		props: {
 			// 背景颜色
 			bgColor: {

@@ -63,14 +63,14 @@
 	 * @example <u-number-box :min="1" :max="100"></u-number-box>
 	 */
 	export default {
-		name: "u-number-box",
+		name: 'UNumberBox',
 		props: {
 			// 预显示的数字
 			value: {
 				type: Number,
 				default: 1
 			},
-            //样式，1：京东样式(只有输入框有背景色)，2：通用样式(输入框有+-号都有背景色)
+            // 样式，1：京东样式(只有输入框有背景色)，2：通用样式(输入框有+-号都有背景色)
             type: {
 				type: Number,
 				default: 1
@@ -174,7 +174,7 @@
 				if (v1 == v2) return;
 				let value = 0;
 				// 首先判断是否数值，并且在min和max之间，如果不是，使用原来值
-				let tmp = this.$u.test.number(v1);
+				const tmp = this.$u.test.number(v1);
 				if (tmp && v1 >= this.min && v1 <= this.max) value = v1;
 				else value = v2;
 				// 判断是否只能输入大于等于0的整数
@@ -198,8 +198,8 @@
 				timer: null, // 用作长按的定时器
 				changeFromInner: false, // 值发生变化，是来自内部还是外部
 				innerChangeTimer: null, // 内部定时器
-                iconDisabledBg:'#f7f8fa',//+-号禁用时的背景颜色
-                oldValue:'',//如果全部删掉，value值变为旧值而不是最小值
+                iconDisabledBg:'#f7f8fa',// +-号禁用时的背景颜色
+                oldValue:'',// 如果全部删掉，value值变为旧值而不是最小值
 			};
 		},
 		created() {
@@ -218,7 +218,7 @@
 				this[callback]();
 				// 如果没开启长按功能，直接返回
 				if (!this.longPress) return;
-				clearInterval(this.timer); //再次清空定时器，防止重复注册定时器
+				clearInterval(this.timer); // 再次清空定时器，防止重复注册定时器
 				this.timer = null;
 				this.timer = setInterval(() => {
 					// 执行加或减函数
@@ -251,7 +251,7 @@
 					baseNum2 = 0;
 				}
 				baseNum = Math.pow(10, Math.max(baseNum1, baseNum2));
-				let precision = baseNum1 >= baseNum2 ? baseNum1 : baseNum2; //精度
+				const precision = baseNum1 >= baseNum2 ? baseNum1 : baseNum2; // 精度
 				return ((num1 * baseNum + num2 * baseNum) / baseNum).toFixed(precision);
 			},
 			// 为了保证小数相加减出现精度溢出的问题
@@ -268,7 +268,7 @@
 					baseNum2 = 0;
 				}
 				baseNum = Math.pow(10, Math.max(baseNum1, baseNum2));
-				let precision = baseNum1 >= baseNum2 ? baseNum1 : baseNum2;
+				const precision = baseNum1 >= baseNum2 ? baseNum1 : baseNum2;
 				return ((num1 * baseNum - num2 * baseNum) / baseNum).toFixed(precision);
 			},
 			computeVal(type) {
@@ -291,7 +291,7 @@
 			// 处理用户手动输入的情况
 			onBlur(event) {
 				let val = 0;
-				let value = event.detail.value;
+				const value = event.detail.value;
 				// 如果为非0-9数字组成，或者其第一位数值为0，直接让其等于屏幕上原来的旧值，如果没有旧值让其等于min值
 				// 这里不直接判断是否正整数，是因为用户传递的props min值可能为0
                 if (!/(^\d+$)/.test(value) || value[0] == 0){
@@ -301,7 +301,7 @@
                         val = this.min;
                     }
                 } 
-				val = val+Number(value);
+				val = val + Number(value);
 				if (val > this.max) {
 					val = this.max;
 				} else if (val < this.min) {

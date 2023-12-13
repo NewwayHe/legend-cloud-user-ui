@@ -19,7 +19,7 @@
 <script>
 import uniLoadMore from '../../uni-app/uni-load-more/uni-load-more.vue'
 export default {
-    name: 'ls-load-more',
+    name: 'LsLoadMore',
 	// #ifdef MP-WEIXIN
 	// 将自定义节点设置成虚拟的，更加接近Vue组件的表现，能更好的使用flex属性。这时在<组件name> 里加style和class是不会生效的
 	options: { virtualHost: true },
@@ -27,7 +27,7 @@ export default {
     components: { uniLoadMore },
     props: {
 		className:{
-			type: [String, Array,Boolean],//这里加个Boolean，是因为如果传className=""，小程序端会报错
+			type: [String, Array,Boolean],// 这里加个Boolean，是因为如果传className=""，小程序端会报错
 			default: ''
 		},
         /**
@@ -112,7 +112,7 @@ export default {
                     this.$nextTick(() => {
 						// APP端要加setTimeout,不然获取不到元素
 						// #ifdef APP-PLUS
-						setTimeout(()=>{
+						setTimeout(() => {
 						// #endif
 						try{
 							const query = uni.createSelectorQuery().in(this)

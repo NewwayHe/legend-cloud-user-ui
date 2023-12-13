@@ -35,7 +35,7 @@ import { mapState } from 'vuex'
 import { getMobileUrl } from '@/api/ModulesCommon.js'
 	
 export default {
-    name: 'good-tabBar',
+    name: 'GoodTabBar',
 
     components: {},
 
@@ -52,7 +52,7 @@ export default {
 
     computed: {
         ...mapState(['cartNum', 'systemConfig']),
-		isShowCS() {	//是否显示客服
+		isShowCS() {	// 是否显示客服
 			return this.systemConfig && this.systemConfig.customEnabled
 		}
     },
@@ -66,7 +66,7 @@ export default {
 				if (res) {
 					this.resData = res
 				}
-			}).catch((err)=>{
+			}).catch((err) => {
 				console.log('获取商家信息err--',err)
 			})
 		}
@@ -93,8 +93,8 @@ export default {
 								appid: res.appid,
 								skill: res.skill,
 								nickname: res.name,
-								productId: this.parmas?.prodId||'',
-								headimg:result.headimg?(this.$photoServer+result.headimg):'',//用户头像
+								productId: this.parmas?.prodId || '',
+								headimg:result.headimg ? (this.$photoServer + result.headimg) : '',// 用户头像
 							}
 						})
 					}

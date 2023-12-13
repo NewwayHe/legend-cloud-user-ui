@@ -19,7 +19,7 @@
 	 * @example <u-collapse></u-collapse>
 	 */
 	export default {
-		name:"u-collapse",
+		name:'UCollapse',
 		props: {
 			// 是否手风琴模式
 			accordion: {
@@ -29,21 +29,21 @@
 			// 头部的样式
 			headStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {}
 				}
 			},
 			// 主体的样式
 			bodyStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {}
 				}
 			},
 			// 每一个item的样式
 			itemStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {}
 				}
 			},

@@ -37,7 +37,7 @@
 	 * @example <u-read-more><rich-text :nodes="content"></rich-text></u-read-more>
 	 */
 	export default {
-		name: "u-read-more",
+		name: 'UReadMore',
 		props: {
 			// 默认的显示占位高度，单位为rpx
 			showHeight: {
@@ -72,11 +72,11 @@
 			// 是否显示阴影
 			shadowStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {
-						backgroundImage: "linear-gradient(-180deg, rgba(255, 255, 255, 0) 0%, #fff 80%)",
-						paddingTop: "300rpx",
-						marginTop: "-300rpx"
+						backgroundImage: 'linear-gradient(-180deg, rgba(255, 255, 255, 0) 0%, #fff 80%)',
+						paddingTop: '300rpx',
+						marginTop: '-300rpx'
 					}
 				}
 			},

@@ -31,12 +31,12 @@ export default {
 
 	props: {
 		categoryId: {
-			//当buttonFixed为true时，控制靠右定位，单位rpx
+			// 当buttonFixed为true时，控制靠右定位，单位rpx
 			type: [Number, String],
 			default: ''
 		},
 		height: {
-			//当buttonFixed为true时，控制靠右定位，单位rpx
+			// 当buttonFixed为true时，控制靠右定位，单位rpx
 			type: [Number, String],
 			default: 160
 		}
@@ -44,8 +44,8 @@ export default {
 
 	data() {
 		return {
-			bannerList: [] ,//轮播图
-			currentBanner:0,//当前banner图的index
+			bannerList: [] ,// 轮播图
+			currentBanner:0,// 当前banner图的index
 		};
 	},
 
@@ -104,7 +104,7 @@ export default {
 		clickBanner(url) {
 			let urlData = {};
 			// 如果是新数据:url是Object类型
-			if (url&&url.id) {
+			if (url && url.id) {
 				urlData = url
 			// 如果是旧数据:url是string类型
 			}else{

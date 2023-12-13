@@ -5,10 +5,10 @@
  * @author JinYufeng
  * @listens MIT
  */
-const cfg = require('./config.js'),
-	blankChar = cfg.blankChar,
-	CssHandler = require('./CssHandler.js'),
-	windowWidth = uni.getSystemInfoSync().windowWidth;
+const cfg = require('./config.js');
+	const blankChar = cfg.blankChar;
+	const CssHandler = require('./CssHandler.js');
+	const windowWidth = uni.getSystemInfoSync().windowWidth;
 var emoji;
 
 function MpHtmlParser(data, options = {}) {
@@ -31,8 +31,8 @@ function MpHtmlParser(data, options = {}) {
 		return true;
 	}
 	this.decode = (val, amp) => {
-		var i = -1,
-			j, en;
+		var i = -1;
+			var j; var en;
 		while (1) {
 			if ((i = val.indexOf('&', i + 1)) == -1) break;
 			if ((j = val.indexOf(';', i + 2)) == -1) break;
@@ -41,8 +41,7 @@ function MpHtmlParser(data, options = {}) {
 				if (!isNaN(en)) val = val.substr(0, i) + String.fromCharCode(en) + val.substr(j + 1);
 			} else {
 				en = val.substring(i + 1, j);
-				if (cfg.entities[en] || en == amp)
-					val = val.substr(0, i) + (cfg.entities[en] || '&') + val.substr(j + 1);
+				if (cfg.entities[en] || en == amp) { val = val.substr(0, i) + (cfg.entities[en] || '&') + val.substr(j + 1); }
 			}
 		}
 		return val;
@@ -51,8 +50,7 @@ function MpHtmlParser(data, options = {}) {
 		if (url[0] == '/') {
 			if (url[1] == '/') url = this.options.prot + ':' + url;
 			else if (this.domain) url = this.domain + url;
-		} else if (this.domain && url.indexOf('data:') != 0 && !url.includes('://'))
-			url = this.domain + '/' + url;
+		} else if (this.domain && url.indexOf('data:') != 0 && !url.includes('://')) { url = this.domain + '/' + url; }
 		return url;
 	}
 	this.isClose = () => this.data[this.i] == '>' || (this.data[this.i] == '/' && this.data[this.i + 1] == '>');
@@ -62,16 +60,15 @@ function MpHtmlParser(data, options = {}) {
 }
 MpHtmlParser.prototype.parse = function() {
 	if (emoji) this.data = emoji.parseEmoji(this.data);
-	for (var c; c = this.data[this.i]; this.i++)
-		this.state(c);
+	for (var c; c = this.data[this.i]; this.i++) { this.state(c); }
 	if (this.state == this.Text) this.setText();
 	while (this.STACK.length) this.popNode(this.STACK.pop());
 	return this.DOM;
 }
 // 设置属性
 MpHtmlParser.prototype.setAttr = function() {
-	var name = this.attrName.toLowerCase(),
-		val = this.attrVal;
+	var name = this.attrName.toLowerCase();
+		var val = this.attrVal;
 	if (cfg.boolAttrs[name]) this.attrs[name] = 'T';
 	else if (val) {
 		if (name == 'src' || (name == 'data-src' && !this.attrs.src)) this.attrs.src = this.getUrl(this.decode(val, 'amp'));
@@ -88,26 +85,27 @@ MpHtmlParser.prototype.setAttr = function() {
 }
 // 设置文本节点
 MpHtmlParser.prototype.setText = function() {
-	var back, text = this.section();
+	var back; var text = this.section();
 	if (!text) return;
 	text = (cfg.onText && cfg.onText(text, () => back = true)) || text;
 	if (back) {
 		this.data = this.data.substr(0, this.start) + text + this.data.substr(this.i);
-		let j = this.start + text.length;
+		const j = this.start + text.length;
 		for (this.i = this.start; this.i < j; this.i++) this.state(this.data[this.i]);
 		return;
 	}
 	if (!this.pre) {
 		// 合并空白符
-		var flag, tmp = [];
-		for (let i = text.length, c; c = text[--i];)
-			if (!blankChar[c]) {
+		var flag; var tmp = [];
+		for (let i = text.length, c; c = text[--i];) {
+ if (!blankChar[c]) {
 				tmp.unshift(c);
 				if (!flag) flag = 1;
 			} else {
 				if (tmp[0] != ' ') tmp.unshift(' ');
 				if (c == '\n' && flag == void 0) flag = 0;
-			}
+			} 
+}
 		if (flag == 0) return;
 		text = tmp.join('');
 	}
@@ -121,15 +119,15 @@ MpHtmlParser.prototype.setNode = function() {
 	var node = {
 			name: this.tagName.toLowerCase(),
 			attrs: this.attrs
-		},
-		close = cfg.selfClosingTags[node.name];
+		};
+		var close = cfg.selfClosingTags[node.name];
 	if (this.options.nodes.length) node.type = 'node';
 	this.attrs = {};
 	if (!cfg.ignoreTags[node.name]) {
 		// 处理属性
-		var attrs = node.attrs,
-			style = this.CssHandler.match(node.name, attrs, node) + (attrs.style || ''),
-			styleObj = {};
+		var attrs = node.attrs;
+			var style = this.CssHandler.match(node.name, attrs, node) + (attrs.style || '');
+			var styleObj = {};
 		if (attrs.id) {
 			if (this.options.compress & 1) attrs.id = void 0;
 			else if (this.options.useAnchor) this.bubble();
@@ -162,16 +160,11 @@ MpHtmlParser.prototype.setNode = function() {
 				break;
 			case 'embed':
 				// #ifndef APP-PLUS
-				var src = node.attrs.src || '',
-					type = node.attrs.type || '';
-				if (type.includes('video') || src.includes('.mp4') || src.includes('.3gp') || src.includes('.m3u8'))
-					node.name = 'video';
-				else if (type.includes('audio') || src.includes('.m4a') || src.includes('.wav') || src.includes('.mp3') || src.includes(
-						'.aac'))
-					node.name = 'audio';
-				else break;
-				if (node.attrs.autostart)
-					node.attrs.autoplay = 'T';
+				var src = node.attrs.src || '';
+					var type = node.attrs.type || '';
+				if (type.includes('video') || src.includes('.mp4') || src.includes('.3gp') || src.includes('.m3u8')) { node.name = 'video'; } else if (type.includes('audio') || src.includes('.m4a') || src.includes('.wav') || src.includes('.mp3') || src.includes(
+						'.aac')) { node.name = 'audio'; } else break;
+				if (node.attrs.autostart) { node.attrs.autoplay = 'T'; }
 				node.attrs.controls = 'T';
 				// #endif
 				// #ifdef APP-PLUS
@@ -183,8 +176,7 @@ MpHtmlParser.prototype.setNode = function() {
 				if (!attrs.id) attrs.id = node.name + (++this[`${node.name}Num`]);
 				else this[`${node.name}Num`]++;
 				if (node.name == 'video') {
-					if (this.videoNum > 3)
-						node.lazyLoad = 1;
+					if (this.videoNum > 3) { node.lazyLoad = 1; }
 					if (attrs.width) {
 						styleObj.width = parseFloat(attrs.width) + (attrs.width.includes('%') ? '%' : 'px');
 						attrs.width = void 0;
@@ -204,12 +196,14 @@ MpHtmlParser.prototype.setNode = function() {
 				break;
 			case 'td':
 			case 'th':
-				if (attrs.colspan || attrs.rowspan)
-					for (var k = this.STACK.length, item; item = this.STACK[--k];)
-						if (item.name == 'table') {
+				if (attrs.colspan || attrs.rowspan) {
+ for (var k = this.STACK.length, item; item = this.STACK[--k];) {
+ if (item.name == 'table') {
 							item.flag = 1;
 							break;
-						}
+						} 
+} 
+}
 		}
 		if (attrs.align) {
 			if (node.name == 'table') {
@@ -224,18 +218,13 @@ MpHtmlParser.prototype.setNode = function() {
 		for (var i = 0, len = styles.length; i < len; i++) {
 			var info = styles[i].split(':');
 			if (info.length < 2) continue;
-			let key = info[0].trim().toLowerCase(),
-				value = info.slice(1).join(':').trim();
-			if (value[0] == '-' || value.includes('safe'))
-				style += `;${key}:${value}`;
-			else if (!styleObj[key] || value.includes('import') || !styleObj[key].includes('import'))
-				styleObj[key] = value;
+			const key = info[0].trim().toLowerCase();
+				const value = info.slice(1).join(':').trim();
+			if (value[0] == '-' || value.includes('safe')) { style += `;${key}:${value}`; } else if (!styleObj[key] || value.includes('import') || !styleObj[key].includes('import')) { styleObj[key] = value; }
 		}
 		if (node.name == 'img') {
 			if (attrs.src && !attrs.ignore) {
-				if (this.bubble())
-					attrs.i = (this.imgNum++).toString();
-				else attrs.ignore = 'T';
+				if (this.bubble()) { attrs.i = (this.imgNum++).toString(); } else attrs.ignore = 'T';
 			}
 			if (attrs.ignore) {
 				style += ';-webkit-touch-callout:none';
@@ -255,8 +244,7 @@ MpHtmlParser.prototype.setNode = function() {
 			if (styleObj.height) {
 				attrs.height = styleObj.height;
 				styleObj.height = '';
-			} else if (attrs.height && !attrs.height.includes('%'))
-				attrs.height = parseFloat(attrs.height) + 'px';
+			} else if (attrs.height && !attrs.height.includes('%')) { attrs.height = parseFloat(attrs.height) + 'px'; }
 		}
 		for (var key in styleObj) {
 			var value = styleObj[key];
@@ -271,10 +259,7 @@ MpHtmlParser.prototype.setNode = function() {
 				}
 			}
 			// 转换 rpx
-			else if (value.includes('rpx'))
-				value = value.replace(/[0-9.]+\s*rpx/g, $ => parseFloat($) * windowWidth / 750 + 'px');
-			else if (key == 'white-space' && value.includes('pre') && !close)
-				this.pre = node.pre = true;
+			else if (value.includes('rpx')) { value = value.replace(/[0-9.]+\s*rpx/g, $ => parseFloat($) * windowWidth / 750 + 'px'); } else if (key == 'white-space' && value.includes('pre') && !close) { this.pre = node.pre = true; }
 			style += `;${key}:${value}`;
 		}
 		style = style.substr(1);
@@ -287,14 +272,12 @@ MpHtmlParser.prototype.setNode = function() {
 			}
 			this.siblings().push(node);
 			this.STACK.push(node);
-		} else if (!cfg.filter || cfg.filter(node, this) != false)
-			this.siblings().push(node);
+		} else if (!cfg.filter || cfg.filter(node, this) != false) { this.siblings().push(node); }
 	} else {
 		if (!close) this.remove(node);
 		else if (node.name == 'source') {
 			var parent = this.parent();
-			if (parent && (parent.name == 'video' || parent.name == 'audio') && node.attrs.src)
-				parent.attrs.source.push(node.attrs.src);
+			if (parent && (parent.name == 'video' || parent.name == 'audio') && node.attrs.src) { parent.attrs.source.push(node.attrs.src); }
 		} else if (node.name == 'base' && !this.domain) this.domain = node.attrs.href;
 	}
 	if (this.data[this.i] == '/') this.i++;
@@ -303,8 +286,8 @@ MpHtmlParser.prototype.setNode = function() {
 }
 // 移除标签
 MpHtmlParser.prototype.remove = function(node) {
-	var name = node.name,
-		j = this.i;
+	var name = node.name;
+		var j = this.i;
 	// 处理 svg
 	var handleSvg = () => {
 		var src = this.data.substring(j, this.i + 1);
@@ -315,8 +298,7 @@ MpHtmlParser.prototype.remove = function(node) {
 		}
 		src = '<svg' + src;
 		var parent = this.parent();
-		if (node.attrs.width == '100%' && parent && (parent.attrs.style || '').includes('inline'))
-			parent.attrs.style = 'width:300px;max-width:100%;' + parent.attrs.style;
+		if (node.attrs.width == '100%' && parent && (parent.attrs.style || '').includes('inline')) { parent.attrs.style = 'width:300px;max-width:100%;' + parent.attrs.style; }
 		this.siblings().push({
 			name: 'img',
 			attrs: {
@@ -341,10 +323,7 @@ MpHtmlParser.prototype.remove = function(node) {
 				this.data = this.data.substr(0, j + 1) + cfg.highlight(this.data.substring(j + 1, this.i - 5), node.attrs) + this.data
 					.substr(this.i - 5);
 				return this.i = j;
-			} else if (name == 'style')
-				this.CssHandler.getStyle(this.data.substring(j + 1, this.i - 7));
-			else if (name == 'title')
-				this.DOM.title = this.data.substring(j + 1, this.i - 7);
+			} else if (name == 'style') { this.CssHandler.getStyle(this.data.substring(j + 1, this.i - 7)); } else if (name == 'title') { this.DOM.title = this.data.substring(j + 1, this.i - 7); }
 			if ((this.i = this.data.indexOf('>', this.i)) == -1) this.i = this.data.length;
 			if (name == 'svg') handleSvg();
 			return;
@@ -356,15 +335,14 @@ MpHtmlParser.prototype.popNode = function(node) {
 	// 空白符处理
 	if (node.pre) {
 		node.pre = this.pre = void 0;
-		for (let i = this.STACK.length; i--;)
-			if (this.STACK[i].pre)
-				this.pre = true;
+		for (let i = this.STACK.length; i--;) {
+ if (this.STACK[i].pre) { this.pre = true; } 
+}
 	}
-	var siblings = this.siblings(),
-		len = siblings.length,
-		childs = node.children;
-	if (node.name == 'head' || (cfg.filter && cfg.filter(node, this) == false))
-		return siblings.pop();
+	var siblings = this.siblings();
+		var len = siblings.length;
+		var childs = node.children;
+	if (node.name == 'head' || (cfg.filter && cfg.filter(node, this) == false)) { return siblings.pop(); }
 	var attrs = node.attrs;
 	// 替换一些标签名
 	if (cfg.blockTags[node.name]) node.name = 'div';
@@ -372,41 +350,41 @@ MpHtmlParser.prototype.popNode = function(node) {
 	// 处理列表
 	if (node.c && (node.name == 'ul' || node.name == 'ol')) {
 		if ((node.attrs.style || '').includes('list-style:none')) {
-			for (let i = 0, child; child = childs[i++];)
-				if (child.name == 'li')
-					child.name = 'div';
+			for (let i = 0, child; child = childs[i++];) {
+ if (child.name == 'li') { child.name = 'div'; } 
+}
 		} else if (node.name == 'ul') {
 			var floor = 1;
-			for (let i = this.STACK.length; i--;)
-				if (this.STACK[i].name == 'ul') floor++;
-			if (floor != 1)
-				for (let i = childs.length; i--;)
-					childs[i].floor = floor;
+			for (let i = this.STACK.length; i--;) { if (this.STACK[i].name == 'ul') floor++; }
+			if (floor != 1) {
+ for (let i = childs.length; i--;) { childs[i].floor = floor; } 
+}
 		} else {
-			for (let i = 0, num = 1, child; child = childs[i++];)
-				if (child.name == 'li') {
+			for (let i = 0, num = 1, child; child = childs[i++];) {
+ if (child.name == 'li') {
 					child.type = 'ol';
 					child.num = ((num, type) => {
 						if (type == 'a') return String.fromCharCode(97 + (num - 1) % 26);
 						if (type == 'A') return String.fromCharCode(65 + (num - 1) % 26);
 						if (type == 'i' || type == 'I') {
 							num = (num - 1) % 99 + 1;
-							var one = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'],
-								ten = ['X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'],
-								res = (ten[Math.floor(num / 10) - 1] || '') + (one[num % 10 - 1] || '');
+							var one = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+								var ten = ['X', 'XX', 'XXX', 'XL', 'L', 'LX', 'LXX', 'LXXX', 'XC'];
+								var res = (ten[Math.floor(num / 10) - 1] || '') + (one[num % 10 - 1] || '');
 							if (type == 'i') return res.toLowerCase();
 							return res;
 						}
 						return num;
 					})(num++, attrs.type) + '.';
-				}
+				} 
+}
 		}
 	}
 	// 处理表格
 	if (node.name == 'table') {
-		var padding = parseFloat(attrs.cellpadding),
-			spacing = parseFloat(attrs.cellspacing),
-			border = parseFloat(attrs.border);
+		var padding = parseFloat(attrs.cellpadding);
+			var spacing = parseFloat(attrs.cellspacing);
+			var border = parseFloat(attrs.border);
 		if (node.c) {
 			if (isNaN(padding)) padding = 2;
 			if (isNaN(spacing)) spacing = 2;
@@ -415,12 +393,12 @@ MpHtmlParser.prototype.popNode = function(node) {
 		if (node.flag && node.c) {
 			// 有 colspan 或 rowspan 且含有链接的表格转为 grid 布局实现
 			attrs.style = `${attrs.style || ''};${spacing ? `;grid-gap:${spacing}px` : ';border-left:0;border-top:0'}`;
-			var row = 1,
-				col = 1,
-				colNum,
-				trs = [],
-				children = [],
-				map = {};
+			var row = 1;
+				var col = 1;
+				var colNum;
+				var trs = [];
+				var children = [];
+				var map = {};
 			(function f(ns) {
 				for (var i = 0; i < ns.length; i++) {
 					if (ns[i].name == 'tr') trs.push(ns[i]);
@@ -435,8 +413,8 @@ MpHtmlParser.prototype.popNode = function(node) {
 							name: 'div',
 							c: 1,
 							attrs: {
-								style: (td.attrs.style || '') + (border ? `;border:${border}px solid gray` + (spacing ? '' :
-									';border-right:0;border-bottom:0') : '') + (padding ? `;padding:${padding}px` : '')
+								style: (td.attrs.style || '') + (border ? `;border:${border}px solid gray` + (spacing ? ''
+									: ';border-right:0;border-bottom:0') : '') + (padding ? `;padding:${padding}px` : '')
 							},
 							children: td.children
 						}
@@ -464,15 +442,16 @@ MpHtmlParser.prototype.popNode = function(node) {
 			node.children = children;
 		} else {
 			attrs.style = `border-spacing:${spacing}px;${attrs.style || ''}`;
-			if (border || padding)
-				(function f(ns) {
+			if (border || padding) {
+ (function f(ns) {
 					for (var i = 0, n; n = ns[i]; i++) {
 						if (n.name == 'th' || n.name == 'td') {
 							if (border) n.attrs.style = `border:${border}px solid gray;${n.attrs.style || ''}`;
 							if (padding) n.attrs.style = `padding:${padding}px;${n.attrs.style || ''}`;
 						} else f(n.children || []);
 					}
-				})(childs)
+				})(childs) 
+}
 		}
 		if (this.options.autoscroll) {
 			var table = Object.assign({}, node);
@@ -485,14 +464,13 @@ MpHtmlParser.prototype.popNode = function(node) {
 	}
 	this.CssHandler.pop && this.CssHandler.pop(node);
 	// 自动压缩
-	if (node.name == 'div' && !Object.keys(attrs).length && childs.length == 1 && childs[0].name == 'div')
-		siblings[len - 1] = childs[0];
+	if (node.name == 'div' && !Object.keys(attrs).length && childs.length == 1 && childs[0].name == 'div') { siblings[len - 1] = childs[0]; }
 }
 // 状态机
 MpHtmlParser.prototype.Text = function(c) {
 	if (c == '<') {
-		var next = this.data[this.i + 1],
-			isLetter = c => (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
+		var next = this.data[this.i + 1];
+			var isLetter = c => (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z');
 		if (isLetter(next)) {
 			this.setText();
 			this.start = this.i + 1;
@@ -536,8 +514,7 @@ MpHtmlParser.prototype.TagName = function(c) {
 MpHtmlParser.prototype.AttrName = function(c) {
 	if (c == '=' || blankChar[c] || this.isClose()) {
 		this.attrName = this.section();
-		if (blankChar[c])
-			while (blankChar[this.data[++this.i]]);
+		if (blankChar[c]) { while (blankChar[this.data[++this.i]]); }
 		if (this.data[this.i] == '=') {
 			while (blankChar[this.data[++this.i]]);
 			this.start = this.i--;
@@ -560,17 +537,17 @@ MpHtmlParser.prototype.AttrValue = function(c) {
 MpHtmlParser.prototype.EndTag = function(c) {
 	if (blankChar[c] || c == '>' || c == '/') {
 		var name = this.section().toLowerCase();
-		for (var i = this.STACK.length; i--;)
-			if (this.STACK[i].name == name) break;
+		for (var i = this.STACK.length; i--;) { if (this.STACK[i].name == name) break; }
 		if (i != -1) {
 			var node;
 			while ((node = this.STACK.pop()).name != name) this.popNode(node);
 			this.popNode(node);
-		} else if (name == 'p' || name == 'br')
-			this.siblings().push({
+		} else if (name == 'p' || name == 'br') {
+ this.siblings().push({
 				name,
 				attrs: {}
-			});
+			}); 
+}
 		this.i = this.data.indexOf('>', this.i);
 		this.start = this.i + 1;
 		if (this.i == -1) this.i = this.data.length;

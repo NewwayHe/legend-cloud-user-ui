@@ -75,15 +75,15 @@ export default {
         }
     },
     computed: {
-        price() {//统一管理商品价格
+        price() { // 统一管理商品价格
             return function(money) {
                 let arr = []
-                if (money&&money.toString().indexOf("~")!=-1) {//判断money是否为1.00~2.00的模式
+                if (money && money.toString().indexOf('~') != -1) { // 判断money是否为1.00~2.00的模式
                     arr = [money,'']
                 }else{
-                    arr = this.$stringUtils.formatNumber(money ? money : 999)
+                    arr = this.$stringUtils.formatNumber(money || 999)
                 }
-                return  arr
+                return arr
             }
         },
     },

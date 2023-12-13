@@ -24,7 +24,7 @@
 	 * @example <u-index-anchor :index="item" />
 	 */
 	export default {
-		name: "u-index-anchor",
+		name: 'UIndexAnchor',
 		props: {
 			useSlot: {
 				type: Boolean,
@@ -36,7 +36,7 @@
 			},
 			customStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {}
 				}
 			}

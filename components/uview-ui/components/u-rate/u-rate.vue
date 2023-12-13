@@ -38,7 +38,7 @@
  */
 
 export default {
-	name: 'u-rate',
+	name: 'URate',
 	props: {
 		// 用于v-model双向绑定选中的星星数量
 		// 1.4.5版新增
@@ -129,7 +129,7 @@ export default {
 			// 当前激活的星星的index，如果存在value，优先使用value，因为它可以双向绑定(1.4.5新增)
 			activeIndex: this.value != -1 ? this.value : this.current,
 			starWidth: 0, // 每个星星的宽度
-			starWidthArr: [] //每个星星最右边到组件盒子最左边的距离
+			starWidthArr: [] // 每个星星最右边到组件盒子最左边的距离
 		}
 	},
 	watch: {
@@ -210,7 +210,7 @@ export default {
 				this.activeIndex = 0
 			}
 			// 滑动的距离，相当于多少颗星星
-			let index = Math.ceil(distance / this.starWidth)
+			const index = Math.ceil(distance / this.starWidth)
 			this.activeIndex = index > this.count ? this.count : index
 			// 对最少颗星星的限制
 			if (this.activeIndex < this.minCount) this.activeIndex = this.minCount

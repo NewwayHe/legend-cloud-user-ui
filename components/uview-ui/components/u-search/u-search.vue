@@ -80,7 +80,7 @@
  * @example <u-search placeholder="日照香炉生紫烟" v-model="keyword"></u-search>
  */
 export default {
-	name: "u-search",
+	name: 'USearch',
 	props: {
 		// 搜索框形状，round-圆形，square-方形
 		shape: {

@@ -89,7 +89,7 @@ function format() {
 		});
 
 		for (var arg = args[i]; i < len; arg = args[++i]) {
-			str += " " + arg;
+			str += ' ' + arg;
 		}
 
 		return str;
@@ -183,7 +183,7 @@ function asyncMap(objArr, option, func, callback) {
 			asyncSerialArray(flattenArr, func, next);
 		});
 
-		_pending["catch"](function(e) {
+		_pending['catch'](function(e) {
 			return e;
 		});
 
@@ -229,7 +229,7 @@ function asyncMap(objArr, option, func, callback) {
 			}
 		});
 	});
-	pending["catch"](function(e) {
+	pending['catch'](function(e) {
 		return e;
 	});
 	return pending;
@@ -309,7 +309,7 @@ var pattern = {
 	// http://emailregex.com/
 	email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 	url: new RegExp(
-		"^(?!mailto:)(?:(?:http|https|ftp)://|//)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$",
+		'^(?!mailto:)(?:(?:http|https|ftp)://|//)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$',
 		'i'),
 	hex: /^#?([a-f0-9]{6}|[a-f0-9]{3})$/i
 };
@@ -317,7 +317,7 @@ var types = {
 	integer: function integer(value) {
 		return types.number(value) && parseInt(value, 10) === value;
 	},
-	"float": function float(value) {
+	'float': function float(value) {
 		return types.number(value) && !types.integer(value);
 	},
 	array: function array(value) {
@@ -387,7 +387,6 @@ function type(rule, value, source, errors, options) {
 		if (!types[ruleType](value)) {
 			errors.push(format(options.messages.types[ruleType], rule.fullField, rule.type));
 		} // straight typeof check
-
 	} else if (ruleType && typeof value !== rule.type) {
 		errors.push(format(options.messages.types[ruleType], rule.fullField, rule.type));
 	}
@@ -513,7 +512,7 @@ var rules = {
 	whitespace: whitespace,
 	type: type,
 	range: range,
-	"enum": enumerable,
+	'enum': enumerable,
 	pattern: pattern$1
 };
 
@@ -953,13 +952,13 @@ var validators = {
 	string: string,
 	method: method,
 	number: number,
-	"boolean": _boolean,
+	'boolean': _boolean,
 	regexp: regexp,
 	integer: integer,
-	"float": floatFn,
+	'float': floatFn,
 	array: array,
 	object: object,
-	"enum": enumerable$1,
+	'enum': enumerable$1,
 	pattern: pattern$2,
 	date: date,
 	url: type$1,
@@ -971,9 +970,9 @@ var validators = {
 
 function newMessages() {
 	return {
-		"default": 'Validation error on field %s',
+		'default': 'Validation error on field %s',
 		required: '%s is required',
-		"enum": '%s must be one of %s',
+		'enum': '%s must be one of %s',
 		whitespace: '%s cannot be empty',
 		date: {
 			format: '%s date %s is invalid for format %s',
@@ -987,9 +986,9 @@ function newMessages() {
 			object: '%s is not an %s',
 			number: '%s is not a %s',
 			date: '%s is not a %s',
-			"boolean": '%s is not a %s',
+			'boolean': '%s is not a %s',
 			integer: '%s is not an %s',
-			"float": '%s is not a %s',
+			'float': '%s is not a %s',
 			regexp: '%s is not a valid %s',
 			email: '%s is not a valid %s',
 			url: '%s is not a valid %s',
@@ -1190,7 +1189,7 @@ Schema.prototype = {
 
 			function addFullfield(key, schema) {
 				return _extends({}, schema, {
-					fullField: rule.fullField + "." + key
+					fullField: rule.fullField + '.' + key
 				});
 			}
 
@@ -1291,7 +1290,7 @@ Schema.prototype = {
 				if (res === true) {
 					cb();
 				} else if (res === false) {
-					cb(rule.message || rule.field + " fails");
+					cb(rule.message || rule.field + ' fails');
 				} else if (res instanceof Array) {
 					cb(res);
 				} else if (res instanceof Error) {
@@ -1353,4 +1352,4 @@ Schema.warning = warning;
 Schema.messages = messages;
 
 export default Schema;
-//# sourceMappingURL=index.js.map
+// # sourceMappingURL=index.js.map

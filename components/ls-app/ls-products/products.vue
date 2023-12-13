@@ -14,12 +14,12 @@ export default {
             type: Boolean,
             default: true
         },
-		//是否水平排列
+		// 是否水平排列
 		horizontal: {
             type: Boolean,
             default: true
         },
-		//列表数据
+		// 列表数据
 		goodlist: {
 		    type: [Array]
 		},

@@ -87,7 +87,7 @@
  * @example <u-field v-model="mobile" label="手机号" required :error-message="errorMessage"></u-field>
  */
 export default {
-	name:"u-field",
+	name:'UField',
 	props: {
 		icon: String,
 		rightIcon: String,
@@ -197,7 +197,7 @@ export default {
 	},
 	computed: {
 		inputWrapStyle() {
-			let style = {};
+			const style = {};
 			style.textAlign = this.inputAlign;
 			// 判断lable的位置，如果是left的话，让input左边两边有间隙
 			if(this.labelPosition == 'left') {
@@ -209,14 +209,14 @@ export default {
 			return style;
 		},
 		rightIconStyle() {
-			let style = {};
+			const style = {};
 			if (this.arrowDirection == 'top') style.transform = 'roate(-90deg)';
 			if (this.arrowDirection == 'bottom') style.transform = 'roate(90deg)';
 			else style.transform = 'roate(0deg)';
 			return style;
 		},
 		labelStyle() {
-			let style = {};
+			const style = {};
 			if(this.labelAlign == 'left') style.justifyContent = 'flext-start';
 			if(this.labelAlign == 'center') style.justifyContent = 'center';
 			if(this.labelAlign == 'right') style.justifyContent = 'flext-end';
@@ -234,7 +234,7 @@ export default {
 		},
 		// label的位置
 		fieldInnerStyle() {
-			let style = {};
+			const style = {};
 			if(this.labelPosition == 'left') {
 				style.flexDirection = 'row';
 			} else {

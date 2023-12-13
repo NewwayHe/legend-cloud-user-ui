@@ -29,7 +29,7 @@ const arrayUtils = {
      */
     arrToTwoDim(arr, size) {
         var result = []
-		if (arr&&arr.length) {
+		if (arr && arr.length) {
 			arr.forEach((item, index) => {
 			    const page = Math.floor(index / size)
 			    if (!result[page]) {

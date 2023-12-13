@@ -67,11 +67,11 @@
 	 */
 
 	export default {
-		name: 'u-form-item',
+		name: 'UFormItem',
 		mixins: [Emitter],
 		inject: {
 			uForm: {
-				default () {
+				default() {
 					return null
 				}
 			}
@@ -105,7 +105,7 @@
 			// lable的样式，对象形式
 			labelStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {}
 				}
 			},
@@ -127,14 +127,14 @@
 			// 左侧图标的样式
 			leftIconStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {}
 				}
 			},
 			// 左侧图标的样式
 			rightIconStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {}
 				}
 			},
@@ -168,7 +168,7 @@
 				this.broadcastInputError();
 			},
 			// 监听u-form组件的errorType的变化
-			"uForm.errorType"(val) {
+			'uForm.errorType'(val) {
 				this.errorType = val;
 				this.broadcastInputError();
 			},
@@ -192,18 +192,18 @@
 			elLabelWidth() {
 				// label默认宽度为90，优先使用本组件的值，如果没有(如果设置为0，也算是配置了值，依然起效)，则用u-form的值
 				return (this.labelWidth != 0 || this.labelWidth != '') ? this.labelWidth : (this.parentData.labelWidth ? this.parentData
-					.labelWidth :
-					90);
+					.labelWidth
+					: 90);
 			},
 			// label的样式
 			elLabelStyle() {
-				return Object.keys(this.labelStyle).length ? this.labelStyle : (this.parentData.labelStyle ? this.parentData.labelStyle :
-					{});
+				return Object.keys(this.labelStyle).length ? this.labelStyle : (this.parentData.labelStyle ? this.parentData.labelStyle
+					: {});
 			},
 			// label的位置，左侧或者上方
 			elLabelPosition() {
-				return this.labelPosition ? this.labelPosition : (this.parentData.labelPosition ? this.parentData.labelPosition :
-					'left');
+				return this.labelPosition ? this.labelPosition : (this.parentData.labelPosition ? this.parentData.labelPosition
+					: 'left');
 			},
 			// label的对齐方式
 			elLabelAlign() {
@@ -212,8 +212,8 @@
 			// label的下划线
 			elBorderBottom() {
 				// 子组件的borderBottom默认为空字符串，如果不等于空字符串，意味着子组件设置了值，优先使用子组件的值
-				return this.borderBottom !== '' ? this.borderBottom : this.parentData.borderBottom ? this.parentData.borderBottom :
-					true;
+				return this.borderBottom !== '' ? this.borderBottom : this.parentData.borderBottom ? this.parentData.borderBottom
+					: true;
 			}
 		},
 		methods: {
@@ -223,7 +223,7 @@
 			},
 			// 判断是否需要required校验
 			setRules() {
-				let that = this;
+				const that = this;
 				// 由于人性化考虑，必填"*"号通过props的required配置，不再通过rules的规则自动生成
 				// 从父组件u-form拿到当前u-form-item需要验证 的规则
 				// let rules = this.getRules();
@@ -261,7 +261,7 @@
 
 			// 过滤出符合要求的rule规则
 			getFilteredRule(triggerType = '') {
-				let rules = this.getRules();
+				const rules = this.getRules();
 				// 整体验证表单时，triggerType为空字符串，此时返回所有规则进行验证
 				if (!triggerType) return rules;
 				// 历遍判断规则是否有对应的事件，比如blur，change触发等的事件
@@ -275,7 +275,7 @@
 				// 检验之间，先获取需要校验的值
 				this.fieldValue = this.parent.model[this.prop];
 				// blur和change是否有当前方式的校验规则
-				let rules = this.getFilteredRule(trigger);
+				const rules = this.getFilteredRule(trigger);
 				// 判断是否有验证规则，如果没有规则，也调用回调方法，否则父组件u-form会因为
 				// 对count变量的统计错误而无法进入上一层的回调
 				if (!rules || rules.length === 0) {
@@ -284,7 +284,7 @@
 				// 设置当前的装填，标识为校验中
 				this.validateState = 'validating';
 				// 调用async-validator的方法
-				let validator = new schema({
+				const validator = new schema({
 					[this.prop]: rules
 				});
 				validator.validate({

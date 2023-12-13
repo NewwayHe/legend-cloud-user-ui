@@ -76,7 +76,7 @@ function carNo(value) {
  * 金额,只允许2位小数
  */
 function amount(value) {
-	//金额，只允许保留两位小数
+	// 金额，只允许保留两位小数
 	return /^[1-9]\d*(,\d{3})*(\.\d{1,2})?$|^0\.\d{1,2}$/.test(value);
 }
 
@@ -84,7 +84,7 @@ function amount(value) {
  * 中文
  */
 function chinese(value) {
-	let reg = /^[\u4e00-\u9fa5]+$/gi;
+	const reg = /^[\u4e00-\u9fa5]+$/gi;
 	return reg.test(value);
 }
 
@@ -99,8 +99,8 @@ function letter(value) {
  * 只能是字母或者数字
  */
 function enOrNum(value) {
-	//英文或者数字
-	let reg = /^[0-9a-zA-Z]*$/g;
+	// 英文或者数字
+	const reg = /^[0-9a-zA-Z]*$/g;
 	return reg.test(value);
 }
 
@@ -129,7 +129,7 @@ function rangeLength(value, param) {
  * 是否固定电话
  */
 function landline(value) {
-	let reg = /^\d{3,4}-\d{7,8}(-\d{3,4})?$/;
+	const reg = /^\d{3,4}-\d{7,8}(-\d{3,4})?$/;
 	return reg.test(value);
 }
 
@@ -147,10 +147,10 @@ function empty(value) {
 			if (!value) return true;
 			break;
 		case 'number':
-			if (0 === value || isNaN(value)) return true;
+			if (value === 0 || isNaN(value)) return true;
 			break;
 		case 'object':
-			if (null === value || value.length === 0) return true;
+			if (value === null || value.length === 0) return true;
 			for (var i in value) {
 				return false;
 			}
@@ -163,10 +163,10 @@ function empty(value) {
  * 是否json字符串
  */
 function jsonString(value) {
-	if (typeof value == 'string') {
+	if (typeof value === 'string') {
 		try {
 			var obj = JSON.parse(value);
-			if (typeof obj == 'object' && obj) {
+			if (typeof obj === 'object' && obj) {
 				return true;
 			} else {
 				return false;
@@ -183,10 +183,10 @@ function jsonString(value) {
  * 是否数组
  */
 function array(value) {
-	if (typeof Array.isArray === "function") {
+	if (typeof Array.isArray === 'function') {
 		return Array.isArray(value);
 	} else {
-		return Object.prototype.toString.call(value) === "[object Array]";
+		return Object.prototype.toString.call(value) === '[object Array]';
 	}
 }
 

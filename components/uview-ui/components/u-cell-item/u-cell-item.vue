@@ -69,7 +69,7 @@
  * @example <u-cell-item icon="integral-fill" title="会员等级" value="新版本"></u-cell-item>
  */
 export default {
-	name: 'u-cell-item',
+	name: 'UCellItem',
 	props: {
 		// 左侧图标名称(只能uView内置图标)，或者图标src
 		icon: {
@@ -193,7 +193,7 @@ export default {
 	},
 	computed: {
 		arrowStyle() {
-			let style = {};
+			const style = {};
 			if (this.arrowDirection == 'up') style.transform = 'rotate(-90deg)';
 			else if (this.arrowDirection == 'down') style.transform = 'rotate(90deg)';
 			else style.transform = 'rotate(0deg)';

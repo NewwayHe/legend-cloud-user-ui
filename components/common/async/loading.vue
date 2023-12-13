@@ -13,8 +13,8 @@
 <script>
 import loadingCss from '@/static/cssImage/loadingCss.vue';
 export default {
-    name: 'loading',
-	components: {loadingCss},
+    name: 'Loading',
+	components: { loadingCss },
     data() {
         return {
 			

@@ -63,9 +63,9 @@
 </template>
 
 <script>
-	import {mapState} from 'vuex';
+	import { mapState } from 'vuex';
 	import pageUtil from '@/utils/pageUtils.js';
-	import {couponApi} from '@/api/ModuleCenter'
+	import { couponApi } from '@/api/ModuleCenter'
 
 	// TODO
 	const listPage = new pageUtil(couponApi.queryShopPage);
@@ -122,7 +122,7 @@
 			},
 			// 直接跳去商品店铺
 			toShop() {
-				console.log("to shop")
+				console.log('to shop')
 			}
 		},
 

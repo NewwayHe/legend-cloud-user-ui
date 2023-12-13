@@ -77,7 +77,7 @@
  * @example <u-count-down ref="uCountDown" :timestamp="86400" :autoplay="false"></u-count-down>
  */
 export default {
-	name: 'u-count-down',
+	name: 'UCountDown',
 	props: {
 		// 倒计时的时间，秒为单位
 		timestamp: {
@@ -102,7 +102,7 @@ export default {
 		// 分隔符颜色
 		separatorColor: {
 			type: String,
-			default: "#303133"
+			default: '#303133'
 		},
 		// 字体颜色
 		color: {
@@ -181,7 +181,7 @@ export default {
 	computed: {
 		// 倒计时item的样式，item为分别的时分秒部分的数字
 		itemStyle() {
-			let style = {};
+			const style = {};
 			if(this.height) {
 				style.height = this.height + 'rpx';
 				style.width = this.height + 'rpx';
@@ -198,8 +198,8 @@ export default {
 		},
 		// 倒计时数字的样式
 		letterStyle() {
-			let style = {};
-			if(this.fontSize) style.fontSize = this.fontSize +  'rpx';
+			const style = {};
+			if(this.fontSize) style.fontSize = this.fontSize + 'rpx';
 			if(this.color) style.color = this.color;
 			return style;
 		}

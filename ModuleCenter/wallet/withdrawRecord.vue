@@ -70,18 +70,18 @@
 import { mapState } from 'vuex';
 
 import pageUtil from '@/utils/pageUtils.js';
-import headDropdown  from '@/components/ls-app/ls-header/head-dropdown.vue'
+import headDropdown from '@/components/ls-app/ls-header/head-dropdown.vue'
 import { depositApi } from '@/api/ModuleCenter';
 const listPage = new pageUtil(depositApi.walletDetailsPage);
 export default {
-	components: {'head-dropdown':headDropdown},
+	components: { 'head-dropdown':headDropdown },
 	data() {
 		return {
 			parmas: {
-				businessType:'CASH_WITHDRAWAL',//业务类型,可用值:DISTRIBUTION_REWARDS(分销奖励),PAYMENT_RECHARGE(付款充值),PLATFORM_COMPENSATION(平台补偿),ORDER_DEDUCTION(订单抵扣),PAYMENT_DEDUCTION(支付抵扣),CASH_WITHDRAWAL(现金提现),PLATFORM_DEDUCTION(平台扣款)
+				businessType:'CASH_WITHDRAWAL',// 业务类型,可用值:DISTRIBUTION_REWARDS(分销奖励),PAYMENT_RECHARGE(付款充值),PLATFORM_COMPENSATION(平台补偿),ORDER_DEDUCTION(订单抵扣),PAYMENT_DEDUCTION(支付抵扣),CASH_WITHDRAWAL(现金提现),PLATFORM_DEDUCTION(平台扣款)
 				endDate: null,
 				startDate: null,
-				state:'',//记录状态 WalletDetailsStateEnum。0：默认(待审核)，1：成功(提现成功)，-999拒绝
+				state:'',// 记录状态 WalletDetailsStateEnum。0：默认(待审核)，1：成功(提现成功)，-999拒绝
 			},
 			paging: {
 				status: 'loading',
@@ -89,7 +89,7 @@ export default {
 				emptylist: false // 是否显示列表为空时的样式
 			},
 			list: [],
-			dateShow: false ,//日历是否隐藏
+			dateShow: false ,// 日历是否隐藏
 			listDropdown: [
 				{
 					name: '全部',
@@ -120,9 +120,9 @@ export default {
 			return this.parmas.startDate && this.parmas.endDate;
 		},
 		accountObj() {
-			let obj = {};
+			const obj = {};
 			this.list.forEach(item => {
-				let currentTime = this.$options.filters.dateformat(item.updateTime,'YYYY-MM-DD');
+				const currentTime = this.$options.filters.dateformat(item.updateTime,'YYYY-MM-DD');
 				if (obj.hasOwnProperty(currentTime)) {
 					obj[currentTime].push(item);
 				} else {
@@ -140,7 +140,7 @@ export default {
 		this.getData();
 	},
 	methods: {
-		//获取总收入和总支出
+		// 获取总收入和总支出
 		getTotal(list, type = 'DEDUCTION') {
 			return list.reduce((pre, cur, curIndex) => {
 				if (cur.operationType == type) {

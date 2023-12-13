@@ -83,13 +83,13 @@ export default {
 		call() {
 			uni.makePhoneCall({
 			    phoneNumber: this.resData.contactPhone,
-				success:()=> {
+				success:() => {
 					// console.log(111);
 				},
-				fail:()=> {
+				fail:() => {
 					// console.log(222);
 				},
-				complete: ()=> {
+				complete: () => {
 					// console.log(333);
 				},
 			});

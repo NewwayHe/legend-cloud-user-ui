@@ -51,7 +51,7 @@ const listPage = new pageUtil(history.queryUserVitList)
 import pageScroll from '@/mixins/pageScroll.js'
 export default {
     name: '',
-    components: { 'back-top': backTop, },
+    components: { 'back-top': backTop },
 	mixins: [pageScroll],
     data() {
         return {
@@ -100,7 +100,7 @@ export default {
             uni.showModal({
                 title: '删除',
                 content: '请问要删除本条足迹记录吗？',
-                success: async (res) => {
+                success: async(res) => {
                     if (res.confirm) {
                         history.deleteUserVisitLog(id).then((res) => {
                             uni.showToast({
@@ -114,11 +114,11 @@ export default {
                 }
             })
         },
-        //清空历史足迹
+        // 清空历史足迹
         clearHistory() {
             uni.showModal({
                 content: '确定清空浏览记录？',
-                success: async (res) => {
+                success: async(res) => {
                     if (res.confirm) {
                         history.deleteUserAllVisitLog().then((res) => {
                             this.getData()

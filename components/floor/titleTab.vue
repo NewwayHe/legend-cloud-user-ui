@@ -89,7 +89,7 @@ export default {
 			}
 		},
 		shopId: {
-			//如果有传shopId，则是店铺装修的组件
+			// 如果有传shopId，则是店铺装修的组件
 			type: [String, Number],
 			default: ''
 		}
@@ -103,7 +103,7 @@ export default {
 		//     return (this.parmas.floors && this.parmas.floors[0].uuid == this.floors.uuid)?true:false;
 		// }
 		borderRadius() {
-			let br = this.floors.borderRadius*2||0
+			const br = this.floors.borderRadius * 2 || 0
 			switch (this.floors.radius) {
 				case 'top':
 					return `${br}rpx ${br}rpx 0 0`

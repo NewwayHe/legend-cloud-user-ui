@@ -118,7 +118,7 @@ export default {
 			historySearch: '',
 			searchFind: null ,// 搜索发现
 			isShow:false,
-			overKey:0,//统计出有多少个元素是超过两行的
+			overKey:0,// 统计出有多少个元素是超过两行的
 		};
 	},
 	computed: {
@@ -128,7 +128,7 @@ export default {
 	onShow() {
 		// 获取历史搜索
 		this.historySearch = searchHistory.getSearchHistory();
-		this.$nextTick(()=>{
+		this.$nextTick(() => {
 			this.gethistoryItem()
 		})
 	},
@@ -162,12 +162,12 @@ export default {
 			this[flag] = '';
 		},
 		async gethistoryItem(){
-			if (this.historySearch&&this.historySearch.length) {
-				this.$utils.getRect(this,`.history-con`).then(resCon=>{
-					this.historySearch.forEach((item,index)=>{
-						this.$utils.getRect(this,`.history-item${index}`).then(res=>{
-							if ((res.top-resCon.top)>((res.height+10)*2-10)) {
-								this.overKey ++
+			if (this.historySearch && this.historySearch.length) {
+				this.$utils.getRect(this,`.history-con`).then(resCon => {
+					this.historySearch.forEach((item,index) => {
+						this.$utils.getRect(this,`.history-item${index}`).then(res => {
+							if ((res.top - resCon.top) > ((res.height + 10) * 2 - 10)) {
+								this.overKey++
 							}
 						})
 					})

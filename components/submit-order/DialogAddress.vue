@@ -67,18 +67,18 @@ export default {
                 emptylist: false // 是否显示列表为空时的样式
             },
             showPopup:false,
-			curSel: null,	//当前选择的地址
+			curSel: null,	// 当前选择的地址
         }
     },
     computed: { },
 	watch: {
-		addressId: {		//将prop做data化存储
+		addressId: {		// 将prop做data化存储
 			handler(nAddr) {
 				this.curSel = nAddr;
 			},
 			immediate: true
 		},
-		showPopup(nShow) {	//关闭后如果未点击确定 要重置勾选状态
+		showPopup(nShow) {	// 关闭后如果未点击确定 要重置勾选状态
 			if(!nShow) {
 				this.curSel = this.addressId
 			}

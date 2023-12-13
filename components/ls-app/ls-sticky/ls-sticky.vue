@@ -33,14 +33,14 @@
 	 */
 	import { mapState } from 'vuex';
 	export default {
-		name: "u-sticky",
+		name: 'USticky',
 		// #ifdef MP-WEIXIN
 		// 将自定义节点设置成虚拟的，更加接近Vue组件的表现，能更好的使用flex属性。这时在<组件name> 里加style和class是不会生效的
 		options: { virtualHost: true },
 		// #endif
 		props: {
 			className:{
-				type: [String, Array,Boolean],//这里加个Boolean，是因为如果传className=""，小程序端会报错
+				type: [String, Array,Boolean],// 这里加个Boolean，是因为如果传className=""，小程序端会报错
 				default: ''
 			},
 			// 吸顶容器到顶部某个距离的时候，进行吸顶，在H5平台，NavigationBar为44px
@@ -48,12 +48,12 @@
 				type: [Number, String],
 				default: 0
 			},
-			//是否总是fixed(这时吸顶没用，因为如果是吸顶的话，会跳一下，影响体验)
+			// 是否总是fixed(这时吸顶没用，因为如果是吸顶的话，会跳一下，影响体验)
 			alwaysFixed: {
 				type: Boolean,
 				default: false
 			},
-			//列表中的索引值
+			// 列表中的索引值
 			index: {
 				type: [Number, String],
 				default: ''
@@ -110,10 +110,10 @@
 			initObserver() {
 				if (!this.enable) return;
 				// #ifdef H5
-				this.stickyTop = this.offsetTop != 0 ? uni.upx2px(this.offsetTop):0;
+				this.stickyTop = this.offsetTop != 0 ? uni.upx2px(this.offsetTop) : 0;
 				// #endif
 				// #ifndef H5
-				this.stickyTop = this.offsetTop != 0 ? uni.upx2px(this.offsetTop)+this.stausBarHeight : this.stausBarHeight;
+				this.stickyTop = this.offsetTop != 0 ? uni.upx2px(this.offsetTop) + this.stausBarHeight : this.stausBarHeight;
 				// #endif
 
 				this.disconnectObserver('contentObserver');

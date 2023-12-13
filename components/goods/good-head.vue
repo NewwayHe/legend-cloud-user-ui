@@ -99,7 +99,7 @@ import headSelect from '@/components/ls-app/ls-header/head-select.vue';
 import { mapState } from 'vuex';
 const CIROPACITY = 0.3; // 设置默认的圆圈的rgba的透明值
 export default {
-	name: 'good-head',
+	name: 'GoodHead',
 	components: { 'head-select': headSelect },
 	props: {
 		/**
@@ -166,7 +166,7 @@ export default {
 		circularRGBA() {
 			let flag = `rgba(0,0,0,${this.circularOpacity})`;
 			if (this.tabArr && (this.tabArr[this.tabIndex] == '评价' || this.tabArr[this.tabIndex] == '详情')) {
-				//如果当前的tab为详情或评价，则头部圆形按钮背景为全透明
+				// 如果当前的tab为详情或评价，则头部圆形按钮背景为全透明
 				flag = `rgba(0,0,0,0)`;
 			}
 			return flag; // 获取系统的主题颜色的grb值，a值自己在当前页面设置
@@ -200,8 +200,8 @@ export default {
 			immediate: true
 		},
 		scrollTop(newVal, oldVal) {
-			let newValue = Number(newVal);
-			let fixPoint = Number(this.fixPoint);
+			const newValue = Number(newVal);
+			const fixPoint = Number(this.fixPoint);
 			if (this.fixPoint != 'none') {
 				// 当该页面内容比较多且能触发下拉滚动时，才触发透明渐变效果
 				if (newValue >= fixPoint || this.tabIndex == 1 || this.tabIndex == 2) {

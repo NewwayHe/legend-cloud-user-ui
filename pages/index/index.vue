@@ -75,7 +75,7 @@
 </template>
 
 <script>
-const isSwiper = false//true：采用swiper布局，后台设置了【 搜索+标签页】的话，此时tab可以左右划动(但这个上下滚动和左右划动在小程序上会消耗性能)；false：除后台设置了【 搜索+标签页】外，都用普通view层来上下滚动
+const isSwiper = false// true：采用swiper布局，后台设置了【 搜索+标签页】的话，此时tab可以左右划动(但这个上下滚动和左右划动在小程序上会消耗性能)；false：除后台设置了【 搜索+标签页】外，都用普通view层来上下滚动
 // API接口
 import { trim } from '@/api/ModulesCommon';
 
@@ -84,7 +84,7 @@ import floors from './components/floors.vue';
 // 装修功能组件
 import tabBar from '@/components/common/tabbar/tabbar.vue';
 
-//本页面特有components
+// 本页面特有components
 // import androidAppAgree from './components/androidAppAgree.vue';
 import appStartAdv from './components/appStartAdv.vue';
 import popupAdvert from '@/components/common/popupAdvert/popupAdvert.vue'
@@ -108,22 +108,22 @@ export default {
 		return {
 			tabList:[],
 			indexData: {}, // 接收mobile/index接口的res.data
-			floorData: [],//数组的第一个用来放indexData的楼层，indexData.head.type=='searchAndTab'时，数组的2~N个是用来放置海报页面的数组
+			floorData: [],// 数组的第一个用来放indexData的楼层，indexData.head.type=='searchAndTab'时，数组的2~N个是用来放置海报页面的数组
 
 			offsetBottom: 320, // 用来计算tabOpacity的值，必须要给默认值，因为某些特殊情况会算不出offsetBottom值
 			scrollTop: 0, // 滚动高
-			scrollTopTemp:0,//scrollTop的缓冲数据。小程序端直接改的值的话，视图层会频繁的向逻辑层发送数据，造成卡顿，所以要用一个中间值来接收
+			scrollTopTemp:0,// scrollTop的缓冲数据。小程序端直接改的值的话，视图层会频繁的向逻辑层发送数据，造成卡顿，所以要用一个中间值来接收
 			paging: {
 				status: 'loading',
 				error: false, // 是否错误
 				emptylist: false // 是否显示列表为空时的样式
 			},
-			isAppAd: false, //是否显示app广告，APP端才用到(注意：这个变量不定义在computed里，因为computed执行比较慢)
-			templateId:'',//预览海报模板ID，如果有该id，则该页面是调用trim.sDecoratePageShow()接口
-			isPreview: false,//如果是shareUrlRedirect页面跳过来预览(商家端或PC后台跳进来)，就加个遮罩层防止点击
+			isAppAd: false, // 是否显示app广告，APP端才用到(注意：这个变量不定义在computed里，因为computed执行比较慢)
+			templateId:'',// 预览海报模板ID，如果有该id，则该页面是调用trim.sDecoratePageShow()接口
+			isPreview: false,// 如果是shareUrlRedirect页面跳过来预览(商家端或PC后台跳进来)，就加个遮罩层防止点击
 			current: 0, // 当前的索引
 			scrollViewTop:0,
-			conHeight:0,//setUpHead组件的占位符高度
+			conHeight:0,// setUpHead组件的占位符高度
 			isSwiper:isSwiper,
 		};
 	},
@@ -131,13 +131,13 @@ export default {
 		...mapState(['systemConfig', 'popupAdvertRule']),
 		// 当 后台设置头部组件类型选择了【 搜索+标签页】，并且点击的不是【首页】时。(即此时页面是显示海报页的数据)
 		isPoster(){
-			return this.current&&this.indexData.head.type=='searchAndTab'
+			return this.current && this.indexData.head.type == 'searchAndTab'
 		},
 	},
 	watch: {
 		scrollTopTemp: {
 			handler(val) {
-				this.$nextTick(()=> {
+				this.$nextTick(() => {
 					this.scrollTop = val;
 				});
 			}
@@ -152,7 +152,7 @@ export default {
 		}
 		// #endif
 		this.templateId = option.templateId || null
-		this.isPreview = option.isPreview&&option.isPreview!='false' ? true : false
+		this.isPreview = !!(option.isPreview && option.isPreview != 'false')
 		this.getData();
 	},
 
@@ -163,8 +163,8 @@ export default {
 		if (this.$refs.refSetUpHead) {
 			this.$refs.refSetUpHead.getMyInfo()
 		}
-		this.$nextTick(()=>{
-			this.$refs.commentTabbat.setCurRoute()//这个是为了解决小程序端animate_动画播放过后，再次点击时，动画不生效的bug。
+		this.$nextTick(() => {
+			this.$refs.commentTabbat.setCurRoute()// 这个是为了解决小程序端animate_动画播放过后，再次点击时，动画不生效的bug。
 		})
 	},
 
@@ -205,8 +205,8 @@ export default {
 	methods: {
 		// 获取楼层数据
 		getData() {
-			const api = this.templateId ? 'adminDecoratePageShow' : 'index'//this.templateId 如果是后台显示的预览页面
-			const parmas = this.templateId ? { id: this.templateId} : ''
+			const api = this.templateId ? 'adminDecoratePageShow' : 'index'// this.templateId 如果是后台显示的预览页面
+			const parmas = this.templateId ? { id: this.templateId } : ''
 			this.paging = {
 				status: 'loading',
 				error: false, // 是否错误
@@ -215,20 +215,20 @@ export default {
 			trim[api](parmas).then((res) => {
 				if (res.code == 1) {
 					if (res.data) {
-						this.indexData = this.templateId?JSON.parse(res.data.data):JSON.parse(res.data) ;
+						this.indexData = this.templateId ? JSON.parse(res.data.data) : JSON.parse(res.data);
 						
 						this.$set(this, 'tabList', this.$u.deepClone(this.indexData.head?.data?.searchAndTabData?.tabList || []))
 						// 下面这个判断主要是为了兼容旧数据,改版前的旧数据没有tabList数据,这时要强行加一个,不然首页会显示不出来
 						if(!this.tabList.length){
-							this.tabList = [{isSelect: true,title: '首页',type: 'homePage'}]
+							this.tabList = [{ isSelect: true,title: '首页',type: 'homePage' }]
 						}
 						this.floorData = this.$u.deepClone(this.tabList)
-						this.$set(this.floorData, 0, this.$u.deepClone(this.indexData))//给首页赋值
+						this.$set(this.floorData, 0, this.$u.deepClone(this.indexData))// 给首页赋值
 						console.log('indexData:', this.indexData);
 						// 如果是【搜索+标签页】并且是【启用菜单】了
-						if (this.indexData.head.type=='searchAndTab'&&this.indexData.head.data.searchAndTabData.tabsShow) {
-							if (this.tabList&&this.tabList.length) {
-								this.current =  this.tabList.findIndex(item => item.isSelect)||0
+						if (this.indexData.head.type == 'searchAndTab' && this.indexData.head.data.searchAndTabData.tabsShow) {
+							if (this.tabList && this.tabList.length) {
+								this.current = this.tabList.findIndex(item => item.isSelect) || 0
 								if (this.current) {
 									this.getPoster(this.tabList[this.current].url.id)
 								}
@@ -242,8 +242,8 @@ export default {
 			})
 			.finally(res => {
 				this.paging.status = 'noMore';
-				//如果没有数据
-				if (!this.current&&!this.$checkInfo([{ type: 'hasValue', value: this.floorData[0].floors }])&&!(this.indexData.foot && this.indexData.foot.type == 'goodList')) {
+				// 如果没有数据
+				if (!this.current && !this.$checkInfo([{ type: 'hasValue', value: this.floorData[0].floors }]) && !(this.indexData.foot && this.indexData.foot.type == 'goodList')) {
 					this.paging.emptylist = true;
 				}
 				uni.stopPullDownRefresh();
@@ -252,14 +252,14 @@ export default {
 		// 获取海报数据
 		getPoster(pageId) {
 			trim.showMobilePosterPage({ pageId:pageId }).then(res => {
-				if (res.code&&res.data) {
+				if (res.code && res.data) {
 					this.$set(this.floorData, this.current, this.$u.deepClone(res.data))
 				}
 		    }).catch((err) => {
 				this.paging.error = true
 			}).finally((res) => {
 				this.paging.status = 'noMore'
-				//如果没有数据
+				// 如果没有数据
 				this.setEmpty()
 				uni.stopPullDownRefresh();
 			});
@@ -288,14 +288,14 @@ export default {
 					}
 					
 					// #ifndef MP
-					uni.$u.debounce(() => {this.getPoster(this.tabList[index].url.id)})
+					uni.$u.debounce(() => { this.getPoster(this.tabList[index].url.id) })
 					// #endif
 					// #ifdef MP
 					// 注意：用uni.$u.debounce(() => {this.getPoster(this.tabList[index].url.id)})的话，在小程序刷新页面后快速向下滚动后，该getPoster方法会失效
 					if(isSwiper){
 						uni.$u.debounce(this.getPoster(this.tabList[index].url.id))
 					}else{
-						uni.$u.debounce(() => {this.getPoster(this.tabList[index].url.id)})
+						uni.$u.debounce(() => { this.getPoster(this.tabList[index].url.id) })
 					}
 					// #endif
 				// 如果已经获取到数据
@@ -307,15 +307,15 @@ export default {
 		setEmpty(){
 			this.paging.emptylist = false
 			this.paging.error = false
-			//如果没有数据
-			if (!this.$checkInfo([{ type: 'hasValue', value: this.floorData[this.current].floors }])&&!(this.floorData[this.current].foot && this.floorData[this.current].foot.type == 'goodList')) {
+			// 如果没有数据
+			if (!this.$checkInfo([{ type: 'hasValue', value: this.floorData[this.current].floors }]) && !(this.floorData[this.current].foot && this.floorData[this.current].foot.type == 'goodList')) {
 				this.paging.emptylist = true
 			}
 		},
 		
 		scroll(e){
 			// #ifdef MP
-			//用节流的话，头部的颜色渐变和绽放效果会失效，但当页面太多数据时，性能会下降很多，导致滚动出错，这时要放弃头部的效果来换取性能
+			// 用节流的话，头部的颜色渐变和绽放效果会失效，但当页面太多数据时，性能会下降很多，导致滚动出错，这时要放弃头部的效果来换取性能
 			uni.$u.debounce(() => {
 				this.scrollTop = e.detail.scrollTop * 1
 			},10)
@@ -333,18 +333,18 @@ export default {
 			if(isSwiper){
 				// 解决view层不同步的问题
 				this.scrollViewTop = this.scrollTop
-				this.$nextTick(()=> {
+				this.$nextTick(() => {
 					this.scrollViewTop = topTemp
 				});
 			}else{
-				this.$nextTick(()=> {
+				this.$nextTick(() => {
 					this.$pageScrollTo(topTemp)
 				});
 			}
 		},
 		
 		scrolltolower(){
-			if (this.$refs.floors&&this.$refs.floors[0]) {
+			if (this.$refs.floors && this.$refs.floors[0]) {
 				this.$refs.floors[0].scrolltolower();
 			}
 		},

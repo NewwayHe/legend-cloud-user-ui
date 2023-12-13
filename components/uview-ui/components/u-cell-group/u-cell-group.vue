@@ -20,7 +20,7 @@
 	 * @example <u-cell-group title="设置喜好">
 	 */
 	export default {
-		name: "u-cell-group",
+		name: 'UCellGroup',
 		props: {
 			// 分组标题
 			title: {
@@ -36,7 +36,7 @@
 			// 类似 {'font-size': '24rpx'} 和 {'fontSize': '24rpx'}
 			titleStyle: {
 				type: Object,
-				default () {
+				default() {
 					return {};
 				}
 			}

@@ -225,9 +225,9 @@ export default {
 	computed: {
 		...mapState(['stausBarHeight', 'userInfo', 'wxMenuBut','myInfo','contactInfo']),
 		showContact(){
-			return this.contactInfo&&this.contactInfo.openFlag
+			return this.contactInfo && this.contactInfo.openFlag
 		},
-		isLogin() {		//是否登录
+		isLogin() {		// 是否登录
 			return appToken.isLogin()
 		}
 	},
@@ -242,8 +242,8 @@ export default {
 			if (this.$u.test.isEmpty(this.userInfo)) this.$store.dispatch('getUserInfo'); // 防止没有重新调接口,并更新数据
 			this.$store.dispatch('getMyInfo'); // 防止没有重新调接口,并更新数据
 		}
-		this.$nextTick(()=>{
-			this.$refs.commentTabbat.setCurRoute()//这个是为了解决小程序端animate_动画播放过后，再次点击时，动画不生效的bug。
+		this.$nextTick(() => {
+			this.$refs.commentTabbat.setCurRoute()// 这个是为了解决小程序端animate_动画播放过后，再次点击时，动画不生效的bug。
 		})
 	},
 	onUnload() {},
@@ -251,7 +251,7 @@ export default {
 		if (appToken.isLogin()) {
 			this.$store.dispatch('getMyInfo'); // 防止没有重新调接口,并更新数据
 		}
-		setTimeout(()=>{
+		setTimeout(() => {
 			uni.stopPullDownRefresh();
 		},1500)
 	},

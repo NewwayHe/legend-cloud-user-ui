@@ -12,7 +12,7 @@
 	 * @event {Function} change 切换面板时触发，activeNames（Array）：展开状态的uniCollapseItem的 name 值
 	 */
 	export default {
-		name: 'ls-collapse',
+		name: 'LsCollapse',
 		props: {
 			accordion: {
 				// 是否开启手风琴效果
@@ -33,7 +33,7 @@
 		},
 		methods: {
 			onChange() {
-				let activeItem = []
+				const activeItem = []
 				this.childrens.forEach((vm, index) => {
 					if (vm.isOpen) {
 						activeItem.push(vm.nameSync)

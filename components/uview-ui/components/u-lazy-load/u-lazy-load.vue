@@ -37,7 +37,7 @@
 	 * @example <u-lazy-load :image="image" :loading-img="loadingImg" :error-img="errorImg"></u-lazy-load>
 	 */
 	export default {
-		name: 'u-lazy-load',
+		name: 'ULazyLoad',
 		props: {
 			index: {
 				type: [Number, String]
@@ -109,7 +109,7 @@
 			// 将threshold从rpx转为px
 			getThreshold() {
 				// 先取绝对值，因为threshold可能是负数，最后根据this.threshold是正数或者负数，重新还原
-				let thresholdPx = uni.upx2px(Math.abs(this.threshold));
+				const thresholdPx = uni.upx2px(Math.abs(this.threshold));
 				return this.threshold < 0 ? -thresholdPx : thresholdPx;
 			},
 			// 计算图片的高度，可能为auto，带%，或者直接数值
@@ -191,7 +191,7 @@
 		},
 		beforeDestroy() {
 			// 销毁页面时，可能还没触发某张很底部的懒加载图片，所以把这个事件给去掉
-			//observer.disconnect();
+			// observer.disconnect();
 		},
 		mounted() {
 			// 此uOnReachBottom事件由mixin.js发出，目的是让页面到底时，保证所有图片都进行加载，做到绝对稳定且可靠

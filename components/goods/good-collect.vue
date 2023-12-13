@@ -11,7 +11,7 @@
 <script>
 import { goodsApi } from '@/api/ModuleGoods.js'
 export default {
-    name: 'good-collect',
+    name: 'GoodCollect',
     components: {},
 
     props: {
@@ -19,7 +19,7 @@ export default {
             type: Object,
             required: true
         },
-        showFont: {//是否显示'收藏' 和 '取消'文字
+        showFont: { // 是否显示'收藏' 和 '取消'文字
             type: Boolean,
             default: true
         },

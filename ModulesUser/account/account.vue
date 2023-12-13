@@ -208,11 +208,11 @@
 </template>
 
 <script>
-import avatar from "@/components/common/avatar/avatar.vue";
-import { appToken } from "@/utils/Cache.js";
-import oauthService from "@/service/oauth.js";
-import { userApi } from "@/api/ModulesUser.js";
-import { mapState } from "vuex";
+import avatar from '@/components/common/avatar/avatar.vue';
+import { appToken } from '@/utils/Cache.js';
+import oauthService from '@/service/oauth.js';
+import { userApi } from '@/api/ModulesUser.js';
+import { mapState } from 'vuex';
 
 export default {
 	components: { avatar },
@@ -220,33 +220,33 @@ export default {
 		return {
 			currentDate: new Date().getTime() - this.timeDiff,
 			birthshow: false,
-			columns: ["男", "女"],
-			offPopVisible: false, //注销弹出是否显示
+			columns: ['男', '女'],
+			offPopVisible: false, // 注销弹出是否显示
 		};
 	},
 	computed: {
-		...mapState(["timeDiff", "userInfo", "systemInfo", "systemConfig"]),
+		...mapState(['timeDiff', 'userInfo', 'systemInfo', 'systemConfig']),
 		// 现在的年份
-		newYear: function () {
+		newYear: function() {
 			return new Date().getFullYear();
 		},
 		version() {
 			// #ifdef APP-PLUS
-			return uni.getStorageSync("version");
+			return uni.getStorageSync('version');
 			// #endif
 			// #ifdef MP
-			return uni.getAccountInfoSync().miniProgram?.version || uni.getStorageSync("version");
+			return uni.getAccountInfoSync().miniProgram?.version || uni.getStorageSync('version');
 			// #endif
 			// #ifdef H5
 			let time = new Date();
-			if (process.env.NODE_ENV === "production") {
-				time = new Date(Number(JSON.parse(WEBPACKTIME))); //这个值是在vue.config.js里打包那一刻设置的
+			if (process.env.NODE_ENV === 'production') {
+				time = new Date(Number(JSON.parse(WEBPACKTIME))); // 这个值是在vue.config.js里打包那一刻设置的
 			}
 			return `V${String(time.getFullYear()).substr(3, 1)}.${time.getMonth() + 1}.${time.getDate()}.${time.getHours()}`;
 			// #endif
 		},
 		isLogin() {
-			//是否登录
+			// 是否登录
 			return appToken.isLogin();
 		},
 	},
@@ -254,7 +254,7 @@ export default {
 	onShow() {
 		// 获取个人设置初始化数据
 		if (appToken.isLogin()) {
-			this.$store.dispatch("getUserInfo");
+			this.$store.dispatch('getUserInfo');
 		}
 	},
 
@@ -266,7 +266,7 @@ export default {
 				appToken.goLogin();
 				return;
 			}
-			uni.navigateTo({ url: `/ModulesUser/account/editData?type=${type}&name=${name || ""}&title=${title}` });
+			uni.navigateTo({ url: `/ModulesUser/account/editData?type=${type}&name=${name || ''}&title=${title}` });
 		},
 		// 弹出生日选择
 		birthShow() {
@@ -274,12 +274,12 @@ export default {
 		},
 		clearStorageSync() {
 			uni.showModal({
-				title: "清空缓存",
-				content: "清空缓存后将会强制退出登录并清空所有用户信息，确定要清空缓存吗？",
+				title: '清空缓存',
+				content: '清空缓存后将会强制退出登录并清空所有用户信息，确定要清空缓存吗？',
 				success: (res) => {
 					if (res.confirm) {
 						uni.switchTab({
-							url: "/pages/index/index",
+							url: '/pages/index/index',
 							complete: () => {
 								uni.clearStorageSync();
 								appToken.clearToken();
@@ -293,14 +293,14 @@ export default {
 
 		// 性别确认弹窗
 		Confirm(e) {
-			let sexType = "";
-			sexType = e.target.value == "0" ? "M" : "F";
+			let sexType = '';
+			sexType = e.target.value == '0' ? 'M' : 'F';
 			userApi.editSex({ sex: sexType }).then((res) => {
 				if (res.code == 1) {
 					// this.userInfo.sex = sexType;
-					this.$store.dispatch("getUserInfo");
+					this.$store.dispatch('getUserInfo');
 					this.$forceUpdate();
-					uni.showToast({ title: "修改成功", icon: "success" });
+					uni.showToast({ title: '修改成功', icon: 'success' });
 				}
 			});
 		},
@@ -308,15 +308,15 @@ export default {
 		// 退出登录
 		logout() {
 			uni.showModal({
-				title: "退出登录",
-				content: "是否确认退出登录",
+				title: '退出登录',
+				content: '是否确认退出登录',
 				success: (res) => {
 					if (res.confirm) {
 						oauthService.logout().then((result) => {
 							if (result.success) {
-								uni.switchTab({ url: "/pages/index/index" });
+								uni.switchTab({ url: '/pages/index/index' });
 							} else {
-								uni.showToast({ title: result.msg, icon: "none" });
+								uni.showToast({ title: result.msg, icon: 'none' });
 							}
 						});
 					} else if (res.cancel) {
@@ -330,13 +330,13 @@ export default {
 				appToken.goLogin();
 				return;
 			}
-			this.$refs.avatar.fChooseImg(1, { selWidth: "350rpx", selHeight: "350rpx", inner: true });
+			this.$refs.avatar.fChooseImg(1, { selWidth: '350rpx', selHeight: '350rpx', inner: true });
 		},
 
 		async doUpload(rsp) {
 			if (!rsp.path) return;
 			const uploader = new this.$Uploader();
-			let img_urls = await uploader.uploadOne(rsp.path, true); //第二个参数：是否弹出'上传成功'提示
+			const img_urls = await uploader.uploadOne(rsp.path, true); // 第二个参数：是否弹出'上传成功'提示
 			if (img_urls) {
 				userApi.editPortrait({ avatar: img_urls }).then(() => {
 					this.userInfo.portraitPic = img_urls;

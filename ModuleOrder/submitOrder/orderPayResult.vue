@@ -135,8 +135,8 @@ export default {
             subSettlementSn:'',
 			orderType:'',
 			h5Weixin:false,
-			timer:null, //调用定时器
-			num:null, //调用次数
+			timer:null, // 调用定时器
+			num:null, // 调用次数
 			payModal:{
 				visible:false,
 				confirm:'已付款',
@@ -144,9 +144,9 @@ export default {
 			},
 			payType:'',// 如果是APP端选择了易宝微信支付，调起小程序支付成功后，显示返回APP按钮
 			
-			orderNumber:'',//【支付失败】后点击【重新支付】用
-			settlementType:'',//【支付失败】后点击【重新支付】用
-			amount:'',//【支付失败】后点击【重新支付】用
+			orderNumber:'',// 【支付失败】后点击【重新支付】用
+			settlementType:'',// 【支付失败】后点击【重新支付】用
+			amount:'',// 【支付失败】后点击【重新支付】用
         };
     },
     computed: { },
@@ -154,16 +154,16 @@ export default {
         // uni.setNavigationBarColor({ frontColor: '#ffffff', backgroundColor: this.themes.color })//页面导航条变成主题颜色
         this.errorMsg = option.message || null
         this.subSettlementSn = option.subSettlementSn || null
-        this.h5Weixin = option.h5Weixin ? true : false
-        this.orderType = option.orderType ||null
-		this.payType = option.payType ||null
+        this.h5Weixin = !!option.h5Weixin
+        this.orderType = option.orderType || null
+		this.payType = option.payType || null
 		// 兑换成功，可继续兑换或查看订单
 		
-		this.settlementType = option.settlementType;//【支付失败】后点击【重新支付】用
+		this.settlementType = option.settlementType;// 【支付失败】后点击【重新支付】用
 		if (option.orderNumber) {
-			this.orderNumber = JSON.parse(decodeURIComponent(option.orderNumber))//【支付失败】后点击【重新支付】用
+			this.orderNumber = JSON.parse(decodeURIComponent(option.orderNumber))// 【支付失败】后点击【重新支付】用
 		}
-		this.amount = option.amount || null//【支付失败】后点击【重新支付】用
+		this.amount = option.amount || null// 【支付失败】后点击【重新支付】用
 
 		this.payDo()
     },
@@ -181,59 +181,58 @@ export default {
     methods: {
 		payDo(){
 			if(this.h5Weixin){
-				this.payModal.visible=true
+				this.payModal.visible = true
 			}else if(!this.errorMsg) {
 				uni.showLoading({ title: '系统处理中',mask:true });
 				// 接口如果请求失败(请求成功的话直接清除计时器)，每三秒请求一次接口，直到第五次请求完毕
 				this.timer = setInterval(this.pollingPayResult(), 3000)
-			  
 			} else {
 			    this.isEmpty = false;
 			}
 		},
-		//轮询支付结果
+		// 轮询支付结果
 		pollingPayResult(){
 				this.num++
 				// 获取成功的订单数据
 				orderApi.successOrderDetail(this.subSettlementSn).then(res => {
 				    if (res.code) {
-						if(res.data.state===1){
-							 this.orderIfo = res.data||{};
-							 this.isEmpty=false
+						if(res.data.state === 1){
+							 this.orderIfo = res.data || {};
+							 this.isEmpty = false
 							 clearInterval(this.timer)
 						}
 				    }else{
 						this.errorMsg = res.msg
 					}
-				}).finally(()=>{
+				}).finally(() => {
 					uni.hideLoading()
-					if(this.num===5){
+					if(this.num === 5){
 						clearInterval(this.timer);
-						this.isEmpty=false
-						this.errorMsg="支付超时"
+						this.isEmpty = false
+						this.errorMsg = '支付超时'
 					}
 				})
 			return this.pollingPayResult
 		},
-		//获取支付结果
+		// 获取支付结果
 		getPayResult(){
 			orderApi.successOrderDetail(this.subSettlementSn).then(res => {
 			    if (res.code == 1) {
-					if(res.data.state===1){
-						this.orderIfo = res.data||{};
-						this.isEmpty=false
+					if(res.data.state === 1){
+						this.orderIfo = res.data || {};
+						this.isEmpty = false
 					}else{
-						this.payModal.confirm="重新检测"
-						this.payModal.title="未支付成功"
-						setTimeout(()=>{
-							this.payModal.visible=true
+						this.payModal.confirm = '重新检测'
+						this.payModal.title = '未支付成功'
+						setTimeout(() => {
+							this.payModal.visible = true
 						},1000)
 					}
 			    }
 			})
 		},
 		payCancel(){
-			this.payModal.visible=false
+			this.payModal.visible = false
 			window.history.back()
 		},
         // 跳转订单列表

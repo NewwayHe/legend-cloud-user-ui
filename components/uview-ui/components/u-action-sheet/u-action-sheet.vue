@@ -43,7 +43,7 @@
 	 * @example <u-action-sheet :list="list" @click="click" v-model="show"></u-action-sheet>
 	 */
 	export default {
-		name: "u-action-sheet",
+		name: 'UActionSheet',
 		props: {
 			// 点击遮罩是否可以关闭actionsheet
 			maskCloseAble: {
@@ -53,7 +53,7 @@
 			// 按钮的文字数组，可以自定义颜色和字体大小，字体单位为rpx
 			list: {
 				type: Array,
-				default () {
+				default() {
 					// 如下
 					// return [{
 					// 	text: '确定',
@@ -66,7 +66,7 @@
 			// 顶部的提示文字
 			tips: {
 				type: Object,
-				default () {
+				default() {
 					return {
 						text: '',
 						color: '',
@@ -108,7 +108,7 @@
 		computed: {
 			// 顶部提示的样式
 			tipsStyle() {
-				let style = {};
+				const style = {};
 				if (this.tips.color) style.color = this.tips.color;
 				if (this.tips.fontSize) style.fontSize = this.tips.fontSize + 'rpx';
 				return style;
@@ -116,7 +116,7 @@
 			// 操作项目的样式
 			itemStyle() {
 				return (index) => {
-					let style = {};
+					const style = {};
 					if (this.list[index].color) style.color = this.list[index].color;
 					if (this.list[index].fontSize) style.fontSize = this.list[index].fontSize + 'rpx';
 					// 选项被禁用的样式

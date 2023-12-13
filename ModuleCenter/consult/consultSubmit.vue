@@ -38,7 +38,7 @@
 import { consult } from '@/api/ModuleCenter.js'
 
 export default {
-	name: 'consultSubmit',
+	name: 'ConsultSubmit',
 
 	mixins: [],
 
@@ -49,8 +49,8 @@ export default {
 	data() {
 		return {
 			apiParmas: {
-				content: '',//咨询内容
-				productId:'',//商品id
+				content: '',// 咨询内容
+				productId:'',// 商品id
 				shopId:''
 			},
 			data:{},
@@ -60,7 +60,7 @@ export default {
 
 	computed: {
 		showBut(){
-		    return this.apiParmas.content.length&&!this.hasClickBut
+		    return this.apiParmas.content.length && !this.hasClickBut
 		},
 	},
 
@@ -71,10 +71,10 @@ export default {
 	created() {},
 
 	onLoad(option) {
-		this.data = option.data&&JSON.parse(decodeURIComponent(option.data))
+		this.data = option.data && JSON.parse(decodeURIComponent(option.data))
 		console.log('data:',this.data);
-		this.apiParmas.productId = this.data&&this.data.productId||null
-		this.apiParmas.shopId = this.data&&this.data.shopId||null
+		this.apiParmas.productId = this.data && this.data.productId || null
+		this.apiParmas.shopId = this.data && this.data.shopId || null
 	},
 
 	onShow() {},
@@ -103,13 +103,13 @@ export default {
 		submit(){
 			return new Promise((resolve) => {
 				this.hasClickBut = true
-				consult.addConsult(this.apiParmas).then(res=>{
+				consult.addConsult(this.apiParmas).then(res => {
 					if (res.code) {
 						uni.showToast({ title:'提交成功', icon:'none',mask : true,
-							complete:()=> {
+							complete:() => {
 								setTimeout(() => {
 									this.hasClickBut = false
-									//在这里写执行完showToast后的方法，下面的this是vue里的this，不需要用到that=this
+									// 在这里写执行完showToast后的方法，下面的this是vue里的this，不需要用到that=this
 									this.$navigateTo(`/ModuleCenter/consult/consultMy`)
 								}, 1000);
 							}
@@ -117,9 +117,9 @@ export default {
 					}else{
 						this.hasClickBut = false
 					}
-				}).catch(()=>{
+				}).catch(() => {
 					this.hasClickBut = false
-				}).finally(()=>{ return resolve() })
+				}).finally(() => { return resolve() })
 			})
 		}
 	}

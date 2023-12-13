@@ -60,7 +60,7 @@ export default {
         console.log(option)
 		this.shopId = option.id || null;
         this.themesColor = option.themesColor
-        shopDetail.getshopDetailDocuments({shopId:this.shopId}).then(res=>{
+        shopDetail.getshopDetailDocuments({ shopId:this.shopId }).then(res => {
             if(res.code){
                 this.certificateData = res.data
             }

@@ -33,14 +33,14 @@
 
 <script>
 export default {
-	name: 'ls-popover',
+	name: 'LsPopover',
 	// #ifdef MP-WEIXIN
 	// 将自定义节点设置成虚拟的，更加接近Vue组件的表现，能更好的使用flex属性。这时在<组件name> 里加style和class是不会生效的
 	options: { virtualHost: true },
 	// #endif
 	props: {
 		className:{
-			type: [String, Array,Boolean],//这里加个Boolean，是因为如果传className=""，小程序端会报错
+			type: [String, Array,Boolean],// 这里加个Boolean，是因为如果传className=""，小程序端会报错
 			default: ''
 		},
 		// 位置，默认值bottom，可选值：上：top，下：bottom， 左：left，右：right
@@ -68,7 +68,7 @@ export default {
 			type: [String],
 			default: '#333333'
 		},
-		//调节content的内联css样式，注意：它是一个对象，且会覆盖下面的contentStyle
+		// 调节content的内联css样式，注意：它是一个对象，且会覆盖下面的contentStyle
 		conStyle: {
 			type: Object,
 			default: () => {
@@ -85,7 +85,7 @@ export default {
 			type: [String],
 			default: '#ccc'
 		},
-		//调节三角形(实心或空心)的内联css样式，注意：它是一个对象，且会覆盖下面的contentStyle
+		// 调节三角形(实心或空心)的内联css样式，注意：它是一个对象，且会覆盖下面的contentStyle
 		triStyle: {
 			type: Object,
 			default: () => {
@@ -126,21 +126,21 @@ export default {
 	data() {
 		return {
 			open: false,
-			showTransition: false, //由于小程序上刚进页面时，会自动有一个缩小的动画，为了解决这bug，所以要等点击change后才实现transition-all05
+			showTransition: false, // 由于小程序上刚进页面时，会自动有一个缩小的动画，为了解决这bug，所以要等点击change后才实现transition-all05
 
-			scaleMask: 0, //用来控制遮罩层，让未打开前，是scale=0,打开后scale=1，开启动画后scale=1.2
-			transitionMask: 0, //用来控制遮罩层的动画时间(为了防止闪一下)，让未打开前，是0,打开后未读完setTimeout前是0，读完setTimeout后scale=0.25
-			opacityMask: 0 //用来控制遮罩层的透明度，让未打开前，是0,打开后未开启动画前是0，开启动画后是1
+			scaleMask: 0, // 用来控制遮罩层，让未打开前，是scale=0,打开后scale=1，开启动画后scale=1.2
+			transitionMask: 0, // 用来控制遮罩层的动画时间(为了防止闪一下)，让未打开前，是0,打开后未读完setTimeout前是0，读完setTimeout后scale=0.25
+			opacityMask: 0 // 用来控制遮罩层的透明度，让未打开前，是0,打开后未开启动画前是0，开启动画后是1
 		};
 	},
 	computed: {
-		//弹框内容的样式
+		// 弹框内容的样式
 		contentStyle() {
 			let style = '';
 			let transform = 0;
 			let transformOrigin = 50;
-			let backgroundColor = this.bgColor || '#ffffff';
-			let borderWidth = this.bgColor ? 0 : 2;
+			const backgroundColor = this.bgColor || '#ffffff';
+			const borderWidth = this.bgColor ? 0 : 2;
 			// 如果是上下模式
 			if (this.position == 'top' || this.position == 'bottom') {
 				transform = this.transform || (this.opPosition == 'start' ? -80 : this.opPosition == 'end' ? -20 : -50);
@@ -190,7 +190,7 @@ export default {
 					border: `${borderWidth}rpx solid ${this.conBorderColor}`
 				};
 			}
-			style['borderRadius'] = `10rpx`; //统一加圆角
+			style['borderRadius'] = `10rpx`; // 统一加圆角
 			if(this.boxShadow){
 				style['border'] = 'none';
 				style['boxShadow'] = this.boxShadow;
@@ -198,10 +198,10 @@ export default {
 			style = this.$u.deepMerge(style, this.conStyle);
 			return style;
 		},
-		//空心三角形的样式
+		// 空心三角形的样式
 		triangleHollowStyle() {
 			let style = '';
-			let leftOrBottom = this.triPosition || (this.opPosition == 'start' ? 80 : this.opPosition == 'end' ? 20 : 50);
+			const leftOrBottom = this.triPosition || (this.opPosition == 'start' ? 80 : this.opPosition == 'end' ? 20 : 50);
 			if (this.position == 'top') {
 				style = {
 					bottom: `-12rpx`,
@@ -246,12 +246,12 @@ export default {
 			style = this.$u.deepMerge(style, this.triStyle);
 			return style;
 		},
-		//实心三角形的样式
+		// 实心三角形的样式
 		triangleStyle() {
 			let style = '';
-			let size = 15; //实心三角的边长(单位rpx)
-			let borderColor = this.bgColor || '#ffffff';
-			let transform = -50;
+			const size = 15; // 实心三角的边长(单位rpx)
+			const borderColor = this.bgColor || '#ffffff';
+			const transform = -50;
 			let leftOrTop = 50;
 			// 如果是上下模式
 			if (this.position == 'top' || this.position == 'bottom') {

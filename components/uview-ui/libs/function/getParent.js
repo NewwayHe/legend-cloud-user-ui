@@ -9,7 +9,7 @@ export default function getParent(name, keys) {
 			// 如果组件的name不相等，继续上一级寻找
 			parent = parent.$parent;
 		} else {
-			let data = {};
+			const data = {};
 			// 判断keys是否数组，如果传过来的是一个数组，那么直接使用数组元素值当做键值去父组件寻找
 			if(Array.isArray(keys)) {
 				keys.map(val => {
@@ -17,7 +17,7 @@ export default function getParent(name, keys) {
 				})
 			} else {
 				// 历遍传过来的对象参数
-				for(let i in keys) {
+				for(const i in keys) {
 					// 如果子组件有此值则用，无此值则用父组件的值
 					// 判断是否空数组，如果是，则用父组件的值，否则用子组件的值
 					if(Array.isArray(keys[i])) {

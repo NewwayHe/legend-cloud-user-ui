@@ -91,9 +91,9 @@
  * @example <u-upload :action="action" :file-list="fileList" ></u-upload>
  */
 export default {
-	name: 'u-upload',
+	name: 'UUpload',
 	props: {
-		//是否显示组件自带的图片预览功能
+		// 是否显示组件自带的图片预览功能
 		showUploadList: {
 			type: Boolean,
 			default: true
@@ -273,7 +273,7 @@ export default {
 					// 首先检查内部是否已经添加过这张图片，因为外部绑定了一个对象给fileList的话(对象引用)，进行修改外部fileList
 					// 时，会触发watch，导致重新把原来的图片再次添加到this.lists
 					// 数组的some方法意思是，只要数组元素有任意一个元素条件符合，就返回true，而另一个数组的every方法的意思是数组所有元素都符合条件才返回true
-					let tmp = this.lists.some(val => {
+					const tmp = this.lists.some(val => {
 						return val.url == value.url;
 					})
 					// 如果内部没有这个图片(tmp为false)，则添加到内部
@@ -313,11 +313,11 @@ export default {
 			});
 			chooseFile
 				.then(res => {
-					let file = null;
-					let listOldLength = this.lists.length;
+					const file = null;
+					const listOldLength = this.lists.length;
 					res.tempFiles.map((val, index) => {
 						// 检查文件后缀是否允许，如果不在this.limitType内，就会返回false
-						if(!this.checkFileExt(val)) return ;
+						if(!this.checkFileExt(val)) return;
 						
 						// 如果是非多选，index大于等于1或者超出最大限制数量时，不处理
 						if (!multiple && index >= 1) return;
@@ -384,14 +384,14 @@ export default {
 				return;
 			}
 			// 执行before-upload钩子
-			if(this.beforeUpload && typeof(this.beforeUpload) === 'function') {
+			if(this.beforeUpload && typeof (this.beforeUpload) === 'function') {
 				// 执行回调，同时传入索引和文件列表当作参数
 				// 在微信，支付宝等环境(H5正常)，会导致父组件定义的customBack()函数体中的this变成子组件的this
 				// 通过bind()方法，绑定父组件的this，让this.customBack()的this为父组件的上下文
 				// 因为upload组件可能会被嵌套在其他组件内，比如u-form，这时this.$parent其实为u-form的this，
 				// 非页面的this，所以这里需要往上历遍，一直寻找到最顶端的$parent，这里用了this.$u.$parent.call(this)
 				// 明白意思即可，无需纠结this.$u.$parent.call(this)的细节
-				let beforeResponse = this.beforeUpload.bind(this.$u.$parent.call(this))(index, this.lists);
+				const beforeResponse = this.beforeUpload.bind(this.$u.$parent.call(this))(index, this.lists);
 				// 判断是否返回了promise
 				if (!!beforeResponse && typeof beforeResponse.then === 'function') {
 					await beforeResponse.then(res => {
@@ -423,7 +423,7 @@ export default {
 				header: this.header,
 				success: res => {
 					// 判断是否json字符串，将其转为json格式
-					let data = this.toJson && this.$u.test.jsonString(res.data) ? JSON.parse(res.data) : res.data;
+					const data = this.toJson && this.$u.test.jsonString(res.data) ? JSON.parse(res.data) : res.data;
 					if (![200, 201, 204].includes(res.statusCode)) {
 						this.uploadError(index, data);
 					} else {
@@ -464,13 +464,13 @@ export default {
 			uni.showModal({
 				title: '提示',
 				content: '您确定要删除此项吗？',
-				success: async (res) => {
+				success: async(res) => {
 					if (res.confirm) {
 						// 先检查是否有定义before-remove移除前钩子
 						// 执行before-remove钩子
-						if(this.beforeRemove && typeof(this.beforeRemove) === 'function') {
+						if(this.beforeRemove && typeof (this.beforeRemove) === 'function') {
 							// 此处钩子执行 原理同before-remove参数，见上方注释
-							let beforeResponse = this.beforeRemove.bind(this.$u.$parent.call(this))(index, this.lists);
+							const beforeResponse = this.beforeRemove.bind(this.$u.$parent.call(this))(index, this.lists);
 							// 判断是否返回了promise
 							if (!!beforeResponse && typeof beforeResponse.then === 'function') {
 								await beforeResponse.then(res => {
@@ -499,7 +499,7 @@ export default {
 		handlerDeleteItem(index) {
 			// 如果文件正在上传中，终止上传任务，进度在0 < progress < 100则意味着正在上传
 			if (this.lists[index].process < 100 && this.lists[index].process > 0) {
-				typeof this.lists[index].uploadTask != 'undefined' && this.lists[index].uploadTask.abort();
+				typeof this.lists[index].uploadTask !== 'undefined' && this.lists[index].uploadTask.abort();
 			}
 			this.lists.splice(index, 1);
 			this.$forceUpdate();
@@ -541,11 +541,11 @@ export default {
 			const reg = /.+\./;
 			// 如果是H5，需要从name中判断
 			// #ifdef H5
-			fileExt = file.name.replace(reg, "").toLowerCase();
+			fileExt = file.name.replace(reg, '').toLowerCase();
 			// #endif
 			// 非H5，需要从path中读取后缀
 			// #ifndef H5
-			fileExt = file.path.replace(reg, "").toLowerCase();
+			fileExt = file.path.replace(reg, '').toLowerCase();
 			// #endif
 			// 使用数组的some方法，只要符合limitType中的一个，就返回true
 			noArrowExt = this.limitType.some(ext => {

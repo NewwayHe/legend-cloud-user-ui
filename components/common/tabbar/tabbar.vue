@@ -195,7 +195,7 @@
 	import { mapState } from 'vuex';
 	import midBtnContent from './components/mid-btn-content.vue';
 	import floorMixin from '@/mixins/floor.js';
-	import {defaultData} from '@/components/common/tabbar/defaultData.js';
+	import { defaultData } from '@/components/common/tabbar/defaultData.js';
 	export default {
 		components: { 'mid-btn-content': midBtnContent },
 		// #ifdef MP-WEIXIN
@@ -204,14 +204,14 @@
 		// #endif
 		props: {
 			className: {
-				type: [String, Array, Boolean], //这里加个Boolean，是因为如果传className=""，小程序端会报错
+				type: [String, Array, Boolean], // 这里加个Boolean，是因为如果传className=""，小程序端会报错
 				default: ''
 			},
 			templateId: {
 				type: [Number, String,Boolean],
 				default: ''
 			},
-			indexData: { //装修楼层值
+			indexData: { // 装修楼层值
 				type: [Object, String],
 				default: () => {}
 			},
@@ -228,7 +228,7 @@
 		data() {
 			return {
 				// tabbarData: {},
-				curRoute: '', //当前页面
+				curRoute: '', // 当前页面
 				tabbar:defaultData.tabbar
 			};
 		},
@@ -346,7 +346,7 @@
 						}
 					}
 				}
-				return `0px ${num*2}rpx 0rpx 40rpx ${this.tabbarData.backgroundColor}`
+				return `0px ${num * 2}rpx 0rpx 40rpx ${this.tabbarData.backgroundColor}`
 			},
 			// 当tabbarData.midButData.type == 4时,用来调整弹出框与按钮之间的位置
 			removeNum() {
@@ -389,14 +389,14 @@
 			compColor() {
 				// 模板页面下用装修里面的颜色（临时解决方案 有bug 模板链接单独拿出来切换tab会有问题，模板一般不会用来切换tab）
 				if (this.templateId) {
-					return this.indexData.tabbar?.themeColor ? this.indexData.themeColor : (this.indexData.tabbar?.selectedColor||this.indexData.themeColor)
+					return this.indexData.tabbar?.themeColor ? this.indexData.themeColor : (this.indexData.tabbar?.selectedColor || this.indexData.themeColor)
 				} else {
 					// themeColor为true时使用主题色， false使用自定义颜色 
-					return this.tabbarData.themeColor ? this.themes.color : (this.tabbarData?.selectedColor||this.themes.color)
+					return this.tabbarData.themeColor ? this.themes.color : (this.tabbarData?.selectedColor || this.themes.color)
 				}
 			},
 			tabbarData(){
-				return this.templateId&&this.indexData.tabbar?this.indexData.tabbar:this.tabbar
+				return this.templateId && this.indexData.tabbar ? this.indexData.tabbar : this.tabbar
 			}
 		},
 		watch: {
@@ -412,12 +412,12 @@
 			// }
 		},
 		created() {
-			uni.hideTabBar(); //隐藏系统原生的tabBar(如果是复制的链接进来，点击返回跳到该页面的话，会出现两个tabbar，所以在这里加入该方法防止该bug)
+			uni.hideTabBar(); // 隐藏系统原生的tabBar(如果是复制的链接进来，点击返回跳到该页面的话，会出现两个tabbar，所以在这里加入该方法防止该bug)
 		},
 		mounted() {},
 		methods: {
 			setCurRoute(val){
-				this.curRoute = this.$utils.pages.getPageRoute().route //这个是为了解决小程序端animate_动画播放过后，再次点击时，动画不生效的bug。
+				this.curRoute = this.$utils.pages.getPageRoute().route // 这个是为了解决小程序端animate_动画播放过后，再次点击时，动画不生效的bug。
 			},
 			/**
 			 * @name tab点击事件
@@ -425,9 +425,9 @@
 			 * @param {string} url 当前点击带进来的链接
 			 * */
 			switchTabFunc(url) {
-				if (this.curRoute == this.pageOjb(url.name)) return //如果同一按钮点击了两次，则不处理
+				if (this.curRoute == this.pageOjb(url.name)) return // 如果同一按钮点击了两次，则不处理
 				// 备注:如果下面写成curRoute = '',当tab是switchTab页面跟普通页面混搭时,点击switchTab页面,普通页面的图标会出现闪一下(先显示selectedIconfont图标 再显示 iconfont图标)的bug
-				this.curRoute = undefined//这个是为了解决小程序端animate_动画播放过后，再次点击时，动画不生效的bug。原理是在五个tabar页面的onShow()给curRoute赋值前，让curRoute值改变一下，让渲染层发生变化而触发动画
+				this.curRoute = undefined// 这个是为了解决小程序端animate_动画播放过后，再次点击时，动画不生效的bug。原理是在五个tabar页面的onShow()给curRoute赋值前，让curRoute值改变一下，让渲染层发生变化而触发动画
 				// 由于jumpPage()加了防抖,点击起来会延时影响体验,所以switchTab时在这里直接跳
 				if(url.name == '首页' || url.name == '商品类目' || url.name == '商品品牌' || url.name == '购物车' || url.name == '个人中心'){
 					const status = {
@@ -459,8 +459,6 @@
 				}else{
 					this.jumpPage(url);
 				}
-				
-
 			},
 
 			midBtn(flag) {
@@ -475,7 +473,7 @@
 			pageOjb(name) {
 				let flag = false;
 				if (name == '首页' || name == '分类' || name == '商品类目' || name == '购物车' || name == '个人中心') {
-					let obj = {
+					const obj = {
 						首页: 'pages/index/index',
 						分类: 'pages/category/category',
 						商品类目: 'pages/category/category',

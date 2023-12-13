@@ -33,14 +33,14 @@
 	 * @example <u-sticky offset-top="200"><view>塞下秋来风景异，衡阳雁去无留意</view></u-sticky>
 	 */
 	export default {
-		name: "u-sticky",
+		name: 'USticky',
 		props: {
 			// 吸顶容器到顶部某个距离的时候，进行吸顶，在H5平台，NavigationBar为44px
 			offsetTop: {
 				type: [Number, String],
 				default: 0
 			},
-			//列表中的索引值
+			// 列表中的索引值
 			index: {
 				type: [Number, String],
 				default: ''

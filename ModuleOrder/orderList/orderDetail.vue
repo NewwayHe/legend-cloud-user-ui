@@ -636,10 +636,10 @@ export default {
 				error: false, // 是否错误
 				emptylist: false // 是否显示列表为空时的样式
 			},
-			contactInfo:{},//客服信息
+			contactInfo:{},// 客服信息
 			
-			voucherShow: false,	//提货凭证弹窗
-			voucherInfo: {},	//提货凭证信息
+			voucherShow: false,	// 提货凭证弹窗
+			voucherInfo: {},	// 提货凭证信息
 		};
 	},
 	computed: {
@@ -673,9 +673,9 @@ export default {
 		this.orderId = option.orderId || null;
 	},
 	mounted() {
-		refundApi.cancelReason().then(res=>{
+		refundApi.cancelReason().then(res => {
 			if(res.code && res.data.length){
-				this.columns = res.data.map(v=>{return v})
+				this.columns = res.data.map(v => { return v })
 			}
 		})
 	},
@@ -711,7 +711,6 @@ export default {
 								}
 							})
 						}
-						
 					}
 				})
 				.catch(err => {
@@ -806,12 +805,12 @@ export default {
 			orderApi.cancelOrder({ cancelReason: this.columns[e.target.value], orderNumber: orderNumber }).then(res => {
 				if (res.code == 1) {
 					this.getorderDet(this.orderId);
-					uni.showToast({title: '取消订单成功',icon: 'none',mask: true});
+					uni.showToast({ title: '取消订单成功',icon: 'none',mask: true });
 				}
 			});
 		},
 		goPayOrder() {
-			let payParams = {
+			const payParams = {
 				orderNumber: encodeURIComponent(JSON.stringify([this.orderDet.orderNumber])),
 				settlementType: this.orderDet.orderType == 'P' ? (this.orderDet.status == 3 ? 'PRE_SALE_ORDER_FINAL' : 'PRE_SALE_ORDER_DEPOSIT') : 'ORDINARY_ORDER'
 			};

@@ -82,7 +82,7 @@ export default {
 		activeShop: {
 		    handler(newName) {
 			  if(!newName.invoiceTypeList){
-				  newName.invoiceTypeList=[]
+				  newName.invoiceTypeList = []
 			  }
 		      this.currentShop = newName 
 		    },
@@ -95,7 +95,7 @@ export default {
     methods: {
 		// 显示弹窗，并重置数据
 		changePopup() {
-		   this.show=!this.show
+		   this.show = !this.show
 		},
 		// 新增发票
 		addInvoice() {
@@ -107,9 +107,9 @@ export default {
 				this.show = false
 				return
 			}
-			//如果选择了开发票，判断是否选择发票
-			if (this.currentShop.userInvoiceFlag&&!this.activeShop.userInvoiceBo) {
-				uni.showToast({ title: '请选择发票！',icon: 'none'});
+			// 如果选择了开发票，判断是否选择发票
+			if (this.currentShop.userInvoiceFlag && !this.activeShop.userInvoiceBo) {
+				uni.showToast({ title: '请选择发票！',icon: 'none' });
 				return;
 			}
 			
@@ -121,7 +121,6 @@ export default {
 					shopId: this.currentShop.shopId
 				})
 				.then(res => {
-					
 					this.$set(this.currentShop, 'userInvoiceBo', res.data);
 					this.$emit('invoiceHandle',this.currentShop)
 					this.changePopup();
@@ -138,7 +137,7 @@ export default {
 		// 发票列表
 		moreInvoice() {
 			this.$refs.invoiceManageDialog.changePopup();
-			this.activeId = this.currentShop.userInvoiceBo&&this.currentShop.userInvoiceBo.id;
+			this.activeId = this.currentShop.userInvoiceBo && this.currentShop.userInvoiceBo.id;
 		},
 		// 更换发票刷新订单页面
 		changeInvoice(invoiceInfo) {

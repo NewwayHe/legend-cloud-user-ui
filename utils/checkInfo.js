@@ -36,7 +36,7 @@ const checkinput = (data) => {
     for (const i in data) {
         switch (data[i].type) {
 			case 'test':
-			    state = data[i].options.test(data[i].value) //自定义 正则
+			    state = data[i].options.test(data[i].value) // 自定义 正则
 			    break
             case 'number':
                 state = /^[0-9]*$/.test(data[i].value) // 或者用这个：/^(?:-?\d+|-?\d{1,3}(?:,\d{3})+)?(?:\.\d+)?$/.test(data[i].value)
@@ -44,7 +44,7 @@ const checkinput = (data) => {
             case 'phone': // 手机号码 (  /^(\(\d{3,4}\)|\d{3,4}-)?\d{7,8}$/:旧的,已验证不行  )
                 state = /^1[0-9][0-9]{9}$/.test(data[i].value)
                 break
-			case 'phoneNum': //电话号码正则表达式（支持手机号码，3-4位区号，7-8位直播号码，1－4位分机号
+			case 'phoneNum': // 电话号码正则表达式（支持手机号码，3-4位区号，7-8位直播号码，1－4位分机号
 				state = /((\d{11})|^((\d{7,8})|(\d{4}|\d{3})-(\d{7,8})|(\d{4}|\d{3})-(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1})|(\d{7,8})-(\d{4}|\d{3}|\d{2}|\d{1}))$)/.test(data[i].value)
 				break
             case 'name': // 名字:2-20位中英文字符
@@ -170,11 +170,11 @@ const checkinput = (data) => {
                 state = Object.prototype.toString.call(data[i].value) === '[object Object]'
                 break
             case 'code': // 是否短信验证码
-                let len = data[i].options || 6
+                const len = data[i].options || 6
                 state = new RegExp(`^\\d{${len}}$`).test(data[i].value)
                 break
             case 'contains': // 验证是否包含某个值
-                let param = data[i].options
+                const param = data[i].options
                 state = data[i].value.indexOf(param) >= 0
                 break
             case 'carNo': // 是否车牌号
@@ -202,7 +202,7 @@ const checkinput = (data) => {
         }
         if (!state) {
             if (data[i].msg) {
-                uni.showToast({ title:data[i].msg===true? ruleMsg : data[i].msg, duration: 2000, icon: 'none' })
+                uni.showToast({ title:data[i].msg === true ? ruleMsg : data[i].msg, duration: 2000, icon: 'none' })
             }
             return false
         }

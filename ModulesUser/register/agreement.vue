@@ -27,7 +27,7 @@ export default {
 		this.code = option && option.code ? option.code : 'USER_REGISTER';
 		uni.setNavigationBarTitle({
 		    // 更改当前页面标题
-		    title: this.code=='USER_REGISTER'?'用户注册协议':this.code=='PRIVACY_POLICY'?'服务协议和隐私政策':'协议'
+		    title: this.code == 'USER_REGISTER' ? '用户注册协议' : this.code == 'PRIVACY_POLICY' ? '服务协议和隐私政策' : '协议'
 		})
 		this.getAgreement();
 	},

@@ -43,7 +43,7 @@
 </template>
 <script>
 export default {
-	name: 'good-consult',
+	name: 'GoodConsult',
 
 	components: {},
 

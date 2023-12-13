@@ -4,7 +4,7 @@ import { appToken, cookieId } from '@/utils/Cache.js'
 Vue.config.productionTip = false // 阻止启动生产消息
 
 /* start--统一管理挂载的原型： */
-let excludeLoginURIs = ['/login', 'thirdLoginResult', 'forgetPsw', 'register','wxLogin','bindingPhone','authorization']//如果是登录后的从什么页面过来的就跳回什么页面去，则excludeLoginURIs这些页面是直接跳首页而不是返回
+const excludeLoginURIs = ['/login', 'thirdLoginResult', 'forgetPsw', 'register','wxLogin','bindingPhone','authorization']// 如果是登录后的从什么页面过来的就跳回什么页面去，则excludeLoginURIs这些页面是直接跳首页而不是返回
 Vue.prototype.$excludeLoginURIs = excludeLoginURIs;
 uni.$excludeLoginURIs = excludeLoginURIs // 各种实用的方法,$u挂载到uni对象上
 

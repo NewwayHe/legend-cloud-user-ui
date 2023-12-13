@@ -30,7 +30,7 @@
  * @example <u-count-to ref="uCountTo" :end-val="endVal" :autoplay="autoplay"></u-count-to>
  */
 export default {
-	name: 'u-count-to',
+	name: 'UCountTo',
 	props: {
 		// 开始的数值，默认从0增长到某一个数
 		startVal: {

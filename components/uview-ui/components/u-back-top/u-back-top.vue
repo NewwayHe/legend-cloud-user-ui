@@ -18,7 +18,7 @@
 
 <script>
 	export default {
-		name: 'u-back-top',
+		name: 'UBackTop',
 		props: {
 			// 返回顶部的形状，circle-圆形，square-方形
 			mode: {

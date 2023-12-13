@@ -18,7 +18,7 @@
 
 <script>
 	import colorGradient from '../../libs/function/colorGradient';
-	let color = colorGradient;
+	const color = colorGradient;
 	const { windowWidth } = uni.getSystemInfoSync();
 	const preId = 'UEl_';
 
@@ -49,17 +49,17 @@
 	 * @example <u-tabs-swiper ref="tabs" :list="list" :is-scroll="false"></u-tabs-swiper>
 	 */
 	export default {
-		name: "u-tabs-swiper",
+		name: 'UTabsSwiper',
 		props: {
 			// 导航菜单是否需要滚动，如只有2或者3个的时候，就不需要滚动了，此时使用flex平分tab的宽度
 			isScroll: {
 				type: Boolean,
 				default: true
 			},
-			//需循环的标签列表
+			// 需循环的标签列表
 			list: {
 				type: Array,
-				default () {
+				default() {
 					return [];
 				}
 			},
@@ -84,7 +84,7 @@
 			// 	default: 0.5
 			// },
 			swiperWidth: {
-				//line3生效, 外部swiper的宽度, 单位rpx
+				// line3生效, 外部swiper的宽度, 单位rpx
 				type: [String, Number],
 				default: 750
 			},
@@ -123,7 +123,7 @@
 				type: String,
 				default: '#ffffff'
 			},
-			//滚动至中心目标类型
+			// 滚动至中心目标类型
 			autoCenterMode: {
 				type: String,
 				default: 'window'
@@ -175,7 +175,7 @@
 				scrollLeft: 0, // 滚动scroll-view的左边滚动距离
 				tabQueryInfo: [], // 存放对tab菜单查询后的节点信息
 				windowWidth: 0, // 屏幕宽度，单位为px
-				//scrollBarLeft: 0, // 移动bar需要通过translateX()移动的距离
+				// scrollBarLeft: 0, // 移动bar需要通过translateX()移动的距离
 				animationFinishCurrent: this.current,
 				componentsWidth: 0,
 				line3AddDx: 0,
@@ -230,7 +230,7 @@
 			},
 			// 底部滑块的样式
 			tabBarStyle() {
-				let style = {
+				const style = {
 					width: this.barWidthPx + 'px',
 					height: this.barHeight + 'rpx',
 					borderRadius: '100px',
@@ -268,7 +268,7 @@
 			// 获取各个tab的节点信息
 			getTabsInfo() {
 				return new Promise((resolve, reject) => {
-					let view = uni.createSelectorQuery().in(this);
+					const view = uni.createSelectorQuery().in(this);
 					for (let i = 0; i < this.list.length; i++) {
 						view.select('.' + preId + i).boundingClientRect();
 					}
@@ -304,7 +304,7 @@
 			},
 			getQuery(cb) {
 				try {
-					let view = uni.createSelectorQuery().in(this).select('.u-tabs');
+					const view = uni.createSelectorQuery().in(this).select('.u-tabs');
 					view.fields({
 							size: true
 						},
@@ -326,7 +326,7 @@
 				let tab;
 				tab = this.tabsInfo[this.animationFinishCurrent];
 				if (tab) {
-					let tabCenter = tab.left + tab.width / 2;
+					const tabCenter = tab.left + tab.width / 2;
 					let fatherWidth;
 					// 活动tab移动到中心时，以屏幕还是tab组件为宽度为基准
 					if (this.autoCenterMode === 'window') {
@@ -344,20 +344,20 @@
 				nextTabIndex = nextTabIndex >= this.list.length ? this.list.length - 1 : nextTabIndex;
 				const tab = this.tabsInfo[nextTabIndex];
 				// 当前tab中心点x轴坐标
-				let nowTab = this.tabsInfo[this.animationFinishCurrent];
-				let nowTabX = nowTab.left + nowTab.width / 2;
+				const nowTab = this.tabsInfo[this.animationFinishCurrent];
+				const nowTabX = nowTab.left + nowTab.width / 2;
 				// 下一个tab
-				let nextTab = this.tabsInfo[nextTabIndex];
-				let nextTabX = nextTab.left + nextTab.width / 2;
+				const nextTab = this.tabsInfo[nextTabIndex];
+				const nextTabX = nextTab.left + nextTab.width / 2;
 				// 两个tab之间的距离，因为下一个tab可能在当前tab的左边或者右边，取绝对值即可
-				let distanceX = Math.abs(nextTabX - nowTabX);
+				const distanceX = Math.abs(nextTabX - nowTabX);
 				this.line3AddDx = (dx / this.sW) * distanceX;
 				this.setTabColor(this.animationFinishCurrent, nextTabIndex, dx);
 			},
 			// 设置tab的颜色
 			setTabColor(nowTabIndex, nextTabIndex, dx) {
 				let colorIndex = Math.abs(Math.ceil((dx / this.sW) * 100));
-				let colorLength = this.colorGradientArr.length;
+				const colorLength = this.colorGradientArr.length;
 				// 处理超出索引边界的情况
 				colorIndex = colorIndex >= colorLength ? colorLength - 1 : colorIndex <= 0 ? 0 : colorIndex;
 				// 设置下一个tab的颜色

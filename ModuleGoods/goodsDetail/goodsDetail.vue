@@ -210,16 +210,16 @@ import mpShare from '@/mixins/mpShare.js'
 import { mapState } from 'vuex';
 
 export default {
-	name:'goodsDetail',
+	name:'GoodsDetail',
     components: { goodsHead, goodsBanner, activeHead, goodInfo, goodCoupon, goodPromotion, goodComment, goodParams, presellFloor, skuDet, skuPopup, shopInfo, goodConsult, goodsTabBar, backTop },
-	mixins: [ mpShare ],
+	mixins: [mpShare],
     data() {
         return {
             parmas: {
                 productId: '', // SPU的商品id
-                activityId: '', //活动id 拼团/团购/秒杀活动需传
-                skuId: '', //秒杀skuId 秒杀活动需传
-                skuType: '' ,//营销类型： 拼团/团购/秒杀活动需传 普通（''，普通商品的话值为空''，有值就是有活动） 团购（GROUP） 拼团（MERGE） 秒杀（SECKILL）
+                activityId: '', // 活动id 拼团/团购/秒杀活动需传
+                skuId: '', // 秒杀skuId 秒杀活动需传
+                skuType: '' ,// 营销类型： 拼团/团购/秒杀活动需传 普通（''，普通商品的话值为空''，有值就是有活动） 团购（GROUP） 拼团（MERGE） 秒杀（SECKILL）
             },
 
             goodData: {}, // 获取商品详情(注意，这个要写成''，不能写成{}，不然判断该对象时内容为空但依然为true)
@@ -244,9 +244,9 @@ export default {
 
             showPopup: false,
 			showPromoPopup: false, // 控制促销的弹出框的显示与隐藏
-            sourceType: '', //点击事件的来源。'MERGEJoin'：拼团活动点击了mergeFloor组件里的'参团')
-            ingOperatePage:'',//当活动已经结束，但又有待成团的订单还未成团时，该值为mergeFloor组件转过来的值(【用户】正在进行的拼团分页)
-            marketId:'',//购物车选择的促销活动ID(普通订单立即购买以及其他订单类型不用传)
+            sourceType: '', // 点击事件的来源。'MERGEJoin'：拼团活动点击了mergeFloor组件里的'参团')
+            ingOperatePage:'',// 当活动已经结束，但又有待成团的订单还未成团时，该值为mergeFloor组件转过来的值(【用户】正在进行的拼团分页)
+            marketId:'',// 购物车选择的促销活动ID(普通订单立即购买以及其他订单类型不用传)
 			// Nomsg: false, // 该商品是否下架
 			paging: {
 			    status: 'loading',
@@ -254,9 +254,9 @@ export default {
 				errMsg:'该商品已被删除或已被下线',
 			    emptylist: false // 是否显示列表为空时的样式
 			},
-			materialUrl:'',//物料ID
+			materialUrl:'',// 物料ID
 			
-			isPreview: false,//如果是shareUrlRedirect页面跳过来预览(商家端或PC后台跳进来)，就加个遮罩层防止点击
+			isPreview: false,// 如果是shareUrlRedirect页面跳过来预览(商家端或PC后台跳进来)，就加个遮罩层防止点击
         };
     },
 
@@ -277,7 +277,7 @@ export default {
         tabArr() {
             let arr = ['商品', '详情', '评价'];
             this.$nextTick(() => {
-                //不加$nextTick的话如果是 ['商品', '详情', '评价']，会先变成 ['商品', '评价']再变回['商品', '详情', '评价']
+                // 不加$nextTick的话如果是 ['商品', '详情', '评价']，会先变成 ['商品', '评价']再变回['商品', '详情', '评价']
                 if (!this.goodData.content && !this.goodData.paramGroupBOList) {
                     arr = arr.filter(item => {
                         return item != '详情';
@@ -286,7 +286,7 @@ export default {
             });
             return arr;
         },
-        //传到优惠券组件的数组
+        // 传到优惠券组件的数组
         tempCouponList() {
             let arr = [];
             if (this.skuActivityDict && this.skuActivityDict[this.skuData.skuItem.id] && this.skuActivityDict[this.skuData.skuItem.id][0]) {
@@ -304,27 +304,27 @@ export default {
 		},
 		// 传到banner图里的品牌参数
 		brandParmas(){
-			return {brandPic:this.goodData.brandPic,brandName:this.goodData.brandName,brandId:this.goodData.brandId}
+			return { brandPic:this.goodData.brandPic,brandName:this.goodData.brandName,brandId:this.goodData.brandId }
 		},
-        stocksTemp() {//统一管理商品/活动商品库存
+        stocksTemp() { // 统一管理商品/活动商品库存
             let num = 0
             // 如果是活动商品就取activitySkuDTO.stocks值，如果是普通商品取stocks值
-            num = (this.parmas.skuType&&this.skuData.skuItem.activitySkuDTO? this.skuData.skuItem.activitySkuDTO.stocks : this.skuData.skuItem.stocks) || 0
+            num = (this.parmas.skuType && this.skuData.skuItem.activitySkuDTO ? this.skuData.skuItem.activitySkuDTO.stocks : this.skuData.skuItem.stocks) || 0
             return num
         },
-        shareInfo() {// 给分享插件传的参数赋值
+        shareInfo() { // 给分享插件传的参数赋值
             let info = {}
             if(this.goodDataHasValue){
                 info = {
-                    skuType:this.goodData.preSellProductBO?'PRESELL':this.parmas.skuType,
+                    skuType:this.goodData.preSellProductBO ? 'PRESELL' : this.parmas.skuType,
                     shareTitle: this.goodData.name,
                     shareContent: this.goodData.shopDetailBO.shopName,
-                    sharePictures: this.skuData.picList||this.goodData.pic,
+                    sharePictures: this.skuData.picList || this.goodData.pic,
                     id: this.goodData.id, // 商品分享 海报绘制专用
-                    cash: (this.parmas.skuType&&this.skuData.skuItem.activitySkuDTO?this.skuData.skuItem.activitySkuDTO.price:this.price)||Number(this.goodData.price), // 现价，商品分享 海报绘制专用
-                    price: (this.parmas.skuType&&this.skuData.skuItem.activitySkuDTO?this.skuData.skuItem.price:this.originalPrice)||Number(this.goodData.price), // 原价，商品分享 海报绘制专用
+                    cash: (this.parmas.skuType && this.skuData.skuItem.activitySkuDTO ? this.skuData.skuItem.activitySkuDTO.price : this.price) || Number(this.goodData.price), // 现价，商品分享 海报绘制专用
+                    price: (this.parmas.skuType && this.skuData.skuItem.activitySkuDTO ? this.skuData.skuItem.price : this.originalPrice) || Number(this.goodData.price), // 原价，商品分享 海报绘制专用
                     wxACode:this.goodData.wxACode,
-					shareUrlParmas:{invitationCode:this.invitationCode||null},
+					shareUrlParmas:{ invitationCode:this.invitationCode || null },
 					suggestion: this.goodData.distributionPosterSuggestions
                 }
             }
@@ -365,18 +365,18 @@ export default {
 		invitationCode(){
 			let str = ''
 			if(this.userInfo){
-				str = this.userInfo.distribution&&this.userInfo.distribution.invitationCode
+				str = this.userInfo.distribution && this.userInfo.distribution.invitationCode
 			}
 			return str
 		},
 		
 		price(){
 			// 如果有sku优惠折扣价格,则显示sku优惠折扣价格
-			return this.skuData.skuItem.discountPrice||this.skuData.skuItem.discountPrice==0?this.skuData.skuItem.discountPrice:this.skuData.skuItem.price
+			return this.skuData.skuItem.discountPrice || this.skuData.skuItem.discountPrice == 0 ? this.skuData.skuItem.discountPrice : this.skuData.skuItem.price
 		},
 		originalPrice(){
 			// 如果有sku优惠折扣价格,则划线价为现价
-			return this.skuData.skuItem.discountPrice||this.skuData.skuItem.discountPrice==0?this.skuData.skuItem.price:this.skuData.skuItem.originalPrice
+			return this.skuData.skuItem.discountPrice || this.skuData.skuItem.discountPrice == 0 ? this.skuData.skuItem.price : this.skuData.skuItem.originalPrice
 		}
     },
 
@@ -389,27 +389,27 @@ export default {
     mounted() {},
     onShow() {
 		const options = this.$utils.pages.getPageRoute().options
-		this.isPreview = options.isPreview ? true : false
+		this.isPreview = !!options.isPreview
 		// #ifdef MP
 		if (options.scene) return // 如果是扫小程序码进过来的,就在这里return掉。则用sceneCallBack()方法来执行getDetaildata()
 		// #endif
 		this.parmas = {
-		   token: options.token||null, // 预览token
-		   productId: options.id ||null, // SPU的商品id
-		   activityId: options.activityId ||null, //活动id 拼团/团购/秒杀活动需传
-		   skuId: options.skuId ||null, //秒杀skuId 秒杀活动需传
-		   skuType: options.skuType||null, //营销类型： 拼团/团购/秒杀活动需传 普通（''，普通商品的话值为空''，有值就是有活动） 团购（GROUP） 拼团（MERGE） 秒杀（SECKILL）
-		   viewDraft:options.viewDraft || null,//商家端查看草稿(未发布)
+		   token: options.token || null, // 预览token
+		   productId: options.id || null, // SPU的商品id
+		   activityId: options.activityId || null, // 活动id 拼团/团购/秒杀活动需传
+		   skuId: options.skuId || null, // 秒杀skuId 秒杀活动需传
+		   skuType: options.skuType || null, // 营销类型： 拼团/团购/秒杀活动需传 普通（''，普通商品的话值为空''，有值就是有活动） 团购（GROUP） 拼团（MERGE） 秒杀（SECKILL）
+		   viewDraft:options.viewDraft || null,// 商家端查看草稿(未发布)
 		};
-		this.getDetaildata()//写在onShow里是为了防止进入分享链接重新登陆后无法显示参团
+		this.getDetaildata()// 写在onShow里是为了防止进入分享链接重新登陆后无法显示参团
 	},
     onHide() {},
     // #ifdef MP-WEIXIN
     // 自定义好友分享。
     onShareAppMessage(res) {
         return {
-            title: `￥${this.parmas.skuType&&this.skuData.skuItem.activitySkuDTO?this.skuData.skuItem.activitySkuDTO.price:this.price} ${this.goodData.name}`,
-            path: this.$utils.pages.getPageRoute().url+`&invitationCode=${this.invitationCode||null}`,
+            title: `￥${this.parmas.skuType && this.skuData.skuItem.activitySkuDTO ? this.skuData.skuItem.activitySkuDTO.price : this.price} ${this.goodData.name}`,
+            path: this.$utils.pages.getPageRoute().url + `&invitationCode=${this.invitationCode || null}`,
             imageUrl: this.photoServer + this.goodData.pic
         };
     },
@@ -435,11 +435,11 @@ export default {
     */
     onBackPress(options) {
         if (options.from === 'navigateBack' || options.from === 'backbutton') {
-            //navigateBack：表示来源是 uni.navigateBack ；backbutton：表示来源是顶部导航栏左边的返回按钮 或 Android 实体返回键
+            // navigateBack：表示来源是 uni.navigateBack ；backbutton：表示来源是顶部导航栏左边的返回按钮 或 Android 实体返回键
             if (this.showPopup) {
-                //如果有popup弹框，则点击物理返回键时，是关闭弹框而不是离开该页面
+                // 如果有popup弹框，则点击物理返回键时，是关闭弹框而不是离开该页面
                 this.$refs.skuPopup.changePopup();
-                return true; //false：直接返回，true：阻止返回
+                return true; // false：直接返回，true：阻止返回
             }
         }
     },
@@ -448,7 +448,7 @@ export default {
 		// main.js里onLoad写的小程序解码后的回调(小程序分享扫码进来后，不走onLoad，是走这里)
 		sceneCallBack(data){
 			console.log('sceneCallBack：',data);
-			this.parmas=data
+			this.parmas = data
 			this.getDetaildata();
 		},
 		
@@ -467,7 +467,7 @@ export default {
 				emptylist: false ,// 是否显示列表为空时的样式
 				errMsg:'该商品已被删除或已被下线',
 			}
-			this.goodData = {}//解决跳到店铺后，再跳回本页面时，原页面内容与骨架屏重叠显示的问题
+			this.goodData = {}// 解决跳到店铺后，再跳回本页面时，原页面内容与骨架屏重叠显示的问题
             goodsApi.productViews(this.parmas).then(res => {
 				// console.log('接口完成')
 				if (res.code == 1) {
@@ -476,7 +476,7 @@ export default {
 					// 获取所需楼层在屏幕中的位置
 					this.getPosition();
 
-					//获取优惠券详情(只有普通商品才显示优惠券，活动商品不显示优惠券)
+					// 获取优惠券详情(只有普通商品才显示优惠券，活动商品不显示优惠券)
 					if (!this.parmas.skuType) {
 						// 获取SKU的优惠券/促销
 						goodsApi.marketingActivity({ productId: this.parmas.productId }).then(res => {
@@ -490,7 +490,7 @@ export default {
 				}
 			}).catch((err) => {
 				this.paging.error = true
-				this.paging.errMsg = err.response&&err.response.data&&err.response.data.msg
+				this.paging.errMsg = err.response && err.response.data && err.response.data.msg
 			}).finally((res) => {
 				this.paging.status = 'noMore'
 				if (!this.$checkInfo([{ type: 'hasValue', value: this.goodData }])) {
@@ -515,28 +515,28 @@ export default {
         
         // 购买
         buyNow() {
-            this.$u.debounce(()=> {
+            this.$u.debounce(() => {
                 if (this.$refs.skuPopup.checkSKU()) {
-                    let orderTypeObj = {'GROUP':'GROUP_SALE','MERGE':'MERGE_GROUP','SECKILL':'SECKILL'}
-                    let orderType = this.parmas.skuType?orderTypeObj[this.parmas.skuType]:'ORDINARY'
+                    const orderTypeObj = { 'GROUP':'GROUP_SALE','MERGE':'MERGE_GROUP','SECKILL':'SECKILL' }
+                    let orderType = this.parmas.skuType ? orderTypeObj[this.parmas.skuType] : 'ORDINARY'
 					// 如果是预售
-					if (!this.parmas.skuType&&this.goodData.preSellProductBO) {
+					if (!this.parmas.skuType && this.goodData.preSellProductBO) {
 						orderType = 'PRE_SALE'
 					}
                     orderApi
                         .buyNow({
 							deductionFlag: true,
-                            orderType: orderType,//订单类型 ORDINARY:普通订单,PRE_SALE:预售订单,GROUP_SALE:团购订单,MERGE_GROUP:拼团订单,SECKILL:秒杀订单
-                            buyNowFlag: true,//是否立即购买，普通下单传递
-                            activityId:this.parmas.activityId,//营销活动ID[秒杀、团购、拼团、拍卖],普通下单不需要传递
-                            confirmOrderItemDTOList: [//确认订单商品信息集合
+                            orderType: orderType,// 订单类型 ORDINARY:普通订单,PRE_SALE:预售订单,GROUP_SALE:团购订单,MERGE_GROUP:拼团订单,SECKILL:秒杀订单
+                            buyNowFlag: true,// 是否立即购买，普通下单传递
+                            activityId:this.parmas.activityId,// 营销活动ID[秒杀、团购、拼团、拍卖],普通下单不需要传递
+                            confirmOrderItemDTOList: [// 确认订单商品信息集合
                                 {
-                                    count: this.skuData.skuBuyNum,//商品数量
+                                    count: this.skuData.skuBuyNum,// 商品数量
                                     skuId: this.skuData.skuItem.id,
-                                    marketId:this.marketId,//购物车选择的促销活动ID(普通订单立即购买以及其他订单类型不用传)
+                                    marketId:this.marketId,// 购物车选择的促销活动ID(普通订单立即购买以及其他订单类型不用传)
                                 }
                             ],
-							materialUrl:this.materialUrl//物料ID
+							materialUrl:this.materialUrl// 物料ID
                         })
                         .then(res => {
                             console.log(res);
@@ -553,11 +553,11 @@ export default {
 
         // 加入购物车
         addCart() {
-            this.$u.debounce(()=> {
+            this.$u.debounce(() => {
                 if (this.$refs.skuPopup.checkSKU()) {
                     // console.log(this.skuData.skuItem.stocks);
                     if (this.stocksTemp == 0) {
-                        //如果库存为0，弹出popup窗口让用户点‘到货通知’
+                        // 如果库存为0，弹出popup窗口让用户点‘到货通知’
                         this.$refs.skuPopup.changePopup();
                         return;
                     }
@@ -568,7 +568,7 @@ export default {
                                 productId: this.parmas.productId,
                                 shopId: this.shopData.shopId,
                                 skuId: this.skuData.skuItem.id,
-								materialUrl:this.materialUrl//物料ID
+								materialUrl:this.materialUrl// 物料ID
                             })
                             .then(res => {
                                 uni.showToast({ title: '加入购物车成功', icon: 'success' });
@@ -589,12 +589,12 @@ export default {
 
         // 到货通知
         goProductArrivalNotice() {
-            this.$u.debounce(()=> {
+            this.$u.debounce(() => {
                 uni.showModal({
                     content: '商品补充库存时通知我？',
                     confirmText: '确定',
                     cancelText: '取消',
-                    success: (res)=> {
+                    success: (res) => {
                         if (res.confirm) {
                             goodsApi.productArrivalNoticeSave({ skuId: this.skuData.skuItem.id }).then(res => {
                                 if (res.code == 1) {
@@ -621,19 +621,19 @@ export default {
             }, 2000);
             this.tabIndex = tabIndex;
             if (tabIndex == 0) {
-                this.$nextTick(()=> {
+                this.$nextTick(() => {
                     // 必需要用$nextTick，不然数据v-show切换后，pageScrollTo会失效
                     uni.pageScrollTo({ scrollTop: 0 });
                 });
             }
             if (this.tabIndex == 1) {
-                this.$nextTick(()=> {
+                this.$nextTick(() => {
                     // 必需要用$nextTick，不然数据v-show切换后，pageScrollTo会失效
                     uni.pageScrollTo({ scrollTop: this.detailTop });
                 });
             }
             if (tabIndex == 2) {
-                this.$nextTick(()=> {
+                this.$nextTick(() => {
                     // 必需要用$nextTick，不然数据v-show切换后，pageScrollTo会失效
                     uni.pageScrollTo({ scrollTop: this.commentTop });
                 });
@@ -641,7 +641,7 @@ export default {
         },
         // 获取所需楼层在屏幕中的位置
         async getPosition() {
-            this.$nextTick(()=> {
+            this.$nextTick(() => {
                 this.$utils.getRect(this, '.class-banner').then(resBanner => {
                     if (resBanner) {
                         this.$utils.getRect(this, '.class-page').then(resPage => {
@@ -654,20 +654,20 @@ export default {
                 this.$utils.getRect(this, '.class-detail').then(resDetail => {
                     if (resDetail) {
 						// 这里加(this.parmas.skuType?uni.upx2px(120):0),是考虑了活动商品时,<activeHead>组件点的位置
-                        this.detailTop = resDetail.top - this.stausBarHeight - (this.parmas.skuType||this.goodData.preSellProductBO?uni.upx2px(120+80):uni.upx2px(80));
+                        this.detailTop = resDetail.top - this.stausBarHeight - (this.parmas.skuType || this.goodData.preSellProductBO ? uni.upx2px(120 + 80) : uni.upx2px(80));
                     }
                 });
 				this.$utils.getRect(this, '.class-comment').then(resDetail => {
 				    if (resDetail) {
 						// 这里加(this.parmas.skuType?uni.upx2px(120):0),是考虑了活动商品时,<activeHead>组件点的位置
-				        this.commentTop = resDetail.top - this.stausBarHeight -(this.parmas.skuType||this.goodData.preSellProductBO?uni.upx2px(120+80):uni.upx2px(80));
+				        this.commentTop = resDetail.top - this.stausBarHeight - (this.parmas.skuType || this.goodData.preSellProductBO ? uni.upx2px(120 + 80) : uni.upx2px(80));
 				    }
 				});
             });
         },
 
         changeTab(scrollTop) {
-            this.$u.debounce(()=> {
+            this.$u.debounce(() => {
                 // 屏幕滚动到商品详情位置时，改变tab栏的下标
                 // if (this.bannerBottom != 'none') {
                     // 当页面内容+banner图高度大于可使用窗口高度时，才触发屏幕滚动到商品详情位置时，改变tab栏的下标
@@ -675,7 +675,7 @@ export default {
                     	this.tabIndex = 1;
                     } else if (scrollTop >= this.commentTop) {
                         this.tabIndex = 2;
-                    }  else {
+                    } else {
 						this.tabIndex = 0;
                     }
                 // }
@@ -687,7 +687,7 @@ export default {
 			this.sourceType = sourceType;
             this.$refs.skuPopup.changePopup(sourceType);
         },
-        //当活动已经结束，但又有待成团的订单还未成团时，该值为mergeFloor组件转过来的值(【用户】正在进行的拼团分页)
+        // 当活动已经结束，但又有待成团的订单还未成团时，该值为mergeFloor组件转过来的值(【用户】正在进行的拼团分页)
         getIngOperatePage(list){
             this.ingOperatePage = list
         },

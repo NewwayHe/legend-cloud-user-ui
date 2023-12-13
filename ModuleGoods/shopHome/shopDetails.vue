@@ -82,7 +82,7 @@ export default {
 	onLoad(option) {
         console.log(option)
 		this.shopId = option.id || null;
-        shopDetail.shopDetail({shopId:this.shopId}).then(res=>{
+        shopDetail.shopDetail({ shopId:this.shopId }).then(res => {
             if(res.code){
                 console.log(res.data)
                 this.shopDetailData = res.data
