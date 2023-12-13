@@ -1,3 +1,4 @@
+![输入图片说明](public/image.png)
 ### 企业级微服务架构电商系统
 - 🦾 [Legend Cloud 是一款企业级微服务架构电商系统，全面拥抱Spring全家桶，基于Spring 6.0.13 、Spring Boot 3.1.5、Spring Cloud 2022.0.4、Spring Authorization Server 1.1.3、Spring Cloud Alibaba 2022.0.0.0、Nacos 2.2.1 等主流技术栈开发的B2B2C电商系统，遵循SpringBoot 编程思想，高度模块化和可配置化。具备服务发现、配置、熔断、限流、降级、监控、多级缓存、分布式事务、等功能。 ] 
 
